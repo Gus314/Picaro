@@ -143,7 +143,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==1)
+			if(data[i][j]==2)
 			{ // Percentage chance to spawn monster
 				if(generator.nextInt(40)==1)
 				{
@@ -171,7 +171,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==1)
+			if(data[i][j]==2)
 			{ // Percentage chance to spawn monster
 				if(generator.nextInt(40)==1)
 				{
@@ -236,7 +236,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==1)
+			if(data[i][j]==2)
 			{ // Percentage chance to spawn weapon
 				if(generator.nextInt(150)==1)
 				{
@@ -250,7 +250,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==1)
+			if(data[i][j]==2)
 			{ // Percentage chance to spawn armour
 				if(generator.nextInt(150)==1)
 				{
@@ -264,7 +264,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==1)
+			if(data[i][j]==2)
 			{ // Percentage chance to spawn consumable
 				if(generator.nextInt(150)==1)
 				{

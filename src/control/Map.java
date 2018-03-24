@@ -2,6 +2,7 @@ package control;
 
 import entities.Creature;
 import entities.Entity;
+import entities.Floor;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class Map
 	{
 		for(Entity ent: mapEntries)
 		{
-			if(ent.getRow() == row && ent.getColumn() == column)
+			if(ent.getRow() == row && ent.getColumn() == column && (!(ent instanceof Floor)))
 				return ent;
 		}
 		return null;

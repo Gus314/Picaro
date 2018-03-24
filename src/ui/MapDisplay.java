@@ -2,6 +2,7 @@ package ui;
 
 import control.Map;
 import entities.Entity;
+import entities.Floor;
 import ui.Stats;
 
 import java.awt.GridLayout;
@@ -72,8 +73,10 @@ public class MapDisplay extends JPanel
 			int position = row*map.getColumns() + column;
 			if(row < 0 || column < 0)
 				entries.remove(ent);
-			else
+			else if((!(ent instanceof Floor)) || cells.get(position).getText().equals(" "))
+			{
 				cells.get(position).setText(ent.getChar().toString());
+			}
 		}
 		stats.refresh();
 	}
