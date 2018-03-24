@@ -1,7 +1,6 @@
 package control;
 
-import control.DungeonManager;
-import control.Map;
+import enums.Direction;
 import entities.*;
 import ui.InventoryWindow;
 import ui.MapDisplay;
@@ -100,89 +99,66 @@ public class TurnHandler
         }
     }
 
-    public void moveLeft()
+    private int adjustRow(Direction direction, int row)
     {
-        int row = player.getRow();
-        int column = player.getColumn();
-
-        Entity ent = map.atPosition(row, column-1);
-        if(ent == null || ent instanceof Item || ent instanceof Stairs)
-            player.moveRight(-1);
-        else if(ent instanceof Creature)
-            attack((Creature)ent);
-
-        ent = map.atPosition(player.getRow(), player.getColumn());
-        if(ent instanceof Item)
-            pickUp((Item)ent);
-
-        if(ent instanceof Stairs)
+        switch(direction)
         {
-            nextLevel();
-            return;
+            case UPLEFT:
+                return row-1;
+            case UPRIGHT:
+                return row-1;
+            case DOWNLEFT:
+                return row+1;
+            case DOWNRIGHT:
+                return row+1;
+            case UP:
+                return row-1;
+            case LEFT:
+                return row;
+            case RIGHT:
+                return row;
+            case DOWN:
+                return row+1;
         }
 
-        map.takeTurns();
-        update();
+        return row;
+        // TODO: Add check.
     }
 
-    public void moveRight()
+    private int adjustColumn(Direction direction, int column)
     {
-        int row = player.getRow();
-        int column = player.getColumn();
-
-        Entity ent = map.atPosition(row, column+1);
-        if(ent == null || ent instanceof Item || ent instanceof Stairs)
-            player.moveRight(1);
-        else if(ent instanceof Creature)
-            attack((Creature)ent);
-
-        ent = map.atPosition(player.getRow(), player.getColumn());
-        if(ent instanceof Item)
-            pickUp((Item)ent);
-
-        if(ent instanceof Stairs)
+        switch(direction)
         {
-            nextLevel();
-            return;
+            case UPLEFT:
+                return column-1;
+            case UPRIGHT:
+                return column+1;
+            case DOWNLEFT:
+                return column-1;
+            case DOWNRIGHT:
+                return column+1;
+            case UP:
+                return column;
+            case LEFT:
+                return column-1;
+            case RIGHT:
+                return column+1;
+            case DOWN:
+                return column;
         }
 
-        map.takeTurns();
-        update();
+        // TODO: Add check.
+        return column;
     }
 
-    public void moveUp()
+    public void movePlayer(Direction direction)
     {
         int row = player.getRow();
         int column = player.getColumn();
 
-        Entity ent = map.atPosition(row-1, column);
-        if(ent == null || ent instanceof Item || ent instanceof Stairs)
-            player.moveDown(-1);
-        else if(ent instanceof Creature)
-            attack((Creature)ent);
-
-        ent = map.atPosition(player.getRow(), player.getColumn());
-        if(ent instanceof Item)
-            pickUp((Item)ent);
-
-        if(ent instanceof Stairs)
-        {
-            nextLevel();
-            return;
-        }
-
-        map.takeTurns();
-        update();
-    }
-
-    public void moveDown()
-    {
-        int row = player.getRow();
-        int column = player.getColumn();
-
-        Entity ent = map.atPosition(row+1, column);
-        if(ent == null || ent instanceof Item || ent instanceof Stairs)
-            player.moveDown(1);
+        Entity ent = map.atPosition(adjustRow(direction, row), adjustColumn(direction, column));
+        if(ent == null || ent instanceof Item || ent instanceof Stairs || ent instanceof Floor)
+            player.move(direction, 1);
         else if(ent instanceof Creature)
             attack((Creature)ent);
 

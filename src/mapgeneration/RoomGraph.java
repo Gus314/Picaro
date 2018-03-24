@@ -124,7 +124,7 @@ public class RoomGraph {
                     {
                         cells[i][j].removeConnection(Edge.TOP);
                     }
-                    if(cells[i][j].isConnected(Edge.BOTTOM) && ((j == numCells-1) || (!reachable[i+1][j])))
+                    if(cells[i][j].isConnected(Edge.BOTTOM) && ((i == numCells-1) || (!reachable[i+1][j])))
                     {
                         cells[i][j].removeConnection(Edge.BOTTOM);
                     }

@@ -1,5 +1,7 @@
 package entities;
 
+import enums.Direction;
+
 public class Entity
 {
 	private Character cha;
@@ -38,14 +40,72 @@ public class Entity
 	{
 		column = inColumn;
 	}
-	
-	
-	public void moveRight(int amount)
+
+	public void move(Direction direction, int amount)
+	{
+	   switch(direction)
+	   {
+			case UPLEFT:
+			{
+				moveUpLeft(amount);
+				break;
+			}
+			case UPRIGHT:
+			{
+				moveUpRight(amount);
+				break;
+			}
+			case DOWNLEFT:
+			{
+				moveUpRight(amount * -1);
+				break;
+			}
+			case DOWNRIGHT:
+			{
+				moveUpLeft(amount * -1);
+				break;
+			}
+			case UP:
+			{
+				moveDown(amount * -1);
+				break;
+			}
+			case LEFT:
+			{
+				moveRight(amount * -1);
+				break;
+			}
+			case RIGHT:
+			{
+				moveRight(amount);
+				break;
+			}
+			case DOWN:
+			{
+				moveDown(amount);
+				break;
+			}
+	   }
+	}
+
+	private void moveUpLeft(int amount)
+	{
+		column = column - amount;
+		row = row - amount;
+	}
+
+	private void moveUpRight(int amount)
+	{
+		column = column + amount;
+		row = row - amount;
+	}
+
+	private void moveRight(int amount)
 	{
 		column = column + amount;
 	}
-	
-	public void moveDown(int amount)
+
+	private void moveDown(int amount)
 	{
 		row = row + amount;
 	}

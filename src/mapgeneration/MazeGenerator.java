@@ -59,11 +59,15 @@ public class MazeGenerator
 				{
 					map.addEntry(floorFac.construct(i,j));
 				}
-				final boolean adjacentNonWall = ((i > 0) && data[i-1][j] != 0) ||
-						((i < data.length-1) && data[i+1][j] != 0) ||
-						((j > 0) && data[i][j-1] != 0) ||
-						((j < data.length-1) && data[i][j+1] != 0) ;
-				if(data[i][j]==0 && adjacentNonWall)
+				final boolean adjacentFloor = ((i > 0) && data[i-1][j] == 2) ||
+						((i < data.length-1) && data[i+1][j] == 2) ||
+						((j > 0) && data[i][j-1] == 2) ||
+						((j < data.length-1) && data[i][j+1] == 2) ||
+						(i > 0 && j > 0 && data[i-1][j-1] == 2) ||
+						(i < data.length - 1 && j < data.length - 1 && data[i+1][j+1] == 2) ||
+						(i > 0 && j < data.length - 1 && data[i-1][j+1] == 2) ||
+						(i < data.length - 1 && j > 0 && data[i+1][j-1] == 2);
+				if(data[i][j]==0 && adjacentFloor)
 				{
 					map.addEntry(wallfac.construct(i, j));
 				}

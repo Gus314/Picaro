@@ -3,6 +3,7 @@ package ui;
 import control.TurnHandler;
 
 import java.awt.event.*;
+import enums.Direction;
 
 public class Mover implements KeyListener
 {
@@ -15,24 +16,47 @@ public class Mover implements KeyListener
 
 	public void keyPressed(KeyEvent ke)
 	{
+		Direction direction = Direction.LEFT;
 		int code = ke.getKeyCode();
 
-		if(code == KeyEvent.VK_A)
+		if(code == KeyEvent.VK_NUMPAD4)
 		{
-			turnHandler.moveLeft();
+			direction = Direction.LEFT;
 		}
-		else if(code == KeyEvent.VK_D)
+		else if(code == KeyEvent.VK_NUMPAD6)
 		{
-			turnHandler.moveRight();
+			direction = Direction.RIGHT;
 		}
-		else if(code == KeyEvent.VK_W)
+		else if(code == KeyEvent.VK_NUMPAD8)
 		{
-			turnHandler.moveUp();
+			direction = Direction.UP;
 		}
-		else if(code == KeyEvent.VK_S)
+		else if(code == KeyEvent.VK_NUMPAD2)
 		{
-			turnHandler.moveDown();
+			direction = Direction.DOWN;
 		}
+		else if(code == KeyEvent.VK_NUMPAD7)
+		{
+			direction = Direction.UPLEFT;
+		}
+		else if(code == KeyEvent.VK_NUMPAD9)
+		{
+			direction = Direction.UPRIGHT;
+		}
+		else if(code == KeyEvent.VK_NUMPAD1)
+		{
+			direction = Direction.DOWNLEFT;
+		}
+		else if(code == KeyEvent.VK_NUMPAD3)
+		{
+			direction = Direction.DOWNRIGHT;
+		}
+		else
+		{
+			// Do not move.
+			return;
+		}
+		turnHandler.movePlayer(direction);
 	}
 	
 	public void keyReleased(KeyEvent ke)
