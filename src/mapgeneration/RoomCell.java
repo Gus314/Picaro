@@ -1,5 +1,7 @@
 package mapgeneration;
 
+import enums.FloorType;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -29,9 +31,9 @@ public class RoomCell
         {
             for(int j = 0; j < cellSize; j++)
             {
-                if(data[i][j] == 1)
+                if(data[i][j] == FloorType.OUTSIDE.getValue())
                 {
-                    data[i][j] = 2;
+                    data[i][j] = FloorType.FLOOR.getValue();
                 }
             }
         }
@@ -46,7 +48,7 @@ public class RoomCell
             {
                 for(int j = 0; j < cellSize; j++)
                 {
-                    data[0][j] = 0;
+                    data[0][j] = FloorType.EMPTY.getValue();
                 }
                 break;
             }
@@ -54,7 +56,7 @@ public class RoomCell
             {
                 for(int j = 0; j < cellSize; j++)
                 {
-                    data[cellSize-1][j] = 0;
+                    data[cellSize-1][j] = FloorType.EMPTY.getValue();
                 }
                 break;
             }
@@ -62,7 +64,7 @@ public class RoomCell
             {
                 for(int i = 0; i < cellSize; i++)
                 {
-                    data[i][0] = 0;
+                    data[i][0] = FloorType.EMPTY.getValue();
                 }
                 break;
             }
@@ -70,7 +72,7 @@ public class RoomCell
             {
                 for(int i = 0; i < cellSize; i++)
                 {
-                    data[i][cellSize-1] = 0;
+                    data[i][cellSize-1] = FloorType.EMPTY.getValue();
                 }
                 break;
             }
@@ -93,7 +95,7 @@ public class RoomCell
         {
             for(int j = 0; j < cellSize; j++)
             {
-                data[i][j] = 0;
+                data[i][j] = FloorType.EMPTY.getValue();
             }
         }
 
@@ -118,7 +120,7 @@ public class RoomCell
             {
                 for(int b = centre - i; b < centre + i; b++)
                 {
-                    data[a][b] = 1;
+                    data[a][b] = FloorType.OUTSIDE.getValue();
                 }
             }
         }
@@ -142,28 +144,28 @@ public class RoomCell
         {
             for(int i = 0; i <= centre; i++)
             {
-                data[centre][i] = 1;
+                data[centre][i] = FloorType.OUTSIDE.getValue();
             }
         }
         if(connection.get(Edge.RIGHT))
         {
             for(int i = cellSize-1; i >= centre; i--)
             {
-                data[centre][i] = 1;
+                data[centre][i] = FloorType.OUTSIDE.getValue();
             }
         }
         if(connection.get(Edge.TOP))
         {
             for(int i = 0; i <= centre; i++)
             {
-                data[i][centre] = 1;
+                data[i][centre] = FloorType.OUTSIDE.getValue();
             }
         }
         if(connection.get(Edge.BOTTOM))
         {
             for(int i = cellSize-1; i >= centre; i--)
             {
-                data[i][centre] = 1;
+                data[i][centre] = FloorType.OUTSIDE.getValue();
             }
         }
     }

@@ -5,6 +5,7 @@ import entities.Player;
 import entities.Stairs;
 import entities.factories.*;
 import enums.ConsumableType;
+import enums.FloorType;
 import enums.RelicEffect;
 import mapgeneration.RoomGraph;
 import ui.Messages;
@@ -55,18 +56,18 @@ public class MazeGenerator
 		for(int i = 0; i < data.length; i++)
 			for(int j = 0; j < data[0].length; j++)
 			{
-				if(data[i][j] == 2)
+				if(data[i][j] == FloorType.FLOOR.getValue())
 				{
 					map.addEntry(floorFac.construct(i,j));
 				}
-				final boolean adjacentFloor = ((i > 0) && data[i-1][j] == 2) ||
-						((i < data.length-1) && data[i+1][j] == 2) ||
-						((j > 0) && data[i][j-1] == 2) ||
-						((j < data.length-1) && data[i][j+1] == 2) ||
-						(i > 0 && j > 0 && data[i-1][j-1] == 2) ||
-						(i < data.length - 1 && j < data.length - 1 && data[i+1][j+1] == 2) ||
-						(i > 0 && j < data.length - 1 && data[i-1][j+1] == 2) ||
-						(i < data.length - 1 && j > 0 && data[i+1][j-1] == 2);
+				final boolean adjacentFloor = ((i > 0) && data[i-1][j] == FloorType.FLOOR.getValue()) ||
+						((i < data.length-1) && data[i+1][j] == FloorType.FLOOR.getValue()) ||
+						((j > 0) && data[i][j-1] == FloorType.FLOOR.getValue()) ||
+						((j < data.length-1) && data[i][j+1] == FloorType.FLOOR.getValue()) ||
+						(i > 0 && j > 0 && data[i-1][j-1] == FloorType.FLOOR.getValue()) ||
+						(i < data.length - 1 && j < data.length - 1 && data[i+1][j+1] == FloorType.FLOOR.getValue()) ||
+						(i > 0 && j < data.length - 1 && data[i-1][j+1] == FloorType.FLOOR.getValue()) ||
+						(i < data.length - 1 && j > 0 && data[i+1][j-1] == FloorType.FLOOR.getValue());
 				if(data[i][j]==0 && adjacentFloor)
 				{
 					map.addEntry(wallfac.construct(i, j));
@@ -82,7 +83,7 @@ public class MazeGenerator
 		{
 			int row = generator.nextInt(map.getRows());
 			int column = generator.nextInt(map.getColumns());
-			if(data[row][column]==2)
+			if(data[row][column]==FloorType.FLOOR.getValue())
 			{
 				data[row][column] = 3;
 				player = inPlayer;
@@ -143,7 +144,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==2)
+			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn monster
 				if(generator.nextInt(40)==1)
 				{
@@ -171,7 +172,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==2)
+			if(data[i][j]== FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn monster
 				if(generator.nextInt(40)==1)
 				{
@@ -189,7 +190,7 @@ public class MazeGenerator
 		{
 			int i = generator.nextInt(map.getRows());
 			int j = generator.nextInt(map.getColumns());
-			if(data[i][j]==2)
+			if(data[i][j]==FloorType.FLOOR.getValue())
 			{
 				data[i][j] = 5;
 				map.addEntry(new Stairs(i, j));
@@ -236,7 +237,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==2)
+			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn weapon
 				if(generator.nextInt(150)==1)
 				{
@@ -250,7 +251,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==2)
+			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn armour
 				if(generator.nextInt(150)==1)
 				{
@@ -264,7 +265,7 @@ public class MazeGenerator
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==2)
+			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn consumable
 				if(generator.nextInt(150)==1)
 				{
