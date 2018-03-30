@@ -65,9 +65,10 @@ public class MapDisplay extends JPanel
 		{
 			cells.get(i).setText(" ");
 		}
-		
+
+		final int sightRadius = 8;
 		ArrayList<Entity> entries = map.getMapEntries();
-		HashSet<Entity> visibleEntries = map.lineOfSight(player);
+		HashSet<Entity> visibleEntries = map.lineOfSight(player, sightRadius);
         HashSet<Entity> permanentlyVisible = map.getPermanentlyVisible();
 
 		for(Entity ent: entries)

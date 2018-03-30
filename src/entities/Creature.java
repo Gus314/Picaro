@@ -3,9 +3,11 @@ package entities;
 import control.Map;
 import ui.Messages;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
+import enums.Direction;
 
 public class Creature extends Entity
 {
@@ -18,7 +20,7 @@ public class Creature extends Entity
 	private String name;
 	private int exp;
 	private int level;
-	
+
 	public Creature(Character inCha, int inRow, int inColumn, int inLife, int inAttack, int inDefense, Map inMap, Messages inMessages, String inName, int inExp, int inLevel)
 	{
 		super(inCha, inRow, inColumn);
@@ -68,41 +70,36 @@ public class Creature extends Entity
 	{
 		life = inLife;
 	}
-	
-	public void takeTurn()
+
+	private boolean attack()
 	{
-		int direction = generator.nextInt(4);
-		int row = this.getRow();
-		int column = this.getColumn();
-		Entity left = map.atPosition(row, column-1);
-		Entity right = map.atPosition(row, column+1);
-		Entity up = map.atPosition(row-1, column);
-		Entity down = map.atPosition(row+1, column);
+		boolean attacked = false;
+
 		Player player = null;
-		
-		// attack
-		if(up!= null && up instanceof Player)
-			player = (Player) up;
-		if(down!= null && down instanceof Player)
-			player = (Player) down;
-		if(left!= null && left instanceof Player)
-			player = (Player) left;
-		if(right!= null && right instanceof Player)
-			player = (Player) right;
-		
+
+		for(Entity ent: map.lineOfSight(this, 1))
+		{
+			if(ent instanceof Player)
+			{
+				player = (Player) ent;
+				break;
+			}
+		}
+
 		if(player!=null)
 		{
+			attacked = true;
 			int playerLife = player.getLife();
 			int playerDef = player.getDefense();
 			int playerBlockChance = player.getBlockChance();
 			int playerAbsorbChance = player.getAbsorbChance();
-			
+
 			if(generator.nextInt(100 - playerBlockChance) == 0)
 			{
 				messages.addMessage("Attack was blocked!");
-				return;
+				return attacked;
 			}
-			
+
 			int damage = attack - playerDef;
 			if(damage <= 0)
 				messages.addMessage("Defense nullified attack!");
@@ -129,28 +126,60 @@ public class Creature extends Entity
 					System.exit(0);
 				}
 			}
+		}
+		return attacked;
+	}
+
+	private boolean canMove()
+	{
+		int row = this.getRow();
+		int column = this.getColumn();
+
+		for(Direction direction: Direction.values())
+		{
+			Entity existing = map.atPosition(row + direction.rowShift(), column + direction.columnShift());
+			if(existing == null || existing instanceof Floor)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public void takeTurn()
+	{
+	    if(attack())
+		{
+			// Cannot both attack and move in a turn.
 			return;
 		}
-		
-		// move		
-		switch(direction)
+
+	    Direction[] directionArray = Direction.values();
+	    ArrayList<Direction> directions =  new ArrayList<Direction>();
+	    for(int i = 0; i < directionArray.length; i++)
 		{
-		case 0:
-			if(up == null)
-				this.setRow(row-1);
-			break;
-		case 1:
-			if(down == null)
-				this.setRow(row+1);
-			break;
-		case 2: 
-			if(left == null)
-				this.setColumn(column-1);
-			break;
-		case 3:
-			if(right == null)
-				this.setColumn(column+1);
-			break;
+			directions.add(directionArray[i]);
 		}
+
+	    if(canMove())
+		{
+			int row = this.getRow();
+			int column = this.getColumn();
+
+			while(!directions.isEmpty())
+			{
+				int index = generator.nextInt(directions.size());
+				Direction direction = directions.remove(index);
+
+				Entity existing = map.atPosition(row + direction.rowShift(), column + direction.columnShift());
+				if(existing == null || existing instanceof Floor)
+				{
+					move(direction, 1);
+					break;
+				}
+			}
+		}
+
 	}
 }

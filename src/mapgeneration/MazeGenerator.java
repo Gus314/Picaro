@@ -103,10 +103,12 @@ public class MazeGenerator
 		creatureFactories.add(new CreatureFactory('E', 40, 10, 2, "Elephant", map, messages, 20,2));
 		
 		weaponFactories = new Vector<WeaponFactory>();
-		weaponFactories.add(new WeaponFactory(3, 5, 10, "Sword",1));
-		weaponFactories.add(new WeaponFactory(6, 10, 10, "LongSword",2));
-		weaponFactories.add(new WeaponFactory(4, 7, 20, "BastardSword",2));
-		
+		weaponFactories.add(new WeaponFactory(3, 5, 10, "Sword",1, 1, 1));
+		weaponFactories.add(new WeaponFactory(6, 10, 10, "LongSword",2, 1, 1));
+		weaponFactories.add(new WeaponFactory(4, 7, 20, "BastardSword",2, 1, 1));
+		weaponFactories.add(new WeaponFactory(2, 4, 30, "Bow",2, 8, 1));
+		weaponFactories.add(new WeaponFactory(4, 7, 20, "Rocket Launcher",2, 6, 2));
+
 		armourFactories = new Vector<ArmourFactory>();
 		armourFactories.add(new ArmourFactory(5, 2, 4, "Chainmail",1));
 		armourFactories.add(new ArmourFactory(7, 3, 6, "Platemail",2));

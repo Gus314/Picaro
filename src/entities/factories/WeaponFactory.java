@@ -9,14 +9,18 @@ public class WeaponFactory
 	private int critChance;
 	private String name;
 	private int level;
+	private int range;
+	private int radius;
 	
-	public WeaponFactory(int inMinDamage, int inMaxDamage, int inCritChance, String inName, int inLevel)
+	public WeaponFactory(int inMinDamage, int inMaxDamage, int inCritChance, String inName, int inLevel, int inRange, int inRadius)
 	{
 		minDamage = inMinDamage;
 		maxDamage = inMaxDamage;
 		critChance = inCritChance;
 		name = inName;
 		level = inLevel;
+		range = inRange;
+		radius = inRadius;
 	}
 	
 	public int getLevel()
@@ -26,6 +30,6 @@ public class WeaponFactory
 	
 	public Weapon construct(int inRow, int inColumn)
 	{
-		return new Weapon(minDamage, maxDamage, critChance, name, 'w', inRow, inColumn, level);
+		return new Weapon(minDamage, maxDamage, critChance, name, 'w', inRow, inColumn, level, range, radius);
 	}
 }

@@ -45,7 +45,7 @@ public class Map
 	{
 		mapEntries.add(ent);
 	}
-	
+
 	public Entity atPosition(int row, int column)
 	{
 		for(Entity ent: mapEntries)
@@ -56,14 +56,18 @@ public class Map
 		return null;
 	}
 
-	public HashSet<Entity> lineOfSight(Entity source)
+	public boolean isInLineOfSight(Entity source, Entity target, int radius)
+	{
+		return lineOfSight(source, radius).contains(target);
+	}
+
+	public HashSet<Entity> lineOfSight(Entity source, int radius)
 	{
 		HashSet<Entity> result = new HashSet<>();
 
 		int initialRow = source.getRow();
 		int initialColumn = source.getColumn();
 
-		final int radius = 8;
 		final double pi = 3.1415926535897;
 
 		// The entity is visible to itself.
@@ -80,7 +84,7 @@ public class Map
 										        Quadrant.Q4;
 
 			// The entity is at distance 0.
-			for(int distance = 1; distance < radius; distance++)
+			for(int distance = 1; distance <= radius; distance++)
 			{
 				double adjustedAngleRads = (quadrant == Quadrant.Q1) ? angleRads :
 						(quadrant == Quadrant.Q2) ? angleRads - (pi/2.0) :
@@ -110,7 +114,7 @@ public class Map
 				if( (here != null) && here.blocksLineOfSight())
 				{
 					result.add(here);
-					if(isPermanentlyVisible(here))
+					if((source instanceof Player) && isPermanentlyVisible(here))
 					{
 						permanentlyVisible.add(here);
 					}
