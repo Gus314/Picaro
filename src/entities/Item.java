@@ -16,6 +16,8 @@ public abstract class Item extends Entity
 	{
 		return name;
 	}
-	
+
+	public boolean blocksLineOfSight(){ return true;}
+
 	public int getLevel;
 }

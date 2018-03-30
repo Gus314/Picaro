@@ -6,4 +6,6 @@ public class Stairs extends Entity
 	{
 		super('>', inRow, inColumn);
 	}
+
+	public boolean blocksLineOfSight(){ return false;}
 }

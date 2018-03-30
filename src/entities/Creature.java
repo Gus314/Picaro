@@ -31,6 +31,8 @@ public class Creature extends Entity
 		exp = inExp;
 		level = inLevel;
 	}
+
+	public boolean blocksLineOfSight(){ return true;}
 	
 	public int getLevel()
 	{

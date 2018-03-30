@@ -44,7 +44,9 @@ public class Player extends Entity
 		absorbChance = 0;
 		level = 1;
 	}
-	
+
+	public boolean blocksLineOfSight(){ return true;}
+
 	public void addItem(Item inItem)
 	{
 		items.add(inItem);

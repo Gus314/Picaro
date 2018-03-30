@@ -6,6 +6,7 @@ import entities.Floor;
 import ui.Stats;
 
 import java.awt.GridLayout;
+import java.util.HashSet;
 import java.util.Vector;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -66,13 +67,26 @@ public class MapDisplay extends JPanel
 		}
 		
 		ArrayList<Entity> entries = map.getMapEntries();
+		HashSet<Entity> visibleEntries = map.lineOfSight(player);
+        HashSet<Entity> permanentlyVisible = map.getPermanentlyVisible();
+
 		for(Entity ent: entries)
 		{
 			int row = ent.getRow();
 			int column = ent.getColumn();
 			int position = row*map.getColumns() + column;
+
+			if(! (visibleEntries.contains(ent) || permanentlyVisible.contains(ent)) )
+			{
+				// Do not draw invisible entries;
+				cells.get(position).setText(" ");
+				continue;
+			}
+
 			if(row < 0 || column < 0)
+			{
 				entries.remove(ent);
+			}
 			else if((!(ent instanceof Floor)) || cells.get(position).getText().equals(" "))
 			{
 				cells.get(position).setText(ent.getChar().toString());

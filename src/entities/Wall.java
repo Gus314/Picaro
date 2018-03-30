@@ -6,4 +6,6 @@ public class Wall extends Entity
 	{
 		super('x', inRow, inColumn);
 	}
+
+	public boolean blocksLineOfSight(){ return true;}
 }

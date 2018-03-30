@@ -6,4 +6,6 @@ public class Floor extends Entity
     {
         super('.', inRow, inColumn);
     }
+
+    public boolean blocksLineOfSight(){ return false;}
 }

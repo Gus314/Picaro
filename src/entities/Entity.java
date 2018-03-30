@@ -2,7 +2,7 @@ package entities;
 
 import enums.Direction;
 
-public class Entity
+public abstract class Entity
 {
 	private Character cha;
 	private int row;
@@ -40,6 +40,8 @@ public class Entity
 	{
 		column = inColumn;
 	}
+
+	public abstract boolean blocksLineOfSight();
 
 	public void move(Direction direction, int amount)
 	{
