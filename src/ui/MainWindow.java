@@ -25,7 +25,7 @@ public class MainWindow extends JTabbedPane
 	JPanel panel = new JPanel();
 	this.addTab("Game", panel);
 	
-	panel.setLayout(new GridLayout(2,1));
+	panel.setLayout(new GridLayout(3,1));
 	Messages messages = new Messages();
 	
 	DungeonManager dm = new DungeonManager(messages);
@@ -33,11 +33,10 @@ public class MainWindow extends JTabbedPane
 	Player player = dm.getPlayer();
 	Map map = dm.getMap();
 	Stats stats = new Stats(player);
-	
-	
+
 	InventoryWindow invWind = new InventoryWindow(player, stats);
 	this.addTab("Inventory", invWind);
-	MapDisplay mapDisplay = new MapDisplay(map, player, stats);
+	MapDisplay mapDisplay = new MapDisplay(map, player, stats, messages);
 	TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm);
 	Mover mover = new Mover(turnHandler);
 
@@ -45,6 +44,9 @@ public class MainWindow extends JTabbedPane
 	panel.add(mapDisplay);
 	dm.setMapDisplay(mapDisplay);
 	JPanel infoPanel = new JPanel();
+
+    Actions actions = new Actions(mapDisplay);
+	panel.add(actions);
 	panel.add(infoPanel);
 	
 	infoPanel.setLayout(new GridLayout(2,1));

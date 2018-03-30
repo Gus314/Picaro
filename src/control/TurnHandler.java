@@ -49,56 +49,6 @@ public class TurnHandler
         map.removeEntity(item);
     }
 
-
-    private void attack(Creature creature)
-    {
-        int creatureLife = creature.getLife();
-        int creatureDefense = creature.getDefense();
-        int creatureExp = creature.getExp();
-        int playerExp = player.getExp();
-        int playerMinDamage = player.getMinDamage();
-        int playerMaxDamage = player.getMaxDamage();
-        int playerCritChance = player.getCritChance();
-        Boolean criticalHit = false;
-
-        int damage = playerMinDamage + generator.nextInt(playerMaxDamage - playerMinDamage) - creatureDefense;
-        if(generator.nextInt(101 - playerCritChance) - 1 == 0)
-        {
-            damage = damage * 2;
-            criticalHit = true;
-        }
-        String creatureName = creature.getName();
-
-        if(damage <= 0)
-            messages.addMessage(creatureName + " defense nullified your attack!");
-        else
-        {
-            creatureLife -= damage;
-            creature.setLife(creatureLife);
-            if(!criticalHit)
-                messages.addMessage("Critical hit!");
-            messages.addMessage(creatureName + " took " + damage + " damage!");
-            if(creatureLife <= 0)
-            {
-                map.removeEntity(creature);
-                messages.addMessage(creatureName + " died, giving " + creatureExp + " exp!");
-                int newExp = player.getExp()+creatureExp;
-                if(newExp >= 100)
-                {
-                    newExp = newExp - 100;
-                    player.setMaxLife(player.getMaxLife()+10);
-                    player.setLife(player.getMaxLife());
-                    player.setMinDamage(player.getMinDamage()+2);
-                    player.setMaxDamage(player.getMaxDamage()+2);
-                    player.setDefense(player.getDefense()+2);
-                    player.setLevel(player.getLevel()+1);
-                    messages.addMessage("Level up!");
-                }
-                player.setExp(newExp);
-            }
-        }
-    }
-
     private int adjustRow(Direction direction, int row)
     {
         switch(direction)
@@ -160,7 +110,13 @@ public class TurnHandler
         if(ent == null || ent instanceof Item || ent instanceof Stairs || ent instanceof Floor)
             player.move(direction, 1);
         else if(ent instanceof Creature)
-            attack((Creature)ent);
+        {
+            boolean killed = player.attack((Creature)ent, messages);
+            if(killed)
+            {
+                map.removeEntity(ent);
+            }
+        }
 
         ent = map.atPosition(player.getRow(), player.getColumn());
         if(ent instanceof Item)
