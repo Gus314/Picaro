@@ -2,8 +2,7 @@ package ui;
 
 import control.Coordinate;
 import control.Map;
-import control.TurnHandler;
-import entities.Creature;
+import entities.Monster;
 import entities.Entity;
 import entities.Floor;
 import entities.Player;
@@ -11,7 +10,6 @@ import enums.MapDisplayMode;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
@@ -61,11 +59,11 @@ public class MapDisplay extends JPanel
 			{
 				Coordinate coord = getMouseCoordinate(e);
 				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
-				if(ent instanceof Creature)
+				if(ent instanceof Monster)
 				{
                    if(map.isInLineOfSight(player, ent, player.getRange()))
 				   {
-				      boolean killed = player.attack((Creature)ent, messages);
+				      boolean killed = player.attack((Monster)ent);
 				      if(killed)
 					  {
 					  	map.removeEntity(ent);

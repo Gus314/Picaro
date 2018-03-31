@@ -98,10 +98,11 @@ public class MazeGenerator
 	public void initialiseFactories()
 	{
 		creatureFactories = new Vector<CreatureFactory>();
-		creatureFactories.add(new CreatureFactory('G', 20, 5, 2, "Goblin", map, messages, 20,1));
-		creatureFactories.add(new CreatureFactory('O', 30, 5, 4, "Orc", map, messages, 20,2));
-		creatureFactories.add(new CreatureFactory('E', 40, 10, 2, "Elephant", map, messages, 20,2));
-		
+		creatureFactories.add(new CreatureFactory('G', 20, 4, 6, 1, 5, 5, 0, 1, "Goblin", map, messages, 20,1));
+		creatureFactories.add(new CreatureFactory('S', 5, 1, 2, 0, 2, 0, 0, 4, "Skirmisher", map, messages, 20,1));
+		creatureFactories.add(new CreatureFactory('O', 40, 4, 6, 2, 10, 10, 0, 1, "Orc", map, messages, 40,2));
+		creatureFactories.add(new CreatureFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2));
+
 		weaponFactories = new Vector<WeaponFactory>();
 		weaponFactories.add(new WeaponFactory(3, 5, 10, "Sword",1, 1, 1));
 		weaponFactories.add(new WeaponFactory(6, 10, 10, "LongSword",2, 1, 1));

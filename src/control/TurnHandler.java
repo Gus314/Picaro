@@ -109,9 +109,9 @@ public class TurnHandler
         Entity ent = map.atPosition(adjustRow(direction, row), adjustColumn(direction, column));
         if(ent == null || ent instanceof Item || ent instanceof Stairs || ent instanceof Floor)
             player.move(direction, 1);
-        else if(ent instanceof Creature)
+        else if(ent instanceof Monster)
         {
-            boolean killed = player.attack((Creature)ent, messages);
+            boolean killed = player.attack((Monster)ent);
             if(killed)
             {
                 map.removeEntity(ent);

@@ -151,7 +151,7 @@ public class Map
 	public void takeTurns()
 	{
 		for(Entity ent: mapEntries)
-			if(ent instanceof Creature)
-				((Creature)ent).takeTurn();
+			if(ent instanceof Monster)
+				((Monster)ent).takeTurn();
 	}
 }

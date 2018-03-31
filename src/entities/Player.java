@@ -1,52 +1,39 @@
 package entities;
 
-import entities.*;
+import control.Map;
 import enums.RelicEffect;
 import ui.Messages;
 
 import java.util.Random;
 import java.util.Vector;
 
-public class Player extends Entity
+public class Player extends Creature
 {	
-	private int maxLife;
-	private int life;
-	private int minDamage;
-	private int maxDamage;
-	private int critChance;
-	private int defense;
-	private int blockChance;
-	private int absorbChance;
-	private Messages messages;
 	private Weapon weapon;
 	private Armour armour;
 	private Relic relic;
 	private Vector<Item> items;
 	private int range;
 	private static Random generator = new Random();
+	private static final int initialLife = 100;
+	private static final int initialDefense = 3;
+	private static final int initialMinDamage = 4;
+	private static final int initialMaxDamage = 8;
+    private static final int initialExp = 0;
+    private static final int initialCritChance = 10;
+    private static final int initialBlockChance = 0;
+    private static final int initialAbsorbChance = 0;
+    private static final int initialLevel = 1;
+    private static final int initialRange = 1;
 
-	private int exp;
-	private int level;
-	
-	public Player(Messages inMessages)
+
+	public Player(Map inMap, Messages inMessages, String inName)
 	{
-		super('@', 0, 0);
+		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp, initialLevel);
 		items = new Vector<Item>();
-		maxLife = 100;
-		life = maxLife;
-		messages = inMessages;
 		weapon = null;
 		armour = null;
 		relic = null;
-		exp = 0;
-		minDamage = 4;
-		maxDamage = 8;
-		critChance = 10;
-		defense = 3;
-		blockChance = 0;
-		absorbChance = 0;
-		level = 1;
-		range = 1;
 	}
 
 	public boolean blocksLineOfSight(){ return true;}
@@ -60,58 +47,8 @@ public class Player extends Entity
 	{
 		return items;
 	}
-	
-	public int getLevel()
-	{
-		return level;
-	}
-	
-	public void setLevel(int inLevel)
-	{
-		level = inLevel;
-	}
-	
-	public void setMaxLife(int inMaxLife)
-	{
-		maxLife = inMaxLife;
-	}
-	
-	public int getMaxLife()
-	{
-		return maxLife;
-	}
-	
-	public void setMinDamage(int inMinDamage)
-	{
-		minDamage = inMinDamage;
-	}
-	
-	public void setMaxDamage(int inMaxDamage)
-	{
-		maxDamage = inMaxDamage;
-	}
-	
-	public void setCritChance(int inCritChance)
-	{
-		critChance = inCritChance;
-	}
-	
-	public void setDefense(int inDefense)
-	{
-		defense = inDefense;
-	}
-	
-	public int getExp()
-	{
-		return exp;
-	}
-	
-	public void setExp(int inExp)
-	{
-		exp = inExp;
-	}
 
-	public int getRange()
+	public @Override int getRange()
 	{
 		int result = range;
 
@@ -123,9 +60,9 @@ public class Player extends Entity
 		return result;
 	}
 
-	public int getMinDamage()
+	public @Override int getMinDamage()
 	{
-		int result = minDamage;
+		int result = super.getMinDamage();
 		
 		if(weapon!=null)
 			result+= weapon.getMinDamage();
@@ -135,10 +72,10 @@ public class Player extends Entity
 		
 		return result;
 	}
-	
-	public int getMaxDamage()
+
+	public @Override int getMaxDamage()
 	{
-		int result = maxDamage;
+		int result = super.getMaxDamage();
 		
 		if(weapon!=null)
 			result+= weapon.getMaxDamage();
@@ -149,9 +86,9 @@ public class Player extends Entity
 		return result;
 	}
 	
-	public int getCritChance()
+	public @Override int getCritChance()
 	{
-		int result = critChance;
+		int result = super.getCritChance();
 		
 		if(weapon!=null)
 			result+= weapon.getCritChance();
@@ -162,9 +99,9 @@ public class Player extends Entity
 		return result;
 	}
 	
-	public int getDefense()
+	public @Override int getDefense()
 	{
-		int result = defense;
+		int result = super.getDefense();
 		
 		if(armour!=null)
 			result+= armour.getDefense();
@@ -173,16 +110,6 @@ public class Player extends Entity
 			result+= relic.getAmount();
 		
 		return result;
-	}
-	
-	public int getLife()
-	{
-		return life;
-	}
-	
-	public void setLife(int inLife)
-	{
-		life = inLife;
 	}
 	
 	public void setWeapon(Weapon inWeapon)
@@ -216,9 +143,9 @@ public class Player extends Entity
 		relic = inRelic;
 	}
 	
-	public int getBlockChance()
+	public @Override int getBlockChance()
 	{
-		int result = blockChance;
+		int result = super.getBlockChance();
 		
 		if(armour!=null)
 			result+= armour.getBlockChance();
@@ -229,9 +156,9 @@ public class Player extends Entity
 		return result;
 	}
 	
-	public int getAbsorbChance()
+	public @Override int getAbsorbChance()
 	{
-		int result = absorbChance;
+		int result = super.getAbsorbChance();
 		
 		if(armour!=null)
 			result+= armour.getAbsorbChance();
@@ -241,64 +168,27 @@ public class Player extends Entity
 		
 		return result;
 	}
-	
-	public void setBlockChance(int inBlockChance)
-	{
-		blockChance = inBlockChance;
-	}
-	
-	public void setAbsorbChance(int inAbsorbChance)
-	{
-		absorbChance = inAbsorbChance;
-	}
 
-	public boolean attack(Creature creature, Messages messages)
+	public boolean attack(Monster monster)
 	{
-		boolean killed = false;
-		int creatureLife = creature.getLife();
-		int creatureDefense = creature.getDefense();
-		int creatureExp = creature.getExp();
-		int playerExp = getExp();
-		int playerMinDamage = getMinDamage();
-		int playerMaxDamage = getMaxDamage();
-		int playerCritChance = getCritChance();
-		Boolean criticalHit = false;
+		boolean killed = super.attack(monster);
 
-		int damage = playerMinDamage + generator.nextInt(playerMaxDamage - playerMinDamage) - creatureDefense;
-		if(generator.nextInt(101 - playerCritChance) - 1 == 0)
+		if(killed)
 		{
-			damage = damage * 2;
-			criticalHit = true;
-		}
-		String creatureName = creature.getName();
-
-		if(damage <= 0)
-			messages.addMessage(creatureName + " defense nullified your attack!");
-		else
-		{
-			creatureLife -= damage;
-			creature.setLife(creatureLife);
-			if(!criticalHit)
-				messages.addMessage("Critical hit!");
-			messages.addMessage(creatureName + " took " + damage + " damage!");
-			if(creatureLife <= 0)
+			getMessages().addMessage(monster.getName() + " died, giving " + monster.getExp() + " exp!");
+			int newExp = getExp()+monster.getExp();
+			if(newExp >= 100)
 			{
-				killed = true;
-				messages.addMessage(creatureName + " died, giving " + creatureExp + " exp!");
-				int newExp = getExp()+creatureExp;
-				if(newExp >= 100)
-				{
-					newExp = newExp - 100;
-					setMaxLife(getMaxLife()+10);
-					setLife(getMaxLife());
-					setMinDamage(getMinDamage()+2);
-					setMaxDamage(getMaxDamage()+2);
-					setDefense(getDefense()+2);
-					setLevel(getLevel()+1);
-					messages.addMessage("Level up!");
-				}
-				setExp(newExp);
+				newExp = newExp - 100;
+				setMaxLife(getMaxLife()+10);
+				setLife(getMaxLife());
+				setMinDamage(getMinDamage()+2);
+				setMaxDamage(getMaxDamage()+2);
+				setDefense(getDefense()+2);
+				setLevel(getLevel()+1);
+				getMessages().addMessage("Level up!");
 			}
+			setExp(newExp);
 		}
 		return killed;
 	}

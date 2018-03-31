@@ -12,12 +12,13 @@ public class DungeonManager
 	private Messages messages;
 	private MapDisplay mapDisplay;
 	private int level;
-	
+	private static final String defaultName = "Nameo";
+
 	public DungeonManager(Messages inMessages)
 	{
 		messages = inMessages;
 		mazeGen = new MazeGenerator(2, 8, messages);
-		player = new Player(messages);
+		player = new Player(mazeGen.getMap(), messages, defaultName);
 		level = 0;
 	}
 	
