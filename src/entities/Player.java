@@ -1,6 +1,9 @@
 package entities;
 
 import control.Map;
+import entities.skills.Fireball;
+import entities.skills.Heal;
+import entities.skills.PoisonDart;
 import enums.RelicEffect;
 import ui.Messages;
 
@@ -25,15 +28,21 @@ public class Player extends Creature
     private static final int initialAbsorbChance = 0;
     private static final int initialLevel = 1;
     private static final int initialRange = 1;
+    private static final int initialMaxPhysicalPoints = 40;
+    private static final int initialMaxMagicPoints = 50;
 
 
 	public Player(Map inMap, Messages inMessages, String inName)
 	{
-		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp, initialLevel);
+		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
+				initialLevel, initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints);
 		items = new Vector<Item>();
 		weapon = null;
 		armour = null;
 		relic = null;
+		addSkill(new PoisonDart());
+		addSkill(new Fireball());
+		addSkill(new Heal());
 	}
 
 	public boolean blocksLineOfSight(){ return true;}
@@ -185,6 +194,10 @@ public class Player extends Creature
 				setMinDamage(getMinDamage()+2);
 				setMaxDamage(getMaxDamage()+2);
 				setDefense(getDefense()+2);
+				setMaxMagicPoints(getMaxMagicPoints() + 5);
+				setMagicPoints(getMaxMagicPoints());
+				setMaxPhysicalPoints(getMaxPhysicalPoints() + 5);
+				setPhysicalPoints(getMaxPhysicalPoints());
 				setLevel(getLevel()+1);
 				getMessages().addMessage("Level up!");
 			}

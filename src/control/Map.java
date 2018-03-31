@@ -151,7 +151,15 @@ public class Map
 	public void takeTurns()
 	{
 		for(Entity ent: mapEntries)
-			if(ent instanceof Monster)
-				((Monster)ent).takeTurn();
+		{
+			if (ent instanceof Monster)
+			{
+				((Monster) ent).takeTurn();
+			}
+			if(ent instanceof Creature)
+			{
+				((Creature) ent).progressStatusEffects();
+			}
+		}
 	}
 }

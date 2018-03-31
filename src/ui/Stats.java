@@ -9,6 +9,8 @@ public class Stats extends JPanel
 {	
 	private Player player;
 	private JLabel hp;
+	private JLabel pp;
+	private JLabel mp;
 	private JLabel minDamage;
 	private JLabel maxDamage;
 	private JLabel critChance;
@@ -21,13 +23,18 @@ public class Stats extends JPanel
 	public Stats(Player inPlayer)
 	{
 		super();
-		GridLayout grid = new GridLayout(5, 4);
+		GridLayout grid = new GridLayout(4, 6);
 		this.setLayout(grid);
 		player = inPlayer;
-		
 		this.add(new JLabel("HP="));
 		hp = new JLabel(((Integer)(player.getLife())).toString() + "/" + ((Integer)(player.getMaxLife())).toString() );
 		this.add(hp);
+		this.add(new JLabel("PP="));
+		pp = new JLabel(((Integer)(player.getPhysicalPoints())).toString() + "/" + ((Integer)(player.getMaxPhysicalPoints())).toString());
+		this.add(pp);
+		this.add(new JLabel("MP="));
+		mp = new JLabel(((Integer)(player.getMagicPoints())).toString() + "/" + ((Integer)(player.getMaxMagicPoints())).toString());
+		this.add(mp);
 		this.add(new JLabel("Min Damage="));
 		minDamage = new JLabel(((Integer)(player.getMinDamage())).toString());
 		this.add(minDamage);
@@ -57,6 +64,8 @@ public class Stats extends JPanel
 	public void refresh()
 	{
 		hp.setText(((Integer)(player.getLife())).toString() + "/" + ((Integer)(player.getMaxLife())).toString());
+		pp.setText(((Integer)(player.getPhysicalPoints())).toString() + "/" + ((Integer)(player.getMaxPhysicalPoints())).toString());
+		mp.setText(((Integer)(player.getMagicPoints())).toString() + "/" + ((Integer)(player.getMaxMagicPoints())).toString());
 		minDamage.setText(((Integer)(player.getMinDamage())).toString());
 		maxDamage.setText(((Integer)(player.getMaxDamage())).toString());
 		critChance.setText(((Integer)(player.getCritChance())).toString());

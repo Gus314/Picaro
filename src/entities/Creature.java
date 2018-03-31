@@ -1,8 +1,16 @@
 package entities;
 
 import control.Map;
+import entities.skills.Skill;
+import entities.statuses.StatusEffect;
 import ui.Messages;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Vector;
+
+import static enums.SkillType.PHYSICAL;
 
 public abstract class Creature extends Entity
 {
@@ -21,8 +29,15 @@ public abstract class Creature extends Entity
     private int range;
     private int exp;
     private int level;
+    private int physicalPoints;
+    private int maxPhysicalPoints;
+    private int magicPoints;
+    private int maxMagicPoints;
+    private List<StatusEffect> statusEffects;
+    private List<Skill> skills;
 
-    public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp, int inLevel)
+    public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp, int inLevel,
+                    int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints)
     {
         super(inCha, inRow, inColumn);
         map = inMap;
@@ -39,11 +54,46 @@ public abstract class Creature extends Entity
         range = inRange;
         exp = inExp;
         level = inLevel;
+        physicalPoints = inPhysicalPoints;
+        maxPhysicalPoints = inMaxPhysicalPoints;
+        magicPoints = inMagicPoints;
+        maxMagicPoints = inMaxMagicPoints;
+        statusEffects = new ArrayList<StatusEffect>();
+        skills = new ArrayList<Skill>();
+    }
+
+    public List<Skill> getSkill()
+    {
+        return skills;
+    }
+
+    public void addSkill(Skill skill)
+    {
+        skills.add(skill);
     }
 
     protected Random getGenerator(){return generator;}
 
     public boolean blocksLineOfSight(){ return true;}
+
+    public void progressStatusEffects()
+    {
+        for(StatusEffect effect: statusEffects)
+        {
+            effect.action();
+        }
+    }
+
+    public void addStatusEffect(StatusEffect effect)
+    {
+        // TODO: Handle stacking effects;
+        statusEffects.add(effect);
+    }
+
+    public void removeStatusEffect(StatusEffect effect)
+    {
+        statusEffects.remove(effect);
+    }
 
     protected boolean attack(Creature target)
     {
@@ -90,6 +140,27 @@ public abstract class Creature extends Entity
              }
 
         return targetLife <= 0;
+    }
+
+    public boolean canUse(Skill skill)
+    {
+        switch(skill.getSkillType())
+        {
+            case PHYSICAL:
+            {
+                return getPhysicalPoints() >= skill.getCost();
+            }
+            case MAGICAL:
+            {
+                return getMagicPoints() >= skill.getCost();
+            }
+            default:
+            {
+                // TODO: Use exception.
+                System.out.println("Creature::canUse() - unexpected skill type.");
+                return false;
+            }
+        }
     }
 
     public void setLife(int inLife)
@@ -197,5 +268,37 @@ public abstract class Creature extends Entity
     public void setExp(int inExp)
     {
         exp = inExp;
+    }
+
+    public int getPhysicalPoints() {
+        return physicalPoints;
+    }
+
+    public void setPhysicalPoints(int physicalPoints) {
+        this.physicalPoints = physicalPoints;
+    }
+
+    public int getMaxPhysicalPoints() {
+        return maxPhysicalPoints;
+    }
+
+    public void setMaxPhysicalPoints(int maxPhysicalPoints) {
+        this.maxPhysicalPoints = maxPhysicalPoints;
+    }
+
+    public int getMagicPoints() {
+        return magicPoints;
+    }
+
+    public void setMagicPoints(int magicPoints) {
+        this.magicPoints = magicPoints;
+    }
+
+    public int getMaxMagicPoints() {
+        return maxMagicPoints;
+    }
+
+    public void setMaxMagicPoints(int maxMagicPoints) {
+        this.maxMagicPoints = maxMagicPoints;
     }
 }

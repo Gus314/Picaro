@@ -7,7 +7,6 @@ import entities.factories.*;
 import enums.ConsumableType;
 import enums.FloorType;
 import enums.RelicEffect;
-import mapgeneration.RoomGraph;
 import ui.Messages;
 
 import java.util.Random;
@@ -20,7 +19,7 @@ public class MazeGenerator
 	private int[][] data;
 	private Messages messages;
 	private Player player;
-	private Vector<CreatureFactory> creatureFactories;
+	private Vector<MonsterFactory> creatureFactories;
 	private Vector<ArmourFactory> armourFactories;
 	private Vector<WeaponFactory> weaponFactories;
 	private Vector<ConsumableFactory> consumableFactories;
@@ -97,11 +96,11 @@ public class MazeGenerator
 	
 	public void initialiseFactories()
 	{
-		creatureFactories = new Vector<CreatureFactory>();
-		creatureFactories.add(new CreatureFactory('G', 20, 4, 6, 1, 5, 5, 0, 1, "Goblin", map, messages, 20,1));
-		creatureFactories.add(new CreatureFactory('S', 5, 1, 2, 0, 2, 0, 0, 4, "Skirmisher", map, messages, 20,1));
-		creatureFactories.add(new CreatureFactory('O', 40, 4, 6, 2, 10, 10, 0, 1, "Orc", map, messages, 40,2));
-		creatureFactories.add(new CreatureFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2));
+		creatureFactories = new Vector<MonsterFactory>();
+		creatureFactories.add(new MonsterFactory('G', 20, 4, 6, 1, 5, 5, 0, 1, "Goblin", map, messages, 20,1, 10, 20));
+		creatureFactories.add(new MonsterFactory('S', 5, 1, 2, 0, 2, 0, 0, 4, "Skirmisher", map, messages, 20,1, 15, 15));
+		creatureFactories.add(new MonsterFactory('O', 40, 4, 6, 2, 10, 10, 0, 1, "Orc", map, messages, 40,2, 0, 20));
+		creatureFactories.add(new MonsterFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2, 0, 10));
 
 		weaponFactories = new Vector<WeaponFactory>();
 		weaponFactories.add(new WeaponFactory(3, 5, 10, "Sword",1, 1, 1));
@@ -161,9 +160,9 @@ public class MazeGenerator
 	
 	public void addMonsters()
 	{
-		Vector<CreatureFactory> creatures = new Vector<CreatureFactory>();
+		Vector<MonsterFactory> creatures = new Vector<MonsterFactory>();
 		
-		for(CreatureFactory cf: creatureFactories)
+		for(MonsterFactory cf: creatureFactories)
 		{
 			if(cf.getLevel() == level)
 			{

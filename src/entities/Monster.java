@@ -10,9 +10,11 @@ import enums.Direction;
 
 public class Monster extends Creature
 {
-	public Monster(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp, int inLevel)
+	public Monster(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance,
+				   int inAbsorbChance, int inRange, int inExp, int inLevel, int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints)
 	{
-		super(inCha, inRow, inColumn, inMap, inMessages, inDefense, inName, inMaxLife, inLife, inMinDamage, inMaxDamage, inCritChance, inBlockChance, inAbsorbChance, inRange, inExp, inLevel);
+		super(inCha, inRow, inColumn, inMap, inMessages, inDefense, inName, inMaxLife, inLife, inMinDamage, inMaxDamage, inCritChance, inBlockChance,
+				inAbsorbChance, inRange, inExp, inLevel, inPhysicalPoints, inMaxPhysicalPoints, inMagicPoints, inMaxMagicPoints);
 	}
 
 	private void attack(Player player)
