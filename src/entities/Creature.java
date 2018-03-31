@@ -3,6 +3,7 @@ package entities;
 import control.Map;
 import entities.skills.Skill;
 import entities.statuses.StatusEffect;
+import enums.SkillType;
 import ui.Messages;
 
 import java.util.ArrayList;
@@ -62,7 +63,33 @@ public abstract class Creature extends Entity
         skills = new ArrayList<Skill>();
     }
 
-    public List<Skill> getSkill()
+    public int getSpellsCount()
+    {
+        int result = 0;
+        for(Skill skill: skills)
+        {
+            if(skill.getSkillType() == SkillType.MAGICAL)
+            {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public int getTechniquesCount()
+    {
+        int result = 0;
+        for(Skill skill: skills)
+        {
+            if(skill.getSkillType() == SkillType.PHYSICAL)
+            {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    public List<Skill> getSkills()
     {
         return skills;
     }

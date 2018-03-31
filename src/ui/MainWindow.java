@@ -24,12 +24,14 @@ public class MainWindow extends JTabbedPane
 
 	public void showTechniques()
 	{
+		techniquesDialog.refresh();
 		mainPanel.add(techniquesDialog);
 		mainPanel.remove(actions);
 	}
 
 	public void showSpells()
 	{
+		spellsDialog.refresh();
 		mainPanel.add(spellsDialog);
 		mainPanel.remove(actions);
 	}
@@ -70,8 +72,8 @@ public class MainWindow extends JTabbedPane
 	dm.setMapDisplay(mapDisplay);
 	JPanel infoPanel = new JPanel();
 
-	techniquesDialog = new TechniquesDialog(this);
-	spellsDialog = new SpellsDialog(this);
+	techniquesDialog = new TechniquesDialog(this, player);
+	spellsDialog = new SpellsDialog(this, player);
 	actions = new Actions(mapDisplay, this);
 	showActions();
 
