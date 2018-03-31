@@ -4,8 +4,8 @@ import control.DungeonManager;
 import control.Map;
 import control.TurnHandler;
 import entities.Player;
-import ui.spells.SpellsDialog;
-import ui.techniques.TechniquesDialog;
+import ui.skills.spells.SpellsPanel;
+import ui.skills.techniques.TechniquesPanel;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -19,28 +19,29 @@ public class MainWindow extends JTabbedPane
 {
 	private JPanel mainPanel;
 	private Actions actions;
-	private TechniquesDialog techniquesDialog;
-	private SpellsDialog spellsDialog;
+	private TechniquesPanel techniquesPanel;
+	private SpellsPanel spellsPanel;
+	private MapDisplay mapDisplay;
 
 	public void showTechniques()
 	{
-		techniquesDialog.refresh();
-		mainPanel.add(techniquesDialog);
+		techniquesPanel.refresh();
+		mainPanel.add(techniquesPanel);
 		mainPanel.remove(actions);
 	}
 
 	public void showSpells()
 	{
-		spellsDialog.refresh();
-		mainPanel.add(spellsDialog);
+		spellsPanel.refresh();
+		mainPanel.add(spellsPanel);
 		mainPanel.remove(actions);
 	}
 
 	public void showActions()
 	{
 		mainPanel.add(actions);
-		mainPanel.remove(techniquesDialog);
-		mainPanel.remove(spellsDialog);
+		mainPanel.remove(techniquesPanel);
+		mainPanel.remove(spellsPanel);
 	}
 
 	public MainWindow()
@@ -64,7 +65,7 @@ public class MainWindow extends JTabbedPane
 
 	InventoryWindow invWind = new InventoryWindow(player, stats);
 	this.addTab("Inventory", invWind);
-	MapDisplay mapDisplay = new MapDisplay(map, player, stats, messages);
+	mapDisplay = new MapDisplay(map, player, stats, messages);
 	TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm);
 	Mover mover = new Mover(turnHandler);
 	this.addKeyListener(mover);
@@ -72,15 +73,16 @@ public class MainWindow extends JTabbedPane
 	dm.setMapDisplay(mapDisplay);
 	JPanel infoPanel = new JPanel();
 
-	techniquesDialog = new TechniquesDialog(this, player);
-	spellsDialog = new SpellsDialog(this, player);
-	actions = new Actions(mapDisplay, this);
-	showActions();
-
 	mainPanel.add(infoPanel);
 	infoPanel.setLayout(new GridLayout(2,1));
 	infoPanel.add(stats);
 	infoPanel.add(messages);
+
+	techniquesPanel = new TechniquesPanel(this, player, mapDisplay, messages);
+	spellsPanel = new SpellsPanel(this, player, mapDisplay, messages);
+	actions = new Actions(mapDisplay, this);
+	showActions();
+
 	messages.addMessage("A new game has begun!");
 
 	this.setVisible(true);

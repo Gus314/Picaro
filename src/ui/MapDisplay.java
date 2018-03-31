@@ -2,15 +2,15 @@ package ui;
 
 import control.Coordinate;
 import control.Map;
-import entities.Monster;
-import entities.Entity;
-import entities.Floor;
-import entities.Player;
+import entities.*;
+import entities.skills.AreaSkill;
 import entities.skills.Skill;
+import entities.skills.TargetSkill;
 import enums.MapDisplayMode;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
@@ -69,12 +69,100 @@ public class MapDisplay extends JPanel
 					  {
 					  	map.removeEntity(ent);
 					  }
+					   mapDisplay.changeMode(MapDisplayMode.NORMAL);
 				   }
 				   map.takeTurns();
                    refresh();
 				}
 			}
+			else if(mapDisplay.getMode() == MapDisplayMode.TARGET)
+			{
+				Coordinate coord = getMouseCoordinate(e);
+				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
+				if (ent instanceof Monster)
+				{
+					if (map.isInLineOfSight(player, ent, ((TargetSkill) selectedSkill).getRange()))
+					{
+						Monster monster = (Monster) ent;
+						messages.addMessage(((TargetSkill) selectedSkill).action(player, monster));
+						if (monster.getLife() <= 0) {
+							player.killed(monster);
+							map.removeEntity(monster);
+						}
+						mapDisplay.changeMode(MapDisplayMode.NORMAL);
+					}
+					map.takeTurns();
+					refresh();
+				}
+			}
+			else if(mapDisplay.getMode() == MapDisplayMode.AREA)
+			{
+				Coordinate coord = getMouseCoordinate(e);
+                AreaSkill areaSkill = (AreaSkill)selectedSkill;
+                int range = areaSkill.getRange();
+                int radius = areaSkill.getRadius();
 
+                ArrayList<Monster> monsters = new ArrayList<Monster>();
+
+                Entity centralEntity =  map.atPosition(coord.getRow(), coord.getColumn());
+                boolean floorTargeted = false;
+				if(centralEntity == null)
+				{
+					// Target the floor.
+					centralEntity = new TargetPoint(coord.getRow(), coord.getColumn());
+					map.addEntry(centralEntity);
+					floorTargeted = true;
+				}
+
+                boolean centreVisible = map.isInLineOfSight(player, centralEntity, range);
+
+				if(floorTargeted)
+				{
+					map.removeEntity(centralEntity);
+				}
+
+                if(!centreVisible)
+				{
+					return;
+				}
+
+				for(int i = -radius; i < radius; i++)
+				{
+					for(int j = -radius; j < radius; j++)
+					{
+						Entity ent = map.atPosition(coord.getRow()+i, coord.getColumn()+j);
+						if(ent != null && ent instanceof Monster)
+						{
+							monsters.add((Monster)ent);
+						}
+					}
+				}
+
+				if(monsters.size() == 0)
+				{
+					return;
+				}
+
+				for(Monster monster: monsters)
+				{
+					messages.addMessage(((TargetSkill) selectedSkill).action(player, monster));
+					if (monster.getLife() <= 0)
+					{
+						player.killed(monster);
+						map.removeEntity(monster);
+
+					}
+				}
+				mapDisplay.changeMode(MapDisplayMode.NORMAL);
+				map.takeTurns();
+				refresh();
+
+			}
+			else
+			{
+				System.out.println("MapDisplay::mouseClicked - unexpected map display mode.");
+				// TODO: Throw exception.
+			}
 		}
 
 		@Override
@@ -95,21 +183,69 @@ public class MapDisplay extends JPanel
 		@Override
 		public void mouseMoved(MouseEvent e)
 		{
-			if(mapDisplay.getMode() == MapDisplayMode.ATTACK)
+			if(mapDisplay.getMode() == MapDisplayMode.ATTACK || mapDisplay.getMode() == MapDisplayMode.TARGET)
 			{
+				TargetSkill targetSkill = (TargetSkill) selectedSkill;
+				int range = (mapDisplay.getMode() == MapDisplayMode.ATTACK) ? player.getRange() : targetSkill.getRange();
 				Coordinate coord = getMouseCoordinate(e);
 				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
 				if(ent != null)
 				{
 					highlights.clear();
 					refresh(); // Inefficient.
-					if(map.isInLineOfSight(player, ent, player.getRange()))
+					if(map.isInLineOfSight(player, ent, range))
 					{
 						addHighlight(coord, Color.GREEN);
 					}
 					else
 					{
 						addHighlight(coord, Color.RED);
+					}
+				}
+			}
+			else if(mapDisplay.getMode() == MapDisplayMode.AREA)
+			{
+				highlights.clear();
+				refresh(); // Inefficient.
+
+				AreaSkill areaSkill = (AreaSkill) selectedSkill;
+				int range = areaSkill.getRange();
+				int radius = areaSkill.getRadius();
+				Coordinate coord = getMouseCoordinate(e);
+
+                boolean floorTargeted = false;
+				Entity centreEntity = map.atPosition(coord.getRow(), coord.getColumn());
+				if(centreEntity == null)
+				{
+					// Use the floor as the central target.
+					centreEntity = new TargetPoint(coord.getRow(), coord.getColumn());
+					map.addEntry(centreEntity);
+					floorTargeted = true;
+				}
+
+				boolean centreInRange = map.isInLineOfSight(player, centreEntity, range);
+                if(floorTargeted)
+				{
+					map.removeEntity(centreEntity);
+				}
+
+				for(int i = -radius; i < radius; i++)
+				{
+					for(int j = -radius; j < radius; j++)
+					{
+						Coordinate adjustedCoord = new Coordinate(coord.getRow() + i, coord.getColumn() + j);
+						Entity ent = map.atPosition(adjustedCoord.getRow(), adjustedCoord.getColumn());
+						if(ent != null)
+						{
+							if(centreInRange)
+							{
+								addHighlight(adjustedCoord, Color.GREEN);
+							}
+							else
+							{
+								addHighlight(adjustedCoord, Color.RED);
+							}
+						}
 					}
 				}
 			}
@@ -125,6 +261,11 @@ public class MapDisplay extends JPanel
 	private MapMouseListener mapMouseListener;
 	private Messages messages;
 	private Skill selectedSkill;
+
+	public void setSelectedSkill(Skill inSelectedSkill)
+	{
+		selectedSkill = inSelectedSkill;
+	}
 
 	public MapDisplayMode getMode()
 	{
@@ -189,7 +330,6 @@ public class MapDisplay extends JPanel
 	public void changeMode(MapDisplayMode inMapDisplayMode)
 	{
 		getParent().getParent().requestFocus();
-		System.out.println("focusydo");
         removeMouseListener(mapMouseListener);
         removeMouseMotionListener(mapMouseListener);
 		highlights.clear();
@@ -199,6 +339,8 @@ public class MapDisplay extends JPanel
 		switch(inMapDisplayMode)
 		{
 			case ATTACK:
+			case TARGET:
+			case AREA:
 			{
 				addMouseMotionListener(mapMouseListener);
 				addMouseListener(mapMouseListener);

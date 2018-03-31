@@ -1,8 +1,6 @@
-package ui.spells;
+package ui.skills.spells;
 
-import ui.Actions;
 import ui.MainWindow;
-import ui.MapDisplay;
 
 import javax.swing.*;
 

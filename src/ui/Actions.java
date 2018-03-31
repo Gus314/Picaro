@@ -1,9 +1,7 @@
 package ui;
 
-import ui.spells.SpellsButton;
-import ui.spells.SpellsDialog;
-import ui.techniques.TechniquesButton;
-import ui.techniques.TechniquesDialog;
+import ui.skills.spells.SpellsButton;
+import ui.skills.techniques.TechniquesButton;
 
 import javax.swing.*;
 import java.awt.*;

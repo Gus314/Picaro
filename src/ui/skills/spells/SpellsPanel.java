@@ -1,4 +1,4 @@
-package ui.spells;
+package ui.skills.spells;
 
 import entities.Player;
 import entities.skills.AreaSkill;
@@ -8,43 +8,33 @@ import entities.skills.TargetSkill;
 import enums.SkillType;
 import ui.BackButton;
 import ui.MainWindow;
+import ui.MapDisplay;
+import ui.Messages;
+import ui.skills.AreaTargetListener;
+import ui.skills.SelfTargetListener;
+import ui.skills.SingleTargetListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class SpellsDialog extends JPanel
+public class SpellsPanel extends JPanel
 {
     private Player player;
     private JPanel spellsPanel;
+    private MapDisplay mapDisplay;
+    private Messages messages;
 
-    public SpellsDialog(MainWindow mainWindow, Player inPlayer)
+    public SpellsPanel(MainWindow mainWindow, Player inPlayer, MapDisplay inMapDisplay, Messages inMessages)
     {
         player = inPlayer;
+        mapDisplay = inMapDisplay;
+        messages = inMessages;
         this.setLayout(new GridLayout(2,1));
         spellsPanel = new JPanel();
         this.add(spellsPanel);
         this.add(new BackButton(mainWindow));
     }
 
-    public class SelfTargetListener implements ActionListener
-    {
-        private Player player;
-        private SelfSkill skill;
-
-        public SelfTargetListener(Player inPlayer, SelfSkill inSkill)
-        {
-           player = inPlayer;
-           skill = inSkill;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-           System.out.println(skill.action(player));
-        }
-    }
 
     public void refresh()
     {
@@ -68,24 +58,28 @@ public class SpellsDialog extends JPanel
             spellsPanel.add(new JLabel(skill.getTargetType().toString()));
 
             JButton castButton = new JButton("Cast");
+            if(skill.getCost() > player.getMagicPoints())
+            {
+                castButton.setEnabled(false);
+            }
             spellsPanel.add(castButton);
 
             if(skill instanceof SelfSkill)
             {
-                castButton.addActionListener(new SelfTargetListener(player, (SelfSkill)skill));
+                castButton.addActionListener(new SelfTargetListener(player, (SelfSkill)skill, messages));
             }
             else if(skill instanceof TargetSkill)
             {
-                System.out.println("Todo: TargetSkill");
+                castButton.addActionListener(new SingleTargetListener((TargetSkill) skill, mapDisplay));
             }
             else if(skill instanceof AreaSkill)
             {
-                System.out.println("Todo: AreaSkill");
+                castButton.addActionListener(new AreaTargetListener((AreaSkill) skill, mapDisplay));
             }
             else
             {
                 // TODO: Throw an exception.
-                System.out.println("SpellsDialog::unexpected skill type.");
+                System.out.println("SpellsPanel::unexpected skill type.");
             }
         }
     }

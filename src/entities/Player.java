@@ -178,30 +178,35 @@ public class Player extends Creature
 		return result;
 	}
 
+	public void killed(Monster monster)
+	{
+		getMessages().addMessage(monster.getName() + " died, giving " + monster.getExp() + " exp!");
+		int newExp = getExp()+monster.getExp();
+		if(newExp >= 100)
+		{
+			newExp = newExp - 100;
+			setMaxLife(getMaxLife()+10);
+			setLife(getMaxLife());
+			setMinDamage(getMinDamage()+2);
+			setMaxDamage(getMaxDamage()+2);
+			setDefense(getDefense()+2);
+			setMaxMagicPoints(getMaxMagicPoints() + 5);
+			setMagicPoints(getMaxMagicPoints());
+			setMaxPhysicalPoints(getMaxPhysicalPoints() + 5);
+			setPhysicalPoints(getMaxPhysicalPoints());
+			setLevel(getLevel()+1);
+			getMessages().addMessage("Level up!");
+		}
+		setExp(newExp);
+	}
+
 	public boolean attack(Monster monster)
 	{
 		boolean killed = super.attack(monster);
 
 		if(killed)
 		{
-			getMessages().addMessage(monster.getName() + " died, giving " + monster.getExp() + " exp!");
-			int newExp = getExp()+monster.getExp();
-			if(newExp >= 100)
-			{
-				newExp = newExp - 100;
-				setMaxLife(getMaxLife()+10);
-				setLife(getMaxLife());
-				setMinDamage(getMinDamage()+2);
-				setMaxDamage(getMaxDamage()+2);
-				setDefense(getDefense()+2);
-				setMaxMagicPoints(getMaxMagicPoints() + 5);
-				setMagicPoints(getMaxMagicPoints());
-				setMaxPhysicalPoints(getMaxPhysicalPoints() + 5);
-				setPhysicalPoints(getMaxPhysicalPoints());
-				setLevel(getLevel()+1);
-				getMessages().addMessage("Level up!");
-			}
-			setExp(newExp);
+           killed(monster);
 		}
 		return killed;
 	}
