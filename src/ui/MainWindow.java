@@ -4,6 +4,8 @@ import control.DungeonManager;
 import control.Map;
 import control.TurnHandler;
 import entities.Player;
+import ui.spells.SpellsDialog;
+import ui.techniques.TechniquesDialog;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
@@ -15,6 +17,30 @@ import java.awt.Font;
 
 public class MainWindow extends JTabbedPane
 {
+	private JPanel mainPanel;
+	private Actions actions;
+	private TechniquesDialog techniquesDialog;
+	private SpellsDialog spellsDialog;
+
+	public void showTechniques()
+	{
+		mainPanel.add(techniquesDialog);
+		mainPanel.remove(actions);
+	}
+
+	public void showSpells()
+	{
+		mainPanel.add(spellsDialog);
+		mainPanel.remove(actions);
+	}
+
+	public void showActions()
+	{
+		mainPanel.add(actions);
+		mainPanel.remove(techniquesDialog);
+		mainPanel.remove(spellsDialog);
+	}
+
 	public MainWindow()
 	{	
 		UIDefaults uid = UIManager.getDefaults();
@@ -22,10 +48,10 @@ public class MainWindow extends JTabbedPane
 		Font newFont = new Font(font.getName(), font.getStyle(), 10);
 		uid.put("Label.font", newFont);
 		
-	JPanel panel = new JPanel();
-	this.addTab("Game", panel);
+	mainPanel = new JPanel();
+	this.addTab("Game", mainPanel);
 	
-	panel.setLayout(new GridLayout(3,1));
+	mainPanel.setLayout(new GridLayout(3,1));
 	Messages messages = new Messages();
 	
 	DungeonManager dm = new DungeonManager(messages);
@@ -39,20 +65,22 @@ public class MainWindow extends JTabbedPane
 	MapDisplay mapDisplay = new MapDisplay(map, player, stats, messages);
 	TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm);
 	Mover mover = new Mover(turnHandler);
-
-	this.addKeyListener(new Mover(turnHandler));
-	panel.add(mapDisplay);
+	this.addKeyListener(mover);
+	mainPanel.add(mapDisplay);
 	dm.setMapDisplay(mapDisplay);
 	JPanel infoPanel = new JPanel();
 
-    Actions actions = new Actions(mapDisplay);
-	panel.add(actions);
-	panel.add(infoPanel);
-	
+	techniquesDialog = new TechniquesDialog(this);
+	spellsDialog = new SpellsDialog(this);
+	actions = new Actions(mapDisplay, this);
+	showActions();
+
+	mainPanel.add(infoPanel);
 	infoPanel.setLayout(new GridLayout(2,1));
 	infoPanel.add(stats);
 	infoPanel.add(messages);
 	messages.addMessage("A new game has begun!");
+
 	this.setVisible(true);
 	}
 }

@@ -1,5 +1,7 @@
 package ui.spells;
 
+import ui.Actions;
+import ui.MainWindow;
 import ui.MapDisplay;
 
 import javax.swing.*;
@@ -9,13 +11,13 @@ import java.awt.event.ActionListener;
 
 public class SpellsButton extends JButton
 {
-    private MapDisplay mapDisplay;
+    private MainWindow mainWindow;
 
-    public SpellsButton(MapDisplay inMapDisplay)
+    public SpellsButton(MainWindow inMainWindow)
     {
         this.setText("Spells");
         this.addActionListener(new SpellsListener(this));
-        mapDisplay = inMapDisplay;
+        mainWindow = inMainWindow;
     }
 
 
@@ -30,7 +32,7 @@ public class SpellsButton extends JButton
 
         public void actionPerformed(ActionEvent ae)
         {
-            System.out.println("Spells clicked.");
+            mainWindow.showSpells();
         }
     }
 
