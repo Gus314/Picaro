@@ -6,6 +6,7 @@ import entities.Monster;
 import entities.Entity;
 import entities.Floor;
 import entities.Player;
+import entities.skills.Skill;
 import enums.MapDisplayMode;
 
 import java.awt.*;
@@ -123,6 +124,7 @@ public class MapDisplay extends JPanel
 	private MapDisplayMode mode;
 	private MapMouseListener mapMouseListener;
 	private Messages messages;
+	private Skill selectedSkill;
 
 	public MapDisplayMode getMode()
 	{
