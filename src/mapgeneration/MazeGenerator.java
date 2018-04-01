@@ -1,20 +1,14 @@
 package mapgeneration;
 
 import control.Map;
+import entities.Entity;
 import entities.Player;
 import entities.Stairs;
-import entities.equipment.factories.ArmourFactory;
-import entities.equipment.factories.ConsumableFactory;
-import entities.equipment.factories.RelicFactory;
-import entities.equipment.factories.WeaponFactory;
 import entities.factories.*;
-import enums.ConsumableType;
 import enums.FloorType;
-import enums.RelicEffect;
+import enums.MapElementType;
 import ui.Messages;
-
 import java.util.Random;
-import java.util.Vector;
 
 public class MazeGenerator 
 {	
@@ -23,13 +17,7 @@ public class MazeGenerator
 	private int[][] data;
 	private Messages messages;
 	private Player player;
-	private Vector<MonsterFactory> creatureFactories;
-	private Vector<ArmourFactory> armourFactories;
-	private Vector<WeaponFactory> weaponFactories;
-	private Vector<ConsumableFactory> consumableFactories;
-	private Vector<RelicFactory> relicFactories;
-	private int level;
-	
+
 	public MazeGenerator(int inMinRoomSize, int inMaxRoomSize, Messages inMessages)
 	{
 		data = null;
@@ -41,10 +29,8 @@ public class MazeGenerator
 		return map;
 	}
 	
-	public void construct(int inLevel)
+	public void construct(int level, Player player)
 	{
-		level = inLevel;
-
 		map = new Map(50, 50);
 
 	    RoomGraph graph = new RoomGraph();
@@ -77,10 +63,16 @@ public class MazeGenerator
 				}
 			}
 		
-		
+		positionPlayer(player);
+		MazeFactories mazeFactories = new MazeFactories(map, messages, player);
+
+		// TODO: Update map in factories!
+		addEntities(level, mazeFactories);
+		addStairs();
+
 	}
 		
-	public void positionPlayer(Player inPlayer)
+	private void positionPlayer(Player inPlayer)
 	{
 		for(;;)
 		{
@@ -96,100 +88,53 @@ public class MazeGenerator
 			}
 		}
 	}
-	
-	public void initialiseFactories()
-	{
-		creatureFactories = new Vector<MonsterFactory>();
-		creatureFactories.add(new MonsterFactory('G', 20, 4, 6, 1, 5, 5, 0, 1, "Goblin", map, messages, 20,1, 10, 20, 4, 4));
-		creatureFactories.add(new MonsterFactory('S', 5, 1, 2, 0, 2, 0, 0, 4, "Skirmisher", map, messages, 20,1, 15, 15, 1, 7));
-		creatureFactories.add(new MonsterFactory('O', 40, 4, 6, 2, 10, 10, 0, 1, "Orc", map, messages, 40,2, 0, 20, 2, 1));
-		creatureFactories.add(new MonsterFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2, 0, 10, 10, 1));
 
-		weaponFactories = new Vector<WeaponFactory>();
-		weaponFactories.add(new WeaponFactory(3, 5, 10, 0, "Sword",1, 1, 1));
-		weaponFactories.add(new WeaponFactory(6, 10, 10, 0, "LongSword",2, 1, 1));
-		weaponFactories.add(new WeaponFactory(4, 7, 20,0,  "BastardSword",2, 1, 1));
-		weaponFactories.add(new WeaponFactory(2, 4, 30,0,  "Bow",2, 8, 1));
-		weaponFactories.add(new WeaponFactory(4, 7, 20,0,  "Rocket Launcher",2, 6, 2));
-
-		armourFactories = new Vector<ArmourFactory>();
-		armourFactories.add(new ArmourFactory(5, 2, 4, 1,  "Chainmail",1));
-		armourFactories.add(new ArmourFactory(7, 3, 6, 2,  "Platemail",2));
-		
-		consumableFactories = new Vector<ConsumableFactory>();
-		consumableFactories.add(new ConsumableFactory('p', 50, ConsumableType.RestoreHP, messages, "hp potion", player,1));
-		consumableFactories.add(new ConsumableFactory('p', 75, ConsumableType.RestoreHP, messages, "large hp potion", player,2));
-		
-		relicFactories = new Vector<RelicFactory>();
-		relicFactories.add(new RelicFactory(RelicEffect.Damage, 5, "blade", 1));
-		relicFactories.add(new RelicFactory(RelicEffect.CritChance, 2, "pin", 1));
-		relicFactories.add(new RelicFactory(RelicEffect.Defense, 5, "cover", 1));
-		relicFactories.add(new RelicFactory(RelicEffect.BlockChance, 4, "shield", 1));
-		relicFactories.add(new RelicFactory(RelicEffect.AbsorbChance, 2, "vampire", 1));
-		
-		relicFactories.add(new RelicFactory(RelicEffect.Damage, 5, "sharp blade", 2));
-		relicFactories.add(new RelicFactory(RelicEffect.CritChance, 5, "sharp pin", 2));
-		relicFactories.add(new RelicFactory(RelicEffect.Defense, 5, "sturdy cover", 2));
-		relicFactories.add(new RelicFactory(RelicEffect.BlockChance, 5, "powerful shield", 2));
-		relicFactories.add(new RelicFactory(RelicEffect.AbsorbChance, 5, "crafty vampire", 2));
-	}
-	
-	public void addRelics()
+	public void addEntities(int level, MazeFactories mazeFactories)
 	{
-		Vector<RelicFactory> relics = new Vector<RelicFactory>();
-		
-		for(RelicFactory rf: relicFactories)
-		{
-			if(rf.getLevel() == level)
-			{
-				relics.add(rf);
-			}
-		}
-		
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
 			if(data[i][j]==FloorType.FLOOR.getValue())
-			{ // Percentage chance to spawn monster
-				if(generator.nextInt(40)==1)
+			{ // Percentage chance to spawn something
+				if(generator.nextInt(20)==1)
 				{
 					data[i][j] = 5;
-					int choice = generator.nextInt(relics.size());
-					map.addEntry(relics.get(choice).construct(i, j));
+                    MapElementType elementType = chooseElementType();
+					map.addEntry(chooseEntity(level, elementType, i, j, mazeFactories));
 				}
 			}
 			}
 	}
-	
-	public void addMonsters()
+
+	private MapElementType chooseElementType()
 	{
-		Vector<MonsterFactory> creatures = new Vector<MonsterFactory>();
-		
-		for(MonsterFactory cf: creatureFactories)
+       int choice = generator.nextInt(MapElementType.values().length);
+       return MapElementType.values()[choice];
+	}
+
+	private Entity chooseEntity(int level, MapElementType type, int i, int j, MazeFactories mazeFactories)
+	{
+		switch(type)
 		{
-			if(cf.getLevel() == level)
+			case ARMOUR:
+				return mazeFactories.chooseArmour(level).construct(i, j);
+			case CONSUMABLE:
+				return mazeFactories.chooseConsumable(level).construct(i, j);
+			case MONSTER:
+				return mazeFactories.chooseMonster(level).construct(i, j);
+			case RELIC:
+				return mazeFactories.chooseRelic(level).construct(i, j);
+			case WEAPON:
+				return mazeFactories.chooseWeapon(level).construct(i, j);
+			default:
 			{
-				cf.setMap(map);
-				creatures.add(cf);
+				System.out.println("MazeGenerator::chooseEntity - unknown entity type");
+				return mazeFactories.chooseMonster(level).construct(i, j); // TODO: Throw an exception.
 			}
 		}
-		
-		for(int i = 0; i < map.getRows(); i++)
-			for(int j = 0; j < map.getColumns(); j++)
-			{
-			if(data[i][j]== FloorType.FLOOR.getValue())
-			{ // Percentage chance to spawn monster
-				if(generator.nextInt(40)==1)
-				{
-					data[i][j] = 3;
-					int choice = generator.nextInt(creatures.size());
-					map.addEntry(creatures.get(choice).construct(i, j));
-				}
-			}
-			}
 	}
-	
-	public void addStairs()
+
+	private void addStairs()
 	{
 		for(;;)
 		{
@@ -202,83 +147,5 @@ public class MazeGenerator
 				return; // only add one set of stairs.
 			}
 		}
-	}
-	
-	public void addItems()
-	{
-		if(player == null)
-		{
-			System.out.println("Error: Must add player before items!");
-			System.exit(-1);
-		}
-		
-		Vector<WeaponFactory> weapons = new Vector<WeaponFactory>();
-		for(WeaponFactory wf: weaponFactories)
-		{
-			if(wf.getLevel() == level)
-			{
-				weapons.add(wf);
-			}
-		}
-		
-		Vector<ArmourFactory> armours = new Vector<ArmourFactory>();
-		for(ArmourFactory af: armourFactories)
-		{
-			if(af.getLevel() == level)
-			{
-				armours.add(af);
-			}
-		}
-		
-		Vector<ConsumableFactory> consumables = new Vector<ConsumableFactory>();
-		for(ConsumableFactory cf: consumableFactories)
-		{
-			if(cf.getLevel() == level)
-			{
-				consumables.add(cf);
-			}
-		}
-		
-		for(int i = 0; i < map.getRows(); i++)
-			for(int j = 0; j < map.getColumns(); j++)
-			{
-			if(data[i][j]==FloorType.FLOOR.getValue())
-			{ // Percentage chance to spawn weapon
-				if(generator.nextInt(150)==1)
-				{
-					data[i][j] = 4;
-					int choice = generator.nextInt(weapons.size());
-					map.addEntry(weapons.get(choice).construct(i, j));
-				}
-			}
-			}
-		
-		for(int i = 0; i < map.getRows(); i++)
-			for(int j = 0; j < map.getColumns(); j++)
-			{
-			if(data[i][j]==FloorType.FLOOR.getValue())
-			{ // Percentage chance to spawn armour
-				if(generator.nextInt(150)==1)
-				{
-					data[i][j] = 4;
-					int choice = generator.nextInt(armours.size());
-					map.addEntry(armours.get(choice).construct(i, j));
-				}
-			}
-			}
-		
-		for(int i = 0; i < map.getRows(); i++)
-			for(int j = 0; j < map.getColumns(); j++)
-			{
-			if(data[i][j]==FloorType.FLOOR.getValue())
-			{ // Percentage chance to spawn consumable
-				if(generator.nextInt(150)==1)
-				{
-					data[i][j] = 4;
-					int choice = generator.nextInt(consumables.size());
-					map.addEntry(consumables.get(choice).construct(i, j));
-				}
-			}
-			}
 	}
 }

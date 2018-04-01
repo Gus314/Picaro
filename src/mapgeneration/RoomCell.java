@@ -1,5 +1,6 @@
 package mapgeneration;
 
+import enums.Edge;
 import enums.FloorType;
 
 import java.util.HashMap;

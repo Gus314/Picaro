@@ -123,14 +123,17 @@ public class Map
 										                      column + rowShift;
 
 				Entity here = atPosition(movedRow, movedColumn);
-				if( (here != null) && here.blocksLineOfSight())
+				if( (here != null))
 				{
 					result.add(here);
 					if((source instanceof Player) && isPermanentlyVisible(here))
 					{
 						permanentlyVisible.add(here);
 					}
-					break;
+					if(here.blocksLineOfSight())
+					{
+						break;
+					}
 				}
 			}
 		}

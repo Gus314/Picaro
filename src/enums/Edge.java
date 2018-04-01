@@ -1,4 +1,4 @@
-package mapgeneration;
+package enums;
 
 public enum Edge
 {

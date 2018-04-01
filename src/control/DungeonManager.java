@@ -35,13 +35,7 @@ public class DungeonManager
 	public void nextLevel()
 	{		
 		level++;
-		mazeGen.construct(level);
-		mazeGen.positionPlayer(player);		
-		mazeGen.initialiseFactories();
-		mazeGen.addMonsters();
-		mazeGen.addItems();
-		mazeGen.addRelics();
-		mazeGen.addStairs();
+		mazeGen.construct(level, player);
 		
 		if(mapDisplay!=null)
 			mapDisplay.setMap(mazeGen.getMap());

@@ -1,5 +1,7 @@
 package mapgeneration;
 
+import enums.Edge;
+
 import java.util.Random;
 
 public class RoomGraph {
@@ -108,7 +110,7 @@ public class RoomGraph {
         {
             for(int j = 0; j < numCells; j++)
             {
-                // Ignore data for unreachable cells.
+                // Ignore mapgeneration.data for unreachable cells.
                 if(reachable[i][j])
                 {
                     // Remove connections.
