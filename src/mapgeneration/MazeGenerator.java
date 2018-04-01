@@ -15,7 +15,6 @@ import ui.Messages;
 public class MazeGenerator 
 {
 	private Map map;
-	private Integer[][] data;
 	private Messages messages;
 	private Player player;
 	private Coordinate upStairs;
@@ -23,7 +22,6 @@ public class MazeGenerator
 
 	public MazeGenerator(int inMinRoomSize, int inMaxRoomSize, Messages inMessages)
 	{
-		data = null;
 		messages = inMessages;
 		upStairs = null;
 		downStairs = null;
@@ -32,7 +30,6 @@ public class MazeGenerator
 	public void loadPersistedMap(PersistedMap persistedMap)
 	{
 		map = persistedMap.getMap();
-		data = persistedMap.getData();
 		upStairs = persistedMap.getUpStairs();
 		downStairs = persistedMap.getDownStairs();
 	}
@@ -41,7 +38,7 @@ public class MazeGenerator
 
 	public PersistedMap getPersistedMap()
 	{
-		return new PersistedMap(map, data, upStairs, downStairs);
+		return new PersistedMap(map, upStairs, downStairs);
 	}
 
 	public Map getMap()
@@ -49,15 +46,13 @@ public class MazeGenerator
 		return map;
 	}
 
-	public Integer[][] getData(){return data;}
-
 	public void construct(int level, Player inPlayer)
 	{
 		player = inPlayer;
 		map = new Map(50, 50);
 
 	    RoomGraph graph = new RoomGraph();
-	    data = graph.determineLayout();
+	    Integer[][] data = graph.determineLayout();
 		
 		// add walls
 		WallFactory wallfac = new WallFactory();
@@ -86,16 +81,16 @@ public class MazeGenerator
 				}
 			}
 		
-		positionPlayer(inPlayer);
+		positionPlayer(inPlayer, data);
 		MazeFactories mazeFactories = new MazeFactories(map, messages, inPlayer);
 
 		// TODO: Update map in factories!
-		addEntities(level, mazeFactories);
-		addStairs(level);
+		addEntities(level, mazeFactories, data);
+		addStairs(level, data);
 
 	}
 		
-	private void positionPlayer(Player inPlayer)
+	private void positionPlayer(Player inPlayer, Integer[][] data)
 	{
 		for(;;)
 		{
@@ -112,7 +107,7 @@ public class MazeGenerator
 		}
 	}
 
-	public void addEntities(int level, MazeFactories mazeFactories)
+	public void addEntities(int level, MazeFactories mazeFactories, Integer[][] data)
 	{
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
@@ -157,7 +152,7 @@ public class MazeGenerator
 		}
 	}
 
-	private void addStairs(int level)
+	private void addStairs(int level, Integer[][] data)
 	{
 		if(level > 1)
 		{
