@@ -1,5 +1,6 @@
 package control;
 
+import entities.equipment.Item;
 import enums.Direction;
 import entities.*;
 import ui.InventoryWindow;

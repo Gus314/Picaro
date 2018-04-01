@@ -42,6 +42,7 @@ public class MainWindow extends JTabbedPane
 		mainPanel.add(actions);
 		mainPanel.remove(techniquesPanel);
 		mainPanel.remove(spellsPanel);
+		requestFocus();
 	}
 
 	public MainWindow()

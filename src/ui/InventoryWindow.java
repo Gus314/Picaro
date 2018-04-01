@@ -1,16 +1,13 @@
 package ui;
 
 import entities.*;
+import entities.equipment.*;
 import enums.RelicEffect;
 
 import javax.swing.*;
 
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.util.Vector;
 
 public class InventoryWindow extends JPanel
@@ -18,11 +15,13 @@ public class InventoryWindow extends JPanel
 	private JLabel wMinDamage;
 	private JLabel wMaxDamage;
 	private JLabel wCritChance;
+	private JLabel wIntelligence;
 	private JLabel wName;
 	private JLabel aDefense;
 	private JLabel aName;
 	private JLabel aBlockChance;
 	private JLabel aAbsorbChance;
+	private JLabel aMagicDefense;
 	
 	private JLabel rName;
 	private JLabel rEffect;
@@ -59,7 +58,7 @@ public class InventoryWindow extends JPanel
 		Weapon wep = player.getWeapon();
 		JPanel wepPanel = new JPanel();
 		this.add(wepPanel);
-		wepPanel.add(new JLabel("|entities.Weapon:"));
+		wepPanel.add(new JLabel("|Weapon:"));
 		if(wep!=null)
 		{
 			wName = new JLabel(wep.getName());
@@ -72,7 +71,9 @@ public class InventoryWindow extends JPanel
 			wepPanel.add(wMaxDamage);
 			wepPanel.add(new JLabel("|Crit Chance:"));	
 			wCritChance = new JLabel(((Integer)(wep.getCritChance())).toString());
-			wepPanel.add(wCritChance);	
+			wepPanel.add(wCritChance);
+			wepPanel.add(new JLabel("|Intelligence:"));
+			wIntelligence = new JLabel(((Integer)(wep.getIntelligence())).toString());
 		}
 		else
 		{
@@ -87,12 +88,15 @@ public class InventoryWindow extends JPanel
 			wepPanel.add(new JLabel("|Crit Chance:"));	
 			wCritChance = new JLabel("0");
 			wepPanel.add(wCritChance);
+			wepPanel.add(new JLabel("|Intelligence:"));
+			wIntelligence = new JLabel("0");
+			wepPanel.add(wIntelligence);
 		}
 		
 		Armour arm = player.getArmour();
 		JPanel armPanel = new JPanel();
 		this.add(armPanel);
-		armPanel.add(new JLabel("|entities.Armour:"));
+		armPanel.add(new JLabel("|Armour:"));
 		if(arm!=null)
 		{
 			aName = new JLabel(arm.getName());
@@ -100,7 +104,11 @@ public class InventoryWindow extends JPanel
 			armPanel.add(new JLabel("|Defense:"));	
 			aDefense = new JLabel(((Integer)(arm.getDefense())).toString());
 			armPanel.add(aDefense);
-			
+
+			armPanel.add(new JLabel("|Magic Defense:"));
+			aMagicDefense = new JLabel(((Integer)(arm.getMagicDefense())).toString());
+			armPanel.add(aMagicDefense);
+
 			armPanel.add(new JLabel("|Block Chance:"));	
 			aBlockChance = new JLabel(((Integer)(arm.getBlockChance())).toString());
 			armPanel.add(aBlockChance);
@@ -116,7 +124,11 @@ public class InventoryWindow extends JPanel
 			armPanel.add(new JLabel("|Defense:"));	
 			aDefense = new JLabel("0");
 			armPanel.add(aDefense);
-			
+
+			armPanel.add(new JLabel("|Magic Defense:"));
+			aMagicDefense = new JLabel("0");
+			armPanel.add(aMagicDefense);
+
 			armPanel.add(new JLabel("|Block Chance:"));	
 			aBlockChance = new JLabel("0");
 			armPanel.add(aBlockChance);
@@ -129,7 +141,7 @@ public class InventoryWindow extends JPanel
 		Relic relic = player.getRelic();
 		JPanel relicPanel = new JPanel();
 		this.add(relicPanel);
-		relicPanel.add(new JLabel("|entities.Relic:"));
+		relicPanel.add(new JLabel("|Relic:"));
 		if(relic!=null)
 		{
 			rName = new JLabel(relic.getName());
@@ -169,9 +181,9 @@ public class InventoryWindow extends JPanel
 		usePanel.add(new JLabel("Use"));
 		Vector<Item> itemVec = player.getItems();
 		itemPanel.add(new JLabel("Items:"));
-		items = new JTable(11, 8);
+		items = new JTable(11, 10);
 		/* table layout
-		 * name, type, mindamage, maxdamage, critchance, defense, , blockchance, absorbchance, usebutton
+		 * name, type, mindamage, maxdamage, critchance, intelligence, defense, magicdefense, blockchance, absorbchance, usebutton
 		 */
 		itemPanel.add(items);
 		
@@ -179,11 +191,12 @@ public class InventoryWindow extends JPanel
 		items.setValueAt("Type", 0, 1);
 		items.setValueAt("Min", 0, 2);
 		items.setValueAt("Max", 0, 3);
-		items.setValueAt("Crit", 0, 4);
-		items.setValueAt("Defense", 0, 5);
-		items.setValueAt("Block", 0, 6);
-		items.setValueAt("Absorb", 0, 7);
-	//	items.setValueAt("Use", 0, 6);
+		items.setValueAt("Crit Chance", 0, 4);
+		items.setValueAt("Intelligence", 0, 5);
+		items.setValueAt("Defense", 0, 6);
+		items.setValueAt("Magic Defense", 0, 7);
+		items.setValueAt("Block", 0, 8);
+		items.setValueAt("Absorb", 0, 9);
 		
 		if(itemVec.size() > 0)
 		{
@@ -194,44 +207,53 @@ public class InventoryWindow extends JPanel
 				if(item instanceof Weapon)
 				{			
 					Weapon wItem = (Weapon) item;
-					items.setValueAt("entities.Weapon", itemNum+1, 1);
+					items.setValueAt("Weapon", itemNum+1, 1);
 					items.setValueAt(wItem.getMinDamage(), itemNum+1, 2);
 					items.setValueAt(wItem.getMaxDamage(), itemNum+1, 3);
 					items.setValueAt(wItem.getCritChance(), itemNum+1, 4);
+					items.setValueAt(wItem.getIntelligence(), itemNum+1, 5);
 					items.setValueAt(0, itemNum+1, 5);
 					items.setValueAt(0, itemNum+1, 6);
-					items.setValueAt(0, itemNum+1, 6);
+					items.setValueAt(0, itemNum+1, 7);
+					items.setValueAt(0, itemNum+1, 8);
+					items.setValueAt(0, itemNum+1, 9);
 				}
 				else if(item instanceof Armour)
 				{
 					Armour aItem= (Armour) item;
-					items.setValueAt("entities.Armour", itemNum+1, 1);
+					items.setValueAt("Armour", itemNum+1, 1);
 					items.setValueAt(0, itemNum+1, 2);
 					items.setValueAt(0, itemNum+1, 3);
 					items.setValueAt(0, itemNum+1, 4);
-					items.setValueAt(aItem.getDefense(), itemNum+1, 5);
-					items.setValueAt(aItem.getBlockChance(), itemNum+1, 6);
-					items.setValueAt(aItem.getAbsorbChance(), itemNum+1, 7);
+					items.setValueAt(0, itemNum+1, 5);
+					items.setValueAt(aItem.getDefense(), itemNum+1, 6);
+					items.setValueAt(aItem.getMagicDefense(), itemNum+1, 7);
+					items.setValueAt(aItem.getBlockChance(), itemNum+1, 8);
+					items.setValueAt(aItem.getAbsorbChance(), itemNum+1, 9);
 				}
 				else if(item instanceof Consumable)
 				{
-					items.setValueAt("entities.Consumable", itemNum+1, 1);
+					items.setValueAt("Consumable", itemNum+1, 1);
 					items.setValueAt(0, itemNum+1, 2);
 					items.setValueAt(0, itemNum+1, 3);
 					items.setValueAt(0, itemNum+1, 4);
 					items.setValueAt(0, itemNum+1, 5);
 					items.setValueAt(0, itemNum+1, 6);
 					items.setValueAt(0, itemNum+1, 7);
+					items.setValueAt(0, itemNum+1, 8);
+					items.setValueAt(0, itemNum+1, 9);
 				}
 				else if(item instanceof Relic)
 				{
-					items.setValueAt("entities.Relic", itemNum+1, 1);
+					items.setValueAt("Relic", itemNum+1, 1);
 					items.setValueAt(0, itemNum+1, 2);
 					items.setValueAt(0, itemNum+1, 3);
 					items.setValueAt(0, itemNum+1, 4);
 					items.setValueAt(0, itemNum+1, 5);
 					items.setValueAt(0, itemNum+1, 6);
 					items.setValueAt(0, itemNum+1, 7);
+					items.setValueAt(0, itemNum+1, 8);
+					items.setValueAt(0, itemNum+1, 9);
 				}
 				usePanel.add(new UseButton(item, player, this, stats));
 			
@@ -249,7 +271,7 @@ public class InventoryWindow extends JPanel
 		for(int i = 1; i < 11; i++)
 			if(items.getValueAt(i, 0)!= null)
 			{
-				for(int j = 0; j < 8; j++)
+				for(int j = 0; j < 10; j++)
 				{	
 					items.setValueAt(null, i, j);
 				}
@@ -262,6 +284,7 @@ public class InventoryWindow extends JPanel
 			wMinDamage.setText(((Integer)(wep.getMinDamage())).toString());	
 			wMaxDamage.setText(((Integer)(wep.getMaxDamage())).toString());
 			wCritChance.setText(((Integer)(wep.getCritChance())).toString());
+			wIntelligence.setText(((Integer)(wep.getIntelligence())).toString());
 		}
 		else
 		{
@@ -269,13 +292,15 @@ public class InventoryWindow extends JPanel
 			wMinDamage.setText("0");	
 			wMaxDamage.setText("0");
 			wCritChance.setText("0");
+			wIntelligence.setText("0");
 		}
 
 		Armour arm = player.getArmour();
 		if(arm!= null)
 		{
 			aName.setText(arm.getName());
-			aDefense.setText(((Integer)(arm.getDefense())).toString());	
+			aDefense.setText(((Integer)(arm.getDefense())).toString());
+			aMagicDefense.setText(((Integer)(arm.getMagicDefense())).toString());
 			aBlockChance.setText(((Integer)(arm.getBlockChance())).toString());	
 			aAbsorbChance.setText(((Integer)(arm.getAbsorbChance())).toString());	
 		}
@@ -283,6 +308,7 @@ public class InventoryWindow extends JPanel
 		{
 			aName.setText("None");
 			aDefense.setText("0");
+			aMagicDefense.setText("0");
 			aBlockChance.setText("0");
 			aAbsorbChance.setText("0");
 		}
@@ -314,45 +340,54 @@ public class InventoryWindow extends JPanel
 				if(item instanceof Weapon)
 				{			
 					Weapon wItem = (Weapon) item;
-					items.setValueAt("entities.Weapon", itemNum+1, 1);
+					items.setValueAt("entities.equipment.Weapon", itemNum+1, 1);
 					items.setValueAt(wItem.getMinDamage(), itemNum+1, 2);
 					items.setValueAt(wItem.getMaxDamage(), itemNum+1, 3);
 					items.setValueAt(wItem.getCritChance(), itemNum+1, 4);
+					items.setValueAt(wItem.getIntelligence(), itemNum+1, 5);
 					items.setValueAt("-", itemNum+1, 5);
 					items.setValueAt("-", itemNum+1, 6);
 					items.setValueAt("-", itemNum+1, 7);
+					items.setValueAt("-", itemNum+1, 8);
+					items.setValueAt("-", itemNum+1, 9);
 				}
 				else if(item instanceof Armour)
 				{
 					Armour aItem= (Armour) item;
-					items.setValueAt("entities.Armour", itemNum+1, 1);
+					items.setValueAt("entities.equipment.Armour", itemNum+1, 1);
 					items.setValueAt("-", itemNum+1, 2);
 					items.setValueAt("-", itemNum+1, 3);
 					items.setValueAt("-", itemNum+1, 4);
-					items.setValueAt(aItem.getDefense(), itemNum+1, 5);
-					items.setValueAt(aItem.getBlockChance(), itemNum+1, 6);
-					items.setValueAt(aItem.getAbsorbChance(), itemNum+1, 7);
+					items.setValueAt("-", itemNum+1, 5);
+					items.setValueAt(aItem.getDefense(), itemNum+1, 6);
+					items.setValueAt(aItem.getMagicDefense(), itemNum+1, 7);
+					items.setValueAt(aItem.getBlockChance(), itemNum+1, 8);
+					items.setValueAt(aItem.getAbsorbChance(), itemNum+1, 9);
 				}
 				else if(item instanceof Consumable)
 				{
-					items.setValueAt("entities.Consumable", itemNum+1, 1);
+					items.setValueAt("entities.equipment.Consumable", itemNum+1, 1);
 					items.setValueAt("-", itemNum+1, 2);
 					items.setValueAt("-", itemNum+1, 3);
 					items.setValueAt("-", itemNum+1, 4);
 					items.setValueAt("-", itemNum+1, 5);
 					items.setValueAt("-", itemNum+1, 6);
 					items.setValueAt("-", itemNum+1, 7);
+					items.setValueAt("-", itemNum+1, 8);
+					items.setValueAt("-", itemNum+1, 9);
 				}
 
 				else if(item instanceof Relic)
 				{
-					items.setValueAt("entities.Relic", itemNum+1, 1);
+					items.setValueAt("entities.equipment.Relic", itemNum+1, 1);
 					items.setValueAt("-", itemNum+1, 2); //mindamage
 					items.setValueAt("-", itemNum+1, 3); //maxdamage
 					items.setValueAt("-", itemNum+1, 4); // critchance
-					items.setValueAt("-", itemNum+1, 5); // defense
-					items.setValueAt("-", itemNum+1, 6); // blockchance
-					items.setValueAt("-", itemNum+1, 7); // absorbchance
+					items.setValueAt("-", itemNum+1, 5); // intelligence
+					items.setValueAt("-", itemNum+1, 6); // defense
+					items.setValueAt("-", itemNum+1, 7); // magicdefense
+					items.setValueAt("-", itemNum+1, 8); // blockchance
+					items.setValueAt("-", itemNum+1, 9); // absorbchance
 					
 					RelicEffect effect = ((Relic)item).getEffect();
 					switch(effect)
@@ -364,25 +399,30 @@ public class InventoryWindow extends JPanel
 					case CritChance:
 						items.setValueAt(((Relic)item).getAmount(), itemNum+1, 4);
 						break;
-					case Defense:
+						case Intelligence:
 						items.setValueAt(((Relic)item).getAmount(), itemNum+1, 5);
 						break;
-					case BlockChance:
+					case Defense:
 						items.setValueAt(((Relic)item).getAmount(), itemNum+1, 6);
 						break;
-					case AbsorbChance:
+					case MagicDefense:
 						items.setValueAt(((Relic)item).getAmount(), itemNum+1, 7);
+						break;
+					case BlockChance:
+						items.setValueAt(((Relic)item).getAmount(), itemNum+1, 8);
+						break;
+					case AbsorbChance:
+						items.setValueAt(((Relic)item).getAmount(), itemNum+1, 9);
 						break;
 					}
 				}
-//				items.setValueAt(new ui.UseButton(item, player), itemNum+1, 6);
 				usePanel.add(new UseButton(item, player, this, stats));
 				itemNum++;
 			}
 		}
 		else
 		{
-	//		items.setValueAt("None", 1, 0);
+
 		}
 	}
 

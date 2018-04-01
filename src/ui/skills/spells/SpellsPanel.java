@@ -66,7 +66,7 @@ public class SpellsPanel extends JPanel
 
             if(skill instanceof SelfSkill)
             {
-                castButton.addActionListener(new SelfTargetListener(player, (SelfSkill)skill, messages));
+                castButton.addActionListener(new SelfTargetListener(player, (SelfSkill)skill, messages, mapDisplay));
             }
             else if(skill instanceof TargetSkill)
             {

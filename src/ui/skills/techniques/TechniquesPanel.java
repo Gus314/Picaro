@@ -65,7 +65,7 @@ public class TechniquesPanel extends JPanel
 
             if(skill instanceof SelfSkill)
             {
-                actButton.addActionListener(new SelfTargetListener(player, (SelfSkill)skill, messages));
+                actButton.addActionListener(new SelfTargetListener(player, (SelfSkill)skill, messages, mapDisplay));
             }
             else if(skill instanceof TargetSkill)
             {

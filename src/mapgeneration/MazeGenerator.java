@@ -3,6 +3,10 @@ package mapgeneration;
 import control.Map;
 import entities.Player;
 import entities.Stairs;
+import entities.equipment.factories.ArmourFactory;
+import entities.equipment.factories.ConsumableFactory;
+import entities.equipment.factories.RelicFactory;
+import entities.equipment.factories.WeaponFactory;
 import entities.factories.*;
 import enums.ConsumableType;
 import enums.FloorType;
@@ -102,15 +106,15 @@ public class MazeGenerator
 		creatureFactories.add(new MonsterFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2, 0, 10, 10, 1));
 
 		weaponFactories = new Vector<WeaponFactory>();
-		weaponFactories.add(new WeaponFactory(3, 5, 10, "Sword",1, 1, 1));
-		weaponFactories.add(new WeaponFactory(6, 10, 10, "LongSword",2, 1, 1));
-		weaponFactories.add(new WeaponFactory(4, 7, 20, "BastardSword",2, 1, 1));
-		weaponFactories.add(new WeaponFactory(2, 4, 30, "Bow",2, 8, 1));
-		weaponFactories.add(new WeaponFactory(4, 7, 20, "Rocket Launcher",2, 6, 2));
+		weaponFactories.add(new WeaponFactory(3, 5, 10, 0, "Sword",1, 1, 1));
+		weaponFactories.add(new WeaponFactory(6, 10, 10, 0, "LongSword",2, 1, 1));
+		weaponFactories.add(new WeaponFactory(4, 7, 20,0,  "BastardSword",2, 1, 1));
+		weaponFactories.add(new WeaponFactory(2, 4, 30,0,  "Bow",2, 8, 1));
+		weaponFactories.add(new WeaponFactory(4, 7, 20,0,  "Rocket Launcher",2, 6, 2));
 
 		armourFactories = new Vector<ArmourFactory>();
-		armourFactories.add(new ArmourFactory(5, 2, 4, "Chainmail",1));
-		armourFactories.add(new ArmourFactory(7, 3, 6, "Platemail",2));
+		armourFactories.add(new ArmourFactory(5, 2, 4, 1,  "Chainmail",1));
+		armourFactories.add(new ArmourFactory(7, 3, 6, 2,  "Platemail",2));
 		
 		consumableFactories = new Vector<ConsumableFactory>();
 		consumableFactories.add(new ConsumableFactory('p', 50, ConsumableType.RestoreHP, messages, "hp potion", player,1));

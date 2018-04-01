@@ -1,6 +1,6 @@
-package entities;
+package entities.equipment;
 
-import entities.Item;
+import entities.Player;
 import enums.ConsumableType;
 import ui.Messages;
 

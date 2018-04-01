@@ -1,4 +1,6 @@
-package entities;
+package entities.equipment;
+
+import entities.Entity;
 
 public abstract class Item extends Entity
 {

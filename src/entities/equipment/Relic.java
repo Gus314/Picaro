@@ -1,4 +1,4 @@
-package entities;
+package entities.equipment;
 
 import enums.RelicEffect;
 

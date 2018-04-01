@@ -1,6 +1,10 @@
 package entities;
 
 import control.Map;
+import entities.equipment.Armour;
+import entities.equipment.Item;
+import entities.equipment.Relic;
+import entities.equipment.Weapon;
 import skills.Fireball;
 import skills.Heal;
 import skills.PoisonDart;
@@ -109,7 +113,20 @@ public class Player extends Creature
 		
 		return result;
 	}
-	
+
+	public @Override int getIntelligence()
+	{
+		int result = super.getIntelligence();
+
+		if(weapon!=null)
+			result+= weapon.getIntelligence();
+
+		if(relic!=null && relic.getEffect()== RelicEffect.Intelligence)
+			result+= relic.getAmount();
+
+		return result;
+	}
+
 	public @Override int getDefense()
 	{
 		int result = super.getDefense();
@@ -122,7 +139,20 @@ public class Player extends Creature
 		
 		return result;
 	}
-	
+
+	public @Override int getMagicDefense()
+	{
+		int result = super.getMagicDefense();
+
+		if(armour!=null)
+			result+= armour.getMagicDefense();
+
+		if(relic!=null && relic.getEffect()== RelicEffect.MagicDefense)
+			result+= relic.getAmount();
+
+		return result;
+	}
+
 	public void setWeapon(Weapon inWeapon)
 	{
 		weapon = inWeapon;

@@ -1,7 +1,8 @@
-package entities.factories;
+package entities.equipment.factories;
 
-import entities.Consumable;
+import entities.equipment.Consumable;
 import entities.Player;
+import entities.factories.AbstractEntityFactory;
 import enums.ConsumableType;
 import ui.Messages;
 

@@ -1,6 +1,7 @@
 package ui;
 
 import entities.*;
+import entities.equipment.*;
 
 import javax.swing.*;
 

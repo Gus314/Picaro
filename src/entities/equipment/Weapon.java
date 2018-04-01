@@ -1,22 +1,26 @@
-package entities;
+package entities.equipment;
 
 public class Weapon extends Item
 {
 	private int minDamage;
 	private int maxDamage;
 	private int critChance;
+	private int intelligence;
 	private int range;
 	private int radius;
 
-	public Weapon(int inMinDamage, int inMaxDamage, int inCritChance, String inName, Character inCha, int inRow, int inColumn, int inLevel, int inRange, int inRadius)
+	public Weapon(int inMinDamage, int inMaxDamage, int inCritChance, int inIntelligence, String inName, Character inCha, int inRow, int inColumn, int inLevel, int inRange, int inRadius)
 	{
 		super(inCha, inRow, inColumn, inName, inLevel);
 		minDamage = inMinDamage;
 		maxDamage = inMaxDamage;
 		critChance = inCritChance;
+		intelligence = inIntelligence;
 		range = inRange;
 		radius = inRadius;
 	}
+
+	public int getIntelligence(){return intelligence;}
 
 	public int getMinDamage()
 	{

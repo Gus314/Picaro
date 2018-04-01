@@ -1,6 +1,6 @@
-package entities.factories;
+package entities.equipment.factories;
 
-import entities.Relic;
+import entities.equipment.Relic;
 import enums.RelicEffect;
 
 public class RelicFactory
