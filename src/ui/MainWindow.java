@@ -4,6 +4,7 @@ import control.DungeonManager;
 import control.Map;
 import control.TurnHandler;
 import entities.Player;
+import ui.inventory.InventoryWindow;
 import ui.skills.spells.SpellsPanel;
 import ui.skills.techniques.TechniquesPanel;
 

@@ -5,18 +5,20 @@ import entities.equipment.Armour;
 import entities.equipment.Item;
 import entities.equipment.Relic;
 import entities.equipment.Weapon;
+import enums.ArmourType;
 import skills.Fireball;
 import skills.Heal;
 import skills.PoisonDart;
 import enums.RelicEffect;
 import ui.Messages;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Player extends Creature
 {	
 	private Weapon weapon;
-	private Armour armour;
+	private java.util.Map<ArmourType, Armour> armours;
 	private Relic relic;
 	private Vector<Item> items;
 	private int range;
@@ -42,7 +44,7 @@ public class Player extends Creature
 				initialLevel, initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints, initialIntelligence, initialMagicDefence);
 		items = new Vector<Item>();
 		weapon = null;
-		armour = null;
+		armours = new HashMap<>();
 		relic = null;
 		addSkill(new PoisonDart());
 		addSkill(new Fireball());
@@ -125,12 +127,21 @@ public class Player extends Creature
 		return result;
 	}
 
+	private int getArmoursDefense()
+	{
+		int result = 0;
+		for(Armour armour: armours.values())
+		{
+			result += armour.getDefense();
+		}
+		return result;
+	}
+
 	public @Override int getDefense()
 	{
 		int result = super.getDefense();
-		
-		if(armour!=null)
-			result+= armour.getDefense();
+
+		result+= getArmoursDefense();
 		
 		if(relic!=null && relic.getEffect()== RelicEffect.Defense)
 			result+= relic.getAmount();
@@ -138,12 +149,21 @@ public class Player extends Creature
 		return result;
 	}
 
+	private int getArmoursMagicDefense()
+	{
+		int result = 0;
+		for(Armour armour: armours.values())
+		{
+			result += armour.getMagicDefense();
+		}
+		return result;
+	}
+
 	public @Override int getMagicDefense()
 	{
 		int result = super.getMagicDefense();
 
-		if(armour!=null)
-			result+= armour.getMagicDefense();
+		result+= getArmoursMagicDefense();
 
 		if(relic!=null && relic.getEffect()== RelicEffect.MagicDefense)
 			result+= relic.getAmount();
@@ -161,14 +181,14 @@ public class Player extends Creature
 		return weapon;
 	}
 	
-	public void setArmour(Armour inArmour)
+	public void setArmour(Armour armour)
 	{
-		armour = inArmour;
+		armours.put(armour.getArmourType(), armour);
 	}
 	
-	public Armour getArmour()
+	public Armour getArmour(ArmourType armourType)
 	{
-		return armour;
+		return armours.get(armourType);
 	}
 	
 	public Relic getRelic()
@@ -181,26 +201,44 @@ public class Player extends Creature
 	{
 		relic = inRelic;
 	}
-	
+
+	private int getArmoursBlockChance()
+	{
+		int result = 0;
+		for(Armour armour: armours.values())
+		{
+			result += armour.getBlockChance();
+		}
+		return result;
+	}
+
 	public @Override int getBlockChance()
 	{
 		int result = super.getBlockChance();
-		
-		if(armour!=null)
-			result+= armour.getBlockChance();
+
+		result+= getArmoursBlockChance();
 		
 		if(relic!=null && relic.getEffect()== RelicEffect.BlockChance)
 			result+= relic.getAmount();
 		
 		return result;
 	}
-	
+
+	private int getArmoursAbsorbChance()
+	{
+		int result = 0;
+		for(Armour armour: armours.values())
+		{
+			result += armour.getAbsorbChance();
+		}
+		return result;
+	}
+
 	public @Override int getAbsorbChance()
 	{
 		int result = super.getAbsorbChance();
 		
-		if(armour!=null)
-			result+= armour.getAbsorbChance();
+		result+= getArmoursAbsorbChance();
 		
 		if(relic!=null && relic.getEffect()== RelicEffect.AbsorbChance)
 			result+= relic.getAmount();

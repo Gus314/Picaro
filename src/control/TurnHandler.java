@@ -3,7 +3,7 @@ package control;
 import entities.equipment.Item;
 import enums.Direction;
 import entities.*;
-import ui.InventoryWindow;
+import ui.inventory.InventoryWindow;
 import ui.MapDisplay;
 import ui.Messages;
 

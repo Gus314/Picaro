@@ -2,6 +2,7 @@ package ui;
 
 import entities.*;
 import entities.equipment.*;
+import ui.inventory.InventoryWindow;
 
 import javax.swing.*;
 
@@ -25,7 +26,6 @@ public class UseButton extends JButton
 		this.setText("Use " + item.getName());
 		this.addActionListener(new UseListener(this));
 	}
-	
 	
 	public class UseListener implements ActionListener
 	{
@@ -52,7 +52,8 @@ public class UseButton extends JButton
 			}
 			else if(item instanceof Armour)
 			{
-				Armour oldArmour = player.getArmour();
+				Armour newArmour = (Armour)item;
+				Armour oldArmour = player.getArmour(newArmour.getArmourType());
 				if(oldArmour != null)
 				{
 					items.add(oldArmour);

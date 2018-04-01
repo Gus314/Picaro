@@ -2,6 +2,7 @@ package mapgeneration.data;
 
 import control.Controller;
 import entities.equipment.factories.ArmourFactory;
+import enums.ArmourType;
 
 import java.util.Vector;
 
@@ -12,8 +13,13 @@ public class ArmourProvider
     public ArmourProvider()
     {
         armourFactories = new Vector<ArmourFactory>();
-        armourFactories.add(new ArmourFactory(5, 2, 4, 1,  "Chainmail",1));
-        armourFactories.add(new ArmourFactory(7, 3, 6, 2,  "Platemail",2));
+        armourFactories.add(new ArmourFactory(ArmourType.CHEST, 5, 2, 4, 1,  "Chainmail",1));
+        armourFactories.add(new ArmourFactory(ArmourType.HANDS, 5, 2, 4, 1,  "Mittens",1));
+        armourFactories.add(new ArmourFactory(ArmourType.HEAD, 5, 2, 4, 1,  "Helmet",1));
+        armourFactories.add(new ArmourFactory(ArmourType.LEGS, 5, 2, 4, 1,  "Trousers",1));
+        armourFactories.add(new ArmourFactory(ArmourType.FEET, 5, 2, 4, 1,  "Shoes",1));
+
+        armourFactories.add(new ArmourFactory(ArmourType.CHEST, 7, 3, 6, 2,  "Platemail",2));
     }
 
     public ArmourFactory choose(int level)
