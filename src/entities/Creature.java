@@ -26,7 +26,6 @@ public abstract class Creature extends Entity
     private int absorbChance;
     private int range;
     private int exp;
-    private int level;
     private int physicalPoints;
     private int maxPhysicalPoints;
     private int magicPoints;
@@ -36,7 +35,7 @@ public abstract class Creature extends Entity
     private List<StatusEffect> statusEffects;
     private List<Skill> skills;
 
-    public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp, int inLevel,
+    public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp,
                     int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense)
     {
         super(inCha, inRow, inColumn);
@@ -53,7 +52,6 @@ public abstract class Creature extends Entity
         absorbChance = inAbsorbChance;
         range = inRange;
         exp = inExp;
-        level = inLevel;
         physicalPoints = inPhysicalPoints;
         maxPhysicalPoints = inMaxPhysicalPoints;
         magicPoints = inMagicPoints;
@@ -216,10 +214,6 @@ public abstract class Creature extends Entity
         return exp;
     }
 
-    public int getLevel(){
-        return level;
-    }
-
     public Map getMap() {
         return map;
     }
@@ -276,12 +270,6 @@ public abstract class Creature extends Entity
     public void setAbsorbChance(int inAbsorbChance)
     {
         absorbChance = inAbsorbChance;
-    }
-
-
-    public void setLevel(int inLevel)
-    {
-        level = inLevel;
     }
 
     public void setMaxLife(int inMaxLife)

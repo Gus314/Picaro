@@ -13,13 +13,13 @@ public class ArmourProvider
     public ArmourProvider()
     {
         armourFactories = new Vector<ArmourFactory>();
-        armourFactories.add(new ArmourFactory(ArmourType.CHEST, 5, 2, 4, 1,  "Chainmail",1));
-        armourFactories.add(new ArmourFactory(ArmourType.HANDS, 5, 2, 4, 1,  "Mittens",1));
-        armourFactories.add(new ArmourFactory(ArmourType.HEAD, 5, 2, 4, 1,  "Helmet",1));
-        armourFactories.add(new ArmourFactory(ArmourType.LEGS, 5, 2, 4, 1,  "Trousers",1));
-        armourFactories.add(new ArmourFactory(ArmourType.FEET, 5, 2, 4, 1,  "Shoes",1));
+        armourFactories.add(new ArmourFactory(ArmourType.CHEST, 5, 2, 4, 1,  "Chainmail",1, 2));
+        armourFactories.add(new ArmourFactory(ArmourType.HANDS, 5, 2, 4, 1,  "Mittens",1, 2));
+        armourFactories.add(new ArmourFactory(ArmourType.HEAD, 5, 2, 4, 1,  "Helmet",1, 2));
+        armourFactories.add(new ArmourFactory(ArmourType.LEGS, 5, 2, 4, 1,  "Trousers",1, 2));
+        armourFactories.add(new ArmourFactory(ArmourType.FEET, 5, 2, 4, 1,  "Shoes",1, 2));
 
-        armourFactories.add(new ArmourFactory(ArmourType.CHEST, 7, 3, 6, 2,  "Platemail",2));
+        armourFactories.add(new ArmourFactory(ArmourType.CHEST, 7, 3, 6, 2,  "Platemail",2, 3));
     }
 
     public ArmourFactory choose(int level)
@@ -27,7 +27,7 @@ public class ArmourProvider
         Vector<ArmourFactory> filteredFactories = new Vector<ArmourFactory>();
         for(ArmourFactory factory: armourFactories)
         {
-            if(factory.getLevel() == level)
+            if(level >= factory.getMinLevel() && level <= factory.getMaxLevel())
             {
                 filteredFactories.add(factory);
             }

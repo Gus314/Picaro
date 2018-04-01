@@ -7,9 +7,9 @@ public class Relic extends Item
 	private RelicEffect effect;
 	private int amount;
 	
-	public Relic(RelicEffect inEffect, int inAmount, String inName, Character inCha, int inRow, int inColumn, int inLevel)
+	public Relic(RelicEffect inEffect, int inAmount, String inName, Character inCha, int inRow, int inColumn, int inMinLevel, int inMaxLevel)
 	{
-		super(inCha, inRow, inColumn, inName, inLevel);
+		super(inCha, inRow, inColumn, inName, inMinLevel, inMaxLevel);
 		effect = inEffect;
 		amount = inAmount;
 	}

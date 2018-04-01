@@ -5,14 +5,20 @@ import entities.Entity;
 public abstract class Item extends Entity
 {
 	private String name;
-	private int level;
+	private int minLevel;
+	private int maxLevel;
 	
-	public Item(Character inCha, int inRow, int inColumn, String inName, int inLevel) 
+	public Item(Character inCha, int inRow, int inColumn, String inName, int inMinLevel, int inMaxLevel)
 	{	
 		super(inCha, inRow, inColumn);
 		name = inName;
-		level = inLevel;
+		minLevel = inMinLevel;
+		maxLevel = inMaxLevel;
 	};
+
+	public int getMinLevel(){return minLevel;}
+
+	public int getMaxLevel(){return maxLevel;}
 
 	public String getName()
 	{

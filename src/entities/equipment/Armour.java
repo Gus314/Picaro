@@ -10,9 +10,9 @@ public class Armour extends Item
 	private int absorbChance;
 	private ArmourType armourType;
 	
-	public Armour(ArmourType inArmourType, int inBlockChance, int inAbsorbChance, int inDefense, int inMagicDefense, String inName, Character inCha, int inRow, int inColumn, int inLevel)
+	public Armour(ArmourType inArmourType, int inBlockChance, int inAbsorbChance, int inDefense, int inMagicDefense, String inName, Character inCha, int inRow, int inColumn, int inMinLevel, int inMaxLevel)
 	{
-		super(inCha, inRow, inColumn, inName, inLevel);
+		super(inCha, inRow, inColumn, inName, inMinLevel, inMaxLevel);
 		defense = inDefense;
 		magicDefense = inMagicDefense;
 		blockChance = inBlockChance;

@@ -8,23 +8,24 @@ public class RelicFactory
 	private RelicEffect effect;
 	private int amount;
 	private String name;
-	private int level;
+	private int minLevel;
+	private int maxLevel;
 	
-	public RelicFactory(RelicEffect inEffect, int inAmount, String inName, int inLevel)
+	public RelicFactory(RelicEffect inEffect, int inAmount, String inName, int inMinLevel, int inMaxLevel)
 	{
 		effect = inEffect;
 		amount = inAmount;
 		name = inName;
-		level = inLevel;
+		minLevel = inMinLevel;
+		maxLevel = inMaxLevel;
 	}
 	
-	public int getLevel()
-	{
-		return level;
-	}
+	public int getMinLevel(){return minLevel;}
+
+	public int getMaxLevel(){return maxLevel;}
 	
 	public Relic construct(int inRow, int inColumn)
 	{
-		return new Relic(effect, amount, name, 'r', inRow, inColumn, level);
+		return new Relic(effect, amount, name, 'r', inRow, inColumn, minLevel, maxLevel);
 	}
 }

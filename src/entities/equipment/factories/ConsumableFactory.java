@@ -14,9 +14,10 @@ public class ConsumableFactory extends AbstractEntityFactory
 	private Messages messages;
 	private String name;
 	private Player player;
-	private int level;
+	private int minLevel;
+	private int maxLevel;
 	
-	public ConsumableFactory(Character inCha, int inAmount, ConsumableType inType, Messages inMessages, String inName, Player inPlayer, int inLevel)
+	public ConsumableFactory(Character inCha, int inAmount, ConsumableType inType, Messages inMessages, String inName, Player inPlayer, int inMinLevel, int inMaxLevel)
 	{
 		cha = inCha;
 		type = inType;
@@ -24,16 +25,16 @@ public class ConsumableFactory extends AbstractEntityFactory
 		name = inName;
 		messages = inMessages;
 		player = inPlayer;
-		level = inLevel;
+		minLevel = inMinLevel;
+		maxLevel = inMaxLevel;
 	}
 	
-	public int getLevel()
-	{
-		return level;
-	}
+	public int getMinLevel(){return minLevel;}
+
+	public int getMaxLevel(){return maxLevel;}
 	
 	public Consumable construct(int inRow, int inColumn)
 	{
-		return new Consumable(cha, inRow, inColumn, name, type, amount, player, messages, level);
+		return new Consumable(cha, inRow, inColumn, name, type, amount, player, messages, minLevel, maxLevel);
 	}
 }

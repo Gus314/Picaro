@@ -15,8 +15,8 @@ public class ConsumableProvider
     public ConsumableProvider(Messages messages, Player player)
     {
         consumableFactories = new Vector<ConsumableFactory>();
-        consumableFactories.add(new ConsumableFactory('p', 50, ConsumableType.RestoreHP, messages, "hp potion", player,1));
-        consumableFactories.add(new ConsumableFactory('p', 75, ConsumableType.RestoreHP, messages, "large hp potion", player,2));
+        consumableFactories.add(new ConsumableFactory('p', 50, ConsumableType.RestoreHP, messages, "hp potion", player,1, 2));
+        consumableFactories.add(new ConsumableFactory('p', 75, ConsumableType.RestoreHP, messages, "large hp potion", player,2, 3));
     }
 
     public ConsumableFactory choose(int level)
@@ -24,7 +24,7 @@ public class ConsumableProvider
         Vector<ConsumableFactory> filteredFactories = new Vector<ConsumableFactory>();
         for(ConsumableFactory factory: consumableFactories)
         {
-            if(factory.getLevel() == level)
+            if(level >= factory.getMinLevel() && level <= factory.getMaxLevel())
             {
                 filteredFactories.add(factory);
             }

@@ -22,6 +22,8 @@ public class Player extends Creature
 	private Relic relic;
 	private Vector<Item> items;
 	private int range;
+	private int level;
+	private static final int initialLevel = 1;
 	private static final int initialLife = 100;
 	private static final int initialDefense = 3;
 	private static final int initialMinDamage = 4;
@@ -30,7 +32,6 @@ public class Player extends Creature
     private static final int initialCritChance = 10;
     private static final int initialBlockChance = 0;
     private static final int initialAbsorbChance = 0;
-    private static final int initialLevel = 1;
     private static final int initialRange = 1;
     private static final int initialMaxPhysicalPoints = 40;
     private static final int initialMaxMagicPoints = 50;
@@ -41,11 +42,12 @@ public class Player extends Creature
 	public Player(Map inMap, Messages inMessages, String inName)
 	{
 		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
-				initialLevel, initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints, initialIntelligence, initialMagicDefence);
+				initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints, initialIntelligence, initialMagicDefence);
 		items = new Vector<Item>();
 		weapon = null;
 		armours = new HashMap<>();
 		relic = null;
+		level = initialLevel;
 		addSkill(new PoisonDart());
 		addSkill(new Fireball());
 		addSkill(new Heal());
@@ -62,6 +64,12 @@ public class Player extends Creature
 	{
 		return items;
 	}
+
+	public int getLevel(){
+		return level;
+	}
+
+	public void setLevel(int inLevel){level = inLevel;}
 
 	public @Override int getRange()
 	{

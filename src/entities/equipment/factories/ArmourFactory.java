@@ -11,9 +11,10 @@ public class ArmourFactory
 	private int blockChance;
 	private int absorbChance;
 	private String name;
-	private int level;
+	private int minLevel;
+	private int maxLevel;
 	
-	public ArmourFactory(ArmourType inArmourType, int inBlockChance, int inAbsorbChance, int inDefense, int inMagicDefense, String inName, int inLevel)
+	public ArmourFactory(ArmourType inArmourType, int inBlockChance, int inAbsorbChance, int inDefense, int inMagicDefense, String inName, int inMinLevel, int inMaxLevel)
 	{
 		armourType = inArmourType;
 		blockChance = inBlockChance;
@@ -21,16 +22,16 @@ public class ArmourFactory
 		defense = inDefense;
 		magicDefense = inMagicDefense;
 		name = inName;
-		level = inLevel;
+		minLevel = inMinLevel;
+		maxLevel = inMaxLevel;
 	}
 	
-	public int getLevel()
-	{
-		return level;
-	}
+	public int getMinLevel(){return minLevel;}
+
+	public int getMaxLevel(){return maxLevel;}
 	
 	public Armour construct(int inRow, int inColumn)
 	{
-		return new Armour(armourType, blockChance, absorbChance, defense, magicDefense, name, 'a', inRow, inColumn, level);
+		return new Armour(armourType, blockChance, absorbChance, defense, magicDefense, name, 'a', inRow, inColumn, minLevel, maxLevel);
 	}
 }

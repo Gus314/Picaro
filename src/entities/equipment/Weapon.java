@@ -9,15 +9,14 @@ public class Weapon extends Item
 	private int range;
 	private int radius;
 
-	public Weapon(int inMinDamage, int inMaxDamage, int inCritChance, int inIntelligence, String inName, Character inCha, int inRow, int inColumn, int inLevel, int inRange, int inRadius)
+	public Weapon(int inMinDamage, int inMaxDamage, int inCritChance, int inIntelligence, String inName, Character inCha, int inRow, int inColumn, int inRange, int inMinLevel, int inMaxLevel)
 	{
-		super(inCha, inRow, inColumn, inName, inLevel);
+		super(inCha, inRow, inColumn, inName, inMinLevel, inMaxLevel);
 		minDamage = inMinDamage;
 		maxDamage = inMaxDamage;
 		critChance = inCritChance;
 		intelligence = inIntelligence;
 		range = inRange;
-		radius = inRadius;
 	}
 
 	public int getIntelligence(){return intelligence;}
@@ -38,6 +37,4 @@ public class Weapon extends Item
 	}
 
 	public int getRange(){ return range;}
-
-	public int getRadius(){return radius;}
 }

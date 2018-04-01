@@ -11,9 +11,9 @@ public class Consumable extends Item
 	private Player player;
 	private Messages messages;
 
-	public Consumable(Character inCha, int inRow, int inColumn, String inName, ConsumableType inType, int inAmount, Player inPlayer, Messages inMessages, int inLevel)
+	public Consumable(Character inCha, int inRow, int inColumn, String inName, ConsumableType inType, int inAmount, Player inPlayer, Messages inMessages, int inMinLevel, int inMaxLevel)
 	{
-		super(inCha, inRow, inColumn, inName, inLevel);
+		super(inCha, inRow, inColumn, inName, inMinLevel, inMaxLevel);
 		type = inType;
 		amount = inAmount;
 		player = inPlayer;

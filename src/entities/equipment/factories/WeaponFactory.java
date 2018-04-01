@@ -9,29 +9,28 @@ public class WeaponFactory
 	private int critChance;
 	private int intelligence;
 	private String name;
-	private int level;
 	private int range;
-	private int radius;
-	
-	public WeaponFactory(int inMinDamage, int inMaxDamage, int inCritChance, int inIntelligence, String inName, int inLevel, int inRange, int inRadius)
+	private int minLevel;
+	private int maxLevel;
+
+	public WeaponFactory(int inMinDamage, int inMaxDamage, int inCritChance, int inIntelligence, String inName, int inRange, int inMinLevel, int inMaxLevel)
 	{
 		minDamage = inMinDamage;
 		maxDamage = inMaxDamage;
 		critChance = inCritChance;
 		intelligence = inIntelligence;
 		name = inName;
-		level = inLevel;
+		minLevel = inMinLevel;
+		maxLevel = inMaxLevel;
 		range = inRange;
-		radius = inRadius;
 	}
 	
-	public int getLevel()
-	{
-		return level;
-	}
+	public int getMinLevel(){return minLevel;}
+
+	public int getMaxLevel(){return maxLevel;}
 	
 	public Weapon construct(int inRow, int inColumn)
 	{
-		return new Weapon(minDamage, maxDamage, critChance, intelligence, name, 'w', inRow, inColumn, level, range, radius);
+		return new Weapon(minDamage, maxDamage, critChance, intelligence, name, 'w', inRow, inColumn, range, minLevel, maxLevel);
 	}
 }
