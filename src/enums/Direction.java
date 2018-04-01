@@ -1,6 +1,6 @@
 package enums;
 
-import java.util.Random;
+import control.Controller;
 
 public enum Direction
 {
@@ -20,7 +20,7 @@ public enum Direction
 
     public static Direction random()
     {
-        return fromValue(generator.nextInt(8));
+        return fromValue(Controller.getGenerator().nextInt(8));
     }
 
     private static Direction fromValue(int value)
@@ -36,8 +36,6 @@ public enum Direction
         // TODO: Add exception.
         return null;
     }
-
-    private static final Random generator = new Random();
 
     public int rowShift()
     {

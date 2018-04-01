@@ -1,5 +1,6 @@
 package mapgeneration;
 
+import control.Controller;
 import control.Map;
 import entities.Entity;
 import entities.Player;
@@ -8,11 +9,9 @@ import entities.factories.*;
 import enums.FloorType;
 import enums.MapElementType;
 import ui.Messages;
-import java.util.Random;
 
 public class MazeGenerator 
-{	
-	private static final Random generator = new Random();
+{
 	private Map map;
 	private int[][] data;
 	private Messages messages;
@@ -76,8 +75,8 @@ public class MazeGenerator
 	{
 		for(;;)
 		{
-			int row = generator.nextInt(map.getRows());
-			int column = generator.nextInt(map.getColumns());
+			int row = Controller.getGenerator().nextInt(map.getRows());
+			int column = Controller.getGenerator().nextInt(map.getColumns());
 			if(data[row][column]==FloorType.FLOOR.getValue())
 			{
 				data[row][column] = 3;
@@ -96,7 +95,7 @@ public class MazeGenerator
 			{
 			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn something
-				if(generator.nextInt(20)==1)
+				if(Controller.getGenerator().nextInt(20)==1)
 				{
 					data[i][j] = 5;
                     MapElementType elementType = chooseElementType();
@@ -108,7 +107,7 @@ public class MazeGenerator
 
 	private MapElementType chooseElementType()
 	{
-       int choice = generator.nextInt(MapElementType.values().length);
+       int choice = Controller.getGenerator().nextInt(MapElementType.values().length);
        return MapElementType.values()[choice];
 	}
 
@@ -138,8 +137,8 @@ public class MazeGenerator
 	{
 		for(;;)
 		{
-			int i = generator.nextInt(map.getRows());
-			int j = generator.nextInt(map.getColumns());
+			int i = Controller.getGenerator().nextInt(map.getRows());
+			int j = Controller.getGenerator().nextInt(map.getColumns());
 			if(data[i][j]==FloorType.FLOOR.getValue())
 			{
 				data[i][j] = 5;

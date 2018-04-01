@@ -1,12 +1,10 @@
 package mapgeneration;
 
+import control.Controller;
 import enums.Edge;
-
-import java.util.Random;
 
 public class RoomGraph {
     private static final int numCells = 5;
-    private static final Random generator = new Random();
 
     public RoomGraph() {
 
@@ -66,8 +64,8 @@ public class RoomGraph {
 
     public void reset(boolean[][] reachable, RoomCell[][] cells)
     {
-        int entryRow = generator.nextInt(numCells);
-        int entryColumn = generator.nextInt(numCells);
+        int entryRow = Controller.getGenerator().nextInt(numCells);
+        int entryColumn = Controller.getGenerator().nextInt(numCells);
 
         for (int i = 0; i < numCells; i++) {
             for (int j = 0; j < numCells; j++) {

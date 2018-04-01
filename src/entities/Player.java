@@ -11,7 +11,6 @@ import skills.PoisonDart;
 import enums.RelicEffect;
 import ui.Messages;
 
-import java.util.Random;
 import java.util.Vector;
 
 public class Player extends Creature
@@ -21,7 +20,6 @@ public class Player extends Creature
 	private Relic relic;
 	private Vector<Item> items;
 	private int range;
-	private static Random generator = new Random();
 	private static final int initialLife = 100;
 	private static final int initialDefense = 3;
 	private static final int initialMinDamage = 4;

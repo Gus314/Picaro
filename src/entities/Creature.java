@@ -1,5 +1,6 @@
 package entities;
 
+import control.Controller;
 import control.Map;
 import skills.Skill;
 import statuses.StatusEffect;
@@ -9,11 +10,9 @@ import ui.Messages;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public abstract class Creature extends Entity
 {
-    private static Random generator = new Random();
     private Map map;
     private Messages messages;
     private int defense;
@@ -106,8 +105,6 @@ public abstract class Creature extends Entity
         skills.add(skill);
     }
 
-    protected Random getGenerator(){return generator;}
-
     public boolean blocksLineOfSight(){ return true;}
 
     public void progressStatusEffects()
@@ -144,15 +141,15 @@ public abstract class Creature extends Entity
 
     protected boolean attack(Creature target)
     {
-        if(getGenerator().nextInt(100 - target.getBlockChance()) == 0)
+        if(Controller.getGenerator().nextInt(100 - target.getBlockChance()) == 0)
         {
             getMessages().addMessage("Attack was blocked!");
             return false;
         }
 
-        int damage = getMinDamage() + generator.nextInt(getMaxDamage() - getMinDamage()) - target.getDefense();
+        int damage = getMinDamage() + Controller.getGenerator().nextInt(getMaxDamage() - getMinDamage()) - target.getDefense();
 
-        if(generator.nextInt(100 - target.getAbsorbChance()) == 0)
+        if(Controller.getGenerator().nextInt(100 - target.getAbsorbChance()) == 0)
         {
             int newTargetLife = target.getLife() + damage;
             int maxTargetLife = target.getMaxLife();
@@ -168,7 +165,7 @@ public abstract class Creature extends Entity
         int targetLife = target.getLife();
         Boolean criticalHit = false;
 
-        if(generator.nextInt(101 - getCritChance()) - 1 == 0)
+        if(Controller.getGenerator().nextInt(101 - getCritChance()) - 1 == 0)
         {
             damage = damage * 2;
             criticalHit = true;

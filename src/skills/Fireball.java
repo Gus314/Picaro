@@ -1,5 +1,6 @@
 package skills;
 
+import control.Controller;
 import entities.Creature;
 import enums.SkillType;
 
@@ -43,11 +44,11 @@ public class Fireball extends AreaSkill
     public String action(Creature source, List<Creature> targets)
     {
         String message = source.getName() + " cast fireball, hitting the following: ";
-        int baseDamage = source.getIntelligence()/2 + getGenerator().nextInt(source.getIntelligence()/2);
+        int baseDamage = source.getIntelligence()/2 + Controller.getGenerator().nextInt(source.getIntelligence()/2);
 
         for(Creature target: targets)
         {
-            int baseReduction = source.getMagicDefense()/2 + getGenerator().nextInt(source.getMagicDefense()/2);
+            int baseReduction = source.getMagicDefense()/2 + Controller.getGenerator().nextInt(source.getMagicDefense()/2);
             int actualDamage = (baseReduction > baseDamage) ? 0 : baseDamage - baseReduction;
             int maxDamage = target.getLife();
             if(actualDamage > maxDamage)

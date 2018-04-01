@@ -7,8 +7,6 @@ import ui.InventoryWindow;
 import ui.MapDisplay;
 import ui.Messages;
 
-import java.util.Random;
-
 public class TurnHandler
 {
     private Player player;
@@ -16,7 +14,6 @@ public class TurnHandler
     private MapDisplay mapDisplay;
     private Messages messages;
     private InventoryWindow invWind;
-    private static final Random generator = new Random();
     private DungeonManager dm;
 
     public TurnHandler(Player inPlayer, MapDisplay inMapDisplay, Messages inMessages, InventoryWindow inInvWind, DungeonManager inDm)

@@ -1,17 +1,16 @@
 package mapgeneration;
 
+import control.Controller;
 import enums.Edge;
 import enums.FloorType;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class RoomCell
 {
     private static final int cellSize = 10;
     private Map<Edge, Boolean> connection;
-    private static final Random generator = new Random();
     private int[][] data;
 
     public RoomCell()
@@ -100,9 +99,9 @@ public class RoomCell
             }
         }
 
-        int size = generator.nextInt(cellSize-6) + 6;
+        int size = Controller.getGenerator().nextInt(cellSize-6) + 6;
         // Change probability of being a proper room.
-        if(generator.nextInt(4) != 3)
+        if(Controller.getGenerator().nextInt(4) != 3)
         {
             size = 2;
         }
@@ -131,10 +130,10 @@ public class RoomCell
 
         // Determine connections, ensuring at least one.
         do {
-            connection.put(Edge.BOTTOM, generator.nextInt(10) > 3);
-            connection.put(Edge.TOP, generator.nextInt(10) > 3);
-            connection.put(Edge.LEFT, generator.nextInt(10) > 3);
-            connection.put(Edge.RIGHT, generator.nextInt(10) > 3);
+            connection.put(Edge.BOTTOM, Controller.getGenerator().nextInt(10) > 3);
+            connection.put(Edge.TOP, Controller.getGenerator().nextInt(10) > 3);
+            connection.put(Edge.LEFT, Controller.getGenerator().nextInt(10) > 3);
+            connection.put(Edge.RIGHT, Controller.getGenerator().nextInt(10) > 3);
 
             retry = ! (connection.get(Edge.BOTTOM) || connection.get(Edge.TOP) ||
                        connection.get(Edge.LEFT) || connection.get(Edge.RIGHT));

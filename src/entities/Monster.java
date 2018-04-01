@@ -1,5 +1,6 @@
 package entities;
 
+import control.Controller;
 import control.Map;
 import ui.Messages;
 
@@ -78,7 +79,7 @@ public class Monster extends Creature
 
 			while(!directions.isEmpty())
 			{
-				int index = getGenerator().nextInt(directions.size());
+				int index = Controller.getGenerator().nextInt(directions.size());
 				Direction direction = directions.remove(index);
 
 				Entity existing = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());

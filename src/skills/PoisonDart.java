@@ -1,5 +1,6 @@
 package skills;
 
+import control.Controller;
 import entities.Creature;
 import statuses.Poison;
 import enums.SkillType;
@@ -21,8 +22,8 @@ public class PoisonDart extends TargetSkill
     public String action(Creature source, Creature target)
     {
         String message = source.getName() + " fired a poison dart at " + target.getName();
-        int baseDamage = getGenerator().nextInt(4);
-        int damageReduction = target.getDefense()/2 + getGenerator().nextInt(target.getDefense()/2);
+        int baseDamage = Controller.getGenerator().nextInt(4);
+        int damageReduction = target.getDefense()/2 + Controller.getGenerator().nextInt(target.getDefense()/2);
         int adjustedDamage = baseDamage - damageReduction;
         int maxDamage = target.getLife();
         if(adjustedDamage > maxDamage)
@@ -34,7 +35,7 @@ public class PoisonDart extends TargetSkill
         message = message + " causing " + adjustedDamage + " damage and ";
 
         // 50% chance.
-        boolean poisoned = getGenerator().nextInt(10) > 4;
+        boolean poisoned = Controller.getGenerator().nextInt(10) > 4;
         if(poisoned)
         {
             int duration = 10;
