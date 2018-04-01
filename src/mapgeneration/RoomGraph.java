@@ -76,10 +76,18 @@ public class RoomGraph {
         reachable[entryRow][entryColumn] = true;
     }
 
-    public int[][] determineLayout()
+    public Integer[][] determineLayout()
     {
         final int cellSize = 10;
-        int[][] result = new int[numCells * cellSize][numCells * cellSize];
+        Integer[][] result = new Integer[numCells * cellSize][numCells * cellSize];
+        for(int i = 0; i < numCells * cellSize; i++)
+        {
+            for(int j = 0; j < numCells * cellSize; j++)
+            {
+                result[i][j] = new Integer(0);
+            }
+        }
+
 
        RoomCell[][] cells = new RoomCell[numCells][numCells];
        for(int i = 0; i < numCells; i++)

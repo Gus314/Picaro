@@ -40,6 +40,14 @@ public class TurnHandler
         messages.addMessage("You descend to level " + dm.getLevel() + "!");
     }
 
+    public void previousLevel()
+    {
+        dm.previousLevel();
+        map = dm.getMap();
+        mapDisplay = dm.getMapDisplay();
+        messages.addMessage("You ascend to level " + dm.getLevel() + "!");
+    }
+
     public void pickUp(Item item)
     {
         player.addItem(item);
@@ -105,7 +113,7 @@ public class TurnHandler
         int column = player.getColumn();
 
         Entity ent = map.atPosition(adjustRow(direction, row), adjustColumn(direction, column));
-        if(ent == null || ent instanceof Item || ent instanceof Stairs || ent instanceof Floor)
+        if(ent == null || ent instanceof Item || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Floor)
             player.move(direction, 1);
         else if(ent instanceof Monster)
         {
@@ -120,9 +128,14 @@ public class TurnHandler
         if(ent instanceof Item)
             pickUp((Item)ent);
 
-        if(ent instanceof Stairs)
+        if(ent instanceof DownStairs)
         {
             nextLevel();
+            return;
+        }
+        else if(ent instanceof UpStairs)
+        {
+            previousLevel();
             return;
         }
 

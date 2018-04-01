@@ -1,9 +1,13 @@
 package control;
 
+import entities.Entity;
 import entities.Player;
 import mapgeneration.MazeGenerator;
+import mapgeneration.PersistedMap;
 import ui.MapDisplay;
 import ui.Messages;
+
+import java.util.HashMap;
 
 public class DungeonManager
 {
@@ -13,6 +17,7 @@ public class DungeonManager
 	private MapDisplay mapDisplay;
 	private int level;
 	private static final String defaultName = "Nameo";
+	private java.util.Map<Integer, PersistedMap> levels;
 
 	public DungeonManager(Messages inMessages)
 	{
@@ -20,6 +25,7 @@ public class DungeonManager
 		mazeGen = new MazeGenerator(2, 8, messages);
 		player = new Player(mazeGen.getMap(), messages, defaultName);
 		level = 0;
+		levels = new HashMap<Integer, PersistedMap>();
 	}
 	
 	public MapDisplay getMapDisplay()
@@ -31,14 +37,58 @@ public class DungeonManager
 	{
 		return level;
 	}
-	
+
+	private void changeLevel(boolean descending)
+	{
+		PersistedMap persistedMap = null;
+
+		if(levels.containsKey(level))
+		{
+			persistedMap = levels.get(level);
+			mazeGen.loadPersistedMap(persistedMap);
+		}
+		else
+		{
+			mazeGen.construct(level, player);
+			persistedMap = mazeGen.getPersistedMap();
+			levels.put(level, persistedMap);
+		}
+
+		Player player = mazeGen.getPlayer();
+
+		if(level != 1)
+		{
+			Coordinate stairs = descending? persistedMap.getUpStairs() : persistedMap.getDownStairs();
+			player.setRow(stairs.getRow());
+			player.setColumn(stairs.getColumn());
+		}
+		else if(!descending)
+		{
+			Coordinate stairs  = persistedMap.getDownStairs();
+			player.setRow(stairs.getRow());
+			player.setColumn(stairs.getColumn());
+
+		}
+
+		if(mapDisplay!=null)
+		{
+			mapDisplay.setMap(persistedMap.getMap());
+		}
+	}
+
 	public void nextLevel()
 	{		
 		level++;
-		mazeGen.construct(level, player);
-		
-		if(mapDisplay!=null)
-			mapDisplay.setMap(mazeGen.getMap());
+        changeLevel(true);
+	}
+
+	public void previousLevel()
+	{
+		if(level > 1)
+		{
+			level--;
+			changeLevel(false);
+		}
 	}
 
 	public void setMapDisplay(MapDisplay inMapDisplay)

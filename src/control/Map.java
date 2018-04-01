@@ -20,7 +20,7 @@ public class Map
 		mapEntries = new ArrayList<>();
 		permanentlyVisible = new HashSet<>();
 	}
-	
+
 	public int getRows()
 	{
 		return rows;
@@ -143,7 +143,7 @@ public class Map
 
 	private boolean isPermanentlyVisible(Entity ent)
 	{
-	   return(ent instanceof Wall || ent instanceof Stairs);
+	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs);
 	}
 
 	public void removeEntity(Entity ent)

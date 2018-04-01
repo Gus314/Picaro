@@ -1,10 +1,12 @@
 package mapgeneration;
 
 import control.Controller;
+import control.Coordinate;
 import control.Map;
 import entities.Entity;
 import entities.Player;
-import entities.Stairs;
+import entities.DownStairs;
+import entities.UpStairs;
 import entities.factories.*;
 import enums.FloorType;
 import enums.MapElementType;
@@ -13,23 +15,45 @@ import ui.Messages;
 public class MazeGenerator 
 {
 	private Map map;
-	private int[][] data;
+	private Integer[][] data;
 	private Messages messages;
 	private Player player;
+	private Coordinate upStairs;
+	private Coordinate downStairs;
 
 	public MazeGenerator(int inMinRoomSize, int inMaxRoomSize, Messages inMessages)
 	{
 		data = null;
 		messages = inMessages;
+		upStairs = null;
+		downStairs = null;
 	}
-	
+
+	public void loadPersistedMap(PersistedMap persistedMap)
+	{
+		map = persistedMap.getMap();
+		data = persistedMap.getData();
+		upStairs = persistedMap.getUpStairs();
+		downStairs = persistedMap.getDownStairs();
+	}
+
+	public Player getPlayer(){return player;}
+
+	public PersistedMap getPersistedMap()
+	{
+		return new PersistedMap(map, data, upStairs, downStairs);
+	}
+
 	public Map getMap()
 	{
 		return map;
 	}
-	
-	public void construct(int level, Player player)
+
+	public Integer[][] getData(){return data;}
+
+	public void construct(int level, Player inPlayer)
 	{
+		player = inPlayer;
 		map = new Map(50, 50);
 
 	    RoomGraph graph = new RoomGraph();
@@ -62,12 +86,12 @@ public class MazeGenerator
 				}
 			}
 		
-		positionPlayer(player);
-		MazeFactories mazeFactories = new MazeFactories(map, messages, player);
+		positionPlayer(inPlayer);
+		MazeFactories mazeFactories = new MazeFactories(map, messages, inPlayer);
 
 		// TODO: Update map in factories!
 		addEntities(level, mazeFactories);
-		addStairs();
+		addStairs(level);
 
 	}
 		
@@ -133,8 +157,15 @@ public class MazeGenerator
 		}
 	}
 
-	private void addStairs()
+	private void addStairs(int level)
 	{
+		if(level > 1)
+		{
+			data[player.getRow()][player.getColumn()] = 5;
+			upStairs = new Coordinate(player.getRow(), player.getColumn());
+			map.addEntry(new UpStairs(player.getRow(), player.getColumn()));
+		}
+
 		for(;;)
 		{
 			int i = Controller.getGenerator().nextInt(map.getRows());
@@ -142,7 +173,8 @@ public class MazeGenerator
 			if(data[i][j]==FloorType.FLOOR.getValue())
 			{
 				data[i][j] = 5;
-				map.addEntry(new Stairs(i, j));
+				map.addEntry(new DownStairs(i, j));
+				downStairs = new Coordinate(i, j);
 				return; // only add one set of stairs.
 			}
 		}
