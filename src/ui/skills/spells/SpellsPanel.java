@@ -1,10 +1,10 @@
 package ui.skills.spells;
 
 import entities.Player;
-import entities.skills.AreaSkill;
-import entities.skills.SelfSkill;
-import entities.skills.Skill;
-import entities.skills.TargetSkill;
+import skills.AreaSkill;
+import skills.SelfSkill;
+import skills.Skill;
+import skills.TargetSkill;
 import enums.SkillType;
 import ui.BackButton;
 import ui.MainWindow;

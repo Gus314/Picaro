@@ -1,4 +1,4 @@
-package entities.skills;
+package skills;
 
 import entities.Creature;
 import enums.SkillType;
@@ -42,6 +42,22 @@ public class Fireball extends AreaSkill
     @Override
     public String action(Creature source, List<Creature> targets)
     {
-        return source.getName() + " cast fireball";
+        String message = source.getName() + " cast fireball, hitting the following: ";
+        int baseDamage = source.getIntelligence()/2 + getGenerator().nextInt(source.getIntelligence()/2);
+
+        for(Creature target: targets)
+        {
+            int baseReduction = source.getMagicDefense()/2 + getGenerator().nextInt(source.getMagicDefense()/2);
+            int actualDamage = (baseReduction > baseDamage) ? 0 : baseDamage - baseReduction;
+            int maxDamage = target.getLife();
+            if(actualDamage > maxDamage)
+            {
+                actualDamage = maxDamage;
+            }
+            target.setLife(target.getLife() - actualDamage);
+            message += target.getName() + " for " + actualDamage + " damage.";
+        }
+
+        return message;
     }
 }

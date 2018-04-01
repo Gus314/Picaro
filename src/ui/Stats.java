@@ -17,13 +17,15 @@ public class Stats extends JPanel
 	private JLabel defense;
 	private JLabel blockChance;
 	private JLabel absorbChance;
+	private JLabel intelligence;
+	private JLabel magicDefense;
 	private JLabel exp;
 	private JLabel level;
 	
 	public Stats(Player inPlayer)
 	{
 		super();
-		GridLayout grid = new GridLayout(4, 6);
+		GridLayout grid = new GridLayout(5, 6);
 		this.setLayout(grid);
 		player = inPlayer;
 		this.add(new JLabel("HP="));
@@ -53,6 +55,12 @@ public class Stats extends JPanel
 		this.add(new JLabel("Absorb Chance="));
 		absorbChance = new JLabel(((Integer)(player.getAbsorbChance())).toString());
 		this.add(absorbChance);
+		this.add(new JLabel("Intelligence="));
+		intelligence = new JLabel(((Integer)(player.getIntelligence())).toString());
+		this.add(intelligence);
+		this.add(new JLabel("Magic Defense="));
+		magicDefense = new JLabel(((Integer)(player.getMagicDefense())).toString());
+		this.add(magicDefense);
 		this.add(new JLabel("Exp="));
 		exp = new JLabel(((Integer)(player.getExp())).toString());
 		this.add(exp);
@@ -74,6 +82,7 @@ public class Stats extends JPanel
 		absorbChance.setText(((Integer)(player.getAbsorbChance())).toString());
 		exp.setText(((Integer)(player.getExp())).toString());
 		level.setText(((Integer)(player.getLevel())).toString());
+		intelligence.setText(((Integer)(player.getIntelligence())).toString());
+		magicDefense.setText(((Integer)(player.getMagicDefense())).toString());
 	}
-	
 }

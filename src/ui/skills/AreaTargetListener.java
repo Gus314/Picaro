@@ -1,7 +1,6 @@
 package ui.skills;
 
-import entities.Player;
-import entities.skills.AreaSkill;
+import skills.AreaSkill;
 import enums.MapDisplayMode;
 import ui.MapDisplay;
 

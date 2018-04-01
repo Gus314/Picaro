@@ -3,14 +3,13 @@ package ui;
 import control.Coordinate;
 import control.Map;
 import entities.*;
-import entities.skills.AreaSkill;
-import entities.skills.Skill;
-import entities.skills.TargetSkill;
+import skills.AreaSkill;
+import skills.Skill;
+import skills.TargetSkill;
 import enums.MapDisplayMode;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.lang.annotation.Target;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
@@ -90,9 +89,9 @@ public class MapDisplay extends JPanel
 							map.removeEntity(monster);
 						}
 						mapDisplay.changeMode(MapDisplayMode.NORMAL);
+						map.takeTurns();
+						refresh();
 					}
-					map.takeTurns();
-					refresh();
 				}
 			}
 			else if(mapDisplay.getMode() == MapDisplayMode.AREA)
@@ -102,7 +101,7 @@ public class MapDisplay extends JPanel
                 int range = areaSkill.getRange();
                 int radius = areaSkill.getRadius();
 
-                ArrayList<Monster> monsters = new ArrayList<Monster>();
+                ArrayList<Creature> monsters = new ArrayList<Creature>();
 
                 Entity centralEntity =  map.atPosition(coord.getRow(), coord.getColumn());
                 boolean floorTargeted = false;
@@ -143,20 +142,18 @@ public class MapDisplay extends JPanel
 					return;
 				}
 
-				for(Monster monster: monsters)
+				messages.addMessage(areaSkill.action(player, monsters));
+				for(Creature monster: monsters)
 				{
-					messages.addMessage(((TargetSkill) selectedSkill).action(player, monster));
 					if (monster.getLife() <= 0)
 					{
-						player.killed(monster);
+						player.killed((Monster)monster);
 						map.removeEntity(monster);
-
 					}
 				}
 				mapDisplay.changeMode(MapDisplayMode.NORMAL);
 				map.takeTurns();
 				refresh();
-
 			}
 			else
 			{

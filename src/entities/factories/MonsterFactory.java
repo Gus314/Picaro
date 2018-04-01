@@ -22,9 +22,11 @@ public class MonsterFactory extends AbstractEntityFactory
 	private int level;
 	private int maxPhysicalPoints;
 	private int maxMagicPoints;
+	private int intelligence;
+	private int magicDefense;
 	
 	public MonsterFactory(Character inCha, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inDefense, int inBlockChance, int inAbsorbChance, int inRange, String inName,
-						  Map inMap, Messages inMessages, int inExp, int inLevel, int inMaxPhysicalPoints, int inMaxMagicPoints)
+						  Map inMap, Messages inMessages, int inExp, int inLevel, int inMaxPhysicalPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense)
 	{
 		cha = inCha;
 		life = inLife;
@@ -42,6 +44,8 @@ public class MonsterFactory extends AbstractEntityFactory
 		level = inLevel;
 		maxPhysicalPoints = inMaxPhysicalPoints;
 		maxMagicPoints = inMaxMagicPoints;
+		intelligence = inIntelligence;
+		magicDefense = inMagicDefense;
 	}
 	
 	public void setMap(Map inMap)
@@ -57,6 +61,6 @@ public class MonsterFactory extends AbstractEntityFactory
 	public Monster construct(int inRow, int inColumn)
 	{
 		return new Monster(cha, inRow, inColumn, map, messages, defense, name, life, life, minDamage, maxDamage, critChance, blockChance, absorbChance,
-				range, exp, level, maxPhysicalPoints, maxPhysicalPoints, maxMagicPoints, maxMagicPoints);
+				range, exp, level, maxPhysicalPoints, maxPhysicalPoints, maxMagicPoints, maxMagicPoints, intelligence, magicDefense);
 	}
 }

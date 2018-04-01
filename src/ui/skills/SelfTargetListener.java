@@ -1,7 +1,7 @@
 package ui.skills;
 
 import entities.Player;
-import entities.skills.SelfSkill;
+import skills.SelfSkill;
 import ui.Messages;
 
 import java.awt.event.ActionEvent;

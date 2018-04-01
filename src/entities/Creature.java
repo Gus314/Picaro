@@ -1,17 +1,15 @@
 package entities;
 
 import control.Map;
-import entities.skills.Skill;
-import entities.statuses.StatusEffect;
+import skills.Skill;
+import statuses.StatusEffect;
+import statuses.TemporaryStatusEffect;
 import enums.SkillType;
 import ui.Messages;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
-
-import static enums.SkillType.PHYSICAL;
 
 public abstract class Creature extends Entity
 {
@@ -34,11 +32,13 @@ public abstract class Creature extends Entity
     private int maxPhysicalPoints;
     private int magicPoints;
     private int maxMagicPoints;
+    private int intelligence;
+    private int magicDefense;
     private List<StatusEffect> statusEffects;
     private List<Skill> skills;
 
     public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp, int inLevel,
-                    int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints)
+                    int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense)
     {
         super(inCha, inRow, inColumn);
         map = inMap;
@@ -59,9 +59,16 @@ public abstract class Creature extends Entity
         maxPhysicalPoints = inMaxPhysicalPoints;
         magicPoints = inMagicPoints;
         maxMagicPoints = inMaxMagicPoints;
+        intelligence = inIntelligence;
+        magicDefense = inMagicDefense;
+
         statusEffects = new ArrayList<StatusEffect>();
         skills = new ArrayList<Skill>();
     }
+
+    public int getIntelligence() { return intelligence; }
+
+    public int getMagicDefense() { return magicDefense;}
 
     public int getSpellsCount()
     {
@@ -105,10 +112,23 @@ public abstract class Creature extends Entity
 
     public void progressStatusEffects()
     {
+        List<TemporaryStatusEffect> removableEffects = new ArrayList<TemporaryStatusEffect>();
+
         for(StatusEffect effect: statusEffects)
         {
-            effect.action();
+            messages.addMessage(effect.action());
+            if(effect instanceof TemporaryStatusEffect)
+            {
+                TemporaryStatusEffect temporaryEffect = (TemporaryStatusEffect) effect;
+                if(temporaryEffect.getRemainingTurns() == 0)
+                {
+                   removableEffects.add(temporaryEffect);
+                   messages.addMessage(effect.getName() + " expired for " + effect.getTarget().getName() + ".");
+                }
+            }
         }
+
+        statusEffects.removeAll(removableEffects);
     }
 
     public void addStatusEffect(StatusEffect effect)

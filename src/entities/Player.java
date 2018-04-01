@@ -1,9 +1,9 @@
 package entities;
 
 import control.Map;
-import entities.skills.Fireball;
-import entities.skills.Heal;
-import entities.skills.PoisonDart;
+import skills.Fireball;
+import skills.Heal;
+import skills.PoisonDart;
 import enums.RelicEffect;
 import ui.Messages;
 
@@ -30,12 +30,14 @@ public class Player extends Creature
     private static final int initialRange = 1;
     private static final int initialMaxPhysicalPoints = 40;
     private static final int initialMaxMagicPoints = 50;
+    private static final int initialIntelligence = 8;
+    private static final int initialMagicDefence = 6;
 
 
 	public Player(Map inMap, Messages inMessages, String inName)
 	{
 		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
-				initialLevel, initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints);
+				initialLevel, initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints, initialIntelligence, initialMagicDefence);
 		items = new Vector<Item>();
 		weapon = null;
 		armour = null;

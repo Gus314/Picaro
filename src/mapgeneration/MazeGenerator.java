@@ -88,7 +88,6 @@ public class MazeGenerator
 				player = inPlayer;
 				player.setRow(row);
 				player.setColumn(column);
-				//map.addEntry(player);
 				return;
 			}
 		}
@@ -97,10 +96,10 @@ public class MazeGenerator
 	public void initialiseFactories()
 	{
 		creatureFactories = new Vector<MonsterFactory>();
-		creatureFactories.add(new MonsterFactory('G', 20, 4, 6, 1, 5, 5, 0, 1, "Goblin", map, messages, 20,1, 10, 20));
-		creatureFactories.add(new MonsterFactory('S', 5, 1, 2, 0, 2, 0, 0, 4, "Skirmisher", map, messages, 20,1, 15, 15));
-		creatureFactories.add(new MonsterFactory('O', 40, 4, 6, 2, 10, 10, 0, 1, "Orc", map, messages, 40,2, 0, 20));
-		creatureFactories.add(new MonsterFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2, 0, 10));
+		creatureFactories.add(new MonsterFactory('G', 20, 4, 6, 1, 5, 5, 0, 1, "Goblin", map, messages, 20,1, 10, 20, 4, 4));
+		creatureFactories.add(new MonsterFactory('S', 5, 1, 2, 0, 2, 0, 0, 4, "Skirmisher", map, messages, 20,1, 15, 15, 1, 7));
+		creatureFactories.add(new MonsterFactory('O', 40, 4, 6, 2, 10, 10, 0, 1, "Orc", map, messages, 40,2, 0, 20, 2, 1));
+		creatureFactories.add(new MonsterFactory('E', 50, 6, 8, 5, 15, 15, 0, 1, "Elephant", map, messages, 40,2, 0, 10, 10, 1));
 
 		weaponFactories = new Vector<WeaponFactory>();
 		weaponFactories.add(new WeaponFactory(3, 5, 10, "Sword",1, 1, 1));

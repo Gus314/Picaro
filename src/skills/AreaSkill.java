@@ -1,4 +1,4 @@
-package entities.skills;
+package skills;
 
 import entities.Creature;
 import enums.TargetType;
