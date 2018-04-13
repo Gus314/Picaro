@@ -3,7 +3,6 @@ package ui.inventory;
 import entities.Player;
 import entities.equipment.*;
 import ui.Stats;
-import ui.actions.UseButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -133,6 +132,7 @@ public class ItemPanel extends JPanel
                 itemNum++;
             }
         }
+        usePanel.repaint();
     }
 }
 

@@ -41,7 +41,7 @@ public class MapDisplay extends JPanel
 			double widthRatio = currentWidth / width;
 			int row = (int) Math.round(rows * heightRatio);
 			int column = (int) Math.round(columns * widthRatio);
-			
+
 			return new Coordinate(row, column);
 		}
 

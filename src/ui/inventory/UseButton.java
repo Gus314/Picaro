@@ -1,9 +1,8 @@
-package ui.actions;
+package ui.inventory;
 
 import entities.*;
 import entities.equipment.*;
 import ui.Stats;
-import ui.inventory.InventoryWindow;
 
 import javax.swing.*;
 
@@ -78,7 +77,6 @@ public class UseButton extends JButton
 				items.remove(item);
 			}
 			stats.refresh();
-			invWindow.getUsePanel().remove(useButton);
 			invWindow.refresh();
 		}
 	}
