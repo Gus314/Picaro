@@ -39,8 +39,9 @@ public class MapDisplay extends JPanel
 			double currentWidth = e.getX();
 			double heightRatio = currentHeight / height;
 			double widthRatio = currentWidth / width;
-			int row = (int) Math.floor(rows * heightRatio);
-			int column = (int) Math.floor(columns * widthRatio);
+			int row = (int) Math.round(rows * heightRatio);
+			int column = (int) Math.round(columns * widthRatio);
+			
 			return new Coordinate(row, column);
 		}
 
@@ -386,8 +387,8 @@ public class MapDisplay extends JPanel
 			case AREA:
 			case EXAMINE:
 			{
-				addMouseMotionListener(mapMouseListener);
-				addMouseListener(mapMouseListener);
+				mapPanel.addMouseMotionListener(mapMouseListener);
+				mapPanel.addMouseListener(mapMouseListener);
 		        break;
 			}
 			case NORMAL:
