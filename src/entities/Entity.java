@@ -7,15 +7,18 @@ public abstract class Entity
 	private Character cha;
 	private int row;
 	private int column;
+	private String name;
 	
-	
-	public Entity(Character inCha, int inRow, int inColumn)
+	public Entity(Character inCha, int inRow, int inColumn, String inName)
 	{
 		cha = inCha;
 		row = inRow;
 		column = inColumn;
+		name = inName;
 	}
-	
+
+	public String getName(){return name;}
+
 	public Character getChar()
 	{
 		return cha;

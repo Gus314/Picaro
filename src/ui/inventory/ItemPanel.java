@@ -3,7 +3,7 @@ package ui.inventory;
 import entities.Player;
 import entities.equipment.*;
 import ui.Stats;
-import ui.UseButton;
+import ui.actions.UseButton;
 
 import javax.swing.*;
 import java.awt.*;

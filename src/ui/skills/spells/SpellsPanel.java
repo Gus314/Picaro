@@ -6,7 +6,7 @@ import skills.SelfSkill;
 import skills.Skill;
 import skills.TargetSkill;
 import enums.SkillType;
-import ui.BackButton;
+import ui.actions.BackButton;
 import ui.MainWindow;
 import ui.MapDisplay;
 import ui.Messages;

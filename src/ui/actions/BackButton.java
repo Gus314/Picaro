@@ -1,4 +1,6 @@
-package ui;
+package ui.actions;
+
+import ui.MainWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

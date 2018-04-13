@@ -1,7 +1,8 @@
-package ui;
+package ui.actions;
 
 import entities.*;
 import entities.equipment.*;
+import ui.Stats;
 import ui.inventory.InventoryWindow;
 
 import javax.swing.*;

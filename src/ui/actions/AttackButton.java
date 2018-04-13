@@ -1,13 +1,12 @@
-package ui;
+package ui.actions;
 
-import entities.*;
 import enums.MapDisplayMode;
+import ui.MapDisplay;
 
 import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 public class AttackButton extends JButton
 {

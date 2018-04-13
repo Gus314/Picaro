@@ -41,7 +41,7 @@ public class RoomCell
 
     public void removeConnection(Edge edge)
     {
-        // Used to remove unused connections. TODO: Also remove from connection map?
+        // Used to remove unused connections. TODO: Also remove from connection actions?
         switch(edge)
         {
             case TOP:

@@ -16,7 +16,6 @@ public abstract class Creature extends Entity
     private Map map;
     private Messages messages;
     private int defense;
-    private String name;
     private int maxLife;
     private int life;
     private int minDamage;
@@ -38,11 +37,10 @@ public abstract class Creature extends Entity
     public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp,
                     int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense)
     {
-        super(inCha, inRow, inColumn);
+        super(inCha, inRow, inColumn, inName);
         map = inMap;
         messages = inMessages;
         defense = inDefense;
-        name = inName;
         maxLife = inMaxLife;
         life = inLife;
         minDamage = inMinDamage;
@@ -224,10 +222,6 @@ public abstract class Creature extends Entity
 
     public int getDefense() {
         return defense;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getMaxLife() {

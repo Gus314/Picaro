@@ -30,8 +30,9 @@ public class MapDisplay extends JPanel
 
 		private Coordinate getMouseCoordinate(MouseEvent e)
 		{
-			double height = mapDisplay.getHeight();
-			double width = mapDisplay.getWidth();
+			JPanel mapPanel = mapDisplay.getMapPanel();
+			double height = mapPanel.getHeight();
+			double width = mapPanel.getWidth();
 			double rows = mapDisplay.getMap().getRows();
 			double columns = mapDisplay.getMap().getColumns();
 			double currentHeight = e.getY();
@@ -46,10 +47,11 @@ public class MapDisplay extends JPanel
 		@Override
 		public void mouseClicked(MouseEvent e)
 		{
-			// Button 2 should reset mode.
-			if(e.getButton() == MouseEvent.BUTTON2)
+			// Button 3 should reset mode.
+			if(e.getButton() == MouseEvent.BUTTON3)
 			{
 				highlights.clear();
+				examineLabel.setText("");
 				refresh();
 				mapDisplay.changeMode(MapDisplayMode.NORMAL);
 				return;
@@ -155,9 +157,13 @@ public class MapDisplay extends JPanel
 				map.takeTurns();
 				refresh();
 			}
+			else if(mapDisplay.getMode() == MapDisplayMode.EXAMINE)
+			{
+				// Do nothing.
+			}
 			else
 			{
-				System.out.println("MapDisplay::mouseClicked - unexpected map display mode.");
+				System.out.println("MapDisplay::mouseClicked - unexpected actions display mode.");
 				// TODO: Throw exception.
 			}
 		}
@@ -246,6 +252,25 @@ public class MapDisplay extends JPanel
 					}
 				}
 			}
+			else if(mapDisplay.getMode() == MapDisplayMode.EXAMINE)
+			{
+				highlights.clear();
+				refresh(); // Inefficient.
+				Coordinate coord = getMouseCoordinate(e);
+				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
+				if(ent != null)
+				{
+					boolean permanentlyVisible = map.getPermanentlyVisible().contains(ent);
+					final int lineOfSight = 8; // TODO: Refactor.
+					boolean currentlyVisible = map.isInLineOfSight(player, ent, lineOfSight);
+
+					if(permanentlyVisible || currentlyVisible)
+					{
+						addHighlight(coord, Color.YELLOW);
+						mapDisplay.setExamineText(ent.getName());
+					}
+				}
+			}
 		}
 	}
 
@@ -258,6 +283,10 @@ public class MapDisplay extends JPanel
 	private MapMouseListener mapMouseListener;
 	private Messages messages;
 	private Skill selectedSkill;
+	private JLabel examineLabel;
+    private JPanel mapPanel;
+    private static final String blank = " ";
+    public JPanel getMapPanel(){return mapPanel;}
 
 	public void setSelectedSkill(Skill inSelectedSkill)
 	{
@@ -273,14 +302,18 @@ public class MapDisplay extends JPanel
 	{
 	   highlights.put(coordinate, color);
 	   cells.get(coordinate.getRow()*map.getColumns() + coordinate.getColumn()).setForeground(color);
-	   System.out.println(coordinate.getRow() + "," + coordinate.getColumn());
+		System.out.println(coordinate.getRow() + "," + coordinate.getColumn());
+	}
 
+	public void setExamineText(String text)
+	{
+		examineLabel.setText(text);
 	}
 
 	public void setMap(Map inMap)
 	{
 		map = inMap;
-		this.removeAll();
+		mapPanel.removeAll();
 		cells = new Vector<JLabel>();
 		highlights = new HashMap<Coordinate, Color>();
 		initialise();
@@ -291,9 +324,17 @@ public class MapDisplay extends JPanel
 	public MapDisplay(Map inMap, Player inPlayer, Stats inStats, Messages inMessages)
 	{
 		super();
+
 		mode = MapDisplayMode.NORMAL;
+		setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
+		mapPanel = new JPanel();
 		GridLayout grid = new GridLayout(inMap.getRows(), inMap.getColumns());
-		this.setLayout(grid);
+		mapPanel.setLayout(grid);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.weighty = 50;
+		constraints.gridy = 0;
+		add(mapPanel, constraints);
 		map = inMap;
 		cells = new Vector<JLabel>();
 		initialise();
@@ -301,10 +342,15 @@ public class MapDisplay extends JPanel
 		map.addEntry(player);
 		stats = inStats;
 		mapMouseListener = new MapMouseListener(this);
-		addMouseListener(mapMouseListener);
-		addMouseMotionListener(mapMouseListener);
+		mapPanel.addMouseListener(mapMouseListener);
+		mapPanel.addMouseMotionListener(mapMouseListener);
 		highlights = new HashMap<>();
 		messages = inMessages;
+		examineLabel = new JLabel(" ");
+		examineLabel.setSize(examineLabel.getPreferredSize());
+		constraints.weighty = 1;
+		constraints.gridy = 1;
+		add(examineLabel, constraints);
 		refresh();
 	}
 	
@@ -318,17 +364,17 @@ public class MapDisplay extends JPanel
 		int entries = map.getRows() * map.getColumns();
 		for(int i = 0; i < entries; i++)
 		{
-			JLabel l = new JLabel(" ");
+			JLabel l = new JLabel(blank);
 			cells.add(l);
-			this.add(l);
+			mapPanel.add(l);
 		}
 	}
 
 	public void changeMode(MapDisplayMode inMapDisplayMode)
 	{
 		getParent().getParent().requestFocus();
-        removeMouseListener(mapMouseListener);
-        removeMouseMotionListener(mapMouseListener);
+		mapPanel.removeMouseListener(mapMouseListener);
+		mapPanel.removeMouseMotionListener(mapMouseListener);
 		highlights.clear();
 		mode = inMapDisplayMode;
 		refresh();
@@ -338,6 +384,7 @@ public class MapDisplay extends JPanel
 			case ATTACK:
 			case TARGET:
 			case AREA:
+			case EXAMINE:
 			{
 				addMouseMotionListener(mapMouseListener);
 				addMouseListener(mapMouseListener);
@@ -360,7 +407,7 @@ public class MapDisplay extends JPanel
 		int numEntries = map.getRows() * map.getColumns();
 		for(int i = 0; i < numEntries; i++)
 		{
-			cells.get(i).setText(" ");
+			cells.get(i).setText(blank);
 		}
 
 		final int sightRadius = 8;
@@ -377,7 +424,7 @@ public class MapDisplay extends JPanel
 			if(! (visibleEntries.contains(ent) || permanentlyVisible.contains(ent)) )
 			{
 				// Do not draw invisible entries;
-				cells.get(position).setText(" ");
+				cells.get(position).setText(blank);
 				continue;
 			}
 
@@ -385,7 +432,7 @@ public class MapDisplay extends JPanel
 			{
 				entries.remove(ent);
 			}
-			else if((!(ent instanceof Floor)) || cells.get(position).getText().equals(" "))
+			else if((!(ent instanceof Floor)) || cells.get(position).getText().equals(blank))
 			{
 				cells.get(position).setText(ent.getChar().toString());
 			}

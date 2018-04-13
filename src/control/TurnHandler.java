@@ -26,7 +26,7 @@ public class TurnHandler
         dm = inDm;
     }
 
-    private void update()
+    public void update()
     {
         mapDisplay.refresh();
         invWind.refresh();
@@ -107,6 +107,22 @@ public class TurnHandler
         return column;
     }
 
+    public void changeLevel()
+    {
+        Entity ent = map.atPosition(player.getRow(), player.getColumn());
+
+        if(ent instanceof DownStairs)
+        {
+            nextLevel();
+            return;
+        }
+        else if(ent instanceof UpStairs)
+        {
+            previousLevel();
+            return;
+        }
+    }
+
     public void movePlayer(Direction direction)
     {
         int row = player.getRow();
@@ -126,17 +142,8 @@ public class TurnHandler
 
         ent = map.atPosition(player.getRow(), player.getColumn());
         if(ent instanceof Item)
+        {
             pickUp((Item)ent);
-
-        if(ent instanceof DownStairs)
-        {
-            nextLevel();
-            return;
-        }
-        else if(ent instanceof UpStairs)
-        {
-            previousLevel();
-            return;
         }
 
         map.takeTurns();

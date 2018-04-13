@@ -84,7 +84,7 @@ public class MazeGenerator
 		positionPlayer(inPlayer, data);
 		MazeFactories mazeFactories = new MazeFactories(map, messages, inPlayer);
 
-		// TODO: Update map in factories!
+		// TODO: Update actions in factories!
 		addEntities(level, mazeFactories, data);
 		addStairs(level, data);
 
