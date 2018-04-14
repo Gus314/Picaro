@@ -26,8 +26,10 @@ public class BackButton extends JButton
             backButton = inBackButton;
         }
 
-        public void actionPerformed(ActionEvent ae) {
+        public void actionPerformed(ActionEvent ae)
+        {
             mainWindow.showActions();
+            mainWindow.repaint();
         }
     }
 }

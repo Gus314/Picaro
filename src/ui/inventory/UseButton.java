@@ -24,17 +24,12 @@ public class UseButton extends JButton
 		invWindow = inInvWindow;
 		stats = inStats;
 		this.setText("Use " + item.getName());
-		this.addActionListener(new UseListener(this));
+		this.addActionListener(new UseListener());
 	}
 	
 	public class UseListener implements ActionListener
 	{
-		private UseButton useButton;
-		
-		public UseListener(UseButton inUseButton)
-		{
-			useButton = inUseButton;
-		}
+		public UseListener() { }
 		
 		public void actionPerformed(ActionEvent ae)
 		{

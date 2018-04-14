@@ -27,6 +27,7 @@ public class MainWindow extends JTabbedPane
 		techniquesPanel.refresh();
 		mainPanel.add(techniquesPanel);
 		mainPanel.remove(actions);
+		repaint();
 	}
 
 	public void showSpells()
@@ -34,6 +35,7 @@ public class MainWindow extends JTabbedPane
 		spellsPanel.refresh();
 		mainPanel.add(spellsPanel);
 		mainPanel.remove(actions);
+		repaint();
 	}
 
 	public void showActions()
@@ -42,6 +44,7 @@ public class MainWindow extends JTabbedPane
 		mainPanel.remove(techniquesPanel);
 		mainPanel.remove(spellsPanel);
 		requestFocus();
+		repaint();
 	}
 
 	public MainWindow()

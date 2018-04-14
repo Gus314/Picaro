@@ -12,6 +12,7 @@ public class ItemPanel extends JPanel
 {
     private JPanel itemPanel;
     private JPanel usePanel;
+    private JPanel dropPanel;
     private JPanel invPanel;
     private JTable itemsTable;
     private Player player;
@@ -32,15 +33,19 @@ public class ItemPanel extends JPanel
         inventoryWindow = inInventoryWindow;
 
         usePanel = new JPanel();
+        dropPanel = new JPanel();
         invPanel = new JPanel();
         usePanel.setLayout(new GridLayout(itemsPerPage, 1));
-        invPanel.setLayout(new GridLayout(1, 2));
+        dropPanel.setLayout(new GridLayout(itemsPerPage, 1));
+        invPanel.setLayout(new GridLayout(1, 3));
         add(invPanel);
 
         itemPanel = new JPanel();
         invPanel.add(itemPanel);
         invPanel.add(usePanel);
+        invPanel.add(dropPanel);
         usePanel.add(new JLabel("Use"));
+        dropPanel.add(new JLabel("Drop"));
         itemPanel.add(new JLabel("Items:"));
         itemsTable = new JTable(itemsPerPage+1, numColumns);
         itemPanel.add(itemsTable);
@@ -69,6 +74,9 @@ public class ItemPanel extends JPanel
         }
         usePanel.removeAll();
         usePanel.add(new JLabel("Use"));
+
+        dropPanel.removeAll();
+        dropPanel.add(new JLabel("Drop"));
 
         if(items.size() > 0)
         {
@@ -128,11 +136,13 @@ public class ItemPanel extends JPanel
                     itemsTable.setValueAt(0, itemNum+1, 9);
                 }
                 usePanel.add(new UseButton(item, player, inventoryWindow, stats));
+                dropPanel.add(new DropButton(item, player, inventoryWindow));
 
                 itemNum++;
             }
         }
         usePanel.repaint();
+        dropPanel.repaint();
     }
 }
 
