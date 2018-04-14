@@ -53,6 +53,8 @@ public class Player extends Creature
 		addSkill(new Heal());
 	}
 
+	public boolean passable(){return false;}
+
 	public boolean blocksLineOfSight(){ return true;}
 
 	public void addItem(Item inItem)

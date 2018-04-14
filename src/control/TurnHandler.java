@@ -7,6 +7,9 @@ import ui.inventory.InventoryWindow;
 import ui.MapDisplay;
 import ui.Messages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TurnHandler
 {
     private Player player;
@@ -109,17 +112,20 @@ public class TurnHandler
 
     public void changeLevel()
     {
-        Entity ent = map.atPosition(player.getRow(), player.getColumn());
+        List<Entity> here = map.atPosition(player.getRow(), player.getColumn());
 
-        if(ent instanceof DownStairs)
+        for(Entity ent: here)
         {
-            nextLevel();
-            return;
-        }
-        else if(ent instanceof UpStairs)
-        {
-            previousLevel();
-            return;
+            if(ent instanceof DownStairs)
+            {
+                nextLevel();
+                return;
+            }
+            else if(ent instanceof UpStairs)
+            {
+                previousLevel();
+                return;
+            }
         }
     }
 
@@ -128,22 +134,28 @@ public class TurnHandler
         int row = player.getRow();
         int column = player.getColumn();
 
-        Entity ent = map.atPosition(adjustRow(direction, row), adjustColumn(direction, column));
-        if(ent == null || ent instanceof Item || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Floor)
-            player.move(direction, 1);
-        else if(ent instanceof Monster)
+        List<Entity> here = map.atPosition(adjustRow(direction, row), adjustColumn(direction, column));
+        if(Entity.passable(here))
         {
-            boolean killed = player.attack((Monster)ent);
+            player.move(direction, 1);
+        }
+        else if(Entity.containsMonster(here))
+        {
+            Monster monster = Entity.getMonster(here);
+            boolean killed = player.attack(monster);
             if(killed)
             {
-                map.removeEntity(ent);
+                map.removeEntity(monster);
             }
         }
 
-        ent = map.atPosition(player.getRow(), player.getColumn());
-        if(ent instanceof Item)
+        here = map.atPosition(player.getRow(), player.getColumn());
+
+        List<Item> items = Entity.getItems(here);
+
+        for(Item item: items)
         {
-            pickUp((Item)ent);
+            pickUp(item);
         }
 
         map.takeTurns();

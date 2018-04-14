@@ -19,4 +19,6 @@ public abstract class Item extends Entity
 	public int getMaxLevel(){return maxLevel;}
 
 	public boolean blocksLineOfSight(){ return false;}
+
+	public boolean passable(){return true;}
 }

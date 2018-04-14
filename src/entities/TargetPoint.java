@@ -8,4 +8,6 @@ public class TargetPoint extends Entity
     }
 
     public boolean blocksLineOfSight(){ return true;}
+
+    public boolean passable(){return true;}
 }

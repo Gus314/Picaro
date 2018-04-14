@@ -7,7 +7,7 @@ import skills.AreaSkill;
 import skills.Skill;
 import skills.TargetSkill;
 import enums.MapDisplayMode;
-
+import java.util.List;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
@@ -61,15 +61,17 @@ public class MapDisplay extends JPanel
 			if(mapDisplay.getMode() == MapDisplayMode.ATTACK)
 			{
 				Coordinate coord = getMouseCoordinate(e);
-				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
-				if(ent instanceof Monster)
+				List<Entity> here = map.atPosition(coord.getRow(), coord.getColumn());
+				if(Entity.containsMonster(here))
 				{
-                   if(map.isInLineOfSight(player, ent, player.getRange()))
+					Monster monster  =Entity.getMonster(here);
+
+                   if(map.isInLineOfSight(player, monster, player.getRange()))
 				   {
-				      boolean killed = player.attack((Monster)ent);
+				      boolean killed = player.attack(monster);
 				      if(killed)
 					  {
-					  	map.removeEntity(ent);
+					  	map.removeEntity(monster);
 					  }
 					   mapDisplay.changeMode(MapDisplayMode.NORMAL);
 				   }
@@ -80,12 +82,12 @@ public class MapDisplay extends JPanel
 			else if(mapDisplay.getMode() == MapDisplayMode.TARGET)
 			{
 				Coordinate coord = getMouseCoordinate(e);
-				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
-				if (ent instanceof Monster)
+				List<Entity> here = map.atPosition(coord.getRow(), coord.getColumn());
+				if (Entity.containsMonster(here))
 				{
-					if (map.isInLineOfSight(player, ent, ((TargetSkill) selectedSkill).getRange()))
+					Monster monster = Entity.getMonster(here);
+					if (map.isInLineOfSight(player, monster, ((TargetSkill) selectedSkill).getRange()))
 					{
-						Monster monster = (Monster) ent;
 						messages.addMessage(((TargetSkill) selectedSkill).action(player, monster));
 						if (monster.getLife() <= 0) {
 							player.killed(monster);
@@ -106,7 +108,7 @@ public class MapDisplay extends JPanel
 
                 ArrayList<Creature> monsters = new ArrayList<Creature>();
 
-                Entity centralEntity =  map.atPosition(coord.getRow(), coord.getColumn());
+                Entity centralEntity =  map.atPosition(coord.getRow(), coord.getColumn()).get(0);
                 boolean floorTargeted = false;
 				if(centralEntity == null)
 				{
@@ -132,10 +134,10 @@ public class MapDisplay extends JPanel
 				{
 					for(int j = -radius; j < radius; j++)
 					{
-						Entity ent = map.atPosition(coord.getRow()+i, coord.getColumn()+j);
-						if(ent != null && ent instanceof Monster)
+						Monster monster = Entity.getMonster(map.atPosition(coord.getRow()+i, coord.getColumn()+j));
+						if(monster != null)
 						{
-							monsters.add((Monster)ent);
+							monsters.add(monster);
 						}
 					}
 				}
@@ -192,7 +194,7 @@ public class MapDisplay extends JPanel
 				TargetSkill targetSkill = (TargetSkill) selectedSkill;
 				int range = (mapDisplay.getMode() == MapDisplayMode.ATTACK) ? player.getRange() : targetSkill.getRange();
 				Coordinate coord = getMouseCoordinate(e);
-				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
+				Entity ent = map.atPosition(coord.getRow(), coord.getColumn()).get(0); //?
 				if(ent != null)
 				{
 					highlights.clear();
@@ -218,7 +220,7 @@ public class MapDisplay extends JPanel
 				Coordinate coord = getMouseCoordinate(e);
 
                 boolean floorTargeted = false;
-				Entity centreEntity = map.atPosition(coord.getRow(), coord.getColumn());
+				Entity centreEntity = map.atPosition(coord.getRow(), coord.getColumn()).get(0);
 				if(centreEntity == null)
 				{
 					// Use the floor as the central target.
@@ -238,7 +240,7 @@ public class MapDisplay extends JPanel
 					for(int j = -radius; j < radius; j++)
 					{
 						Coordinate adjustedCoord = new Coordinate(coord.getRow() + i, coord.getColumn() + j);
-						Entity ent = map.atPosition(adjustedCoord.getRow(), adjustedCoord.getColumn());
+						Entity ent = map.atPosition(adjustedCoord.getRow(), adjustedCoord.getColumn()).get(0);
 						if(ent != null)
 						{
 							if(centreInRange)
@@ -258,7 +260,7 @@ public class MapDisplay extends JPanel
 				highlights.clear();
 				refresh(); // Inefficient.
 				Coordinate coord = getMouseCoordinate(e);
-				Entity ent = map.atPosition(coord.getRow(), coord.getColumn());
+				Entity ent = map.atPosition(coord.getRow(), coord.getColumn()).get(0);
 				if(ent != null)
 				{
 					boolean permanentlyVisible = map.getPermanentlyVisible().contains(ent);

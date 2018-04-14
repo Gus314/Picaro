@@ -10,4 +10,6 @@ public class Floor extends Entity
     }
 
     public boolean blocksLineOfSight(){ return false;}
+
+    public boolean passable(){return true;}
 }

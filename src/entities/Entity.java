@@ -1,6 +1,10 @@
 package entities;
 
+import entities.equipment.Item;
 import enums.Direction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Entity
 {
@@ -45,6 +49,62 @@ public abstract class Entity
 	}
 
 	public abstract boolean blocksLineOfSight();
+
+	public abstract boolean passable();
+
+	public static boolean passable(List<Entity> entities)
+	{
+		for(Entity ent: entities)
+		{
+			if(!ent.passable())
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static boolean containsMonster(List<Entity> entities)
+	{
+		for(Entity ent: entities)
+		{
+			if(ent instanceof Monster)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public static Monster getMonster(List<Entity> entities)
+	{
+		for(Entity ent: entities)
+		{
+			if(ent instanceof Monster)
+			{
+				return (Monster)ent;
+			}
+		}
+
+		return null;
+	}
+
+	// TODO: Refactor to be generic.
+	public static List<Item> getItems(List<Entity> entities)
+	{
+		List<Item> result = new ArrayList<>();
+
+		for(Entity ent: entities)
+		{
+			if(ent instanceof Item)
+			{
+				result.add((Item) ent);
+			}
+		}
+		return result;
+	}
 
 	public void move(Direction direction, int amount)
 	{

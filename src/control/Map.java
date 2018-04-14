@@ -5,6 +5,7 @@ import enums.Quadrant;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class Map 
 {
@@ -46,14 +47,17 @@ public class Map
 		mapEntries.add(ent);
 	}
 
-	public Entity atPosition(int row, int column)
+	public List<Entity> atPosition(int row, int column)
 	{
+		List<Entity> result = new ArrayList<Entity>();
 		for(Entity ent: mapEntries)
 		{
 			if(ent.getRow() == row && ent.getColumn() == column && (!(ent instanceof Floor)))
-				return ent;
+			{
+				result.add(ent);
+			};
 		}
-		return null;
+		return result;
 	}
 
 	public boolean isInLineOfSight(Entity source, Entity target, int radius)
@@ -87,6 +91,8 @@ public class Map
 
 		for(int angle = 0; angle < 360; angle++)
 		{
+			boolean blocked = false;
+
 			double angleRads = (angle / 180.0) * pi;
 			int row = initialRow;
 			int column = initialColumn;
@@ -122,18 +128,26 @@ public class Map
 								  (quadrant == Quadrant.Q3) ? column - columnShift :
 										                      column + rowShift;
 
-				Entity here = atPosition(movedRow, movedColumn);
+				List<Entity> here = atPosition(movedRow, movedColumn);
 				if( (here != null))
 				{
-					result.add(here);
-					if((source instanceof Player) && isPermanentlyVisible(here))
+					result.addAll(here);
+					for(Entity ent: here)
 					{
-						permanentlyVisible.add(here);
+						if((source instanceof Player) && isPermanentlyVisible(ent))
+						{
+							permanentlyVisible.add(ent);
+						}
+						if(ent.blocksLineOfSight())
+						{
+							blocked = true;
+						}
 					}
-					if(here.blocksLineOfSight())
-					{
-						break;
-					}
+				}
+
+				if(blocked)
+				{
+					break;
 				}
 			}
 		}

@@ -5,6 +5,7 @@ import control.Map;
 import ui.Messages;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import enums.Direction;
@@ -13,6 +14,8 @@ public class Monster extends Creature
 {
 	private int minLevel;
 	private int maxLevel;
+
+	public boolean passable(){return false;}
 
 	public Monster(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance,
 				   int inAbsorbChance, int inRange, int inExp, int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense, int inMinLevel, int inMaxLevel)
@@ -44,8 +47,8 @@ public class Monster extends Creature
 
 		for(Direction direction: Direction.values())
 		{
-			Entity existing = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-			if(existing == null || existing instanceof Floor)
+			List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
+			if(Entity.passable(here))
 			{
 				return true;
 			}
@@ -91,8 +94,8 @@ public class Monster extends Creature
 				int index = Controller.getGenerator().nextInt(directions.size());
 				Direction direction = directions.remove(index);
 
-				Entity existing = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-				if(existing == null || existing instanceof Floor)
+				List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
+				if(Entity.passable(here))
 				{
 					move(direction, 1);
 					break;
