@@ -260,9 +260,10 @@ public class MapDisplay extends JPanel
 				highlights.clear();
 				refresh(); // Inefficient.
 				Coordinate coord = getMouseCoordinate(e);
-				Entity ent = map.atPosition(coord.getRow(), coord.getColumn()).get(0);
-				if(ent != null)
+				List<Entity> here = map.atPosition(coord.getRow(), coord.getColumn());
+				if(here.size() > 0)
 				{
+					Entity ent = here.get(0);
 					boolean permanentlyVisible = map.getPermanentlyVisible().contains(ent);
 					final int lineOfSight = 8; // TODO: Refactor.
 					boolean currentlyVisible = map.isInLineOfSight(player, ent, lineOfSight);

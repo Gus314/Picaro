@@ -65,18 +65,6 @@ public class Map
 		return lineOfSight(source, radius).contains(target);
 	}
 
-	public Entity find(Coordinate coordinate)
-	{
-		for(Entity ent: mapEntries)
-		{
-			if(ent.getRow() == coordinate.getRow() && ent.getColumn() == coordinate.getColumn())
-			{
-				return ent;
-			}
-		}
-		return null; // Todo: Throw exception.
-	}
-
 	public HashSet<Entity> lineOfSight(Entity source, int radius)
 	{
 		HashSet<Entity> result = new HashSet<>();

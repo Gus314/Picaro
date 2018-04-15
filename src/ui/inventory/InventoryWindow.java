@@ -12,20 +12,17 @@ public class InventoryWindow extends JPanel
 {
 	private Player player;
 	private Stats stats;
+	private control.Map map;
 	private Map<ArmourType, ArmourPanel> armourPanels;
 	private WeaponPanel weaponPanel;
 	private RelicPanel relicPanel;
 	private ItemPanel itemPanel;
 	private JPanel overviewPanel;
 
-	public JPanel getUsePanel()
-	{
-		return itemPanel.getUsePanel();
-	}
-
-	public InventoryWindow(Player inPlayer, Stats inStats)
+	public InventoryWindow(Player inPlayer, Stats inStats, control.Map inMap)
 	{
 		this.setLayout(new GridLayout(2,1));
+		map = inMap; // Only requires interface to add item?
 
 		overviewPanel = new JPanel();
 		overviewPanel.setLayout(new GridLayout(6,1));
@@ -36,7 +33,7 @@ public class InventoryWindow extends JPanel
 		armourPanels = new HashMap<ArmourType, ArmourPanel>();
         weaponPanel = new WeaponPanel(player.getWeapon());
         relicPanel = new RelicPanel(player.getRelic());
-        itemPanel = new ItemPanel(player, stats, this);
+        itemPanel = new ItemPanel(player, stats, this, map);
 
 		overviewPanel.add(weaponPanel);
 		for(ArmourType armourType: ArmourType.values())

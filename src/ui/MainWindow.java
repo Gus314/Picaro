@@ -66,7 +66,7 @@ public class MainWindow extends JTabbedPane
 		Map map = dm.getMap();
 		Stats stats = new Stats(player);
 
-		InventoryWindow invWind = new InventoryWindow(player, stats);
+		InventoryWindow invWind = new InventoryWindow(player, stats, map);
 		this.addTab("Inventory", invWind);
 		mapDisplay = new MapDisplay(map, player, stats, messages);
 		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm);
