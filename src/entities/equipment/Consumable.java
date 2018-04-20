@@ -25,16 +25,44 @@ public class Consumable extends Item
 		switch(type)
 		{
 			case RestoreHP:
-			int oldLife = player.getLife();
-			int newLife = oldLife + amount;
-			int maxLife = player.getMaxLife();
+			{
+				int oldLife = player.getLife();
+				int newLife = oldLife + amount;
+				int maxLife = player.getMaxLife();
 
-			if(newLife > maxLife)
-				newLife = maxLife;
-			player.setLife(newLife);
-			messages.addMessage("You were healed for " + ((Integer)(newLife - oldLife)).toString() + " hp!");
-			player.getItems().remove(this);
-			break;
+				if (newLife > maxLife)
+					newLife = maxLife;
+				player.setLife(newLife);
+				messages.addMessage("You were healed for " + ((Integer) (newLife - oldLife)).toString() + " hp!");
+				player.getItems().remove(this);
+				break;
+			}
+			case RestorePP:
+			{
+				int oldPp = player.getPhysicalPoints();
+				int newPp = oldPp + amount;
+				int maxPp = player.getMaxPhysicalPoints();
+
+				if (newPp > maxPp)
+					newPp = maxPp;
+				player.setPhysicalPoints(newPp);
+				messages.addMessage("You were healed for " + ((Integer) (newPp - oldPp)).toString() + " pp!");
+				player.getItems().remove(this);
+				break;
+			}
+			case RestoreMP:
+			{
+				int oldMp = player.getMagicPoints();
+				int newMp = oldMp + amount;
+				int maxMp = player.getMaxMagicPoints();
+
+				if (newMp > maxMp)
+					newMp = maxMp;
+				player.setLife(newMp);
+				messages.addMessage("You were healed for " + ((Integer) (newMp - oldMp)).toString() + " mp!");
+				player.getItems().remove(this);
+				break;
+			}
 		}
 	}
 }
