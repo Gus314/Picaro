@@ -6,25 +6,21 @@ import javax.swing.*;
 
 public class Messages extends JPanel
 {
-	private Vector<JLabel> messages;
-	
+	private JTextArea text;
+	private JScrollPane scrollPane;
+
 	public Messages()
 	{
 		super();
-		GridLayout grid = new GridLayout(5, 1);
-		this.setLayout(grid);
-		messages = new Vector<JLabel>();
+		text = new JTextArea();
+		text.setColumns(200);
+		text.setRows(12);
+		scrollPane = new JScrollPane(text);
+		add(scrollPane);
 	}
 	
 	public void addMessage(String s)
 	{
-		JLabel l = new JLabel(s);
-		this.add(l);
-		messages.add(l);
-		if(messages.size() > 5)
-		{
-
-			this.remove(messages.remove(0));
-		}
+		text.append(s + '\n');
 	}
 }
