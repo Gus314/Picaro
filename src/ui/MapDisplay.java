@@ -220,13 +220,18 @@ public class MapDisplay extends JPanel
 				Coordinate coord = getMouseCoordinate(e);
 
                 boolean floorTargeted = false;
-				Entity centreEntity = map.atPosition(coord.getRow(), coord.getColumn()).get(0);
-				if(centreEntity == null)
+				List<Entity> centreEntities = map.atPosition(coord.getRow(), coord.getColumn());
+				Entity centreEntity = null;
+				if(centreEntities.size() == 0)
 				{
 					// Use the floor as the central target.
 					centreEntity = new TargetPoint(coord.getRow(), coord.getColumn());
 					map.addEntry(centreEntity);
 					floorTargeted = true;
+				}
+				else
+				{
+					centreEntity = centreEntities.get(0);
 				}
 
 				boolean centreInRange = map.isInLineOfSight(player, centreEntity, range);
@@ -240,8 +245,9 @@ public class MapDisplay extends JPanel
 					for(int j = -radius; j < radius; j++)
 					{
 						Coordinate adjustedCoord = new Coordinate(coord.getRow() + i, coord.getColumn() + j);
-						Entity ent = map.atPosition(adjustedCoord.getRow(), adjustedCoord.getColumn()).get(0);
-						if(ent != null)
+						List<Entity> entities = map.atPosition(adjustedCoord.getRow(), adjustedCoord.getColumn());
+
+						if(entities.size() != 0)
 						{
 							if(centreInRange)
 							{
@@ -369,6 +375,9 @@ public class MapDisplay extends JPanel
 		for(int i = 0; i < entries; i++)
 		{
 			JLabel l = new JLabel(blank);
+			l.setBackground(Color.BLACK);
+			l.setForeground(Color.WHITE);
+			l.setOpaque(true);
 			cells.add(l);
 			mapPanel.add(l);
 		}
@@ -447,7 +456,7 @@ public class MapDisplay extends JPanel
 			}
 			else
 			{
-				cells.get(position).setForeground(Color.BLACK);
+				cells.get(position).setForeground(Color.WHITE);
 			}
 		}
 		stats.refresh();
