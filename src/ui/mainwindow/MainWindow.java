@@ -10,8 +10,7 @@ import ui.skills.techniques.TechniquesPanel;
 
 import javax.swing.*;
 
-import java.awt.GridLayout;
-import java.awt.Font;
+import java.awt.*;
 
 public class MainWindow extends JTabbedPane
 {
@@ -34,7 +33,12 @@ public class MainWindow extends JTabbedPane
 	public void showTechniques()
 	{
 		techniquesPanel.refresh();
-		mainPanel.add(techniquesPanel);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1;
+		constraints.weighty = 25;
+		constraints.gridy = 2;
+		mainPanel.add(techniquesPanel, constraints);
 		mainPanel.remove(actions);
 		repaint();
 	}
@@ -42,14 +46,24 @@ public class MainWindow extends JTabbedPane
 	public void showSpells()
 	{
 		spellsPanel.refresh();
-		mainPanel.add(spellsPanel);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1;
+		constraints.weighty = 25;
+		constraints.gridy = 2;
+		mainPanel.add(spellsPanel, constraints);
 		mainPanel.remove(actions);
 		repaint();
 	}
 
 	public void showActions()
 	{
-		mainPanel.add(actions);
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1;
+		constraints.weighty = 25;
+		constraints.gridy = 2;
+		mainPanel.add(actions, constraints);
 		mainPanel.remove(techniquesPanel);
 		mainPanel.remove(spellsPanel);
 		requestFocus();
@@ -67,14 +81,19 @@ public class MainWindow extends JTabbedPane
 		InventoryWindow invWind = new InventoryWindow(player, stats, map);
 		this.addTab("Inventory", invWind);
 		mapDisplay = new MapDisplay(map, player, stats, messages);
-		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm, options);
-		Mover mover = new Mover(turnHandler);
-		this.addKeyListener(mover);
-		mainPanel.add(mapDisplay);
-		dm.setMapDisplay(mapDisplay);
-		JPanel infoPanel = new JPanel();
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1;
+		constraints.weighty = 50;
+		constraints.gridy = 0;
 
-		mainPanel.add(infoPanel);
+		mainPanel.add(mapDisplay, constraints);
+		dm.setMapDisplay(mapDisplay);
+
+		JPanel infoPanel = new JPanel();
+		constraints.weighty = 30;
+		constraints.gridy = 1;
+		mainPanel.add(infoPanel, constraints);
 		infoPanel.setLayout(new GridLayout(3,1));
 		infoPanel.add(optionsPanel);
 		infoPanel.add(stats);
@@ -82,6 +101,10 @@ public class MainWindow extends JTabbedPane
 
 		techniquesPanel = new TechniquesPanel(this, player, mapDisplay, messages);
 		spellsPanel = new SpellsPanel(this, player, mapDisplay, messages);
+
+		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm, options);
+		Mover mover = new Mover(turnHandler);
+		this.addKeyListener(mover);
 		actions = new Actions(mapDisplay, this, turnHandler);
 		showActions();
 
@@ -100,8 +123,7 @@ public class MainWindow extends JTabbedPane
 
 		mainPanel = new JPanel();
 		this.addTab("Game", mainPanel);
-
-		mainPanel.setLayout(new GridLayout(3,1));
+		mainPanel.setLayout(new GridBagLayout());
 
 		options = new Options(false);
 		optionsPanel = new OptionsPanel(options);
