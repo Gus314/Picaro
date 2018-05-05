@@ -2,7 +2,7 @@ package ui.inventory;
 
 import entities.*;
 import entities.equipment.*;
-import ui.Stats;
+import ui.mainwindow.Stats;
 
 import javax.swing.*;
 

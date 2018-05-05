@@ -2,7 +2,7 @@ package entities.equipment;
 
 import entities.Player;
 import enums.ConsumableType;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 public class Consumable extends Item
 {	

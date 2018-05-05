@@ -1,8 +1,7 @@
 package control;
 
-import ui.MainWindow;
+import ui.RootFrame;
 
-import javax.swing.*;
 import java.util.Random;
 
 public class Controller 
@@ -13,11 +12,7 @@ public class Controller
 
 	public static void main(String args[])
 	{
-		MainWindow mw = new MainWindow();
-		JFrame frame = new JFrame();
-		frame.setContentPane(mw);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		RootFrame rootFrame = new RootFrame();
+        rootFrame.changeToTitleScreen();
 	}
 }

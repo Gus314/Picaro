@@ -1,4 +1,4 @@
-package ui;
+package ui.mainwindow;
 
 import entities.Player;
 
@@ -8,6 +8,11 @@ import javax.swing.*;
 public class Stats extends JPanel
 {	
 	private Player player;
+
+	private JLabel name;
+	private JLabel race;
+	private JLabel pclass;
+
 	private JLabel hp;
 	private JLabel pp;
 	private JLabel mp;
@@ -25,9 +30,18 @@ public class Stats extends JPanel
 	public Stats(Player inPlayer)
 	{
 		super();
-		GridLayout grid = new GridLayout(5, 6);
+		GridLayout grid = new GridLayout(6, 6);
 		this.setLayout(grid);
 		player = inPlayer;
+		this.add(new JLabel("Name="));
+		name = new JLabel(player.getName());
+		this.add(name);
+		this.add(new JLabel("Race="));
+		race = new JLabel("race");
+		this.add(race);
+		this.add(new JLabel("Class="));
+		pclass = new JLabel("class");
+		this.add(pclass);
 		this.add(new JLabel("HP="));
 		hp = new JLabel(((Integer)(player.getLife())).toString() + "/" + ((Integer)(player.getMaxLife())).toString() );
 		this.add(hp);
@@ -71,6 +85,7 @@ public class Stats extends JPanel
 
 	public void refresh()
 	{
+		// name, class and race do not change.
 		hp.setText(((Integer)(player.getLife())).toString() + "/" + ((Integer)(player.getMaxLife())).toString());
 		pp.setText(((Integer)(player.getPhysicalPoints())).toString() + "/" + ((Integer)(player.getMaxPhysicalPoints())).toString());
 		mp.setText(((Integer)(player.getMagicPoints())).toString() + "/" + ((Integer)(player.getMaxMagicPoints())).toString());

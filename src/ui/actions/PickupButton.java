@@ -1,8 +1,6 @@
 package ui.actions;
 
 import control.TurnHandler;
-import enums.MapDisplayMode;
-import ui.MapDisplay;
 
 import javax.swing.*;
 

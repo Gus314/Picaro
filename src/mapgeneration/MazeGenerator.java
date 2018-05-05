@@ -10,7 +10,7 @@ import entities.UpStairs;
 import entities.factories.*;
 import enums.FloorType;
 import enums.MapElementType;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 public class MazeGenerator 
 {

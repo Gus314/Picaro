@@ -1,4 +1,4 @@
-package ui;
+package ui.mainwindow;
 
 import java.awt.GridLayout;
 import java.util.Vector;

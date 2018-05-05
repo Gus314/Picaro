@@ -3,8 +3,8 @@ package ui.skills;
 import entities.Player;
 import enums.MapDisplayMode;
 import skills.SelfSkill;
-import ui.MapDisplay;
-import ui.Messages;
+import ui.mainwindow.MapDisplay;
+import ui.mainwindow.Messages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

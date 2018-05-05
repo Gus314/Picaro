@@ -6,7 +6,7 @@ import skills.Skill;
 import statuses.StatusEffect;
 import statuses.TemporaryStatusEffect;
 import enums.SkillType;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 import java.util.ArrayList;
 import java.util.List;

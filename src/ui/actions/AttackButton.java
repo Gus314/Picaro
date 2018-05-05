@@ -1,7 +1,7 @@
 package ui.actions;
 
 import enums.MapDisplayMode;
-import ui.MapDisplay;
+import ui.mainwindow.MapDisplay;
 
 import javax.swing.*;
 

@@ -10,7 +10,7 @@ import skills.Fireball;
 import skills.Heal;
 import skills.PoisonDart;
 import enums.RelicEffect;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 import java.util.HashMap;
 import java.util.Vector;

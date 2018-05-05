@@ -1,10 +1,8 @@
-package ui;
+package ui.mainwindow;
 
-import control.DungeonManager;
-import control.Map;
-import control.Options;
-import control.TurnHandler;
+import control.*;
 import entities.Player;
+import ui.RootFrame;
 import ui.actions.Actions;
 import ui.inventory.InventoryWindow;
 import ui.skills.spells.SpellsPanel;
@@ -17,11 +15,21 @@ import java.awt.Font;
 
 public class MainWindow extends JTabbedPane
 {
+	private RootFrame rootFrame;
 	private JPanel mainPanel;
 	private Actions actions;
 	private TechniquesPanel techniquesPanel;
 	private SpellsPanel spellsPanel;
 	private MapDisplay mapDisplay;
+
+	private Messages messages;
+	private OptionsPanel optionsPanel;
+	private Options options;
+
+	public RootFrame getRootFrame()
+	{
+		return rootFrame;
+	}
 
 	public void showTechniques()
 	{
@@ -48,24 +56,9 @@ public class MainWindow extends JTabbedPane
 		repaint();
 	}
 
-	public MainWindow()
+	public void start(PlayerInitialData playerInitialData)
 	{
-		UIDefaults uid = UIManager.getDefaults();
-		Font font = uid.getFont("Label.font");
-		Font newFont = new Font(font.getName(), font.getStyle(), 10);
-		uid.put("Label.font", newFont);
-
-		mainPanel = new JPanel();
-		this.addTab("Game", mainPanel);
-
-		mainPanel.setLayout(new GridLayout(3,1));
-
-		Options options = new Options(false);
-		OptionsPanel optionsPanel = new OptionsPanel(options);
-
-		Messages messages = new Messages();
-
-		DungeonManager dm = new DungeonManager(messages);
+		DungeonManager dm = new DungeonManager(messages, playerInitialData);
 		dm.nextLevel();
 		Player player = dm.getPlayer();
 		Map map = dm.getMap();
@@ -95,5 +88,23 @@ public class MainWindow extends JTabbedPane
 		messages.addMessage("A new game has begun!");
 
 		this.setVisible(true);
+	}
+
+	public MainWindow(RootFrame inRootFrame)
+	{
+		rootFrame = inRootFrame;
+		UIDefaults uid = UIManager.getDefaults();
+		Font font = uid.getFont("Label.font");
+		Font newFont = new Font(font.getName(), font.getStyle(), 10);
+		uid.put("Label.font", newFont);
+
+		mainPanel = new JPanel();
+		this.addTab("Game", mainPanel);
+
+		mainPanel.setLayout(new GridLayout(3,1));
+
+		options = new Options(false);
+		optionsPanel = new OptionsPanel(options);
+		messages = new Messages();
 	}
 }

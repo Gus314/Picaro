@@ -2,7 +2,7 @@ package ui.inventory;
 
 import entities.*;
 import enums.ArmourType;
-import ui.Stats;
+import ui.mainwindow.Stats;
 import javax.swing.*;
 import java.awt.GridLayout;
 import java.util.HashMap;

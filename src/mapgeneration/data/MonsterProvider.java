@@ -3,7 +3,7 @@ package mapgeneration.data;
 import control.Controller;
 import control.Map;
 import entities.factories.MonsterFactory;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 import java.util.Vector;
 

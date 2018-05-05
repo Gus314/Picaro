@@ -3,7 +3,6 @@ package ui.inventory;
 import control.Map;
 import entities.Player;
 import entities.equipment.Item;
-import ui.Stats;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

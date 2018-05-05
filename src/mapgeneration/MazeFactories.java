@@ -7,7 +7,7 @@ import entities.equipment.factories.RelicFactory;
 import entities.equipment.factories.WeaponFactory;
 import entities.factories.MonsterFactory;
 import mapgeneration.data.*;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 public class MazeFactories
 {

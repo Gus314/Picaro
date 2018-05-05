@@ -1,11 +1,10 @@
 package control;
 
-import entities.Entity;
 import entities.Player;
 import mapgeneration.MazeGenerator;
 import mapgeneration.PersistedMap;
-import ui.MapDisplay;
-import ui.Messages;
+import ui.mainwindow.MapDisplay;
+import ui.mainwindow.Messages;
 
 import java.util.HashMap;
 
@@ -16,14 +15,13 @@ public class DungeonManager
 	private Messages messages;
 	private MapDisplay mapDisplay;
 	private int level;
-	private static final String defaultName = "Nameo";
 	private java.util.Map<Integer, PersistedMap> levels;
 
-	public DungeonManager(Messages inMessages)
+	public DungeonManager(Messages inMessages, PlayerInitialData playerInitialData)
 	{
 		messages = inMessages;
 		mazeGen = new MazeGenerator(2, 8, messages);
-		player = new Player(mazeGen.getMap(), messages, defaultName);
+		player = new Player(mazeGen.getMap(), messages, playerInitialData.getName());
 		level = 0;
 		levels = new HashMap<Integer, PersistedMap>();
 	}

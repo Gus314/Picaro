@@ -4,10 +4,9 @@ import entities.equipment.Item;
 import enums.Direction;
 import entities.*;
 import ui.inventory.InventoryWindow;
-import ui.MapDisplay;
-import ui.Messages;
+import ui.mainwindow.MapDisplay;
+import ui.mainwindow.Messages;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TurnHandler

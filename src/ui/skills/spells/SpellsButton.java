@@ -1,6 +1,6 @@
 package ui.skills.spells;
 
-import ui.MainWindow;
+import ui.mainwindow.MainWindow;
 
 import javax.swing.*;
 

@@ -2,7 +2,7 @@ package entities.factories;
 
 import control.Map;
 import entities.Monster;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 public class MonsterFactory extends AbstractEntityFactory
 {

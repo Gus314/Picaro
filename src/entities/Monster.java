@@ -2,7 +2,7 @@ package entities;
 
 import control.Controller;
 import control.Map;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 import java.util.ArrayList;
 import java.util.List;

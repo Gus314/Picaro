@@ -2,7 +2,7 @@ package ui.skills;
 
 import skills.AreaSkill;
 import enums.MapDisplayMode;
-import ui.MapDisplay;
+import ui.mainwindow.MapDisplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

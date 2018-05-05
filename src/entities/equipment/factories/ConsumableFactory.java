@@ -4,7 +4,7 @@ import entities.equipment.Consumable;
 import entities.Player;
 import entities.factories.AbstractEntityFactory;
 import enums.ConsumableType;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 public class ConsumableFactory extends AbstractEntityFactory
 {

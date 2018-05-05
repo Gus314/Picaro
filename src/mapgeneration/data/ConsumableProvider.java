@@ -4,7 +4,7 @@ import control.Controller;
 import entities.Player;
 import entities.equipment.factories.ConsumableFactory;
 import enums.ConsumableType;
-import ui.Messages;
+import ui.mainwindow.Messages;
 
 import java.util.Vector;
 
