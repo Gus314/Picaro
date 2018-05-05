@@ -2,8 +2,15 @@ package mapgeneration.cellfillers;
 
 public class RoomCellFactory
 {
-    public static RoomCell construct()
+    private int properRoomChance;
+
+    public RoomCellFactory(int inProperRoomChance)
     {
-        return new RoomCell();
+        properRoomChance = inProperRoomChance;
+    }
+
+    public RoomCell construct(int rows, int columns)
+    {
+        return new RoomCell(rows, columns, properRoomChance);
     }
 }

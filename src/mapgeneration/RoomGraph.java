@@ -5,17 +5,33 @@ import enums.Edge;
 import mapgeneration.cellfillers.RoomCell;
 import mapgeneration.cellfillers.RoomCellFactory;
 
-public class RoomGraph {
-    private static final int numCells = 5;
+public class RoomGraph
+{
+    private int rows;
+    private int columns;
+    private int getNumRCells(){return rows / cellRows;}
+    private int getNumCCells(){return columns / cellColumns;}
+    private int cellRows;
+    private int cellColumns;
+    private RoomCellFactory roomCellFactory;
 
-    public RoomGraph() {
-
+    public RoomGraph(int inRows, int inColumns, int inCellRows, int inCellColumns, int inProperRoomChance)
+    {
+        rows = inRows;
+        columns = inColumns;
+        cellRows = inCellRows;
+        cellColumns = inCellColumns;
+        roomCellFactory = new RoomCellFactory(inProperRoomChance);
     }
+
+    public int getRows(){return rows;}
+
+    public int getColumns(){return columns;}
 
     public int reachableCount(boolean[][] reachable) {
         int result = 0;
-        for (int i = 0; i < numCells; i++) {
-            for (int j = 0; j < numCells; j++) {
+        for (int i = 0; i < getNumRCells(); i++) {
+            for (int j = 0; j < getNumCCells(); j++) {
                 if (reachable[i][j]) {
                     result++;
                 }
@@ -25,14 +41,14 @@ public class RoomGraph {
     }
 
     public void reachabilityRun(boolean[][] reachable, RoomCell[][] cells) {
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < getNumRCells()+getNumCCells(); i++) {
             reachabilityPass(reachable, cells);
         }
     }
 
     public void reachabilityPass(boolean[][] reachable, RoomCell[][] cells) {
-        for (int i = 0; i < numCells; i++) {
-            for (int j = 0; j < numCells; j++) {
+        for (int i = 0; i < getNumRCells(); i++) {
+            for (int j = 0; j < getNumCCells(); j++) {
                 if (reachable[i][j]) {
                     break;
                 }
@@ -42,7 +58,7 @@ public class RoomGraph {
                         break;
                     }
                 }
-                if ((i < numCells - 1) && cells[i][j].isConnected(Edge.BOTTOM)) {
+                if ((i < getNumRCells() - 1) && cells[i][j].isConnected(Edge.BOTTOM)) {
                     if (cells[i + 1][j].isConnected(Edge.TOP) && reachable[i + 1][j]) {
                         reachable[i][j] = true;
                         break;
@@ -54,7 +70,7 @@ public class RoomGraph {
                         break;
                     }
                 }
-                if ((j < numCells - 1) && cells[i][j].isConnected(Edge.RIGHT)) {
+                if ((j < getNumCCells() - 1) && cells[i][j].isConnected(Edge.RIGHT)) {
                     if (cells[i][j + 1].isConnected(Edge.LEFT) && reachable[i][j + 1]) {
                         reachable[i][j] = true;
                         break;
@@ -66,11 +82,11 @@ public class RoomGraph {
 
     public void reset(boolean[][] reachable, RoomCell[][] cells)
     {
-        int entryRow = Controller.getGenerator().nextInt(numCells);
-        int entryColumn = Controller.getGenerator().nextInt(numCells);
+        int entryRow = Controller.getGenerator().nextInt(getNumRCells());
+        int entryColumn = Controller.getGenerator().nextInt(getNumCCells());
 
-        for (int i = 0; i < numCells; i++) {
-            for (int j = 0; j < numCells; j++) {
+        for (int i = 0; i < getNumRCells(); i++) {
+            for (int j = 0; j < getNumCCells(); j++) {
                 cells[i][j].regenerate();
                 reachable[i][j] = false;
             }
@@ -80,31 +96,30 @@ public class RoomGraph {
 
     public Integer[][] determineLayout()
     {
-        final int cellSize = 10;
-        Integer[][] result = new Integer[numCells * cellSize][numCells * cellSize];
-        for(int i = 0; i < numCells * cellSize; i++)
+        Integer[][] result = new Integer[getNumRCells() * cellRows][getNumCCells() * cellColumns];
+        for(int i = 0; i < getNumRCells() * cellRows; i++)
         {
-            for(int j = 0; j < numCells * cellSize; j++)
+            for(int j = 0; j < getNumCCells() * cellColumns; j++)
             {
                 result[i][j] = new Integer(0);
             }
         }
 
 
-       RoomCell[][] cells = new RoomCell[numCells][numCells];
-       for(int i = 0; i < numCells; i++)
+       RoomCell[][] cells = new RoomCell[getNumRCells()][getNumCCells()];
+       for(int i = 0; i < getNumRCells(); i++)
        {
-           for(int j = 0; j < numCells; j++)
+           for(int j = 0; j < getNumCCells(); j++)
            {
-               cells[i][j] = RoomCellFactory.construct();
+               cells[i][j] = roomCellFactory.construct(cellRows, cellColumns);
            }
        }
 
 
-       boolean[][] reachable = new boolean[numCells][numCells];
+       boolean[][] reachable = new boolean[getNumRCells()][getNumCCells()];
 
-        int minReachable = 15;
-        int maxAttempts = 10000;
+        int minReachable = (getNumCCells() * getNumRCells())/3;
+        int maxAttempts = (getNumCCells() * getNumRCells()) * 4;
         int currentAttempts = 0;
         while((reachableCount(reachable) < minReachable) && (currentAttempts < maxAttempts))
         {
@@ -114,9 +129,9 @@ public class RoomGraph {
             System.out.println("attempt = " + currentAttempts);
         }
 
-        for(int i = 0; i < numCells; i++)
+        for(int i = 0; i < getNumRCells(); i++)
         {
-            for(int j = 0; j < numCells; j++)
+            for(int j = 0; j < getNumCCells(); j++)
             {
                 // Ignore mapgeneration.data for unreachable cells.
                 if(reachable[i][j])
@@ -126,7 +141,7 @@ public class RoomGraph {
                     {
                         cells[i][j].removeConnection(Edge.LEFT);
                     }
-                    if(cells[i][j].isConnected(Edge.RIGHT) && ((j == numCells-1) || (!reachable[i][j+1])))
+                    if(cells[i][j].isConnected(Edge.RIGHT) && ((j == getNumCCells()-1) || (!reachable[i][j+1])))
                     {
                         cells[i][j].removeConnection(Edge.RIGHT);
                     }
@@ -134,14 +149,14 @@ public class RoomGraph {
                     {
                         cells[i][j].removeConnection(Edge.TOP);
                     }
-                    if(cells[i][j].isConnected(Edge.BOTTOM) && ((i == numCells-1) || (!reachable[i+1][j])))
+                    if(cells[i][j].isConnected(Edge.BOTTOM) && ((i == getNumRCells()-1) || (!reachable[i+1][j])))
                     {
                         cells[i][j].removeConnection(Edge.BOTTOM);
                     }
                     cells[i][j].addFloor();
-                    for (int row = 0; row < cellSize; row++) {
-                        for (int column = 0; column < cellSize; column++) {
-                            result[(i * cellSize) + row][(j * cellSize) + column] = cells[i][j].getData()[row][column];
+                    for (int row = 0; row < cellRows; row++) {
+                        for (int column = 0; column < cellColumns; column++) {
+                            result[(i * cellRows) + row][(j * cellColumns) + column] = cells[i][j].getData()[row][column];
                         }
                     }
                 }

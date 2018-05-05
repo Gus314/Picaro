@@ -9,14 +9,19 @@ import java.util.Map;
 
 public class RoomCell
 {
-    private static final int cellSize = 10;
+    private int rows;
+    private int columns;
     private Map<Edge, Boolean> connection;
     private int[][] data;
+    private int properRoomChance; // Percentage chance of being a proper room.
 
-    public RoomCell()
+    public RoomCell(int inRows, int inColumns, int inProperRoomChance)
     {
         connection = new HashMap<Edge, Boolean>();
-        data = new int[cellSize][cellSize];
+        rows = inRows;
+        columns = inColumns;
+        data = new int[rows][columns];
+        properRoomChance = inProperRoomChance;
     }
 
     public int[][] getData()
@@ -27,9 +32,9 @@ public class RoomCell
     public void addFloor()
     {
         // Change floor from 1 to 2 to indicate reachability.
-        for(int i = 0; i < cellSize; i++)
+        for(int i = 0; i < rows; i++)
         {
-            for(int j = 0; j < cellSize; j++)
+            for(int j = 0; j < columns; j++)
             {
                 if(data[i][j] == FloorType.OUTSIDE.getValue())
                 {
@@ -46,7 +51,7 @@ public class RoomCell
         {
             case TOP:
             {
-                for(int j = 0; j < cellSize; j++)
+                for(int j = 0; j < columns; j++)
                 {
                     data[0][j] = FloorType.EMPTY.getValue();
                 }
@@ -54,15 +59,15 @@ public class RoomCell
             }
             case BOTTOM:
             {
-                for(int j = 0; j < cellSize; j++)
+                for(int j = 0; j < columns; j++)
                 {
-                    data[cellSize-1][j] = FloorType.EMPTY.getValue();
+                    data[rows-1][j] = FloorType.EMPTY.getValue();
                 }
                 break;
             }
             case LEFT:
             {
-                for(int i = 0; i < cellSize; i++)
+                for(int i = 0; i < rows; i++)
                 {
                     data[i][0] = FloorType.EMPTY.getValue();
                 }
@@ -70,9 +75,9 @@ public class RoomCell
             }
             case RIGHT:
             {
-                for(int i = 0; i < cellSize; i++)
+                for(int i = 0; i < rows; i++)
                 {
-                    data[i][cellSize-1] = FloorType.EMPTY.getValue();
+                    data[i][columns-1] = FloorType.EMPTY.getValue();
                 }
                 break;
             }
@@ -91,23 +96,19 @@ public class RoomCell
     private void clearCell()
     {
         // clear
-        for(int i = 0; i < cellSize; i++)
+        for(int i = 0; i < rows; i++)
         {
-            for(int j = 0; j < cellSize; j++)
+            for(int j = 0; j < columns; j++)
             {
                 data[i][j] = FloorType.EMPTY.getValue();
             }
         }
     }
 
-    private int determineSize()
+    private int determineSize(int cellSize)
     {
-        int size = Controller.getGenerator().nextInt(cellSize-6) + 6;
+        int size = Controller.getGenerator().nextInt(cellSize/2) + (cellSize/2);
         // Change probability of being a proper room.
-        if(Controller.getGenerator().nextInt(4) != 3)
-        {
-            size = 2;
-        }
 
         if(size % 2 == 1)
         {
@@ -121,26 +122,39 @@ public class RoomCell
     {
         clearCell();
 
-        int size = determineSize();
-        int centre = cellSize / 2;
+        int rowSize = determineSize(rows);
+        int columnSize = determineSize(columns);
 
-        fillCell(size, centre);
+        if(Controller.getGenerator().nextInt(100)+1 >= properRoomChance)
+        {
+            rowSize = 2;
+            columnSize = 2;
+        }
+
+        int centreRow = rows / 2;
+        int centreColumn = columns / 2;
+
+        fillCell(rowSize, columnSize, centreRow, centreColumn);
 
         determineEdges();
-        connectEdgesToCentre(centre);
+        connectEdgesToCentre(centreRow, centreColumn);
     }
 
-    private void fillCell(int size, int centre)
+    private void fillCell(int rows, int columns, int centreRow, int centreColumn)
     {
         // fill centre
-        int radius = size / 2;
-        for(int i = 0; i < radius; i++)
+        int rowRadius = (rows+1) / 2;
+        int columnRadius = (columns+1) / 2;
+        for(int i = 0; i < rowRadius; i++)
         {
-            for(int a = centre - i; a < centre + i; a++)
+            for(int j = 0; j < columnRadius; j++)
             {
-                for(int b = centre - i; b < centre + i; b++)
+                for(int a = centreRow - i; a < centreRow + i; a++)
                 {
-                    data[a][b] = FloorType.OUTSIDE.getValue();
+                    for(int b = centreColumn - j; b < centreColumn + j; b++)
+                    {
+                        data[a][b] = FloorType.OUTSIDE.getValue();
+                    }
                 }
             }
         }
@@ -165,35 +179,35 @@ public class RoomCell
 
     }
 
-    private void connectEdgesToCentre(int centre)
+    private void connectEdgesToCentre(int centreRow, int centreColumn)
     {
         // Connect edges to centre.
         if(connection.get(Edge.LEFT))
         {
-            for(int i = 0; i <= centre; i++)
+            for(int i = 0; i <= centreColumn; i++)
             {
-                data[centre][i] = FloorType.OUTSIDE.getValue();
+                data[centreRow][i] = FloorType.OUTSIDE.getValue();
             }
         }
         if(connection.get(Edge.RIGHT))
         {
-            for(int i = cellSize-1; i >= centre; i--)
+            for(int i = columns-1; i >= centreColumn; i--)
             {
-                data[centre][i] = FloorType.OUTSIDE.getValue();
+                data[centreRow][i] = FloorType.OUTSIDE.getValue();
             }
         }
         if(connection.get(Edge.TOP))
         {
-            for(int i = 0; i <= centre; i++)
+            for(int i = 0; i <= centreRow; i++)
             {
-                data[i][centre] = FloorType.OUTSIDE.getValue();
+                data[i][centreColumn] = FloorType.OUTSIDE.getValue();
             }
         }
         if(connection.get(Edge.BOTTOM))
         {
-            for(int i = cellSize-1; i >= centre; i--)
+            for(int i = rows-1; i >= centreRow; i--)
             {
-                data[i][centre] = FloorType.OUTSIDE.getValue();
+                data[i][centreColumn] = FloorType.OUTSIDE.getValue();
             }
         }
     }

@@ -19,12 +19,14 @@ public class MazeGenerator
 	private Player player;
 	private Coordinate upStairs;
 	private Coordinate downStairs;
+	RoomGraph graph;
 
-	public MazeGenerator(int inMinRoomSize, int inMaxRoomSize, Messages inMessages)
+	public MazeGenerator(int rows, int columns, int cellRows, int cellColumns, int properRoomChance, Messages inMessages)
 	{
 		messages = inMessages;
 		upStairs = null;
 		downStairs = null;
+		graph = new RoomGraph(rows, columns, cellRows, cellColumns, properRoomChance);
 	}
 
 	public void loadPersistedMap(PersistedMap persistedMap)
@@ -49,9 +51,7 @@ public class MazeGenerator
 	public void construct(int level, Player inPlayer)
 	{
 		player = inPlayer;
-		map = new Map(50, 50);
-
-	    RoomGraph graph = new RoomGraph();
+		map = new Map(graph.getRows(), graph.getColumns());
 	    Integer[][] data = graph.determineLayout();
 		
 		// add walls

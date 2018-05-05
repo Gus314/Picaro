@@ -16,11 +16,16 @@ public class DungeonManager
 	private MapDisplay mapDisplay;
 	private int level;
 	private java.util.Map<Integer, PersistedMap> levels;
+    private static final int rows = 50;
+    private static final int columns = 50;
+    private static final int rowCellSize = 10;
+    private static final int columnCellSize = 10;
+    private static final int properRoomChance = 75;
 
 	public DungeonManager(Messages inMessages, PlayerInitialData playerInitialData)
 	{
 		messages = inMessages;
-		mazeGen = new MazeGenerator(2, 8, messages);
+		mazeGen = new MazeGenerator(rows, columns, rowCellSize, columnCellSize, properRoomChance, messages);
 		player = new Player(mazeGen.getMap(), messages, playerInitialData);
 		level = 0;
 		levels = new HashMap<Integer, PersistedMap>();
