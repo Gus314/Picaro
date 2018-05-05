@@ -1,4 +1,4 @@
-package mapgeneration;
+package mapgeneration.cellfillers;
 
 import control.Controller;
 import enums.Edge;
@@ -88,7 +88,7 @@ public class RoomCell
         return connection.get(edge);
     }
 
-    public void regenerate()
+    private void clearCell()
     {
         // clear
         for(int i = 0; i < cellSize; i++)
@@ -98,7 +98,10 @@ public class RoomCell
                 data[i][j] = FloorType.EMPTY.getValue();
             }
         }
+    }
 
+    private int determineSize()
+    {
         int size = Controller.getGenerator().nextInt(cellSize-6) + 6;
         // Change probability of being a proper room.
         if(Controller.getGenerator().nextInt(4) != 3)
@@ -111,8 +114,25 @@ public class RoomCell
             size = size - 1;
         }
 
-        // fill centre
+        return size;
+    }
+
+    public void regenerate()
+    {
+        clearCell();
+
+        int size = determineSize();
         int centre = cellSize / 2;
+
+        fillCell(size, centre);
+
+        determineEdges();
+        connectEdgesToCentre(centre);
+    }
+
+    private void fillCell(int size, int centre)
+    {
+        // fill centre
         int radius = size / 2;
         for(int i = 0; i < radius; i++)
         {
@@ -124,6 +144,10 @@ public class RoomCell
                 }
             }
         }
+    }
+
+    private void determineEdges()
+    {
 
         // connect edges
         boolean retry = true;
@@ -136,9 +160,13 @@ public class RoomCell
             connection.put(Edge.RIGHT, Controller.getGenerator().nextInt(10) > 3);
 
             retry = ! (connection.get(Edge.BOTTOM) || connection.get(Edge.TOP) ||
-                       connection.get(Edge.LEFT) || connection.get(Edge.RIGHT));
+                    connection.get(Edge.LEFT) || connection.get(Edge.RIGHT));
         }while(retry);
 
+    }
+
+    private void connectEdgesToCentre(int centre)
+    {
         // Connect edges to centre.
         if(connection.get(Edge.LEFT))
         {

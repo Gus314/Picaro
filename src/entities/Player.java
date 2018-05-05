@@ -39,6 +39,7 @@ public class Player extends Creature
     private static final int initialMagicDefence = 6;
 
 
+
 	public Player(Map inMap, Messages inMessages, String inName)
 	{
 		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,

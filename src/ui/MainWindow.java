@@ -2,6 +2,7 @@ package ui;
 
 import control.DungeonManager;
 import control.Map;
+import control.Options;
 import control.TurnHandler;
 import entities.Player;
 import ui.actions.Actions;
@@ -58,6 +59,10 @@ public class MainWindow extends JTabbedPane
 		this.addTab("Game", mainPanel);
 
 		mainPanel.setLayout(new GridLayout(3,1));
+
+		Options options = new Options(false);
+		OptionsPanel optionsPanel = new OptionsPanel(options);
+
 		Messages messages = new Messages();
 
 		DungeonManager dm = new DungeonManager(messages);
@@ -69,7 +74,7 @@ public class MainWindow extends JTabbedPane
 		InventoryWindow invWind = new InventoryWindow(player, stats, map);
 		this.addTab("Inventory", invWind);
 		mapDisplay = new MapDisplay(map, player, stats, messages);
-		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm);
+		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm, options);
 		Mover mover = new Mover(turnHandler);
 		this.addKeyListener(mover);
 		mainPanel.add(mapDisplay);
@@ -77,7 +82,8 @@ public class MainWindow extends JTabbedPane
 		JPanel infoPanel = new JPanel();
 
 		mainPanel.add(infoPanel);
-		infoPanel.setLayout(new GridLayout(2,1));
+		infoPanel.setLayout(new GridLayout(3,1));
+		infoPanel.add(optionsPanel);
 		infoPanel.add(stats);
 		infoPanel.add(messages);
 

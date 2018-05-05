@@ -18,8 +18,9 @@ public class TurnHandler
     private Messages messages;
     private InventoryWindow invWind;
     private DungeonManager dm;
+    private Options options;
 
-    public TurnHandler(Player inPlayer, MapDisplay inMapDisplay, Messages inMessages, InventoryWindow inInvWind, DungeonManager inDm)
+    public TurnHandler(Player inPlayer, MapDisplay inMapDisplay, Messages inMessages, InventoryWindow inInvWind, DungeonManager inDm, Options inOptions)
     {
         player = inPlayer;
         mapDisplay = inMapDisplay;
@@ -27,6 +28,7 @@ public class TurnHandler
         messages = inMessages;
         invWind = inInvWind;
         dm = inDm;
+        options = inOptions;
     }
 
     public void update()
@@ -129,6 +131,29 @@ public class TurnHandler
         }
     }
 
+    public void pickupItems()
+    {
+        List<Entity> here = map.atPosition(player.getRow(), player.getColumn());
+
+        List<Item> items = Entity.getItems(here);
+
+        for(Item item: items)
+        {
+            pickUp(item);
+        }
+    }
+
+    public void listItems()
+    {
+        List<Entity> here = map.atPosition(player.getRow(), player.getColumn());
+        List<Item> items = Entity.getItems(here);
+
+        for(Item item: items)
+        {
+            messages.addMessage("There is a " + item.getName() + " on the floor.");
+        }
+    }
+
     public void movePlayer(Direction direction)
     {
         int row = player.getRow();
@@ -149,13 +174,13 @@ public class TurnHandler
             }
         }
 
-        here = map.atPosition(player.getRow(), player.getColumn());
-
-        List<Item> items = Entity.getItems(here);
-
-        for(Item item: items)
+        if(options.getAutoPickup())
         {
-            pickUp(item);
+            pickupItems();
+        }
+        else
+        {
+            listItems();
         }
 
         map.takeTurns();

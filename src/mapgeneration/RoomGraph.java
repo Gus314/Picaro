@@ -2,6 +2,8 @@ package mapgeneration;
 
 import control.Controller;
 import enums.Edge;
+import mapgeneration.cellfillers.RoomCell;
+import mapgeneration.cellfillers.RoomCellFactory;
 
 public class RoomGraph {
     private static final int numCells = 5;
@@ -94,7 +96,7 @@ public class RoomGraph {
        {
            for(int j = 0; j < numCells; j++)
            {
-               cells[i][j] = new RoomCell();
+               cells[i][j] = RoomCellFactory.construct();
            }
        }
 
