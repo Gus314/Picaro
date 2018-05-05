@@ -63,7 +63,11 @@ public abstract class Creature extends Entity
 
     public int getIntelligence() { return intelligence; }
 
+    public void setIntelligence(int inIntelligence){intelligence = inIntelligence;}
+
     public int getMagicDefense() { return magicDefense;}
+
+    public void setMagicDefence(int inMagicDefence){magicDefense = inMagicDefence;}
 
     public int getSpellsCount()
     {

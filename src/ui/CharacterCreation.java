@@ -1,8 +1,13 @@
 package ui;
 
 import control.PlayerInitialData;
+import pclasses.PClassProvider;
+import pclasses.Pclass;
+import races.Race;
+import races.RaceProvider;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,16 +15,33 @@ public class CharacterCreation extends JPanel
 {
     private RootFrame rootFrame;
     private JTextField nameField;
-
+    private JComboBox raceBox;
+    private JComboBox classBox;
 
     public CharacterCreation(RootFrame inRootFrame)
     {
         rootFrame = inRootFrame;
-        add(new JLabel("Character Creation."));
-
         add(new JLabel("Name:"));
         nameField = new JTextField("Nameo");
         add(nameField);
+
+        add(new JLabel("Race"));
+        raceBox = new JComboBox();
+        RaceProvider raceProvider = new RaceProvider();
+        for(Race race: raceProvider.getRaces())
+        {
+            raceBox.addItem(race);
+        }
+        add(raceBox);
+
+        add(new JLabel("Class"));
+        classBox = new JComboBox();
+        PClassProvider pclassProvider = new PClassProvider();
+        for(Pclass pclass: pclassProvider.getPClasses())
+        {
+            classBox.addItem(pclass);
+        }
+        add(classBox);
 
         JButton startGameButton = new JButton("Start Game");
         startGameButton.addActionListener(new StartGameListener());
@@ -28,6 +50,8 @@ public class CharacterCreation extends JPanel
         JButton cancelButton = new JButton("Cancel");
         cancelButton.addActionListener(new CancelListener());
         add(cancelButton);
+
+        setLayout(new GridLayout(4, 2));
     }
 
     class StartGameListener implements ActionListener
@@ -39,7 +63,9 @@ public class CharacterCreation extends JPanel
 
             if(choice == JOptionPane.YES_OPTION)
             {
-                PlayerInitialData playerInitialData = new PlayerInitialData(nameField.getText());
+                Race race = (Race) raceBox.getSelectedItem();
+                Pclass pclass = (Pclass) classBox.getSelectedItem();
+                PlayerInitialData playerInitialData = new PlayerInitialData(nameField.getText(), race, pclass);
                 rootFrame.changeToMainWindow(playerInitialData);
             }
         }

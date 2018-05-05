@@ -21,7 +21,7 @@ public class DungeonManager
 	{
 		messages = inMessages;
 		mazeGen = new MazeGenerator(2, 8, messages);
-		player = new Player(mazeGen.getMap(), messages, playerInitialData.getName());
+		player = new Player(mazeGen.getMap(), messages, playerInitialData);
 		level = 0;
 		levels = new HashMap<Integer, PersistedMap>();
 	}

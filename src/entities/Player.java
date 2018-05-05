@@ -1,11 +1,14 @@
 package entities;
 
 import control.Map;
+import control.PlayerInitialData;
 import entities.equipment.Armour;
 import entities.equipment.Item;
 import entities.equipment.Relic;
 import entities.equipment.Weapon;
 import enums.ArmourType;
+import pclasses.Pclass;
+import races.Race;
 import skills.Fireball;
 import skills.Heal;
 import skills.PoisonDart;
@@ -21,8 +24,9 @@ public class Player extends Creature
 	private java.util.Map<ArmourType, Armour> armours;
 	private Relic relic;
 	private Vector<Item> items;
-	private int range;
 	private int level;
+	private Race race;
+	private Pclass pclass;
 	private static final int initialLevel = 1;
 	private static final int initialLife = 100;
 	private static final int initialDefense = 3;
@@ -38,20 +42,22 @@ public class Player extends Creature
     private static final int initialIntelligence = 8;
     private static final int initialMagicDefence = 6;
 
-
-
-	public Player(Map inMap, Messages inMessages, String inName)
+	public Player(Map inMap, Messages inMessages, PlayerInitialData playerInitialData)
 	{
-		super('@', 0, 0, inMap, inMessages, initialDefense, inName, initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
+		super('@', 0, 0, inMap, inMessages, initialDefense, playerInitialData.getName(), initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
 				initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints, initialIntelligence, initialMagicDefence);
+
+		race = playerInitialData.getRace();
+		race.initialise(this);
+
+		pclass = playerInitialData.getPclass();
+		pclass.initialise(this);
+
 		items = new Vector<Item>();
 		weapon = null;
 		armours = new HashMap<>();
 		relic = null;
 		level = initialLevel;
-		addSkill(new PoisonDart());
-		addSkill(new Fireball());
-		addSkill(new Heal());
 	}
 
 	public boolean passable(){return false;}
@@ -74,9 +80,13 @@ public class Player extends Creature
 
 	public void setLevel(int inLevel){level = inLevel;}
 
+	public Race getRace(){return race;}
+
+	public Pclass getPclass(){return pclass;}
+
 	public @Override int getRange()
 	{
-		int result = range;
+		int result = super.getRange();
 
 		if(weapon != null)
 		{
@@ -257,25 +267,33 @@ public class Player extends Creature
 		return result;
 	}
 
+	private void levelUp()
+	{
+		// Note that level must be incremented before class and race level up are handled.
+		setLevel(getLevel()+1);
+		pclass.levelUp(this);
+		race.levelUp(this);
+		getMessages().addMessage("Level up!");
+	}
+
+	private int expForNextLevel()
+	{
+		double dResult = 100.0 + ((double)level * 25);
+		return (int) dResult;
+	}
+
 	public void killed(Monster monster)
 	{
+		// TODO : Change exp required per level.
 		getMessages().addMessage(monster.getName() + " died, giving " + monster.getExp() + " exp!");
 		int newExp = getExp()+monster.getExp();
-		if(newExp >= 100)
+
+		if(newExp >= expForNextLevel())
 		{
-			newExp = newExp - 100;
-			setMaxLife(getMaxLife()+10);
-			setLife(getMaxLife());
-			setMinDamage(getMinDamage()+2);
-			setMaxDamage(getMaxDamage()+2);
-			setDefense(getDefense()+2);
-			setMaxMagicPoints(getMaxMagicPoints() + 5);
-			setMagicPoints(getMaxMagicPoints());
-			setMaxPhysicalPoints(getMaxPhysicalPoints() + 5);
-			setPhysicalPoints(getMaxPhysicalPoints());
-			setLevel(getLevel()+1);
-			getMessages().addMessage("Level up!");
+           levelUp();
 		}
+
+		newExp = (newExp >= expForNextLevel()) ? 0 : newExp;
 		setExp(newExp);
 	}
 

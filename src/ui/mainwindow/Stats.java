@@ -37,10 +37,10 @@ public class Stats extends JPanel
 		name = new JLabel(player.getName());
 		this.add(name);
 		this.add(new JLabel("Race="));
-		race = new JLabel("race");
+		race = new JLabel(player.getRace().getName());
 		this.add(race);
 		this.add(new JLabel("Class="));
-		pclass = new JLabel("class");
+		pclass = new JLabel(player.getPclass().getName());
 		this.add(pclass);
 		this.add(new JLabel("HP="));
 		hp = new JLabel(((Integer)(player.getLife())).toString() + "/" + ((Integer)(player.getMaxLife())).toString() );
