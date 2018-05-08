@@ -139,7 +139,7 @@ public abstract class Creature extends Entity
         statusEffects.remove(effect);
     }
 
-    protected boolean attack(Creature target)
+    public boolean attack(Creature target)
     {
         if(Controller.getGenerator().nextInt(100 - target.getBlockChance()) == 0)
         {

@@ -2,6 +2,7 @@ package skills;
 
 import control.Controller;
 import entities.Creature;
+import enums.SkillBehaviour;
 import statuses.Poison;
 import enums.SkillType;
 
@@ -29,6 +30,10 @@ public class PoisonDart extends TargetSkill
         if(adjustedDamage > maxDamage)
         {
             adjustedDamage = maxDamage;
+        }
+        else if(adjustedDamage < 0)
+        {
+            adjustedDamage = 0;
         }
 
         target.setLife(target.getLife() - adjustedDamage);
@@ -70,5 +75,11 @@ public class PoisonDart extends TargetSkill
     public String getName()
     {
         return name;
+    }
+
+    @Override
+    public SkillBehaviour getSkillBehaviour()
+    {
+        return SkillBehaviour.ATTACK;
     }
 }

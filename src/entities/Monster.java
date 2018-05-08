@@ -2,6 +2,11 @@ package entities;
 
 import control.Controller;
 import control.Map;
+import entities.ai.ActFactory;
+import entities.ai.Brain;
+import entities.ai.MoveFactory;
+import enums.Behaviour;
+import enums.TurnType;
 import ui.mainwindow.Messages;
 
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ public class Monster extends Creature
 {
 	private int minLevel;
 	private int maxLevel;
+	private Brain brain;
 
 	public boolean passable(){return false;}
 
@@ -24,37 +30,22 @@ public class Monster extends Creature
 				inAbsorbChance, inRange, inExp, inPhysicalPoints, inMaxPhysicalPoints, inMagicPoints, inMaxMagicPoints, inIntelligence, inMagicDefense);
 		minLevel = inMinLevel;
 		maxLevel = inMaxLevel;
+		brain = new Brain(this);
 	}
 
 	public int getMinLevel(){return minLevel;}
 
 	public int getMaxLevel(){return maxLevel;}
 
-	private void attack(Player player)
+	private void move(Behaviour behaviour, Monster monster, Map map)
 	{
-		boolean killed = super.attack(player);
-		if(killed)
-		{
-			JOptionPane.showMessageDialog(getMessages().getTopLevelAncestor(), "You have died!");
-			System.exit(0);
-		}
+		MoveFactory.construct(behaviour, monster, map).move();
 	}
 
-	private boolean canMove()
+	private void act(Player player, Monster monster, Messages messages, Behaviour behaviour)
 	{
-		int row = this.getRow();
-		int column = this.getColumn();
+		ActFactory.construct(behaviour, monster, messages).act(player);
 
-		for(Direction direction: Direction.values())
-		{
-			List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-			if(Entity.passable(here))
-			{
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public void takeTurn()
@@ -70,38 +61,26 @@ public class Monster extends Creature
 			}
 		}
 
-	    if(player != null)
-		{
-			// Cannot both attack and move in a turn.
-			attack(player);
-			return;
-		}
+		TurnType turnType = brain.determineTurnType(player != null);
+		Behaviour behaviour = brain.determineBehaviour();
 
-	    Direction[] directionArray = Direction.values();
-	    ArrayList<Direction> directions =  new ArrayList<Direction>();
-	    for(int i = 0; i < directionArray.length; i++)
+		switch(turnType)
 		{
-			directions.add(directionArray[i]);
-		}
-
-	    if(canMove())
-		{
-			int row = this.getRow();
-			int column = this.getColumn();
-
-			while(!directions.isEmpty())
+			case MOVE:
 			{
-				int index = Controller.getGenerator().nextInt(directions.size());
-				Direction direction = directions.remove(index);
-
-				List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-				if(Entity.passable(here))
-				{
-					move(direction, 1);
-					break;
-				}
+				move(behaviour, this, getMap());
+				break;
+			}
+			case ACT:
+			{
+				act(player, this, getMessages(), behaviour);
+				break;
+			}
+			default:
+			{
+				System.out.println("Monster::takeTurn() - unexpected turn type.");
+				// TODO: Throw exception
 			}
 		}
-
 	}
 }

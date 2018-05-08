@@ -2,6 +2,7 @@ package skills;
 
 import control.Controller;
 import entities.Creature;
+import enums.SkillBehaviour;
 import enums.SkillType;
 
 import java.util.List;
@@ -60,5 +61,11 @@ public class Fireball extends AreaSkill
         }
 
         return message;
+    }
+
+    @Override
+    public SkillBehaviour getSkillBehaviour()
+    {
+        return SkillBehaviour.SUPPORT;
     }
 }
