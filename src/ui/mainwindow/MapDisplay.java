@@ -194,7 +194,8 @@ public class MapDisplay extends JPanel
 				TargetSkill targetSkill = (TargetSkill) selectedSkill;
 				int range = (mapDisplay.getMode() == MapDisplayMode.ATTACK) ? player.getRange() : targetSkill.getRange();
 				Coordinate coord = getMouseCoordinate(e);
-				Entity ent = map.atPosition(coord.getRow(), coord.getColumn()).get(0); //?
+				List<Entity> here = map.atPosition(coord.getRow(), coord.getColumn());
+				Entity ent = (here.size() > 0) ? here.get(0) : null;
 				if(ent != null)
 				{
 					highlights.clear();
