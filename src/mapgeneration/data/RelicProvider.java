@@ -1,26 +1,23 @@
 package mapgeneration.data;
 
 import control.Controller;
+import entities.Player;
 import entities.equipment.factories.RelicFactory;
 import enums.RelicEffect;
+import statuses.Regen;
+
 import java.util.Vector;
 
 public class RelicProvider
 {
     private Vector<RelicFactory> relicFactories;
 
-    public RelicProvider()
+    public RelicProvider(Player player)
     {
+        Regen regen = new Regen(player, 10);
+
         relicFactories = new Vector<RelicFactory>();
-        relicFactories.add(new RelicFactory(RelicEffect.CritChance, 2, "pin", 1, 2));
-        relicFactories.add(new RelicFactory(RelicEffect.Defense, 5, "cover", 1, 2));
-        relicFactories.add(new RelicFactory(RelicEffect.BlockChance, 4, "shield", 1, 2));
-        relicFactories.add(new RelicFactory(RelicEffect.AbsorbChance, 2, "vampire", 1, 2));
-        relicFactories.add(new RelicFactory(RelicEffect.Damage, 5, "sharp blade", 2, 3));
-        relicFactories.add(new RelicFactory(RelicEffect.CritChance, 5, "sharp pin", 2, 3));
-        relicFactories.add(new RelicFactory(RelicEffect.Defense, 5, "sturdy cover", 2, 3));
-        relicFactories.add(new RelicFactory(RelicEffect.BlockChance, 5, "powerful shield", 2, 3));
-        relicFactories.add(new RelicFactory(RelicEffect.AbsorbChance, 5, "crafty vampire", 2, 3));
+        relicFactories.add(new RelicFactory(regen, "poisoned pin", 1, 2));
     }
 
     public RelicFactory choose(int level)

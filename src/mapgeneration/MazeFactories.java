@@ -22,7 +22,7 @@ public class MazeFactories
         armourProvider = new ArmourProvider();
         consumableProvider = new ConsumableProvider(messages, player);
         monsterProvider = new MonsterProvider(messages, map);
-        relicProvider = new RelicProvider();
+        relicProvider = new RelicProvider(player);
         weaponProvider = new WeaponProvider();
     }
 

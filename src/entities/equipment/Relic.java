@@ -1,26 +1,19 @@
 package entities.equipment;
 
-import enums.RelicEffect;
+import statuses.StatusEffect;
 
 public class Relic extends Item
 {
-	private RelicEffect effect;
-	private int amount;
+	private StatusEffect statusEffect;
 	
-	public Relic(RelicEffect inEffect, int inAmount, String inName, Character inCha, int inRow, int inColumn, int inMinLevel, int inMaxLevel)
+	public Relic(StatusEffect inStatusEffect, String inName, Character inCha, int inRow, int inColumn, int inMinLevel, int inMaxLevel)
 	{
 		super(inCha, inRow, inColumn, inName, inMinLevel, inMaxLevel);
-		effect = inEffect;
-		amount = inAmount;
+		statusEffect = inStatusEffect;
 	}
 	
-	public RelicEffect getEffect()
+	public StatusEffect getStatusEffect()
 	{
-		return effect;
-	}
-	
-	public int getAmount()
-	{
-		return amount;
+		return statusEffect;
 	}
 }

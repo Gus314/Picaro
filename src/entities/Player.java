@@ -102,10 +102,7 @@ public class Player extends Creature
 		
 		if(weapon!=null)
 			result+= weapon.getMinDamage();
-		
-		if(relic!=null && relic.getEffect()== RelicEffect.Damage)
-			result+= relic.getAmount();
-		
+
 		return result;
 	}
 
@@ -115,10 +112,7 @@ public class Player extends Creature
 		
 		if(weapon!=null)
 			result+= weapon.getMaxDamage();
-		
-		if(relic!=null && relic.getEffect()== RelicEffect.Damage)
-			result+= relic.getAmount();
-		
+
 		return result;
 	}
 	
@@ -128,10 +122,7 @@ public class Player extends Creature
 		
 		if(weapon!=null)
 			result+= weapon.getCritChance();
-		
-		if(relic!=null && relic.getEffect()== RelicEffect.CritChance)
-			result+= relic.getAmount();
-		
+
 		return result;
 	}
 
@@ -141,9 +132,6 @@ public class Player extends Creature
 
 		if(weapon!=null)
 			result+= weapon.getIntelligence();
-
-		if(relic!=null && relic.getEffect()== RelicEffect.Intelligence)
-			result+= relic.getAmount();
 
 		return result;
 	}
@@ -163,10 +151,7 @@ public class Player extends Creature
 		int result = super.getDefense();
 
 		result+= getArmoursDefense();
-		
-		if(relic!=null && relic.getEffect()== RelicEffect.Defense)
-			result+= relic.getAmount();
-		
+
 		return result;
 	}
 
@@ -185,9 +170,6 @@ public class Player extends Creature
 		int result = super.getMagicDefense();
 
 		result+= getArmoursMagicDefense();
-
-		if(relic!=null && relic.getEffect()== RelicEffect.MagicDefense)
-			result+= relic.getAmount();
 
 		return result;
 	}
@@ -216,11 +198,16 @@ public class Player extends Creature
 	{
 		return relic;
 	}
-
 	
 	public void setRelic(Relic inRelic)
 	{
+		if(relic != null)
+		{
+			removeStatusEffect(relic.getStatusEffect());
+		}
+
 		relic = inRelic;
+		addStatusEffect(relic.getStatusEffect());
 	}
 
 	private int getArmoursBlockChance()
@@ -238,10 +225,7 @@ public class Player extends Creature
 		int result = super.getBlockChance();
 
 		result+= getArmoursBlockChance();
-		
-		if(relic!=null && relic.getEffect()== RelicEffect.BlockChance)
-			result+= relic.getAmount();
-		
+
 		return result;
 	}
 
@@ -260,10 +244,7 @@ public class Player extends Creature
 		int result = super.getAbsorbChance();
 		
 		result+= getArmoursAbsorbChance();
-		
-		if(relic!=null && relic.getEffect()== RelicEffect.AbsorbChance)
-			result+= relic.getAmount();
-		
+
 		return result;
 	}
 

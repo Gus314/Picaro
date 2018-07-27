@@ -7,20 +7,16 @@ import javax.swing.*;
 public class RelicPanel extends JPanel
 {
     private JLabel name;
-    private JLabel effect;
-    private JLabel amount;
+    private JLabel statusEffect;
 
    public RelicPanel(Relic relic)
    {
        add(new JLabel("|Relic:"));
        name = new JLabel();
        add(name);
-       add(new JLabel("|Effect:"));
-       effect = new JLabel();
-       add(effect);
-       add(new JLabel("|Amount:"));
-       amount = new JLabel();
-       add(amount);
+       add(new JLabel("|Status Effect:"));
+       statusEffect = new JLabel();
+       add(statusEffect);
    }
 
    public void refresh(Relic relic)
@@ -28,14 +24,12 @@ public class RelicPanel extends JPanel
        if(relic!=null)
        {
            name.setText(relic.getName());
-           effect.setText((relic.getEffect()).toString());
-           amount.setText(((Integer)(relic.getAmount())).toString());
+           statusEffect.setText((relic.getStatusEffect()).getName());
        }
        else
        {
            name.setText("None");
-           effect.setText("None");
-           amount.setText("None");
+           statusEffect.setText("None");
        }
    }
 }

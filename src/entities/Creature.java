@@ -113,7 +113,12 @@ public abstract class Creature extends Entity
 
         for(StatusEffect effect: statusEffects)
         {
-            messages.addMessage(effect.action());
+            String actionMessage = effect.action();
+            if(actionMessage.length() > 0)
+            {
+                messages.addMessage(actionMessage);
+            }
+
             if(effect instanceof TemporaryStatusEffect)
             {
                 TemporaryStatusEffect temporaryEffect = (TemporaryStatusEffect) effect;

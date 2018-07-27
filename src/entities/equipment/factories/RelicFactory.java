@@ -1,20 +1,20 @@
 package entities.equipment.factories;
 
+import entities.Player;
 import entities.equipment.Relic;
 import enums.RelicEffect;
+import statuses.StatusEffect;
 
 public class RelicFactory
 {
-	private RelicEffect effect;
-	private int amount;
+	private StatusEffect statusEffect;
 	private String name;
 	private int minLevel;
 	private int maxLevel;
-	
-	public RelicFactory(RelicEffect inEffect, int inAmount, String inName, int inMinLevel, int inMaxLevel)
+
+	public RelicFactory(StatusEffect inStatusEffect, String inName, int inMinLevel, int inMaxLevel)
 	{
-		effect = inEffect;
-		amount = inAmount;
+		statusEffect = inStatusEffect;
 		name = inName;
 		minLevel = inMinLevel;
 		maxLevel = inMaxLevel;
@@ -26,6 +26,6 @@ public class RelicFactory
 	
 	public Relic construct(int inRow, int inColumn)
 	{
-		return new Relic(effect, amount, name, 'r', inRow, inColumn, minLevel, maxLevel);
+		return new Relic(statusEffect, name, 'r', inRow, inColumn, minLevel, maxLevel);
 	}
 }
