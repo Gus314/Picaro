@@ -2,7 +2,12 @@ package entities.factories;
 
 import control.Map;
 import entities.Monster;
+import skills.Skill;
 import ui.mainwindow.Messages;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class MonsterFactory extends AbstractEntityFactory
 {
@@ -25,9 +30,10 @@ public class MonsterFactory extends AbstractEntityFactory
 	private int maxMagicPoints;
 	private int intelligence;
 	private int magicDefense;
-	
+	private Collection<Skill> skills;
+
 	public MonsterFactory(Character inCha, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inDefense, int inBlockChance, int inAbsorbChance, int inRange, String inName,
-						  Map inMap, Messages inMessages, int inExp, int inMaxPhysicalPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense, int inMinLevel, int inMaxLevel)
+						  Map inMap, Messages inMessages, int inExp, int inMaxPhysicalPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense, Collection<Skill> inSkills, int inMinLevel, int inMaxLevel)
 	{
 		cha = inCha;
 		life = inLife;
@@ -48,6 +54,8 @@ public class MonsterFactory extends AbstractEntityFactory
 		maxMagicPoints = inMaxMagicPoints;
 		intelligence = inIntelligence;
 		magicDefense = inMagicDefense;
+		skills = new ArrayList<Skill>();
+		skills.addAll(inSkills);
 	}
 	
 	public void setMap(Map inMap)
@@ -62,6 +70,6 @@ public class MonsterFactory extends AbstractEntityFactory
 	public Monster construct(int inRow, int inColumn)
 	{
 		return new Monster(cha, inRow, inColumn, map, messages, defense, name, life, life, minDamage, maxDamage, critChance, blockChance, absorbChance,
-				range, exp, maxPhysicalPoints, maxPhysicalPoints, maxMagicPoints, maxMagicPoints, intelligence, magicDefense, minLevel, maxLevel);
+				range, exp, maxPhysicalPoints, maxPhysicalPoints, maxMagicPoints, maxMagicPoints, intelligence, magicDefense, skills, minLevel, maxLevel);
 	}
 }

@@ -1,9 +1,10 @@
-package skills;
+package skills.player;
 
 import control.Controller;
 import entities.Creature;
 import enums.SkillBehaviour;
 import enums.SkillType;
+import skills.AreaSkill;
 
 import java.util.List;
 

@@ -9,6 +9,7 @@ import enums.SkillType;
 import ui.mainwindow.Messages;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class Creature extends Entity
@@ -104,6 +105,8 @@ public abstract class Creature extends Entity
     {
         skills.add(skill);
     }
+
+    public void addSkills(Collection<Skill> inSkills){skills.addAll(inSkills);}
 
     public boolean blocksLineOfSight(){ return true;}
 

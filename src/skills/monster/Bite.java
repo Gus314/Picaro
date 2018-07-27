@@ -1,17 +1,18 @@
-package skills;
+package skills.monster;
 
 import control.Controller;
 import entities.Creature;
 import enums.SkillBehaviour;
+import skills.TargetSkill;
 import statuses.Poison;
 import enums.SkillType;
 
-public class PoisonDart extends TargetSkill
+public class Bite extends TargetSkill
 {
-    private static final int cost = 3;
+    private static final int cost = 0;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Poison Dart";
-    private static final int range = 4;
+    private static final String name = "Bite";
+    private static final int range = 1;
 
     @Override
     public int getRange()
@@ -22,8 +23,8 @@ public class PoisonDart extends TargetSkill
     @Override
     public String action(Creature source, Creature target)
     {
-        String message = source.getName() + " fired a poison dart at " + target.getName();
-        int baseDamage = Controller.getGenerator().nextInt(4);
+        String message = source.getName() + " bit " + target.getName();
+        int baseDamage = Controller.getGenerator().nextInt(8)+7;
         int damageReduction = target.getDefense()/2 + Controller.getGenerator().nextInt(target.getDefense()/2);
         int adjustedDamage = baseDamage - damageReduction;
         int maxDamage = target.getLife();
@@ -37,24 +38,7 @@ public class PoisonDart extends TargetSkill
         }
 
         target.setLife(target.getLife() - adjustedDamage);
-        message = message + " causing " + adjustedDamage + " damage and ";
-
-        // 50% chance.
-        boolean poisoned = Controller.getGenerator().nextInt(10) > 4;
-        if(poisoned)
-        {
-            int duration = 10;
-            int intensity = 1;
-            Poison poison = new Poison(target, duration, intensity);
-            target.addStatusEffect(poison);
-            message = message + " successfully inflicting ";
-        }
-        else
-        {
-            message = message + " failing to inflict ";
-        }
-
-        message = message + " poison.";
+        message = message + " causing " + adjustedDamage + " damage.";
 
         return message;
     }

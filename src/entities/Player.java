@@ -9,10 +9,6 @@ import entities.equipment.Weapon;
 import enums.ArmourType;
 import pclasses.Pclass;
 import races.Race;
-import skills.Fireball;
-import skills.Heal;
-import skills.PoisonDart;
-import enums.RelicEffect;
 import ui.mainwindow.Messages;
 
 import java.util.HashMap;

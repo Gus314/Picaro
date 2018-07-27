@@ -1,8 +1,8 @@
 package pclasses;
 
-import skills.Fireball;
-import skills.Heal;
-import skills.PoisonDart;
+import skills.player.Fireball;
+import skills.player.Heal;
+import skills.player.PoisonDart;
 import skills.Skill;
 
 import java.util.ArrayList;
