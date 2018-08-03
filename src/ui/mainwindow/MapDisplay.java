@@ -424,9 +424,8 @@ public class MapDisplay extends JPanel
 			cells.get(i).setText(blank);
 		}
 
-		final int sightRadius = 8;
 		List<Entity> entries = map.getMapEntries();
-		HashSet<Entity> visibleEntries = map.lineOfSight(player, sightRadius);
+		HashSet<Entity> visibleEntries = map.lineOfSight(player, player.getSightRadius());
         HashSet<Entity> permanentlyVisible = map.getPermanentlyVisible();
 
 		for(Entity ent: entries)
@@ -441,6 +440,8 @@ public class MapDisplay extends JPanel
 				cells.get(position).setText(blank);
 				continue;
 			}
+
+			// TODO : Ensure monsters take priority over items for display.
 
 			if(row < 0 || column < 0)
 			{

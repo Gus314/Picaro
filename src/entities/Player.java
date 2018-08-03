@@ -92,6 +92,12 @@ public class Player extends Creature
 		return result;
 	}
 
+	private static final int sightRadius = 8;
+	public int getSightRadius()
+	{
+		return sightRadius;
+	}
+
 	public @Override int getMinDamage()
 	{
 		int result = super.getMinDamage();

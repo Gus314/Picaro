@@ -27,4 +27,16 @@ public class Regen extends StatusEffect
         getTarget().setLife(currentLife + healing);
         return (healing > 0) ? getTarget().getName() + " healed " + healing + " damage from regen." : "";
     }
+
+    @Override
+    public String onApplication()
+    {
+        return getTarget().getName() + " is regenerating.";
+    }
+
+    @Override
+    public String onRemoval()
+    {
+        return getTarget().getName() + " is no longer regenerating.";
+    }
 }

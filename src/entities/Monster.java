@@ -56,15 +56,42 @@ public class Monster extends Creature {
 		List<Floor> floorList = new ArrayList<Floor>();
 		floorList.addAll(floors);
         if(floorList.size() == 0 && behaviour == Behaviour.SUPPORT)
-		{
+        {
 			System.out.println("Monster::act - unable to find target for support skill.");
 			return new ArrayList<Entity>();
 		}
 
-		Entity target = (behaviour == Behaviour.SUPPORT) ? floorList.get(Controller.getGenerator().nextInt(floorList.size())) : player;
+		Entity target = determineTarget(behaviour, monster, player, floorList);
 
 		Act action = ActFactory.construct(behaviour, monster, messages);
 		return action.act(target);
+	}
+
+	private Entity determineTarget(Behaviour behaviour, Monster monster, Player player, List<Floor> floorList)
+	{
+		switch(behaviour)
+		{
+			// TODO: More sophisticated targetting.
+			case SUPPORT:
+			{
+				return floorList.get(Controller.getGenerator().nextInt(floorList.size()));
+			}
+			case ATTACK:
+			{
+				return player;
+			}
+			case DEFEND:
+			case RETREAT:
+			{
+				// TODO: More sophisticated targetting.
+				return monster;
+			}
+			default:
+			{
+				System.out.println("Monster::determineTarget - unexpected behaviour.");
+				return monster;
+			}
+		}
 	}
 
 	private int getPlayerRange()

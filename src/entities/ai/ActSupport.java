@@ -24,7 +24,6 @@ public class ActSupport extends Act
     @Override
     public Collection<Entity> act(Entity entity)
     {
-
         List<Skill> supportSkills = new ArrayList<Skill>();
         supportSkills.addAll(getMonster().getSkills(SkillBehaviour.SUPPORT));
 
@@ -55,6 +54,5 @@ public class ActSupport extends Act
                 return new ArrayList<Entity>();
             }
         }
-
     }
 }

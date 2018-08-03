@@ -119,7 +119,8 @@ public abstract class Creature extends Entity
         for(StatusEffect effect: statusEffects)
         {
             String actionMessage = effect.action();
-            if(actionMessage.length() > 0)
+            Player player = map.getPlayer();
+            if(actionMessage.length() > 0 && map.isInLineOfSight(player, this, player.getSightRadius()))
             {
                 messages.addMessage(actionMessage);
             }
@@ -127,6 +128,7 @@ public abstract class Creature extends Entity
             if(effect instanceof TemporaryStatusEffect)
             {
                 TemporaryStatusEffect temporaryEffect = (TemporaryStatusEffect) effect;
+                temporaryEffect.decrementRemainingTurns();
                 if(temporaryEffect.getRemainingTurns() == 0)
                 {
                    removableEffects.add(temporaryEffect);
@@ -142,10 +144,12 @@ public abstract class Creature extends Entity
     {
         // TODO: Handle stacking effects;
         statusEffects.add(effect);
+        messages.addMessage(effect.onApplication());
     }
 
     public void removeStatusEffect(StatusEffect effect)
     {
+        messages.addMessage(effect.onRemoval());
         statusEffects.remove(effect);
     }
 

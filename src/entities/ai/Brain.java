@@ -30,6 +30,16 @@ public class Brain
             return Behaviour.SUPPORT;
         }
 
+        if(monster.hasSkills(SkillBehaviour.DEFEND) && Controller.getGenerator().nextInt(10) == 1)
+        {
+            return Behaviour.DEFEND;
+        }
+
+        if(monster.hasSkills(SkillBehaviour.RETREAT) && Controller.getGenerator().nextInt(10) == 1)
+        {
+            return Behaviour.RETREAT;
+        }
+
         return Behaviour.ATTACK;
     }
 
@@ -37,9 +47,23 @@ public class Brain
     {
         switch(behaviour)
         {
+            case DEFEND:
+            {
+                boolean canActDefend = monster.hasSkills(SkillBehaviour.DEFEND);
+                // TODO: Tidy this method.
+                boolean shouldAct = canActDefend && (Controller.getGenerator().nextInt(2) == 1);
+                return shouldAct ? TurnType.ACT : TurnType.MOVE;
+            }
+            case ATTACK:
+            {
+                return inRange ? TurnType.ACT : TurnType.MOVE;
+            }
             case RETREAT:
             {
-                return TurnType.MOVE;
+                boolean canActRetreat = monster.hasSkills(SkillBehaviour.RETREAT);
+                // TODO: Tidy this method.
+                boolean shouldAct = canActRetreat && (Controller.getGenerator().nextInt(2) == 1);
+                return shouldAct ? TurnType.ACT : TurnType.MOVE;
             }
             case SUPPORT:
             {
@@ -47,7 +71,8 @@ public class Brain
             }
             default:
             {
-                return inRange ? TurnType.ACT : TurnType.MOVE;
+                System.out.println("Brain::determineTurnType - unexpected behaviour.");
+                return TurnType.MOVE;
             }
         }
     }

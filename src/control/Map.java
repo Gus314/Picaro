@@ -70,6 +70,20 @@ public class Map
 		return lineOfSight(source, radius).contains(target);
 	}
 
+	public Player getPlayer()
+    {
+         for(Entity entity: mapEntries)
+         {
+             if(entity instanceof Player)
+             {
+                 return (Player) entity;
+             }
+         }
+
+         System.out.println("Map::getPlayer - failed to find player.");
+         return null;
+    }
+
 	public HashSet<Entity> lineOfSight(Entity source, int radius)
 	{
 		HashSet<Entity> result = new HashSet<>();

@@ -11,6 +11,7 @@ public abstract class StatusEffect
 
     public Creature getTarget(){return target;}
 
+    // Default to doing nothing.
     public abstract String action();
 
     public StatusEffect(String inName, Creature inTarget)
@@ -18,4 +19,10 @@ public abstract class StatusEffect
         name = inName;
         target = inTarget;
     }
+
+    // Default to doing nothing.
+    public abstract String onApplication();
+
+    // Default to doing nothing.
+    public abstract String onRemoval();
 }

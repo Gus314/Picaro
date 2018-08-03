@@ -8,9 +8,7 @@ public abstract class TemporaryStatusEffect extends StatusEffect
 
     public int getRemainingTurns(){return remainingTurns;}
 
-    public void setRemainingTurns(int inRemainingTurns){remainingTurns = inRemainingTurns;}
-
-    protected void decrementRemainingTurns(){remainingTurns--;}
+    public void decrementRemainingTurns(){remainingTurns--;}
 
     public TemporaryStatusEffect(String inName, Creature inTarget, int inRemainingTurns)
     {
