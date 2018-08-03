@@ -1,8 +1,11 @@
 package entities.ai;
 
+import entities.Entity;
 import entities.Monster;
 import entities.Player;
 import ui.mainwindow.Messages;
+
+import java.util.Collection;
 
 public abstract class Act
 {
@@ -19,5 +22,5 @@ public abstract class Act
         messages = inMessages;
     }
 
-    public abstract void act(Player player);
+    public abstract Collection<Entity> act(Entity entity);
 }

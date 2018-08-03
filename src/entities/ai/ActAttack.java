@@ -2,6 +2,7 @@ package entities.ai;
 
 import control.Controller;
 import entities.Creature;
+import entities.Entity;
 import entities.Monster;
 import entities.Player;
 import enums.TargetType;
@@ -31,12 +32,20 @@ public class ActAttack extends Act
     }
 
     @Override
-    public void act(Player player)
+    public Collection<Entity> act(Entity entity)
     {
         Monster monster = getMonster();
         Collection<Skill> skills = monster.getAttackSkillsInRange();
 
         boolean acted = false;
+
+        if(!(entity instanceof Player))
+        {
+            System.out.println("ActAttack::act - unexpected entity type.");
+            return new ArrayList<Entity>();
+        }
+
+        Player player = (Player) entity;
 
         if(skills.size() > 0)
         {
@@ -74,5 +83,7 @@ public class ActAttack extends Act
             JOptionPane.showMessageDialog(getMessages().getTopLevelAncestor(), "You have died!");
             System.exit(0);
         }
+
+        return new ArrayList<Entity>();
     }
 }

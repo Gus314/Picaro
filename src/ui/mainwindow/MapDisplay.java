@@ -425,7 +425,7 @@ public class MapDisplay extends JPanel
 		}
 
 		final int sightRadius = 8;
-		ArrayList<Entity> entries = map.getMapEntries();
+		List<Entity> entries = map.getMapEntries();
 		HashSet<Entity> visibleEntries = map.lineOfSight(player, sightRadius);
         HashSet<Entity> permanentlyVisible = map.getPermanentlyVisible();
 

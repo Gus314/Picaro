@@ -19,6 +19,7 @@ public class MoveAttack extends Move
     @Override
     public void move()
     {
+        // TODO: Move meaningfully.
         Direction[] directionArray = Direction.values();
         ArrayList<Direction> directions =  new ArrayList<Direction>();
         for(int i = 0; i < directionArray.length; i++)
@@ -44,22 +45,5 @@ public class MoveAttack extends Move
                 }
             }
         }
-    }
-
-    private boolean canMove()
-    {
-        int row = getMonster().getRow();
-        int column = getMonster().getColumn();
-
-        for(Direction direction: Direction.values())
-        {
-            List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-            if(Entity.passable(here))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

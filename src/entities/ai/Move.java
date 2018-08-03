@@ -1,7 +1,11 @@
 package entities.ai;
 
 import control.Map;
+import entities.Entity;
 import entities.Monster;
+import enums.Direction;
+
+import java.util.List;
 
 public abstract class Move
 {
@@ -18,4 +22,21 @@ public abstract class Move
     }
 
     public abstract void move();
+
+    protected boolean canMove()
+    {
+        int row = getMonster().getRow();
+        int column = getMonster().getColumn();
+
+        for(Direction direction: Direction.values())
+        {
+            List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
+            if(Entity.passable(here))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

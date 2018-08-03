@@ -1,5 +1,6 @@
 package entities.ai;
 
+import control.Map;
 import entities.Monster;
 import enums.Behaviour;
 import ui.mainwindow.Messages;

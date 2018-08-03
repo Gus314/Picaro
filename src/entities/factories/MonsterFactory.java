@@ -57,7 +57,12 @@ public class MonsterFactory extends AbstractEntityFactory
 		skills = new ArrayList<Skill>();
 		skills.addAll(inSkills);
 	}
-	
+
+	public void addSkill(Skill skill)
+	{
+		skills.add(skill);
+	}
+
 	public void setMap(Map inMap)
 	{
 		map = inMap;

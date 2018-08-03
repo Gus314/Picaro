@@ -5,6 +5,7 @@ import control.Map;
 import entities.factories.MonsterFactory;
 import skills.Skill;
 import skills.monster.Bite;
+import skills.monster.RequestAid;
 import ui.mainwindow.Messages;
 
 import java.util.ArrayList;
@@ -21,13 +22,16 @@ public class MonsterProvider
 
         monsterFactories = new Vector<MonsterFactory>();
 
+        MonsterFactory mouseFactory = new MonsterFactory('M',10,11,15,0,5,0,0,1,"mouse",map,messages,10,10,0,10,10, skills, 1,1);
         Bite bite = new Bite();
         skills.add(bite);
-        monsterFactories.add(new MonsterFactory('M',10,11,15,0,5,0,0,1,"mouse",map,messages,10,10,0,10,10, skills, 1,1));
+        MonsterFactory ratFactory = new MonsterFactory('R',16,11,15,0,7,2,0,1,"rat",map,messages,10,10,0,14,14, skills,1,1);
+        skills.clear();
+        RequestAid requestAid = new RequestAid(ratFactory);
+        mouseFactory.addSkill(requestAid);
 
-        // skills.clear();
-        monsterFactories.add(new MonsterFactory('R',16,11,15,0,7,2,0,1,"rat",map,messages,10,10,0,14,14, skills,1,1));
         monsterFactories.add(new MonsterFactory('V',16,11,15,0,7,0,0,1,"vole",map,messages,10,10,0,13,13, skills,1,2));
+
         monsterFactories.add(new MonsterFactory('A',12,11,15,0,5,0,0,1,"ant",map,messages,10,0,10,19,19, skills,1,3));
         monsterFactories.add(new MonsterFactory('S',14,11,15,10,5,2,0,1,"spider",map,messages,10,0,10,16,16, skills,1,4));
         monsterFactories.add(new MonsterFactory('B',22,19,25,10,11,0,0,4,"bee",map,messages,15,20,0,19,18, skills,2,4));

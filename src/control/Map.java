@@ -3,13 +3,11 @@ package control;
 import entities.*;
 import enums.Quadrant;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Map 
 {
-	private ArrayList<Entity> mapEntries;
+	private List<Entity> mapEntries;
 	private HashSet<Entity> permanentlyVisible;
 	private int rows;
 	private int columns;
@@ -32,7 +30,7 @@ public class Map
 		return columns;
 	}
 	
-	public ArrayList<Entity> getMapEntries()
+	public List<Entity> getMapEntries()
 	{
 		return mapEntries;
 	}
@@ -47,17 +45,24 @@ public class Map
 		mapEntries.add(ent);
 	}
 
-	public List<Entity> atPosition(int row, int column)
+	public List<Entity> atPosition(int row, int column, boolean includeFloor)
 	{
 		List<Entity> result = new ArrayList<Entity>();
 		for(Entity ent: mapEntries)
 		{
-			if(ent.getRow() == row && ent.getColumn() == column && (!(ent instanceof Floor)))
+			boolean isFloor = ent instanceof Floor;
+			boolean floorStatusValid = !(includeFloor ^ isFloor);
+			if(ent.getRow() == row && ent.getColumn() == column && floorStatusValid)
 			{
 				result.add(ent);
 			};
 		}
 		return result;
+	}
+
+	public List<Entity> atPosition(int row, int column)
+	{
+		return atPosition(row, column, false);
 	}
 
 	public boolean isInLineOfSight(Entity source, Entity target, int radius)
@@ -155,16 +160,21 @@ public class Map
 	
 	public void takeTurns()
 	{
+		// Prevent concurrent modification.
+		Collection<Entity> additions = new ArrayList<Entity>();
+
 		for(Entity ent: mapEntries)
 		{
 			if (ent instanceof Monster)
 			{
-				((Monster) ent).takeTurn();
+				additions.addAll(((Monster) ent).takeTurn());
 			}
 			if(ent instanceof Creature)
 			{
 				((Creature) ent).progressStatusEffects();
 			}
 		}
+
+		mapEntries.addAll(additions);
 	}
 }

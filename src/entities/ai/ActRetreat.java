@@ -1,8 +1,11 @@
 package entities.ai;
 
+import entities.Entity;
 import entities.Monster;
-import entities.Player;
 import ui.mainwindow.Messages;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class ActRetreat extends Act
 {
@@ -12,9 +15,10 @@ public class ActRetreat extends Act
     }
 
     @Override
-    public void act(Player player)
+    public Collection<Entity> act(Entity entity)
     {
         System.out.println("ActRetreat::act() - todo");
         //TODO: Implement.
+        return new ArrayList<Entity>();
     }
 }

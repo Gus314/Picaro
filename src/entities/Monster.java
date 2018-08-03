@@ -2,6 +2,7 @@ package entities;
 
 import control.Controller;
 import control.Map;
+import entities.ai.Act;
 import entities.ai.ActFactory;
 import entities.ai.Brain;
 import entities.ai.MoveFactory;
@@ -14,8 +15,6 @@ import ui.mainwindow.Messages;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 
 public class Monster extends Creature {
 	private int minLevel;
@@ -48,9 +47,24 @@ public class Monster extends Creature {
 		MoveFactory.construct(behaviour, monster, map).move();
 	}
 
-	private void act(Player player, Monster monster, Messages messages, Behaviour behaviour) {
-		ActFactory.construct(behaviour, monster, messages).act(player);
+	private Collection<Entity> act(Player player, Monster monster, Messages messages, Behaviour behaviour)
+	{
+		// TODO: What if the support skill is not a summon skill?
+		// TODO: What if there is no nearby empty floor?
 
+		Collection<Floor> floors = findNearbyEmptyFloors();
+		List<Floor> floorList = new ArrayList<Floor>();
+		floorList.addAll(floors);
+        if(floorList.size() == 0 && behaviour == Behaviour.SUPPORT)
+		{
+			System.out.println("Monster::act - unable to find target for support skill.");
+			return new ArrayList<Entity>();
+		}
+
+		Entity target = (behaviour == Behaviour.SUPPORT) ? floorList.get(Controller.getGenerator().nextInt(floorList.size())) : player;
+
+		Act action = ActFactory.construct(behaviour, monster, messages);
+		return action.act(target);
 	}
 
 	private int getPlayerRange()
@@ -104,6 +118,34 @@ public class Monster extends Creature {
 		return maxRange;
 	}
 
+	public boolean hasSkills(SkillBehaviour behaviour)
+	{
+		for(Skill skill: getSkills())
+		{
+			if(skill.getSkillBehaviour() == behaviour && canUse(skill))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public Collection<Skill> getSkills(SkillBehaviour behaviour)
+	{
+		Collection<Skill> result = new ArrayList<Skill>();
+
+		for(Skill skill: getSkills())
+		{
+			if(skill.getSkillBehaviour() == behaviour && canUse(skill))
+			{
+				result.add(skill);
+			}
+		}
+
+		return result;
+	}
+
 	public Collection<Skill> getAttackSkillsInRange()
 	{
 		Collection<Skill> result = new ArrayList<Skill>();
@@ -137,7 +179,7 @@ public class Monster extends Creature {
 		return result;
 	}
 
-	public void takeTurn()
+	public Collection<Entity> takeTurn()
 	{
 		Player player = null;
 
@@ -150,25 +192,25 @@ public class Monster extends Creature {
 			}
 		}
 
-		TurnType turnType = brain.determineTurnType(player != null);
 		Behaviour behaviour = brain.determineBehaviour();
+		TurnType turnType = brain.determineTurnType(player != null, behaviour);
 
 		switch(turnType)
 		{
 			case MOVE:
 			{
 				move(behaviour, this, getMap());
-				break;
+				return new ArrayList<Entity>();
 			}
 			case ACT:
 			{
-				act(player, this, getMessages(), behaviour);
-				break;
+				return act(player, this, getMessages(), behaviour);
 			}
 			default:
 			{
 				System.out.println("Monster::takeTurn() - unexpected turn type.");
 				// TODO: Throw exception
+				return new ArrayList<Entity>();
 			}
 		}
 	}

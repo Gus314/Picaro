@@ -2,7 +2,9 @@ package entities;
 
 import control.Controller;
 import control.Map;
+import enums.SkillBehaviour;
 import skills.Skill;
+import skills.SummonSkill;
 import statuses.StatusEffect;
 import statuses.TemporaryStatusEffect;
 import enums.SkillType;
@@ -194,8 +196,32 @@ public abstract class Creature extends Entity
         return targetLife <= 0;
     }
 
+    protected Collection<Floor> findNearbyEmptyFloors()
+    {
+        Collection<Floor> result = new ArrayList<Floor>();
+
+        for(int i = -3; i < 3; i++)
+        {
+            for(int j = -3; j < 3; j++)
+            {
+                List<Entity> here = getMap().atPosition(getRow() + i, getColumn() + j, true);
+                if(here.size() == 1 && here.get(0) instanceof Floor)
+                {
+                    result.add((Floor) here.get(0));
+                }
+            }
+        }
+
+        return result;
+    }
+
     public boolean canUse(Skill skill)
     {
+        if(skill instanceof SummonSkill && findNearbyEmptyFloors().size() == 0)
+        {
+            return false;
+        }
+
         switch(skill.getSkillType())
         {
             case PHYSICAL:

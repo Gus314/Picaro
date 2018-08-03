@@ -1,7 +1,10 @@
 package entities.ai;
 
+import control.Controller;
+import control.Map;
 import entities.Monster;
 import enums.Behaviour;
+import enums.SkillBehaviour;
 import enums.TurnType;
 
 public class Brain
@@ -22,18 +25,25 @@ public class Brain
             return Behaviour.RETREAT;
         }
 
+        if(monster.hasSkills(SkillBehaviour.SUPPORT) && Controller.getGenerator().nextInt(10) == 1)
+        {
+            return Behaviour.SUPPORT;
+        }
+
         return Behaviour.ATTACK;
     }
 
-    public TurnType determineTurnType(boolean inRange)
+    public TurnType determineTurnType(boolean inRange, Behaviour behaviour)
     {
-        Behaviour behaviour = determineBehaviour();
-
         switch(behaviour)
         {
             case RETREAT:
             {
                 return TurnType.MOVE;
+            }
+            case SUPPORT:
+            {
+                return TurnType.ACT;
             }
             default:
             {
