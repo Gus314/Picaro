@@ -1,10 +1,7 @@
 package pclasses;
 
 import entities.factories.MonsterFactory;
-import skills.player.CallEnemy;
-import skills.player.Fireball;
-import skills.player.Heal;
-import skills.player.PoisonDart;
+import skills.player.*;
 import skills.Skill;
 
 import java.util.*;
@@ -17,6 +14,7 @@ public class PClassProvider
 
         Map<Integer, Skill> hunterSkills = new HashMap<Integer, Skill>();
         hunterSkills.put(1, new PoisonDart());
+        hunterSkills.put(1, new Toughen());
         result.add(new Pclass("Hunter", hunterSkills));
 
         Map<Integer, Skill> mageSkills = new HashMap<Integer, Skill>();

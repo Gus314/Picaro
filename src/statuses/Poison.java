@@ -5,10 +5,11 @@ import entities.Creature;
 public class Poison extends IntensityStatusEffect
 {
     private static final String name = "Poison";
+    private static final String description = "Increase target defense.";
 
     public Poison(Creature inTarget, int inDuration, int inIntensity)
     {
-        super(name, inTarget, inDuration, inIntensity);
+        super(name, description, inTarget, inDuration, inIntensity);
     }
 
     public @Override String action()

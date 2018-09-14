@@ -6,9 +6,9 @@ public abstract class IntensityStatusEffect extends TemporaryStatusEffect
 {
     private int intensity;
 
-    public IntensityStatusEffect(String name, Creature inTarget, int inDuration, int inIntensity)
+    public IntensityStatusEffect(String inName, String inDescription, Creature inTarget, int inDuration, int inIntensity)
     {
-        super(name, inTarget, inDuration);
+        super(inName, inDescription, inTarget, inDuration);
         intensity = inIntensity;
     }
 

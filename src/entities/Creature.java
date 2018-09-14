@@ -64,6 +64,8 @@ public abstract class Creature extends Entity
         skills = new ArrayList<Skill>();
     }
 
+    public Collection<StatusEffect> getStatusEffects(){return statusEffects;}
+
     public void setMap(Map inMap)
     {
         map = inMap;

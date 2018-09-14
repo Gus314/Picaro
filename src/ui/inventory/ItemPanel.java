@@ -4,6 +4,7 @@ import control.Map;
 import entities.Player;
 import entities.equipment.*;
 import ui.mainwindow.Stats;
+import ui.mainwindow.Status;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class ItemPanel extends JPanel
     private JTable itemsTable;
     private Player player;
     private Stats stats;
+    private Status status;
     private InventoryWindow inventoryWindow;
     private Map map;
     private static final int itemsPerPage = 10;
@@ -28,10 +30,11 @@ public class ItemPanel extends JPanel
         return usePanel;
     }
 
-    public ItemPanel(Player inPlayer, Stats inStats, InventoryWindow inInventoryWindow, Map inMap)
+    public ItemPanel(Player inPlayer, Stats inStats, Status inStatus, InventoryWindow inInventoryWindow, Map inMap)
     {
         player = inPlayer;
         stats = inStats;
+        status = inStatus;
         inventoryWindow = inInventoryWindow;
         map = inMap;
 
@@ -138,7 +141,7 @@ public class ItemPanel extends JPanel
                     itemsTable.setValueAt(0, itemNum+1, 8);
                     itemsTable.setValueAt(0, itemNum+1, 9);
                 }
-                usePanel.add(new UseButton(item, player, inventoryWindow, stats));
+                usePanel.add(new UseButton(item, player, inventoryWindow, stats, status));
                 dropPanel.add(new DropButton(item, player, inventoryWindow, map));
 
                 itemNum++;

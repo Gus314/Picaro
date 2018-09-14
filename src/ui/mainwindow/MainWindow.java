@@ -77,14 +77,15 @@ public class MainWindow extends JTabbedPane
 		Player player = dm.getPlayer();
 		Map map = dm.getMap();
 		Stats stats = new Stats(player);
+		Status status = new Status(player);
 
-		InventoryWindow invWind = new InventoryWindow(player, stats, map);
+		InventoryWindow invWind = new InventoryWindow(player, stats, status, map);
 		this.addTab("Inventory", invWind);
-		mapDisplay = new MapDisplay(map, player, stats, messages);
+		mapDisplay = new MapDisplay(map, player, stats, status, messages);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 1;
-		constraints.weighty = 50;
+		constraints.weighty = 30;
 		constraints.gridy = 0;
 
 		mainPanel.add(mapDisplay, constraints);
@@ -94,9 +95,10 @@ public class MainWindow extends JTabbedPane
 		constraints.weighty = 30;
 		constraints.gridy = 1;
 		mainPanel.add(infoPanel, constraints);
-		infoPanel.setLayout(new GridLayout(3,1));
+		infoPanel.setLayout(new GridLayout(4,1));
 		infoPanel.add(optionsPanel);
 		infoPanel.add(stats);
+		infoPanel.add(status);
 		infoPanel.add(messages);
 
 		techniquesPanel = new TechniquesPanel(this, player, mapDisplay, messages);

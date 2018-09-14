@@ -10,9 +10,9 @@ public abstract class TemporaryStatusEffect extends StatusEffect
 
     public void decrementRemainingTurns(){remainingTurns--;}
 
-    public TemporaryStatusEffect(String inName, Creature inTarget, int inRemainingTurns)
+    public TemporaryStatusEffect(String inName, String inDescription, Creature inTarget, int inRemainingTurns)
     {
-        super(inName, inTarget);
+        super(inName, inDescription, inTarget);
         remainingTurns = inRemainingTurns;
     }
 }

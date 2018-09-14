@@ -3,6 +3,7 @@ package ui.inventory;
 import entities.*;
 import entities.equipment.*;
 import ui.mainwindow.Stats;
+import ui.mainwindow.Status;
 
 import javax.swing.*;
 
@@ -16,13 +17,15 @@ public class UseButton extends JButton
 	private Player player;
 	private InventoryWindow invWindow;
 	private Stats stats;
-	
-	public UseButton(Item inItem, Player inPlayer, InventoryWindow inInvWindow, Stats inStats)
+	private Status status;
+
+	public UseButton(Item inItem, Player inPlayer, InventoryWindow inInvWindow, Stats inStats, Status inStatus)
 	{
 		item = inItem;
 		player = inPlayer;
 		invWindow = inInvWindow;
 		stats = inStats;
+		status = inStatus;
 		this.setText("Use " + item.getName());
 		this.addActionListener(new UseListener());
 	}
@@ -72,6 +75,7 @@ public class UseButton extends JButton
 				items.remove(item);
 			}
 			stats.refresh();
+			status.refresh();
 			invWindow.refresh();
 		}
 	}

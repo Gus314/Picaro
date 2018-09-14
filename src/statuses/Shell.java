@@ -4,9 +4,12 @@ import entities.Creature;
 
 public class Shell extends IntensityStatusEffect
 {
+    private static final String name = "Shell";
+    private static final String description = "Increase target defense.";
+
     public Shell(Creature inTarget, int inRemainingTurns, int intensity)
     {
-        super("Shell", inTarget, inRemainingTurns, intensity);
+        super(name, description, inTarget, inRemainingTurns, intensity);
     }
 
     @Override

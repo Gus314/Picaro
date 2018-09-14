@@ -6,7 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 public class Stats extends JPanel
-{	
+{
 	private Player player;
 
 	private JLabel name;

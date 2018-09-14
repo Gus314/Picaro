@@ -3,6 +3,8 @@ package ui.inventory;
 import entities.*;
 import enums.ArmourType;
 import ui.mainwindow.Stats;
+import ui.mainwindow.Status;
+
 import javax.swing.*;
 import java.awt.GridLayout;
 import java.util.HashMap;
@@ -19,7 +21,7 @@ public class InventoryWindow extends JPanel
 	private ItemPanel itemPanel;
 	private JPanel overviewPanel;
 
-	public InventoryWindow(Player inPlayer, Stats inStats, control.Map inMap)
+	public InventoryWindow(Player inPlayer, Stats inStats, Status inStatus, control.Map inMap)
 	{
 		this.setLayout(new GridLayout(2,1));
 		map = inMap; // Only requires interface to add item?
@@ -33,7 +35,7 @@ public class InventoryWindow extends JPanel
 		armourPanels = new HashMap<ArmourType, ArmourPanel>();
         weaponPanel = new WeaponPanel(player.getWeapon());
         relicPanel = new RelicPanel(player.getRelic());
-        itemPanel = new ItemPanel(player, stats, this, map);
+        itemPanel = new ItemPanel(player, stats, inStatus,this, map);
 
 		overviewPanel.add(weaponPanel);
 		for(ArmourType armourType: ArmourType.values())

@@ -321,6 +321,7 @@ public class MapDisplay extends JPanel
 	private Vector<JLabel> cells;
 	private Player player;
 	private Stats stats;
+	private Status status;
 	private HashMap<Coordinate, Color> highlights;
 	private MapDisplayMode mode;
 	private MapMouseListener mapMouseListener;
@@ -365,7 +366,7 @@ public class MapDisplay extends JPanel
 		refresh();
 	}
 	
-	public MapDisplay(Map inMap, Player inPlayer, Stats inStats, Messages inMessages)
+	public MapDisplay(Map inMap, Player inPlayer, Stats inStats, Status inStatus, Messages inMessages)
 	{
 		super();
 
@@ -386,6 +387,7 @@ public class MapDisplay extends JPanel
 		map.addEntry(player);
 		player.setMap(map);
 		stats = inStats;
+		status = inStatus;
 		mapMouseListener = new MapMouseListener(this);
 		mapPanel.addMouseListener(mapMouseListener);
 		mapPanel.addMouseMotionListener(mapMouseListener);
@@ -497,5 +499,6 @@ public class MapDisplay extends JPanel
 			}
 		}
 		stats.refresh();
+		status.refresh();
 	}
 }
