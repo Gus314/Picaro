@@ -132,7 +132,7 @@ public class RoomGraph
        boolean[][] reachable = new boolean[getNumRCells()][getNumCCells()];
 
         int minReachable = (getNumCCells() * getNumRCells())/3;
-        int maxAttempts = (getNumCCells() * getNumRCells()) * 4;
+        int maxAttempts = (getNumCCells() * getNumRCells()) * 100;
         int currentAttempts = 0;
         while((reachableCount(reachable) < minReachable) && (currentAttempts < maxAttempts))
         {
@@ -140,6 +140,11 @@ public class RoomGraph
             reachabilityRun(reachable, cells);
             currentAttempts++;
             System.out.println("attempt = " + currentAttempts);
+        }
+
+        if(currentAttempts == maxAttempts)
+        {
+            System.out.println("RoomGraph::determineLayout - maxAttempts reached.");
         }
 
         addRandomFloors(cells);

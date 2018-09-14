@@ -12,13 +12,13 @@ public class RoomCell
 {
     private int rows;
     private int columns;
-    private Map<Edge, Boolean> connection;
+    private Map<Edge, CellConnection> connection;
     private int[][] data;
     private int properRoomChance; // Percentage chance of being a proper room.
 
     public RoomCell(int inRows, int inColumns, int inProperRoomChance)
     {
-        connection = new HashMap<Edge, Boolean>();
+        connection = new HashMap<Edge, CellConnection>();
         rows = inRows;
         columns = inColumns;
         data = new int[rows][columns];
@@ -91,7 +91,7 @@ public class RoomCell
 
     public boolean isConnected(Edge edge)
     {
-        return connection.get(edge);
+        return connection.get(edge) instanceof  ValidCellConnection;
     }
 
     private void clearCell()
@@ -215,6 +215,30 @@ public class RoomCell
         return data[row][column+1];
     }
 
+    private boolean makeConnection()
+    {
+        return Controller.getGenerator().nextInt(10) > 3;
+    }
+
+    private CellConnection obtainCellConnection(int maxOffset)
+    {
+        return CellConnectionFactory.construct(makeConnection(), maxOffset);
+    }
+
+    private boolean atLeastOneConnection()
+    {
+        for(CellConnection connection: connection.values())
+        {
+           if(connection instanceof ValidCellConnection)
+           {
+               return true;
+           }
+        }
+
+        // No valid connection found, therefore no connections.
+        return false;
+    }
+
     private void determineEdges()
     {
 
@@ -223,48 +247,90 @@ public class RoomCell
 
         // Determine connections, ensuring at least one.
         do {
-            connection.put(Edge.BOTTOM, Controller.getGenerator().nextInt(10) > 3);
-            connection.put(Edge.TOP, Controller.getGenerator().nextInt(10) > 3);
-            connection.put(Edge.LEFT, Controller.getGenerator().nextInt(10) > 3);
-            connection.put(Edge.RIGHT, Controller.getGenerator().nextInt(10) > 3);
+            int maxRowOffset = (rows/2)-1;
+            int maxColumnOffset = (columns/2)-1;
 
-            retry = ! (connection.get(Edge.BOTTOM) || connection.get(Edge.TOP) ||
-                    connection.get(Edge.LEFT) || connection.get(Edge.RIGHT));
+            connection.put(Edge.BOTTOM, obtainCellConnection(maxColumnOffset));
+            connection.put(Edge.TOP, obtainCellConnection(maxColumnOffset));
+            connection.put(Edge.LEFT, obtainCellConnection(maxRowOffset));
+            connection.put(Edge.RIGHT, obtainCellConnection(maxRowOffset));
+
+            retry = !atLeastOneConnection();
         }while(retry);
 
     }
 
+    private int obtainOffset(Edge edge)
+    {
+        // Helper method, assumes edge is associated to a valid cell connection.
+        return ((ValidCellConnection) connection.get(edge)).getOffset();
+    }
+
     private void connectEdgesToCentre(int centreRow, int centreColumn)
     {
-        // Connect edges to centre.
-        if(connection.get(Edge.LEFT))
+        // Connect edges to centre, with an offset.
+        if(connection.get(Edge.LEFT) instanceof  ValidCellConnection)
         {
+            int offset = obtainOffset(Edge.LEFT);
             for(int i = 0; i <= centreColumn; i++)
             {
-                data[centreRow][i] = FloorType.OUTSIDE.getValue();
+                data[centreRow+offset][i] = FloorType.OUTSIDE.getValue();
             }
         }
-        if(connection.get(Edge.RIGHT))
+        if(connection.get(Edge.RIGHT)  instanceof  ValidCellConnection)
         {
             for(int i = columns-1; i >= centreColumn; i--)
             {
-                data[centreRow][i] = FloorType.OUTSIDE.getValue();
+                int offset = obtainOffset(Edge.RIGHT);
+                data[centreRow+offset][i] = FloorType.OUTSIDE.getValue();
             }
         }
-        if(connection.get(Edge.TOP))
+        if(connection.get(Edge.TOP)  instanceof  ValidCellConnection)
         {
+            int offset = obtainOffset(Edge.TOP);
             for(int i = 0; i <= centreRow; i++)
             {
-                data[i][centreColumn] = FloorType.OUTSIDE.getValue();
+                data[i][centreColumn+offset] = FloorType.OUTSIDE.getValue();
             }
         }
-        if(connection.get(Edge.BOTTOM))
+        if(connection.get(Edge.BOTTOM)  instanceof  ValidCellConnection)
         {
+            int offset = obtainOffset(Edge.BOTTOM);
             for(int i = rows-1; i >= centreRow; i--)
             {
-                data[i][centreColumn] = FloorType.OUTSIDE.getValue();
+                data[i][centreColumn+offset] = FloorType.OUTSIDE.getValue();
+            }
+        }
+
+        fillOuterRing();
+    }
+
+
+    private void fillOuterRing()
+    {
+        // Offsets mean that outer ring must be floor.
+            for(int i = 0; i < columns; i++)
+            {
+                if(connection.get(Edge.TOP) instanceof ValidCellConnection)
+                {
+                    data[0][i] = FloorType.OUTSIDE.getValue();
+                }
+                if(connection.get(Edge.BOTTOM) instanceof  ValidCellConnection)
+                {
+                    data[rows-1][i] = FloorType.OUTSIDE.getValue();
+                }
+            }
+
+        for(int j = 0; j < rows; j++)
+        {
+            if(connection.get(Edge.LEFT) instanceof  ValidCellConnection)
+            {
+                data[j][0] = FloorType.OUTSIDE.getValue();
+            }
+            if(connection.get(Edge.RIGHT) instanceof ValidCellConnection)
+            {
+                data[j][columns-1] = FloorType.OUTSIDE.getValue();
             }
         }
     }
-
 }

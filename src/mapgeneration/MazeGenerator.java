@@ -75,8 +75,16 @@ public class MazeGenerator
 						(i < data.length - 1 && j < data[0].length - 1 && data[i+1][j+1] == FloorType.FLOOR.getValue()) ||
 						(i > 0 && j < data[0].length - 1 && data[i-1][j+1] == FloorType.FLOOR.getValue()) ||
 						(i < data.length - 1 && j > 0 && data[i+1][j-1] == FloorType.FLOOR.getValue());
-				if(data[i][j]==0 && adjacentFloor)
+
+				boolean floorNextToEmpty = data[i][j]==0 && adjacentFloor;
+				boolean edge = (i == 0) || (j == 0) || (i == data.length - 1) || (j == data[0].length-1);
+				if(floorNextToEmpty || edge)
 				{
+					if(edge)
+					{
+						// Ensure no entities are placed on this wall.
+						data[i][j] = FloorType.EMPTY.getValue();
+					}
 					map.addEntry(wallfac.construct(i, j));
 				}
 			}
