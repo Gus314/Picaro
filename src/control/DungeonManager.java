@@ -21,11 +21,12 @@ public class DungeonManager
     private static final int rowCellSize = 10;
     private static final int columnCellSize = 10;
     private static final int properRoomChance = 75;
+    private static final int randomFloorPercentage = 10;
 
 	public DungeonManager(Messages inMessages, PlayerInitialData playerInitialData)
 	{
 		messages = inMessages;
-		mazeGen = new MazeGenerator(rows, columns, rowCellSize, columnCellSize, properRoomChance, messages);
+		mazeGen = new MazeGenerator(rows, columns, rowCellSize, columnCellSize, properRoomChance, randomFloorPercentage, messages);
 		player = new Player(mazeGen.getMap(), messages, playerInitialData);
 		level = 0;
 		levels = new HashMap<Integer, PersistedMap>();

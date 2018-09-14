@@ -21,12 +21,12 @@ public class MazeGenerator
 	private Coordinate downStairs;
 	RoomGraph graph;
 
-	public MazeGenerator(int rows, int columns, int cellRows, int cellColumns, int properRoomChance, Messages inMessages)
+	public MazeGenerator(int rows, int columns, int cellRows, int cellColumns, int properRoomChance, int randomFloorPercentage, Messages inMessages)
 	{
 		messages = inMessages;
 		upStairs = null;
 		downStairs = null;
-		graph = new RoomGraph(rows, columns, cellRows, cellColumns, properRoomChance);
+		graph = new RoomGraph(rows, columns, cellRows, cellColumns, properRoomChance, randomFloorPercentage);
 	}
 
 	public void loadPersistedMap(PersistedMap persistedMap)

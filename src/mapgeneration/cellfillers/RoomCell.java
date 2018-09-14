@@ -1,6 +1,7 @@
 package mapgeneration.cellfillers;
 
 import control.Controller;
+import entities.Floor;
 import enums.Edge;
 import enums.FloorType;
 
@@ -158,6 +159,60 @@ public class RoomCell
                 }
             }
         }
+    }
+
+    public void addRandomFloors(int randomFloorPercentage)
+    {
+        double randomFloorPercentageD = (double) randomFloorPercentage;
+        double numTiles = rows * columns;
+        int newTiles = (int) (numTiles * (randomFloorPercentageD / 100.0));
+
+        int tilesAdded = 0;
+        int failedAttempts = 0;
+
+        while((tilesAdded < newTiles) && (failedAttempts < newTiles * 100))
+        {
+            int row = Controller.getGenerator().nextInt(rows-2) + 1;
+            int column = Controller.getGenerator().nextInt(columns-2) + 1;
+
+            int here = data[row][column];
+            boolean upOutside = up(row, column) == FloorType.OUTSIDE.getValue();
+            boolean downOutside = down(row, column) == FloorType.OUTSIDE.getValue();
+            boolean leftOutside = left(row, column) == FloorType.OUTSIDE.getValue();
+            boolean rightOutside = right(row, column) == FloorType.OUTSIDE.getValue();
+            boolean oneOutside = (upOutside || downOutside || leftOutside || rightOutside);
+
+            // If the tile is not floor but reachable by one that is.
+            if((here != FloorType.OUTSIDE.getValue()) && oneOutside)
+            {
+               data[row][column] = FloorType.OUTSIDE.getValue();
+               tilesAdded++;
+            }
+            else
+            {
+                failedAttempts++;
+            }
+        }
+    }
+
+    private int up(int row, int column)
+    {
+        return data[row-1][column];
+    }
+
+    private int left(int row, int column)
+    {
+        return data[row][column-1];
+    }
+
+    private int down(int row, int column)
+    {
+        return data[row+1][column];
+    }
+
+    private int right(int row, int column)
+    {
+        return data[row][column+1];
     }
 
     private void determineEdges()

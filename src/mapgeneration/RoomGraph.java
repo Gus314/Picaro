@@ -13,14 +13,16 @@ public class RoomGraph
     private int getNumCCells(){return columns / cellColumns;}
     private int cellRows;
     private int cellColumns;
+    private int randomFloorPercentage;
     private RoomCellFactory roomCellFactory;
 
-    public RoomGraph(int inRows, int inColumns, int inCellRows, int inCellColumns, int inProperRoomChance)
+    public RoomGraph(int inRows, int inColumns, int inCellRows, int inCellColumns, int inProperRoomChance, int inRandomFloorPercentage)
     {
         rows = inRows;
         columns = inColumns;
         cellRows = inCellRows;
         cellColumns = inCellColumns;
+        randomFloorPercentage = inRandomFloorPercentage;
         roomCellFactory = new RoomCellFactory(inProperRoomChance);
     }
 
@@ -94,6 +96,17 @@ public class RoomGraph
         reachable[entryRow][entryColumn] = true;
     }
 
+    private void addRandomFloors(RoomCell[][] cells)
+    {
+        for(RoomCell[] cellArray: cells)
+        {
+            for(RoomCell cell: cellArray)
+            {
+                cell.addRandomFloors(randomFloorPercentage);
+            }
+        }
+    }
+
     public Integer[][] determineLayout()
     {
         Integer[][] result = new Integer[getNumRCells() * cellRows][getNumCCells() * cellColumns];
@@ -128,6 +141,8 @@ public class RoomGraph
             currentAttempts++;
             System.out.println("attempt = " + currentAttempts);
         }
+
+        addRandomFloors(cells);
 
         for(int i = 0; i < getNumRCells(); i++)
         {
