@@ -25,9 +25,9 @@ public class Monster extends Creature {
 		return false;
 	}
 
-	public Monster(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance,
+	public Monster(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, Faction inFaction, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance,
 				   int inAbsorbChance, int inRange, int inExp, int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense, Collection<Skill> inSkills, int inMinLevel, int inMaxLevel) {
-		super(inCha, inRow, inColumn, inMap, inMessages, inDefense, inName, inMaxLife, inLife, inMinDamage, inMaxDamage, inCritChance, inBlockChance,
+		super(inCha, inRow, inColumn, inMap, inMessages, inFaction, inDefense, inName, inMaxLife, inLife, inMinDamage, inMaxDamage, inCritChance, inBlockChance,
 				inAbsorbChance, inRange, inExp, inPhysicalPoints, inMaxPhysicalPoints, inMagicPoints, inMaxMagicPoints, inIntelligence, inMagicDefense);
 		minLevel = inMinLevel;
 		maxLevel = inMaxLevel;
@@ -78,7 +78,7 @@ public class Monster extends Creature {
 			}
 			case ATTACK:
 			{
-				return player;
+				return matchingFaction(player) ? player : null; // TODO: Attack other creatures.
 			}
 			case DEFEND:
 			case RETREAT:

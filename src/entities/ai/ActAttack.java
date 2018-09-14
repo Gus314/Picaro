@@ -39,13 +39,13 @@ public class ActAttack extends Act
 
         boolean acted = false;
 
-        if(!(entity instanceof Player))
+        if(!(entity instanceof Creature))
         {
             System.out.println("ActAttack::act - unexpected entity type.");
             return new ArrayList<Entity>();
         }
 
-        Player player = (Player) entity;
+        Creature creature = (Creature) entity;
 
         if(skills.size() > 0)
         {
@@ -54,12 +54,12 @@ public class ActAttack extends Act
             String message = "";
             if(skillToUse.getTargetType() == TargetType.TARGET)
             {
-                message = ((TargetSkill) skillToUse).action(monster, player);
+                message = ((TargetSkill) skillToUse).action(monster, creature);
             }
             else if(skillToUse.getTargetType() == TargetType.AREA)
             {
                 List<Creature> targets = new ArrayList<Creature>();
-                targets.add(player); // TODO: Friendly Fire?
+                targets.add(creature); // TODO: Impact multiple creatures.
                 message = ((AreaSkill) skillToUse).action(monster, targets);
             }
             else
@@ -74,11 +74,11 @@ public class ActAttack extends Act
 
         if(!acted)
         {
-            getMonster().attack(player);
+            getMonster().attack(creature);
         }
 
-        boolean killed = (player.getLife() <= 0);
-        if(killed)
+        boolean killed = (creature.getLife() <= 0);
+        if(killed && creature instanceof Player)
         {
             JOptionPane.showMessageDialog(getMessages().getTopLevelAncestor(), "You have died!");
             System.exit(0);

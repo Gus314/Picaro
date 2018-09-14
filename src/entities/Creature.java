@@ -2,6 +2,7 @@ package entities;
 
 import control.Controller;
 import control.Map;
+import enums.Faction;
 import enums.SkillBehaviour;
 import skills.Skill;
 import skills.SummonSkill;
@@ -18,6 +19,7 @@ public abstract class Creature extends Entity
 {
     private Map map;
     private Messages messages;
+    private Faction faction;
     private int defense;
     private int maxLife;
     private int life;
@@ -37,12 +39,13 @@ public abstract class Creature extends Entity
     private List<StatusEffect> statusEffects;
     private List<Skill> skills;
 
-    public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp,
+    public Creature(Character inCha, int inRow, int inColumn, Map inMap, Messages inMessages, Faction inFaction, int inDefense, String inName, int inMaxLife, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inBlockChance, int inAbsorbChance, int inRange, int inExp,
                     int inPhysicalPoints, int inMaxPhysicalPoints, int inMagicPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense)
     {
         super(inCha, inRow, inColumn, inName);
         map = inMap;
         messages = inMessages;
+        faction = inFaction;
         defense = inDefense;
         maxLife = inMaxLife;
         life = inLife;
@@ -62,6 +65,11 @@ public abstract class Creature extends Entity
 
         statusEffects = new ArrayList<StatusEffect>();
         skills = new ArrayList<Skill>();
+    }
+
+    public boolean matchingFaction(Creature other)
+    {
+        return faction == other.faction;
     }
 
     public Collection<StatusEffect> getStatusEffects(){return statusEffects;}

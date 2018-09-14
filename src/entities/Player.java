@@ -7,6 +7,7 @@ import entities.equipment.Item;
 import entities.equipment.Relic;
 import entities.equipment.Weapon;
 import enums.ArmourType;
+import enums.Faction;
 import pclasses.Pclass;
 import races.Race;
 import ui.mainwindow.Messages;
@@ -40,7 +41,7 @@ public class Player extends Creature
 
 	public Player(Map inMap, Messages inMessages, PlayerInitialData playerInitialData)
 	{
-		super('@', 0, 0, inMap, inMessages, initialDefense, playerInitialData.getName(), initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
+		super('@', 0, 0, inMap, inMessages, Faction.PLAYER, initialDefense, playerInitialData.getName(), initialLife, initialLife, initialMinDamage, initialMaxDamage, initialCritChance, initialBlockChance, initialAbsorbChance, initialRange, initialExp,
 				initialMaxPhysicalPoints, initialMaxPhysicalPoints, initialMaxMagicPoints, initialMaxMagicPoints, initialIntelligence, initialMagicDefence);
 
 		race = playerInitialData.getRace();

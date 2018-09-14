@@ -2,6 +2,7 @@ package entities.factories;
 
 import control.Map;
 import entities.Monster;
+import enums.Faction;
 import skills.Skill;
 import ui.mainwindow.Messages;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class MonsterFactory extends AbstractEntityFactory
 {
+	private Faction faction;
 	private Character cha;
 	private int life;
 	private int minDamage;
@@ -32,9 +34,10 @@ public class MonsterFactory extends AbstractEntityFactory
 	private int magicDefense;
 	private Collection<Skill> skills;
 
-	public MonsterFactory(Character inCha, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inDefense, int inBlockChance, int inAbsorbChance, int inRange, String inName,
+	public MonsterFactory(Faction inFaction, Character inCha, int inLife, int inMinDamage, int inMaxDamage, int inCritChance, int inDefense, int inBlockChance, int inAbsorbChance, int inRange, String inName,
 						  Map inMap, Messages inMessages, int inExp, int inMaxPhysicalPoints, int inMaxMagicPoints, int inIntelligence, int inMagicDefense, Collection<Skill> inSkills, int inMinLevel, int inMaxLevel)
 	{
+		faction = inFaction;
 		cha = inCha;
 		life = inLife;
 		minDamage = inMinDamage;
@@ -76,7 +79,7 @@ public class MonsterFactory extends AbstractEntityFactory
 	
 	public Monster construct(int inRow, int inColumn)
 	{
-		return new Monster(cha, inRow, inColumn, map, messages, defense, name, life, life, minDamage, maxDamage, critChance, blockChance, absorbChance,
+		return new Monster(cha, inRow, inColumn, map, messages, faction, defense, name, life, life, minDamage, maxDamage, critChance, blockChance, absorbChance,
 				range, exp, maxPhysicalPoints, maxPhysicalPoints, maxMagicPoints, maxMagicPoints, intelligence, magicDefense, skills, minLevel, maxLevel);
 	}
 }
