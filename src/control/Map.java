@@ -45,6 +45,11 @@ public class Map
 		mapEntries.add(ent);
 	}
 
+	public void addEntries(Collection<Entity> ents)
+	{
+		mapEntries.addAll(ents);
+	}
+
 	public List<Entity> atPosition(int row, int column, boolean includeFloor)
 	{
 		List<Entity> result = new ArrayList<Entity>();

@@ -64,6 +64,11 @@ public abstract class Creature extends Entity
         skills = new ArrayList<Skill>();
     }
 
+    public void setMap(Map inMap)
+    {
+        map = inMap;
+    }
+
     public int getIntelligence() { return intelligence; }
 
     public void setIntelligence(int inIntelligence){intelligence = inIntelligence;}

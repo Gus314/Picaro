@@ -4,16 +4,15 @@ import control.Coordinate;
 import control.Map;
 import entities.*;
 import skills.AreaSkill;
+import skills.FloorSkill;
 import skills.Skill;
 import skills.TargetSkill;
 import enums.MapDisplayMode;
-import java.util.List;
+
+import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Vector;
-import java.util.ArrayList;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
@@ -164,6 +163,24 @@ public class MapDisplay extends JPanel
 			{
 				// Do nothing.
 			}
+			else if(mapDisplay.getMode() == MapDisplayMode.FLOOR)
+			{
+				Coordinate coord = getMouseCoordinate(e);
+				List<Entity> here = map.atPosition(coord.getRow(), coord.getColumn(), true);
+				if((here.size() == 1) && (here.get(0) instanceof Floor))
+				{
+					Floor floor = (Floor) here.get(0);
+					FloorSkill floorSkill = (FloorSkill) selectedSkill;
+					Collection<Entity> additions = new ArrayList<Entity>();
+
+					messages.addMessage(floorSkill.action(player, floor, additions));
+					map.addEntries(additions);
+
+					mapDisplay.changeMode(MapDisplayMode.NORMAL);
+					map.takeTurns();
+					refresh();
+				}
+			}
 			else
 			{
 				System.out.println("MapDisplay::mouseClicked - unexpected actions display mode.");
@@ -250,14 +267,7 @@ public class MapDisplay extends JPanel
 
 						if(entities.size() != 0)
 						{
-							if(centreInRange)
-							{
-								addHighlight(adjustedCoord, Color.GREEN);
-							}
-							else
-							{
-								addHighlight(adjustedCoord, Color.RED);
-							}
+							addHighlight(adjustedCoord, centreInRange ? Color.GREEN : Color.RED);
 						}
 					}
 				}
@@ -279,6 +289,28 @@ public class MapDisplay extends JPanel
 					{
 						addHighlight(coord, Color.YELLOW);
 						mapDisplay.setExamineText(ent.getName());
+					}
+				}
+			}
+			else if(mapDisplay.getMode() == MapDisplayMode.FLOOR)
+			{
+				highlights.clear();
+				refresh(); // Inefficient.
+				Coordinate coord = getMouseCoordinate(e);
+				List<Entity> here = map.atPosition(coord.getRow(), coord.getColumn(), true);
+
+				if((here.size() == 1) && (here.get(0) instanceof Floor))
+				{
+					// Use the floor as the target.
+					Entity floorEntity = new TargetPoint(coord.getRow(), coord.getColumn());
+					map.addEntry(floorEntity);
+					final int lineOfSight = 8; // TODO: Refactor.
+					boolean inRange = map.isInLineOfSight(player, floorEntity, lineOfSight);
+					map.removeEntity(floorEntity);
+					if(inRange)
+					{
+						// Avoid adding red highlights as they may expose information, e.g. floor position.
+						addHighlight(coord, Color.GREEN);
 					}
 				}
 			}
@@ -312,7 +344,7 @@ public class MapDisplay extends JPanel
 	public void addHighlight(Coordinate coordinate, Color color)
 	{
 	   highlights.put(coordinate, color);
-	   cells.get(coordinate.getRow()*map.getColumns() + coordinate.getColumn()).setForeground(color);
+	   cells.get(coordinate.getRow()*map.getColumns() + coordinate.getColumn()).setBackground(color);
 		System.out.println(coordinate.getRow() + "," + coordinate.getColumn());
 	}
 
@@ -329,6 +361,7 @@ public class MapDisplay extends JPanel
 		highlights = new HashMap<Coordinate, Color>();
 		initialise();
 		map.addEntry(player);
+		player.setMap(map);
 		refresh();
 	}
 	
@@ -351,6 +384,7 @@ public class MapDisplay extends JPanel
 		initialise();
 		player = inPlayer;
 		map.addEntry(player);
+		player.setMap(map);
 		stats = inStats;
 		mapMouseListener = new MapMouseListener(this);
 		mapPanel.addMouseListener(mapMouseListener);
@@ -399,6 +433,7 @@ public class MapDisplay extends JPanel
 			case TARGET:
 			case AREA:
 			case EXAMINE:
+			case FLOOR:
 			{
 				mapPanel.addMouseMotionListener(mapMouseListener);
 				mapPanel.addMouseListener(mapMouseListener);
@@ -411,22 +446,26 @@ public class MapDisplay extends JPanel
 			default:
 			{
 				// TODO: Throw an exception.
+				System.out.println("MapDisplay::changeMode - unexpected mode.");
 				break;
 			}
 		}
 	}
-	
+
+
 	public void refresh()
 	{
 		int numEntries = map.getRows() * map.getColumns();
 		for(int i = 0; i < numEntries; i++)
 		{
 			cells.get(i).setText(blank);
+			cells.get(i).setBackground(Color.BLACK); // Clear highlights.
 		}
 
 		List<Entity> entries = map.getMapEntries();
 		HashSet<Entity> visibleEntries = map.lineOfSight(player, player.getSightRadius());
         HashSet<Entity> permanentlyVisible = map.getPermanentlyVisible();
+
 
 		for(Entity ent: entries)
 		{
@@ -454,11 +493,7 @@ public class MapDisplay extends JPanel
 
 			if(highlights.containsKey(new Coordinate(row, column)))
 			{
-				cells.get(position).setForeground(highlights.get(position));
-			}
-			else
-			{
-				cells.get(position).setForeground(Color.WHITE);
+				cells.get(position).setBackground(highlights.get(position));
 			}
 		}
 		stats.refresh();

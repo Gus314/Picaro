@@ -1,16 +1,14 @@
 package ui.skills.techniques;
 
 import entities.Player;
-import skills.AreaSkill;
-import skills.SelfSkill;
-import skills.Skill;
-import skills.TargetSkill;
+import skills.*;
 import enums.SkillType;
 import ui.actions.BackButton;
 import ui.mainwindow.MainWindow;
 import ui.mainwindow.MapDisplay;
 import ui.mainwindow.Messages;
 import ui.skills.AreaTargetListener;
+import ui.skills.FloorTargetListener;
 import ui.skills.SelfTargetListener;
 import ui.skills.SingleTargetListener;
 
@@ -74,6 +72,10 @@ public class TechniquesPanel extends JPanel
             else if(skill instanceof AreaSkill)
             {
                 actButton.addActionListener(new AreaTargetListener((AreaSkill) skill, mapDisplay));
+            }
+            else if(skill instanceof FloorSkill)
+            {
+                actButton.addActionListener(new FloorTargetListener((FloorSkill) skill, mapDisplay));
             }
             else
             {

@@ -58,6 +58,8 @@ public class MonsterFactory extends AbstractEntityFactory
 		skills.addAll(inSkills);
 	}
 
+	public void setMessages(Messages inMessages){messages = inMessages;}
+
 	public void addSkill(Skill skill)
 	{
 		skills.add(skill);

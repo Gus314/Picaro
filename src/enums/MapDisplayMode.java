@@ -6,5 +6,6 @@ public enum MapDisplayMode
         ATTACK,
         TARGET,
         AREA,
+        FLOOR,
         EXAMINE
 }
