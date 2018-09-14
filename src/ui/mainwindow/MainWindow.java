@@ -5,6 +5,7 @@ import entities.Player;
 import ui.RootFrame;
 import ui.actions.Actions;
 import ui.inventory.InventoryWindow;
+import ui.shortcuts.Shortcuts;
 import ui.skills.spells.SpellsPanel;
 import ui.skills.techniques.TechniquesPanel;
 
@@ -37,7 +38,7 @@ public class MainWindow extends JTabbedPane
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 1;
 		constraints.weighty = 25;
-		constraints.gridy = 2;
+		constraints.gridy = 3;
 		mainPanel.add(techniquesPanel, constraints);
 		mainPanel.remove(actions);
 		repaint();
@@ -50,7 +51,7 @@ public class MainWindow extends JTabbedPane
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 1;
 		constraints.weighty = 25;
-		constraints.gridy = 2;
+		constraints.gridy = 3;
 		mainPanel.add(spellsPanel, constraints);
 		mainPanel.remove(actions);
 		repaint();
@@ -62,7 +63,7 @@ public class MainWindow extends JTabbedPane
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 1;
 		constraints.weighty = 25;
-		constraints.gridy = 2;
+		constraints.gridy = 3;
 		mainPanel.add(actions, constraints);
 		mainPanel.remove(techniquesPanel);
 		mainPanel.remove(spellsPanel);
@@ -91,9 +92,16 @@ public class MainWindow extends JTabbedPane
 		mainPanel.add(mapDisplay, constraints);
 		dm.setMapDisplay(mapDisplay);
 
+		Shortcuts shortcuts = new Shortcuts(player, messages, mapDisplay);
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weightx = 1;
+		constraints.weighty = 5;
+		constraints.gridy = 1;
+		mainPanel.add(shortcuts, constraints);
+
 		JPanel infoPanel = new JPanel();
 		constraints.weighty = 30;
-		constraints.gridy = 1;
+		constraints.gridy = 2;
 		mainPanel.add(infoPanel, constraints);
 		infoPanel.setLayout(new GridLayout(4,1));
 		infoPanel.add(optionsPanel);
