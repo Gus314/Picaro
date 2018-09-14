@@ -51,8 +51,12 @@ public class Player extends Creature
 		pclass.initialise(this);
 
 		items = new Vector<Item>();
-		weapon = null;
+		weapon = playerInitialData.getWeapon();
 		armours = new HashMap<>();
+		for(Armour armour: playerInitialData.getArmours().values())
+		{
+			armours.put(armour.getArmourType(), armour);
+		}
 		relic = null;
 		level = initialLevel;
 	}

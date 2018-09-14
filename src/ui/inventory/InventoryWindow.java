@@ -46,6 +46,7 @@ public class InventoryWindow extends JPanel
 		}
 		overviewPanel.add(relicPanel);
 		add(new JScrollPane(itemPanel));
+		refresh();
 	}
 	
 	public void refresh()
