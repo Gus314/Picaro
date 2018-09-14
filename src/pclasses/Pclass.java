@@ -2,14 +2,16 @@ package pclasses;
 
 import entities.Player;
 import skills.Skill;
+
+import java.util.Collection;
 import java.util.Map;
 
 public class Pclass
 {
     private String name;
-    private Map<Integer, Skill> skills;
+    private Map<Integer, Collection<Skill>> skills;
 
-    public Pclass(String inName, Map<Integer, Skill> inSkills)
+    public Pclass(String inName, Map<Integer, Collection<Skill>> inSkills)
     {
         name = inName;
         skills = inSkills;
@@ -23,7 +25,10 @@ public class Pclass
     {
         if(skills.containsKey(1))
         {
-            player.addSkill(skills.get(1));
+            for(Skill skill: skills.get(1))
+            {
+                player.addSkill(skill);
+            }
         }
     }
 
@@ -31,7 +36,10 @@ public class Pclass
     {
         if(skills.containsKey(player.getLevel()))
         {
-            player.addSkill(skills.get(player.getLevel()));
+            for(Skill skill: skills.get(player.getLevel()))
+            {
+                player.addSkill(skill);
+            }
         }
     }
 }

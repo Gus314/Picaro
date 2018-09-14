@@ -13,20 +13,28 @@ public class PClassProvider
     {
         List<Pclass> result = new ArrayList<Pclass>();
 
-        Map<Integer, Skill> hunterSkills = new HashMap<Integer, Skill>();
-        //hunterSkills.put(1, new PoisonDart());
-        hunterSkills.put(1, new Toughen());
+        Map<Integer, Collection<Skill>> hunterSkills = new HashMap<Integer, Collection<Skill>>();
+        addSkill(hunterSkills, 1, new PoisonDart());
+        addSkill(hunterSkills, 1, new Toughen());
         result.add(new Pclass("Hunter", hunterSkills));
 
-        Map<Integer, Skill> mageSkills = new HashMap<Integer, Skill>();
-        //mageSkills.put(1, new Heal());
+        Map<Integer, Collection<Skill>> mageSkills = new HashMap<Integer, Collection<Skill>>();
+        addSkill(mageSkills, 1, new Heal());
         Collection<Skill> skills = new ArrayList<Skill>();
         MonsterFactory call = (new MonsterFactory(Faction.PLAYER,'D',22,0,2,0,11,0,0,1,"dummy", null, null, 15,20,0,19,18, skills,2,4));;
-        mageSkills.put(1, new CallEnemy(call));
-
-        mageSkills.put(2, new Fireball());
+        addSkill(mageSkills, 1, new CallEnemy(call));
+        addSkill(mageSkills, 2, new Fireball());
         result.add(new Pclass("Mage", mageSkills));
+        return result;
+    }
 
-       return result;
+    public void addSkill(Map<Integer, Collection<Skill>> classSkills, int level, Skill skill)
+    {
+        if(!classSkills.containsKey(level))
+        {
+            classSkills.put(level, new ArrayList<Skill>());
+        }
+
+        classSkills.get(level).add(skill);
     }
 }
