@@ -17,7 +17,7 @@ public class DungeonManager
 	private int level;
 	private java.util.Map<Integer, PersistedMap> levels;
     private static final int rows = 50;
-    private static final int columns = 50;
+    private static final int columns = 200;
     private static final int rowCellSize = 10;
     private static final int columnCellSize = 10;
     private static final int properRoomChance = 75;

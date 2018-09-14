@@ -70,10 +70,10 @@ public class MazeGenerator
 				final boolean adjacentFloor = ((i > 0) && data[i-1][j] == FloorType.FLOOR.getValue()) ||
 						((i < data.length-1) && data[i+1][j] == FloorType.FLOOR.getValue()) ||
 						((j > 0) && data[i][j-1] == FloorType.FLOOR.getValue()) ||
-						((j < data.length-1) && data[i][j+1] == FloorType.FLOOR.getValue()) ||
+						((j < data[0].length-1) && data[i][j+1] == FloorType.FLOOR.getValue()) ||
 						(i > 0 && j > 0 && data[i-1][j-1] == FloorType.FLOOR.getValue()) ||
-						(i < data.length - 1 && j < data.length - 1 && data[i+1][j+1] == FloorType.FLOOR.getValue()) ||
-						(i > 0 && j < data.length - 1 && data[i-1][j+1] == FloorType.FLOOR.getValue()) ||
+						(i < data.length - 1 && j < data[0].length - 1 && data[i+1][j+1] == FloorType.FLOOR.getValue()) ||
+						(i > 0 && j < data[0].length - 1 && data[i-1][j+1] == FloorType.FLOOR.getValue()) ||
 						(i < data.length - 1 && j > 0 && data[i+1][j-1] == FloorType.FLOOR.getValue());
 				if(data[i][j]==0 && adjacentFloor)
 				{
