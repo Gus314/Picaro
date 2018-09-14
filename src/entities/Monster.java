@@ -78,7 +78,7 @@ public class Monster extends Creature {
 			}
 			case ATTACK:
 			{
-				return matchingFaction(player) ? player : null; // TODO: Attack other creatures.
+				return matchingFaction(player) ? null : player; // TODO: Attack other creatures.
 			}
 			case DEFEND:
 			case RETREAT:
