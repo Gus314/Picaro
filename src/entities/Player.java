@@ -12,6 +12,7 @@ import pclasses.Pclass;
 import races.Race;
 import ui.mainwindow.Messages;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -19,8 +20,8 @@ public class Player extends Creature
 {	
 	private Weapon weapon;
 	private java.util.Map<ArmourType, Armour> armours;
-	private Relic relic;
-	private Vector<Item> items;
+	private Collection<Relic> relics;
+	private Collection<Item> items;
 	private int level;
 	private Race race;
 	private Pclass pclass;
@@ -38,6 +39,7 @@ public class Player extends Creature
     private static final int initialMaxMagicPoints = 50;
     private static final int initialIntelligence = 8;
     private static final int initialMagicDefence = 6;
+	private static final int maxRelics = 3;
 
 	public Player(Map inMap, Messages inMessages, PlayerInitialData playerInitialData)
 	{
@@ -57,9 +59,11 @@ public class Player extends Creature
 		{
 			armours.put(armour.getArmourType(), armour);
 		}
-		relic = null;
+		relics = new Vector<Relic>();
 		level = initialLevel;
 	}
+
+	public static int getMaxRelics(){return maxRelics;}
 
 	public boolean passable(){return false;}
 
@@ -70,7 +74,7 @@ public class Player extends Creature
 		items.add(inItem);
 	}
 	
-	public Vector<Item> getItems()
+	public Collection<Item> getItems()
 	{
 		return items;
 	}
@@ -200,21 +204,36 @@ public class Player extends Creature
 	{
 		return armours.get(armourType);
 	}
-	
-	public Relic getRelic()
-	{
-		return relic;
-	}
-	
-	public void setRelic(Relic inRelic)
-	{
-		if(relic != null)
-		{
-			removeStatusEffect(relic.getStatusEffect());
-		}
 
-		relic = inRelic;
-		addStatusEffect(relic.getStatusEffect());
+	public java.util.Map<ArmourType, Armour> getArmours(){return armours;}
+
+	public Collection<Relic> getRelics()
+	{
+		return relics;
+	}
+
+	public void removeRelic(Relic relic)
+	{
+		removeStatusEffect(relic.getStatusEffect());
+		relics.remove(relic);
+	}
+
+	public boolean canAddRelic()
+	{
+		return relics.size() < maxRelics;
+	}
+
+	public void addRelic(Relic relic)
+	{
+		if(relics.size() < maxRelics)
+		{
+			relics.add(relic);
+			addStatusEffect(relic.getStatusEffect());
+		}
+		else
+		{
+			System.out.println("Player::add(Relic) - too many relics.");
+		}
 	}
 
 	private int getArmoursBlockChance()

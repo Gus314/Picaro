@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 import java.util.Vector;
 
 public class UseButton extends JButton
@@ -36,7 +37,7 @@ public class UseButton extends JButton
 		
 		public void actionPerformed(ActionEvent ae)
 		{
-			Vector<Item> items = player.getItems();
+			Collection<Item> items = player.getItems();
 			
 			if(item instanceof Weapon)
 			{
@@ -61,13 +62,11 @@ public class UseButton extends JButton
 			}
 			else if(item instanceof Relic)
 			{
-				Relic oldRelic = player.getRelic();
-				if(oldRelic != null)
+				if(player.canAddRelic())
 				{
-					items.add(oldRelic);
+					player.addRelic((Relic)item);
+					items.remove(item);
 				}
-				player.setRelic((Relic)item);
-				items.remove(item);	
 			}
 			else if(item instanceof Consumable)
 			{

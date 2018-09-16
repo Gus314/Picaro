@@ -6,7 +6,7 @@ public class Regen extends StatusEffect
 {
     private int intensity;
     private static final String name = "Regen";
-    private static final String description = "Increase target defense.";
+    private static final String description = "Gain hp over time.";
 
     public Regen(Creature inTarget, int inIntensity)
     {

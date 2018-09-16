@@ -22,7 +22,7 @@ public class CharacterCreation extends JPanel
     {
         rootFrame = inRootFrame;
         add(new JLabel("Name:"));
-        nameField = new JTextField("Nameo");
+        nameField = new JTextField("Sampson");
         add(nameField);
 
         add(new JLabel("Race"));

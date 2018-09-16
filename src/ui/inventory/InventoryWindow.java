@@ -15,7 +15,7 @@ public class InventoryWindow extends JPanel
 	private Player player;
 	private Stats stats;
 	private control.Map map;
-	private Map<ArmourType, ArmourPanel> armourPanels;
+	private ArmourPanel armourPanel;
 	private WeaponPanel weaponPanel;
 	private RelicPanel relicPanel;
 	private ItemPanel itemPanel;
@@ -27,23 +27,18 @@ public class InventoryWindow extends JPanel
 		map = inMap; // Only requires interface to add item?
 
 		overviewPanel = new JPanel();
-		overviewPanel.setLayout(new GridLayout(6,1));
+		overviewPanel.setLayout(new GridLayout(3,1));
         add(overviewPanel);
 
 		stats = inStats;
 		player = inPlayer;
-		armourPanels = new HashMap<ArmourType, ArmourPanel>();
         weaponPanel = new WeaponPanel(player.getWeapon());
-        relicPanel = new RelicPanel(player.getRelic());
+        armourPanel = new ArmourPanel(player.getArmours());
+        relicPanel = new RelicPanel(this, player);
         itemPanel = new ItemPanel(player, stats, inStatus,this, map);
 
 		overviewPanel.add(weaponPanel);
-		for(ArmourType armourType: ArmourType.values())
-		{
-			ArmourPanel armourPanel = new ArmourPanel(armourType);
-			armourPanels.put(armourType, armourPanel);
-			overviewPanel.add(armourPanel);
-		}
+		overviewPanel.add(armourPanel);
 		overviewPanel.add(relicPanel);
 		add(new JScrollPane(itemPanel));
 		refresh();
@@ -52,11 +47,8 @@ public class InventoryWindow extends JPanel
 	public void refresh()
 	{
 		weaponPanel.refresh(player.getWeapon());
-		for(ArmourType armourType: ArmourType.values())
-		{
-			armourPanels.get(armourType).refresh(player.getArmour(armourType));
-		}
-		relicPanel.refresh(player.getRelic());
+		armourPanel.refresh(player.getArmours());
+		relicPanel.refresh(player.getRelics());
 		itemPanel.refresh(player.getItems());
 	}
 }

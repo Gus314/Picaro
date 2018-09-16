@@ -56,6 +56,10 @@ public class Status extends JPanel
                 Integer remainingTurns = ((TemporaryStatusEffect) effect).getRemainingTurns();
                 remainingTurnsText = remainingTurns.toString();
             }
+            else
+            {
+                remainingTurnsText = "Permanent";
+            }
 
             statusTable.setValueAt(intensityText, row, 2);
             statusTable.setValueAt(remainingTurnsText, row, 3);
