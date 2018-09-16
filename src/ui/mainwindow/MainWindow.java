@@ -2,8 +2,8 @@ package ui.mainwindow;
 
 import control.*;
 import entities.Player;
+import ui.HelpWindow;
 import ui.IRoot;
-import ui.RootFrame;
 import ui.actions.Actions;
 import ui.inventory.InventoryWindow;
 import ui.shortcuts.Shortcuts;
@@ -83,6 +83,10 @@ public class MainWindow extends JTabbedPane
 
 		InventoryWindow invWind = new InventoryWindow(player, stats, status, map);
 		this.addTab("Inventory", invWind);
+
+		HelpWindow helpWind = new HelpWindow();
+		this.addTab("Help", helpWind);
+
 		mapDisplay = new MapDisplay(map, player, stats, status, messages);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
