@@ -14,6 +14,8 @@ public class RootApplet extends Applet implements IRoot
         characterCreation = new CharacterCreation(this);
         setVisible(true);
         add(titleScreen);
+        revalidate();
+        repaint();
     }
 
     private MainWindow mainWindow;
@@ -25,6 +27,7 @@ public class RootApplet extends Applet implements IRoot
         removeAll();
         mainWindow.start(playerInitialData);
         add(mainWindow);
+        revalidate();
         repaint();
     }
 
@@ -32,6 +35,7 @@ public class RootApplet extends Applet implements IRoot
     {
         removeAll();
         add(titleScreen);
+        revalidate();
         repaint();
     }
 
@@ -39,6 +43,7 @@ public class RootApplet extends Applet implements IRoot
     {
         removeAll();
         add(characterCreation);
+        revalidate();
         repaint();
     }
 }
