@@ -1,9 +1,13 @@
 package entities.ai;
 
 import control.Controller;
+import control.Coordinate;
 import control.Map;
 import entities.Entity;
 import entities.Monster;
+import entities.ai.pathing.PathFinder;
+import entities.ai.pathing.PathInfo;
+import entities.ai.pathing.ValidPathInfo;
 import enums.Direction;
 
 import java.util.ArrayList;
@@ -19,30 +23,20 @@ public class MoveAttack extends Move
     @Override
     public void move()
     {
-        // TODO: Move meaningfully.
-        Direction[] directionArray = Direction.values();
-        ArrayList<Direction> directions =  new ArrayList<Direction>();
-        for(int i = 0; i < directionArray.length; i++)
-        {
-            directions.add(directionArray[i]);
-        }
-
         if(canMove())
         {
-            int row = getMonster().getRow();
-            int column = getMonster().getColumn();
+            // TODO: Have other targets than the player.
+            PathInfo pathInfo = PathFinder.findPath(getMonster(), getMap().getPlayer(), getMap(), Move.getSuggestedSearchSize());
 
-            while(!directions.isEmpty())
+            if(pathInfo instanceof ValidPathInfo)
             {
-                int index = Controller.getGenerator().nextInt(directions.size());
-                Direction direction = directions.remove(index);
-
-                List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-                if(Entity.passable(here))
-                {
-                    getMonster().move(direction, 1);
-                    break;
-                }
+                Direction direction = ((ValidPathInfo)pathInfo).closerMove(getMonster());
+                System.out.println("Moving with good path.");
+                getMonster().move(direction, 1);
+            }
+            else
+            {
+                randomMove();
             }
         }
     }
