@@ -2,14 +2,33 @@ package entities.ai.pathing;
 
 import control.Coordinate;
 import entities.Entity;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
 public class PathFinder
 {
-    public static PathInfo findPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
+    public static PathInfo findShortestPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
+    {
+        // Find the minimal path, not an inefficient one, which would also lead to pathing problems as the path is re-evaluated with each step.
+        for(int i = 1; i <= suggestedSearchSize; i++)
+        {
+            PathInfo attemptedPath = findPath(source, target, map, i);
+            if(attemptedPath instanceof ValidPathInfo)
+            {
+                return attemptedPath;
+            }
+            if(i == suggestedSearchSize)
+            {
+                // Always return something.
+                return attemptedPath;
+            }
+        }
+
+        return new InvalidPathInfo();
+    }
+
+    private static PathInfo findPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
     {
         Coordinate position = new Coordinate(source.getRow(), source.getColumn());
         int searchSize = (suggestedSearchSize % 2 == 0) ? suggestedSearchSize : suggestedSearchSize + 1;
@@ -65,9 +84,11 @@ public class PathFinder
         {
             for(int j = 0; j < nodes[0].length; j++)
             {
-                if(nodes[i][j] != null && nodes[i][j].onGoodPath)
+                Node current = nodes[i][j];
+                if(current != null && current.onGoodPath)
                 {
-                    result.put(new Coordinate(i, j), nodes[i][j].distance);
+
+                    result.put(current.position, current.distance);
                 }
             }
         }

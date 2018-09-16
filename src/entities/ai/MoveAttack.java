@@ -26,7 +26,7 @@ public class MoveAttack extends Move
         if(canMove())
         {
             // TODO: Have other targets than the player.
-            PathInfo pathInfo = PathFinder.findPath(getMonster(), getMap().getPlayer(), getMap(), Move.getSuggestedSearchSize());
+            PathInfo pathInfo = PathFinder.findShortestPath(getMonster(), getMap().getPlayer(), getMap(), Move.getSuggestedSearchSize());
 
             if(pathInfo instanceof ValidPathInfo)
             {

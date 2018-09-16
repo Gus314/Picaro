@@ -22,7 +22,7 @@ public class ValidPathInfo extends PathInfo
 
     private static Direction determineDirection(Coordinate source, Coordinate target) {
         int rowChange = target.getRow() - source.getRow();
-        int columnChange = target.getRow() - source.getRow();
+        int columnChange = target.getColumn() - source.getColumn();
 
         if (rowChange == 0 && columnChange == 0)
         {

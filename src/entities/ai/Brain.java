@@ -17,7 +17,7 @@ public class Brain
     }
 
     public Behaviour determineBehaviour()
-    {
+    {/*
         double dLife = (double) monster.getLife();
         double dMaxLife = (double) monster.getMaxLife();
         if((dLife / dMaxLife) * 100.0 < 50.0)
@@ -38,7 +38,7 @@ public class Brain
         if(monster.hasSkills(SkillBehaviour.RETREAT) && Controller.getGenerator().nextInt(10) == 1)
         {
             return Behaviour.RETREAT;
-        }
+        }*/
 
         return Behaviour.ATTACK;
     }
