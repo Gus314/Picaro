@@ -31,7 +31,6 @@ public class MoveAttack extends Move
             if(pathInfo instanceof ValidPathInfo)
             {
                 Direction direction = ((ValidPathInfo)pathInfo).closerMove(getMonster());
-                System.out.println("Moving with good path.");
                 getMonster().move(direction, 1);
             }
             else
