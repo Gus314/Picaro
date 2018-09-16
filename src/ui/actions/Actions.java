@@ -20,6 +20,6 @@ public class Actions extends JPanel
         this.add(new AscendDescendButton(turnHandler));
         this.add(new TechniquesButton(mainWindow));
         this.add(new SpellsButton(mainWindow));
-        this.add(new TitleScreenButton(mainWindow.getRootFrame()));
+        this.add(new TitleScreenButton(mainWindow.getRoot()));
     }
 }

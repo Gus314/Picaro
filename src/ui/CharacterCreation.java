@@ -13,14 +13,14 @@ import java.awt.event.ActionListener;
 
 public class CharacterCreation extends JPanel
 {
-    private RootFrame rootFrame;
+    private IRoot root;
     private JTextField nameField;
     private JComboBox raceBox;
     private JComboBox classBox;
 
-    public CharacterCreation(RootFrame inRootFrame)
+    public CharacterCreation(IRoot inRoot)
     {
-        rootFrame = inRootFrame;
+        root = inRoot;
         add(new JLabel("Name:"));
         nameField = new JTextField("Sampson");
         add(nameField);
@@ -66,7 +66,7 @@ public class CharacterCreation extends JPanel
                 Race race = (Race) raceBox.getSelectedItem();
                 Pclass pclass = (Pclass) classBox.getSelectedItem();
                 PlayerInitialData playerInitialData = new PlayerInitialData(nameField.getText(), race, pclass);
-                rootFrame.changeToMainWindow(playerInitialData);
+                root.changeToMainWindow(playerInitialData);
             }
         }
     }
@@ -76,7 +76,7 @@ public class CharacterCreation extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            rootFrame.changeToTitleScreen();
+            root.changeToTitleScreen();
         }
     }
 }

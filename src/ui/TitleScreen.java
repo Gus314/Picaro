@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 
 public class TitleScreen extends JPanel
 {
-    private RootFrame rootFrame;
+    private IRoot root;
 
-    public TitleScreen(RootFrame inRootFrame)
+    public TitleScreen(IRoot inRoot)
     {
-        rootFrame = inRootFrame;
+        root = inRoot;
 
         JButton newGameButton = new JButton("New Game");
         newGameButton.addActionListener(new NewGameListener());
@@ -34,7 +34,7 @@ public class TitleScreen extends JPanel
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            rootFrame.changeToCharacterCreation();
+            root.changeToCharacterCreation();
         }
     }
 

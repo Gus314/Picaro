@@ -1,42 +1,44 @@
 package ui;
 
 import control.PlayerInitialData;
-import entities.Player;
 import ui.mainwindow.MainWindow;
 
-import javax.swing.*;
+import java.applet.Applet;
 
-public class RootFrame extends JFrame implements IRoot
+public class RootApplet extends Applet implements IRoot
 {
-    private MainWindow mainWindow;
-    private TitleScreen titleScreen;
-    private CharacterCreation characterCreation;
-
-    public RootFrame()
+    public void init()
     {
         mainWindow = new MainWindow(this);
         titleScreen = new TitleScreen(this);
         characterCreation = new CharacterCreation(this);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        add(titleScreen);
     }
+
+    private MainWindow mainWindow;
+    private TitleScreen titleScreen;
+    private CharacterCreation characterCreation;
 
     public void changeToMainWindow(PlayerInitialData playerInitialData)
     {
+        removeAll();
         mainWindow.start(playerInitialData);
-        setContentPane(mainWindow);
-        pack();
+        add(mainWindow);
+        repaint();
     }
 
     public void changeToTitleScreen()
     {
-        setContentPane(titleScreen);
-        pack();
+        removeAll();
+        add(titleScreen);
+        repaint();
     }
 
     public void changeToCharacterCreation()
     {
-        setContentPane(characterCreation);
-        pack();
+        removeAll();
+        add(characterCreation);
+        repaint();
     }
 }

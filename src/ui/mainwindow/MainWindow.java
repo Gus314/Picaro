@@ -2,6 +2,7 @@ package ui.mainwindow;
 
 import control.*;
 import entities.Player;
+import ui.IRoot;
 import ui.RootFrame;
 import ui.actions.Actions;
 import ui.inventory.InventoryWindow;
@@ -15,7 +16,7 @@ import java.awt.*;
 
 public class MainWindow extends JTabbedPane
 {
-	private RootFrame rootFrame;
+	private IRoot root;
 	private JPanel mainPanel;
 	private Actions actions;
 	private TechniquesPanel techniquesPanel;
@@ -26,9 +27,9 @@ public class MainWindow extends JTabbedPane
 	private OptionsPanel optionsPanel;
 	private Options options;
 
-	public RootFrame getRootFrame()
+	public IRoot getRoot()
 	{
-		return rootFrame;
+		return root;
 	}
 
 	public void showTechniques()
@@ -123,9 +124,9 @@ public class MainWindow extends JTabbedPane
 		this.setVisible(true);
 	}
 
-	public MainWindow(RootFrame inRootFrame)
+	public MainWindow(IRoot inRoot)
 	{
-		rootFrame = inRootFrame;
+		root = inRoot;
 		UIDefaults uid = UIManager.getDefaults();
 		Font font = uid.getFont("Label.font");
 		Font newFont = new Font(font.getName(), font.getStyle(), 10);

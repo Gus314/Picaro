@@ -1,5 +1,6 @@
 package ui.actions;
 
+import ui.IRoot;
 import ui.RootFrame;
 
 import javax.swing.*;
@@ -8,11 +9,11 @@ import java.awt.event.ActionListener;
 
 public class TitleScreenButton extends JButton
 {
-    private RootFrame rootFrame;
+    private IRoot root;
 
-    public TitleScreenButton(RootFrame inRootFrame)
+    public TitleScreenButton(IRoot inRoot)
     {
-        rootFrame = inRootFrame;
+        root = inRoot;
         setText("Return to Title Screen");
         addActionListener(new TitleScreenListener());
     }
@@ -26,7 +27,7 @@ public class TitleScreenButton extends JButton
 
            if(choice == JOptionPane.YES_OPTION)
            {
-               rootFrame.changeToTitleScreen();
+               root.changeToTitleScreen();
            }
         }
     }
