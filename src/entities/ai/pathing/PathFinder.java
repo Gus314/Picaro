@@ -62,8 +62,6 @@ public class PathFinder
             }
         }
 
-        System.out.println("failed to find coord.");
-
         return new InvalidPathInfo();
     }
 
