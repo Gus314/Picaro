@@ -23,14 +23,17 @@ public class PathFinder
         int searchRow = searchSize / 2;
         int searchColumn = searchSize / 2;
         Coordinate storeIndex = new Coordinate(searchRow, searchColumn);
-        Node[][] nodes = new Node[searchRow][searchColumn];
+        Node[][] nodes = new Node[searchSize][searchSize];
 
         Node start = new Node(0, position, storeIndex, target);
+        nodes[searchRow][searchColumn] = start;
 
-        continueSearch(target, map, nodes, start, searchSize);
+        int maxRow = map.getRows()-1;
+        int maxColumn = map.getColumns()-1;
+
+        continueSearch(target, map, nodes, start, searchSize, maxRow, maxColumn);
 
         java.util.Map<Coordinate, Integer> distanceMapping = obtainDistanceMapping(nodes);
-        Coordinate targetPosition = new Coordinate(target.getRow(), target.getColumn());
 
         for(Coordinate coord: distanceMapping.keySet())
         {
@@ -39,6 +42,8 @@ public class PathFinder
                 return new ValidPathInfo(coord);
             }
         }
+
+        System.out.println("failed to find coord.");
 
         return new InvalidPathInfo();
     }
@@ -76,7 +81,7 @@ public class PathFinder
         return (target.getRow() == position.getRow()) && (target.getColumn() == position.getColumn());
     }
 
-    public static boolean continueSearch(Entity target, control.Map map, Node[][] nodes, Node current, int maxDistance)
+    public static boolean continueSearch(Entity target, control.Map map, Node[][] nodes, Node current, int maxDistance, int maxRow, int maxColumn)
     {
         if(current.suitable)
         {
@@ -90,12 +95,13 @@ public class PathFinder
             return false;
         }
 
-        if(!Entity.passable(map.atPosition(current.position.getRow(), current.position.getColumn())))
+        boolean impassable = !Entity.passable(map.atPosition(current.position.getRow(), current.position.getColumn()));
+        if(impassable && current.distance != 0) // Initial search node will be on source entity.
         {
             return false;
         }
 
-        Collection<Coordinate> nexts = newAdjacentPositions(current.position, nodes);
+        Collection<Coordinate> nexts = newAdjacentPositions(current.position, current.storeIndex, nodes, maxRow, maxColumn);
 
         for(Coordinate next: nexts)
         {
@@ -114,7 +120,7 @@ public class PathFinder
             int columnDifference = next.getColumn() - current.position.getColumn();
             Coordinate storeIndex = new Coordinate(current.storeIndex.getRow() + rowDifference, current.storeIndex.getColumn() + columnDifference);
 
-            if(continueSearch(target, map, nodes, nodes[storeIndex.getRow()][storeIndex.getColumn()], maxDistance))
+            if(continueSearch(target, map, nodes, nodes[storeIndex.getRow()][storeIndex.getColumn()], maxDistance, maxRow, maxColumn))
             {
                 current.onGoodPath = true;
                 return true;
@@ -124,7 +130,7 @@ public class PathFinder
         return false;
     }
 
-    private static Collection<Coordinate> newAdjacentPositions(Coordinate source, Node[][] nodes)
+    private static Collection<Coordinate> newAdjacentPositions(Coordinate source, Coordinate index, Node[][] nodes, int maxRow, int maxColumn)
     {
         Collection<Coordinate> results = new Vector<Coordinate>();
         int sourceRow = source.getRow();
@@ -142,9 +148,16 @@ public class PathFinder
 
         for(Coordinate adjacent: adjacents)
         {
-            if(adjacent.getRow() > 0 && adjacent.getRow() < nodes.length &&
-                    adjacent.getColumn() > 0 && adjacent.getColumn() < nodes[0].length &&
-                    nodes[adjacent.getRow()][adjacent.getColumn()] == null)
+            int rowChange = adjacent.getRow()-sourceRow;
+            int columnChange = adjacent.getColumn() - sourceColumn;
+            int adjacentIndexRow = index.getRow() + rowChange;
+            int adjacentIndexColumn = index.getColumn() + columnChange;
+
+            if(adjacent.getRow() > 0 && adjacent.getRow() < maxRow &&
+                    adjacent.getColumn() > 0 && adjacent.getColumn() < maxColumn &&
+                    adjacentIndexRow > 0 && adjacentIndexRow < nodes.length &&
+                    adjacentIndexColumn > 0 && adjacentIndexColumn < nodes[0].length &&
+                    nodes[adjacentIndexRow][adjacentIndexColumn] == null)
             {
                 results.add(adjacent);
             }

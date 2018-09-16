@@ -13,7 +13,7 @@ public abstract class Move
 {
     private Monster monster;
     private Map map;
-    private static final int suggestedSearchSize = 10;
+    private static final int suggestedSearchSize = 16;
 
     protected Monster getMonster(){return monster;}
     protected Map getMap(){return map;}
