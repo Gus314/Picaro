@@ -31,7 +31,7 @@ public class PathFinder
     private static PathInfo findPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
     {
         Coordinate position = new Coordinate(source.getRow(), source.getColumn());
-        int searchSize = (suggestedSearchSize % 2 == 0) ? suggestedSearchSize : suggestedSearchSize + 1;
+        int searchSize = suggestedSearchSize;
 
         if(!worthSearching(source, target, searchSize))
         {
