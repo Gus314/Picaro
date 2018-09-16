@@ -2,9 +2,10 @@ package control;
 
 import ui.RootFrame;
 
+import java.applet.Applet;
 import java.util.Random;
 
-public class Controller 
+public class Controller
 {
 	private static Random generator = new Random();
 
