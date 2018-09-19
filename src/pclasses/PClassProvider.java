@@ -15,8 +15,13 @@ public class PClassProvider
 
         Map<Integer, Collection<Skill>> hunterSkills = new HashMap<Integer, Collection<Skill>>();
         addSkill(hunterSkills, 1, new PoisonDart());
-        addSkill(hunterSkills, 1, new Toughen());
+        addSkill(hunterSkills, 1, new Stab());
         result.add(new Pclass("Hunter", hunterSkills));
+
+        Map<Integer, Collection<Skill>> warriorSkills = new HashMap<Integer, Collection<Skill>>();
+        addSkill(warriorSkills, 1, new Bash());
+        addSkill(warriorSkills, 1, new Toughen());
+        result.add(new Pclass("Warrior", warriorSkills));
 
         Map<Integer, Collection<Skill>> mageSkills = new HashMap<Integer, Collection<Skill>>();
         addSkill(mageSkills, 1, new Heal());

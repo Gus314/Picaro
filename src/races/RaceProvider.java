@@ -11,6 +11,7 @@ public class RaceProvider
         
         result.add(constructHuman());
         result.add(constructElf());
+        result.add(constructOrc());
 
         return result;
     }
@@ -18,7 +19,7 @@ public class RaceProvider
     private Race constructHuman()
     {
         int initialLife = 10;
-        int initialDefense = 10;
+        int initialDefense = 7;
         int initialMinDamage = 2;
         int initialMaxDamage = 5;
         int initialCritChance = 0;
@@ -70,6 +71,36 @@ public class RaceProvider
         int changeIntelligence = 7;
         int changeMagicDefence = 7;
         Race human = new Race("Elf", initialLife,  initialDefense,  initialMinDamage,  initialMaxDamage, initialCritChance,  initialBlockChance,  initialAbsorbChance,
+                initialMaxPhysicalPoints,  initialMaxMagicPoints,  initialIntelligence,  initialMagicDefence,  changeLife,  changeDefense,  changeMinDamage,  changeMaxDamage,
+                changeCritChance,  changeBlockChance,  changeAbsorbChance,  changeMaxPhysicalPoints,  changeMaxMagicPoints,  changeIntelligence,  changeMagicDefence);
+        return human;
+    }
+
+    private Race constructOrc()
+    {
+        int initialLife = 12;
+        int initialDefense = 10;
+        int initialMinDamage = 3;
+        int initialMaxDamage = 6;
+        int initialCritChance = 0;
+        int initialBlockChance = 0;
+        int initialAbsorbChance = 0;
+        int initialMaxPhysicalPoints = 15;
+        int initialMaxMagicPoints = 5;
+        int initialIntelligence = 3;
+        int initialMagicDefence = 3;
+        int changeLife = 8;
+        int changeDefense = 7;
+        int changeMinDamage = 0;
+        int changeMaxDamage = 0;
+        int changeCritChance = 0;
+        int changeBlockChance = 0;
+        int changeAbsorbChance = 0;
+        int changeMaxPhysicalPoints = 7;
+        int changeMaxMagicPoints = 3;
+        int changeIntelligence = 3;
+        int changeMagicDefence = 3;
+        Race human = new Race("Orc", initialLife,  initialDefense,  initialMinDamage,  initialMaxDamage, initialCritChance,  initialBlockChance,  initialAbsorbChance,
                 initialMaxPhysicalPoints,  initialMaxMagicPoints,  initialIntelligence,  initialMagicDefence,  changeLife,  changeDefense,  changeMinDamage,  changeMaxDamage,
                 changeCritChance,  changeBlockChance,  changeAbsorbChance,  changeMaxPhysicalPoints,  changeMaxMagicPoints,  changeIntelligence,  changeMagicDefence);
         return human;
