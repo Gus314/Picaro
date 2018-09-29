@@ -8,9 +8,14 @@ import entities.Player;
 import entities.DownStairs;
 import entities.UpStairs;
 import entities.factories.*;
+import enums.ArmourType;
 import enums.FloorType;
 import enums.MapElementType;
 import ui.mainwindow.Messages;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Vector;
 
 public class MazeGenerator 
 {
@@ -122,7 +127,7 @@ public class MazeGenerator
 			{
 			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn something
-				if(Controller.getGenerator().nextInt(20)==1)
+				if(Controller.getGenerator().nextInt(40)==1)
 				{
 					data[i][j] = 5;
                     MapElementType elementType = chooseElementType();
@@ -134,8 +139,28 @@ public class MazeGenerator
 
 	private MapElementType chooseElementType()
 	{
-       int choice = Controller.getGenerator().nextInt(MapElementType.values().length);
-       return MapElementType.values()[choice];
+		// TODO: Optimise.
+       Vector<MapElementType> options = new Vector<>();
+       java.util.Map<MapElementType, Integer> chances = new HashMap<>();
+       chances.put(MapElementType.ARMOUR, 10);
+       chances.put(MapElementType.MONSTER, 30);
+       chances.put(MapElementType.RELIC, 10);
+       chances.put(MapElementType.WEAPON, 10);
+       addElementTypes(chances, options);
+
+       int choice = Controller.getGenerator().nextInt(options.size());
+       return options.get(choice);
+	}
+
+	private static void addElementTypes(java.util.Map<MapElementType, Integer> chances, Collection<MapElementType> options)
+	{
+		for(MapElementType elementType: chances.keySet())
+		{
+			for(int i = 0; i < chances.get(elementType); i++)
+			{
+				options.add(elementType);
+			}
+		}
 	}
 
 	private Entity chooseEntity(int level, MapElementType type, int i, int j, MazeFactories mazeFactories)
