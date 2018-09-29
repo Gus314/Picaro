@@ -4,7 +4,9 @@ import control.Controller;
 import entities.Player;
 import entities.equipment.factories.RelicFactory;
 import enums.RelicEffect;
+import statuses.Poison;
 import statuses.Regen;
+import statuses.Shell;
 
 import java.util.Vector;
 
@@ -15,9 +17,8 @@ public class RelicProvider
     public RelicProvider(Player player)
     {
         Regen regen = new Regen(player, 10);
-
         relicFactories = new Vector<RelicFactory>();
-        relicFactories.add(new RelicFactory(regen, "poisoned pin", 1, 2));
+        relicFactories.add(new RelicFactory(regen, "regenerating pin", 1, 4));
     }
 
     public RelicFactory choose(int level)

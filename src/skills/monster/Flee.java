@@ -66,7 +66,7 @@ public class Flee extends SelfSkill
     @Override
     public String getName()
     {
-        return "RollUp";
+        return "Flee";
     }
 
     @Override

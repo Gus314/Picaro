@@ -176,24 +176,54 @@ public class Map
 	{
 		mapEntries.remove(ent);
 	}
-	
+
+	private void processDeaths()
+	{
+		Collection<Monster> killed = new ArrayList<Monster>();
+		// TODO: Make this more efficient, not requiring frequent calling.
+		for(Entity ent: mapEntries)
+		{
+			if(ent instanceof Monster)
+			{
+				Monster monster = (Monster) ent;
+				if(monster.getLife() == 0)
+				{
+					killed.add(monster);
+				}
+			}
+		}
+
+		for(Monster monster: killed)
+		{
+			getPlayer().killed(monster);
+			mapEntries.remove(monster);
+		}
+
+		if(getPlayer().getLife() == 0)
+		{
+			getPlayer().gameOver();
+		}
+	}
+
 	public void takeTurns()
 	{
+		processDeaths();
 		// Prevent concurrent modification.
 		Collection<Entity> additions = new ArrayList<Entity>();
 
 		for(Entity ent: mapEntries)
 		{
-			if (ent instanceof Monster)
+			if ((ent instanceof Monster) && ((Monster) ent).getLife() > 0)
 			{
 				additions.addAll(((Monster) ent).takeTurn());
 			}
-			if(ent instanceof Creature)
+			if((ent instanceof Creature) && ((Creature)ent).getLife()>0)
 			{
 				((Creature) ent).progressStatusEffects();
 			}
 		}
 
+		processDeaths();
 		mapEntries.addAll(additions);
 	}
 }

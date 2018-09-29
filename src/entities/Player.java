@@ -12,6 +12,7 @@ import pclasses.Pclass;
 import races.Race;
 import ui.mainwindow.Messages;
 
+import javax.swing.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
@@ -313,5 +314,11 @@ public class Player extends Creature
            killed(monster);
 		}
 		return killed;
+	}
+
+	public void gameOver()
+	{
+		JOptionPane.showMessageDialog(getMessages().getTopLevelAncestor(), "You have died!");
+		System.exit(0);
 	}
 }

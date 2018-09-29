@@ -88,10 +88,6 @@ public class MapDisplay extends JPanel
 					if (map.isInLineOfSight(player, monster, ((TargetSkill) selectedSkill).getRange()))
 					{
 						messages.addMessage(((TargetSkill) selectedSkill).action(player, monster));
-						if (monster.getLife() <= 0) {
-							player.killed(monster);
-							map.removeEntity(monster);
-						}
 						mapDisplay.changeMode(MapDisplayMode.NORMAL);
 						map.takeTurns();
 						refresh();

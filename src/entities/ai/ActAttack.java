@@ -80,8 +80,7 @@ public class ActAttack extends Act
         boolean killed = (creature.getLife() <= 0);
         if(killed && creature instanceof Player)
         {
-            JOptionPane.showMessageDialog(getMessages().getTopLevelAncestor(), "You have died!");
-            System.exit(0);
+            ((Player)creature).gameOver();
         }
 
         return new ArrayList<Entity>();
