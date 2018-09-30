@@ -15,7 +15,7 @@ public class RollUp extends SelfSkill
         int intensity = 5;
         Shell shell = new Shell(source, duration, intensity);
         source.addStatusEffect(shell);
-
+        subtractCost(source);
         return source.getName() + " rolls up, increasing its defence.";
     }
 

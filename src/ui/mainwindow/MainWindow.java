@@ -3,6 +3,7 @@ package ui.mainwindow;
 import control.*;
 import entities.Player;
 import ui.HelpWindow;
+import ui.IRefreshable;
 import ui.IRoot;
 import ui.actions.Actions;
 import ui.inventory.InventoryWindow;
@@ -10,9 +11,12 @@ import ui.shortcuts.Shortcuts;
 import ui.skills.spells.SpellsPanel;
 import ui.skills.techniques.TechniquesPanel;
 
+import javax.security.auth.Refreshable;
 import javax.swing.*;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.Vector;
 
 public class MainWindow extends JTabbedPane
 {
@@ -22,7 +26,6 @@ public class MainWindow extends JTabbedPane
 	private TechniquesPanel techniquesPanel;
 	private SpellsPanel spellsPanel;
 	private MapDisplay mapDisplay;
-
 	private Messages messages;
 	private OptionsPanel optionsPanel;
 	private Options options;
@@ -115,7 +118,9 @@ public class MainWindow extends JTabbedPane
 		infoPanel.add(messages);
 
 		techniquesPanel = new TechniquesPanel(this, player, mapDisplay, messages);
+		mapDisplay.addRefreshable(techniquesPanel);
 		spellsPanel = new SpellsPanel(this, player, mapDisplay, messages);
+		mapDisplay.addRefreshable(spellsPanel);
 
 		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm, options);
 		Mover mover = new Mover(turnHandler);

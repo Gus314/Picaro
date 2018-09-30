@@ -8,6 +8,7 @@ import skills.FloorSkill;
 import skills.Skill;
 import skills.TargetSkill;
 import enums.MapDisplayMode;
+import ui.IRefreshable;
 
 import java.util.*;
 import java.awt.*;
@@ -326,6 +327,7 @@ public class MapDisplay extends JPanel
 	private JLabel examineLabel;
     private JPanel mapPanel;
     private static final String blank = " ";
+    private Collection<IRefreshable> refreshables;
     public JPanel getMapPanel(){return mapPanel;}
 
 	public void setSelectedSkill(Skill inSelectedSkill)
@@ -394,6 +396,9 @@ public class MapDisplay extends JPanel
 		constraints.weighty = 1;
 		constraints.gridy = 1;
 		add(examineLabel, constraints);
+		refreshables = new Vector<IRefreshable>();
+		refreshables.add(stats);
+		refreshables.add(status);
 		refresh();
 	}
 	
@@ -401,7 +406,12 @@ public class MapDisplay extends JPanel
 	{
 		return map;
 	}
-	
+
+	public void addRefreshable(IRefreshable refreshable)
+	{
+		refreshables.add(refreshable);
+	}
+
 	private void initialise()
 	{
 		int entries = map.getRows() * map.getColumns();
@@ -494,7 +504,10 @@ public class MapDisplay extends JPanel
 				cells.get(position).setBackground(highlights.get(position));
 			}
 		}
-		stats.refresh();
-		status.refresh();
+
+		for(IRefreshable refreshable: refreshables)
+		{
+			refreshable.refresh();
+		}
 	}
 }

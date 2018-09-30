@@ -5,7 +5,7 @@ import entities.Creature;
 public class Poison extends IntensityStatusEffect
 {
     private static final String name = "Poison";
-    private static final String description = "Increase target defense.";
+    private static final String description = "Take damage every turn.";
 
     public Poison(Creature inTarget, int inDuration, int inIntensity)
     {

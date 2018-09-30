@@ -56,7 +56,7 @@ public class PoisonDart extends TargetSkill
         }
 
         message = message + " poison.";
-
+        subtractCost(source);
         return message;
     }
 

@@ -39,6 +39,7 @@ public class Bite extends TargetSkill
 
         target.setLife(target.getLife() - adjustedDamage);
         message = message + " causing " + adjustedDamage + " damage.";
+        subtractCost(source);
 
         return message;
     }

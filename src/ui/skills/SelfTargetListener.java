@@ -3,6 +3,7 @@ package ui.skills;
 import entities.Player;
 import enums.MapDisplayMode;
 import skills.SelfSkill;
+import ui.IRefreshable;
 import ui.mainwindow.MapDisplay;
 import ui.mainwindow.Messages;
 
@@ -15,6 +16,7 @@ public class SelfTargetListener implements ActionListener
     private SelfSkill skill;
     private Messages messages;
     private MapDisplay mapDisplay;
+    private IRefreshable refreshable;
 
     public SelfTargetListener(Player inPlayer, SelfSkill inSkill, Messages inMessages, MapDisplay inMapDisplay)
     {

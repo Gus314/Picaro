@@ -186,7 +186,7 @@ public class Map
 			if(ent instanceof Monster)
 			{
 				Monster monster = (Monster) ent;
-				if(monster.getLife() == 0)
+				if(monster.getLife() <= 0)
 				{
 					killed.add(monster);
 				}

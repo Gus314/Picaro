@@ -47,7 +47,7 @@ public class Flee extends SelfSkill
             }
         }
 
-        // TODO: Are points actually consumed?
+        subtractCost(source);
         return source.getName() + " tried to flee but failed.";
     }
 

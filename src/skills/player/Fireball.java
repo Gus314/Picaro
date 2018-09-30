@@ -60,7 +60,7 @@ public class Fireball extends AreaSkill
             target.setLife(target.getLife() - actualDamage);
             message += target.getName() + " for " + actualDamage + " damage.";
         }
-
+        subtractCost(source);
         return message;
     }
 

@@ -4,12 +4,13 @@ import entities.Player;
 import statuses.IntensityStatusEffect;
 import statuses.StatusEffect;
 import statuses.TemporaryStatusEffect;
+import ui.IRefreshable;
 
 import java.awt.GridLayout;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class Status extends JPanel
+public class Status extends JPanel implements IRefreshable
 {
     private JScrollPane scrollPane;
     private Player player;

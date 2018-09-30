@@ -6,6 +6,7 @@ import entities.Player;
 import enums.MapDisplayMode;
 import skills.FloorSkill;
 import skills.SelfSkill;
+import ui.IRefreshable;
 import ui.mainwindow.MapDisplay;
 import ui.mainwindow.Messages;
 
@@ -16,6 +17,7 @@ public class FloorTargetListener implements ActionListener
 {
     private FloorSkill skill;
     private MapDisplay mapDisplay;
+    private IRefreshable refreshable;
 
     public FloorTargetListener(FloorSkill inSkill, MapDisplay inMapDisplay)
     {

@@ -44,7 +44,7 @@ public class Bash extends TargetSkill
 
         targetLife -= damage;
         target.setLife(targetLife);
-
+        subtractCost(source);
         return targetName + " took " + damage + " damage!";
     }
 

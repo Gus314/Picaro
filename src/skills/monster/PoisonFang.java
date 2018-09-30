@@ -45,8 +45,8 @@ public class PoisonFang extends TargetSkill
         Poison poison = new Poison(target, duration, intensity);
         target.addStatusEffect(poison);
 
+        subtractCost(source);
         message = message + " with its fangs, causing " + adjustedDamage + " damage.";
-
         return message;
     }
 

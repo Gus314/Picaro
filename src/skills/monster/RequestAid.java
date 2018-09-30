@@ -36,6 +36,7 @@ public class RequestAid extends SummonSkill
         {
             additions.add(getSummon().construct(floor.getRow(), floor.getColumn()));
         }
+        subtractCost(source);
         return source.getName() + " calls for a friend.";
     }
 

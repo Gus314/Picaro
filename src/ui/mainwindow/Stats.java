@@ -1,11 +1,12 @@
 package ui.mainwindow;
 
 import entities.Player;
+import ui.IRefreshable;
 
 import java.awt.GridLayout;
 import javax.swing.*;
 
-public class Stats extends JPanel
+public class Stats extends JPanel implements IRefreshable
 {
 	private Player player;
 

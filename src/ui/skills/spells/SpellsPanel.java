@@ -3,6 +3,7 @@ package ui.skills.spells;
 import entities.Player;
 import skills.*;
 import enums.SkillType;
+import ui.IRefreshable;
 import ui.actions.BackButton;
 import ui.mainwindow.MainWindow;
 import ui.mainwindow.MapDisplay;
@@ -15,7 +16,7 @@ import ui.skills.SingleTargetListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class SpellsPanel extends JPanel
+public class SpellsPanel extends JPanel implements IRefreshable
 {
     private Player player;
     private JPanel spellsPanel;
