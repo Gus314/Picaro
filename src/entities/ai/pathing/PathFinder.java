@@ -16,12 +16,7 @@ public class PathFinder
             PathInfo attemptedPath = findPath(source, target, map, i);
             if(attemptedPath instanceof ValidPathInfo)
             {
-                return attemptedPath;
-            }
-            if(i == suggestedSearchSize)
-            {
-                // Always return something.
-                return attemptedPath;
+               return attemptedPath;
             }
         }
 
