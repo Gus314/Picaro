@@ -139,7 +139,6 @@ public class RoomGraph
             reset(reachable, cells);
             reachabilityRun(reachable, cells);
             currentAttempts++;
-            System.out.println("attempt = " + currentAttempts);
         }
 
         if(currentAttempts == maxAttempts)

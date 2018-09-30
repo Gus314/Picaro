@@ -344,7 +344,6 @@ public class MapDisplay extends JPanel
 	{
 	   highlights.put(coordinate, color);
 	   cells.get(coordinate.getRow()*map.getColumns() + coordinate.getColumn()).setBackground(color);
-		System.out.println(coordinate.getRow() + "," + coordinate.getColumn());
 	}
 
 	public void setExamineText(String text)

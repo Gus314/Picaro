@@ -16,7 +16,7 @@ public class RelicProvider
 
     public RelicProvider(Player player)
     {
-        Regen regen = new Regen(player, 10);
+        Regen regen = new Regen(player, 2);
         relicFactories = new Vector<RelicFactory>();
         relicFactories.add(new RelicFactory(regen, "regenerating pin", 1, 4));
     }

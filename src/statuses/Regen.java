@@ -6,7 +6,7 @@ public class Regen extends StatusEffect
 {
     private int intensity;
     private static final String name = "Regen";
-    private static final String description = "Gain hp over time.";
+    private static final String description = "Gain hp over time at a cost of mp.";
 
     public Regen(Creature inTarget, int inIntensity)
     {
@@ -16,6 +16,19 @@ public class Regen extends StatusEffect
 
     public @Override String action()
     {
+        if(getTarget().getLife() == getTarget().getMaxLife())
+        {
+            return "";
+        }
+
+        int mp = getTarget().getMagicPoints();
+        if(mp <= 0)
+        {
+            return getTarget().getName() + " had insufficient mp for regen.";
+        }
+
+        getTarget().setMagicPoints(mp-1);
+
         int healing = intensity;
         int maxLife = getTarget().getMaxLife();
         int currentLife = getTarget().getLife();
@@ -26,6 +39,7 @@ public class Regen extends StatusEffect
         }
 
         getTarget().setLife(currentLife + healing);
+
         return (healing > 0) ? getTarget().getName() + " healed " + healing + " damage from regen." : "";
     }
 
