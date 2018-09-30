@@ -19,7 +19,7 @@ public class HelpWindow extends JPanel
         add(controls);
 
         JTextArea about = new JTextArea();
-        about.setText("Picaro: Version 0.1. Created by Fergus Reid.");
+        about.setText("Picaro: Version 0.1. Created by Gus314.");
         about.setEditable(false);
         add(about);
     }

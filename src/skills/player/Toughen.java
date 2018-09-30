@@ -11,7 +11,7 @@ public class Toughen extends SelfSkill
     @Override
     public String action(Creature source)
     {
-        int duration = 3;
+        int duration = 4;
         int intensity = 5;
         Shell shell = new Shell(source, duration, intensity);
         source.addStatusEffect(shell);

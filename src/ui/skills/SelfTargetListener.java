@@ -32,6 +32,7 @@ public class SelfTargetListener implements ActionListener
         messages.addMessage(skill.action(player));
         mapDisplay.changeMode(MapDisplayMode.NORMAL);
         mapDisplay.getMap().takeTurns();
+        mapDisplay.refresh();
     }
 }
 

@@ -157,7 +157,7 @@ public abstract class Creature extends Entity
 
     public void addStatusEffect(StatusEffect effect)
     {
-        // TODO: Handle stacking effects;
+        statusEffects.removeIf(e -> e.getClass() == effect.getClass());
         statusEffects.add(effect);
         messages.addMessage(effect.onApplication());
     }

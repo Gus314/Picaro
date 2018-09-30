@@ -40,7 +40,7 @@ public class PoisonFang extends TargetSkill
         target.setLife(target.getLife() - adjustedDamage);
 
 
-        int duration = 5;
+        int duration = 4;
         int intensity = 1;
         Poison poison = new Poison(target, duration, intensity);
         target.addStatusEffect(poison);

@@ -44,7 +44,7 @@ public class PoisonDart extends TargetSkill
         boolean poisoned = Controller.getGenerator().nextInt(10) > 4;
         if(poisoned)
         {
-            int duration = 10;
+            int duration = 4;
             int intensity = 1;
             Poison poison = new Poison(target, duration, intensity);
             target.addStatusEffect(poison);
