@@ -127,7 +127,7 @@ public class MazeGenerator
 			{
 			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn something
-				if(Controller.getGenerator().nextInt(40)==1)
+				if(Controller.getGenerator().nextInt(35)==1)
 				{
 					data[i][j] = 5;
                     MapElementType elementType = chooseElementType();
@@ -146,6 +146,7 @@ public class MazeGenerator
        chances.put(MapElementType.MONSTER, 30);
        chances.put(MapElementType.RELIC, 10);
        chances.put(MapElementType.WEAPON, 10);
+       chances.put(MapElementType.CONSUMABLE, 10);
        addElementTypes(chances, options);
 
        int choice = Controller.getGenerator().nextInt(options.size());
