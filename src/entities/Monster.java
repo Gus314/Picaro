@@ -12,11 +12,12 @@ import skills.Skill;
 import skills.TargetSkill;
 import ui.mainwindow.Messages;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class Monster extends Creature {
+public class Monster extends Creature implements Serializable {
 	private int minLevel;
 	private int maxLevel;
 	private Brain brain;

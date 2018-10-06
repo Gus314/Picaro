@@ -2,7 +2,9 @@ package statuses;
 
 import entities.Creature;
 
-public class Poison extends IntensityStatusEffect
+import java.io.Serializable;
+
+public class Poison extends IntensityStatusEffect implements Serializable
 {
     private static final String name = "Poison";
     private static final String description = "Take damage every turn.";

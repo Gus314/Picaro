@@ -6,7 +6,9 @@ import enums.SkillType;
 import skills.SelfSkill;
 import statuses.Shell;
 
-public class RollUp extends SelfSkill
+import java.io.Serializable;
+
+public class RollUp extends SelfSkill implements Serializable
 {
     @Override
     public String action(Creature source)

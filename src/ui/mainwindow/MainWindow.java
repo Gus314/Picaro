@@ -29,6 +29,7 @@ public class MainWindow extends JTabbedPane
 	private Messages messages;
 	private OptionsPanel optionsPanel;
 	private Options options;
+	private DungeonManager dungeonManager;
 
 	public IRoot getRoot()
 	{
@@ -75,12 +76,16 @@ public class MainWindow extends JTabbedPane
 		repaint();
 	}
 
-	public void start(PlayerInitialData playerInitialData)
+	public void start()
 	{
-		DungeonManager dm = new DungeonManager(messages, playerInitialData);
-		dm.nextLevel();
-		Player player = dm.getPlayer();
-		Map map = dm.getMap();
+		dungeonManager = new DungeonManager();
+		initialise();
+	}
+
+	private void initialise()
+	{
+		Player player = dungeonManager.getPlayer();
+		Map map = dungeonManager.getMap();
 		Stats stats = new Stats(player);
 		Status status = new Status(player);
 
@@ -98,7 +103,7 @@ public class MainWindow extends JTabbedPane
 		constraints.gridy = 0;
 
 		mainPanel.add(mapDisplay, constraints);
-		dm.setMapDisplay(mapDisplay);
+		dungeonManager.setMapDisplay(mapDisplay);
 
 		Shortcuts shortcuts = new Shortcuts(player, messages, mapDisplay);
 		constraints.fill = GridBagConstraints.BOTH;
@@ -122,7 +127,7 @@ public class MainWindow extends JTabbedPane
 		spellsPanel = new SpellsPanel(this, player, mapDisplay, messages);
 		mapDisplay.addRefreshable(spellsPanel);
 
-		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dm, options);
+		TurnHandler turnHandler = new TurnHandler(player, mapDisplay, messages, invWind, dungeonManager, options);
 		Mover mover = new Mover(turnHandler);
 		this.addKeyListener(mover);
 		actions = new Actions(mapDisplay, this, turnHandler);
@@ -131,6 +136,13 @@ public class MainWindow extends JTabbedPane
 		messages.addMessage("A new game has begun!");
 
 		this.setVisible(true);
+	}
+
+	public void start(PlayerInitialData playerInitialData)
+	{
+		dungeonManager = new DungeonManager(messages, playerInitialData);
+		dungeonManager.nextLevel();
+		initialise();
 	}
 
 	public MainWindow(IRoot inRoot)
@@ -152,4 +164,6 @@ public class MainWindow extends JTabbedPane
 		optionsPanel = new OptionsPanel(options);
 		messages = new Messages();
 	}
+
+	public DungeonManager getDungeonManager(){return dungeonManager;}
 }

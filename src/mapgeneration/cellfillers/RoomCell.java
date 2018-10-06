@@ -5,10 +5,11 @@ import entities.Floor;
 import enums.Edge;
 import enums.FloorType;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RoomCell
+public class RoomCell implements Serializable
 {
     private int rows;
     private int columns;

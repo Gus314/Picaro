@@ -3,10 +3,11 @@ package pclasses;
 import entities.Player;
 import skills.Skill;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
-public class Pclass
+public class Pclass implements Serializable
 {
     private String name;
     private Map<Integer, Collection<Skill>> skills;

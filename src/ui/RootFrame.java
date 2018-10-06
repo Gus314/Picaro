@@ -28,6 +28,13 @@ public class RootFrame extends JFrame implements IRoot
         pack();
     }
 
+    public void changeToMainWindow()
+    {
+        mainWindow.start();
+        setContentPane(mainWindow);
+        pack();
+    }
+
     public void changeToTitleScreen()
     {
         setContentPane(titleScreen);

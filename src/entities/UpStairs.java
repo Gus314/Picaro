@@ -1,6 +1,8 @@
 package entities;
 
-public class UpStairs extends Entity
+import java.io.Serializable;
+
+public class UpStairs extends Entity implements Serializable
 {
     private static final String name = "Stairs Up";
 

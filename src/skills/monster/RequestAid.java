@@ -9,9 +9,10 @@ import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.SummonSkill;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class RequestAid extends SummonSkill
+public class RequestAid extends SummonSkill implements Serializable
 {
     public RequestAid(MonsterFactory inSummon)
     {

@@ -1,3 +1,5 @@
 package mapgeneration.cellfillers;
 
-public class InvalidCellConnection extends CellConnection{}
+import java.io.Serializable;
+
+public class InvalidCellConnection extends CellConnection implements Serializable {}

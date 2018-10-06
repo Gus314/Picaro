@@ -2,7 +2,9 @@ package races;
 
 import entities.Player;
 
-public class Race
+import java.io.Serializable;
+
+public class Race implements Serializable
 {
     private String name;
 

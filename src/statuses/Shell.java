@@ -2,7 +2,9 @@ package statuses;
 
 import entities.Creature;
 
-public class Shell extends IntensityStatusEffect
+import java.io.Serializable;
+
+public class Shell extends IntensityStatusEffect implements Serializable
 {
     private static final String name = "Shell";
     private static final String description = "Increase target defense.";

@@ -2,7 +2,9 @@ package statuses;
 
 import entities.Creature;
 
-public abstract class IntensityStatusEffect extends TemporaryStatusEffect
+import java.io.Serializable;
+
+public abstract class IntensityStatusEffect extends TemporaryStatusEffect implements Serializable
 {
     private int intensity;
 

@@ -7,7 +7,9 @@ import skills.TargetSkill;
 import statuses.Poison;
 import enums.SkillType;
 
-public class Bite extends TargetSkill
+import java.io.Serializable;
+
+public class Bite extends TargetSkill implements Serializable
 {
     private static final int cost = 0;
     private static final SkillType skillType = SkillType.PHYSICAL;

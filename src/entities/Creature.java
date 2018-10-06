@@ -11,11 +11,12 @@ import statuses.TemporaryStatusEffect;
 import enums.SkillType;
 import ui.mainwindow.Messages;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class Creature extends Entity
+public abstract class Creature extends Entity implements Serializable
 {
     private Map map;
     private Messages messages;

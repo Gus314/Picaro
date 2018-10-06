@@ -3,7 +3,9 @@ package mapgeneration;
 import control.Coordinate;
 import control.Map;
 
-public class PersistedMap
+import java.io.Serializable;
+
+public class PersistedMap implements Serializable
 {
     private Map map;
     private Coordinate upStairs;

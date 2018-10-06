@@ -31,6 +31,15 @@ public class RootApplet extends Applet implements IRoot
         repaint();
     }
 
+    public void changeToMainWindow()
+    {
+        removeAll();
+        mainWindow.start();
+        add(mainWindow);
+        revalidate();
+        repaint();
+    }
+
     public void changeToTitleScreen()
     {
         removeAll();

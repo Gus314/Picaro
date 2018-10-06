@@ -13,11 +13,12 @@ import races.Race;
 import ui.mainwindow.Messages;
 
 import javax.swing.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Player extends Creature
+public class Player extends Creature implements Serializable
 {	
 	private Weapon weapon;
 	private java.util.Map<ArmourType, Armour> armours;

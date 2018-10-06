@@ -3,10 +3,11 @@ package entities;
 import entities.equipment.Item;
 import enums.Direction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Entity
+public abstract class Entity implements Serializable
 {
 	private Character cha;
 	private int row;

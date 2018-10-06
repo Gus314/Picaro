@@ -7,7 +7,9 @@ import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.SelfSkill;
 
-public class Flee extends SelfSkill
+import java.io.Serializable;
+
+public class Flee extends SelfSkill implements Serializable
 {
     @Override
     public String action(Creature source)

@@ -1,6 +1,8 @@
 package entities;
 
-public class Floor extends Entity
+import java.io.Serializable;
+
+public class Floor extends Entity implements Serializable
 {
     private static final String name = "Floor";
 

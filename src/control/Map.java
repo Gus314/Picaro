@@ -3,9 +3,10 @@ package control;
 import entities.*;
 import enums.Quadrant;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Map 
+public class Map implements Serializable
 {
 	private List<Entity> mapEntries;
 	private HashSet<Entity> permanentlyVisible;

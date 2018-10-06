@@ -5,7 +5,9 @@ import enums.Edge;
 import mapgeneration.cellfillers.RoomCell;
 import mapgeneration.cellfillers.RoomCellFactory;
 
-public class RoomGraph
+import java.io.Serializable;
+
+public class RoomGraph implements Serializable
 {
     private int rows;
     private int columns;

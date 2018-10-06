@@ -1,6 +1,8 @@
 package entities;
 
-public class Wall extends Entity
+import java.io.Serializable;
+
+public class Wall extends Entity implements Serializable
 {
 	private static final String name = "Wall";
 

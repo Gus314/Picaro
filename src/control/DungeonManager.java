@@ -6,6 +6,7 @@ import mapgeneration.PersistedMap;
 import ui.mainwindow.MapDisplay;
 import ui.mainwindow.Messages;
 
+import java.io.*;
 import java.util.HashMap;
 
 public class DungeonManager
@@ -31,16 +32,58 @@ public class DungeonManager
 		level = 0;
 		levels = new HashMap<Integer, PersistedMap>();
 	}
-	
+
 	public MapDisplay getMapDisplay()
 	{
 		return mapDisplay;
 	}
-	
+
 	public int getLevel()
 	{
 		return level;
 	}
+
+	public DungeonManager()
+	{
+		try
+		{
+			FileInputStream fileInputStream = new FileInputStream("Picaro.sav");
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			mazeGen = (MazeGenerator) objectInputStream.readObject();
+			player = (Player) objectInputStream.readObject();
+			levels = (java.util.Map<Integer, PersistedMap>) objectInputStream.readObject();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+
+	public void save()
+	{
+		try
+		{
+			FileOutputStream fileOutputStream = new FileOutputStream("Picaro.sav");
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(mazeGen);
+			objectOutputStream.writeObject(player);
+			objectOutputStream.writeObject(levels);
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
 
 	private void changeLevel(boolean descending)
 	{

@@ -7,7 +7,9 @@ import skills.TargetSkill;
 import statuses.Poison;
 import enums.SkillType;
 
-public class PoisonDart extends TargetSkill
+import java.io.Serializable;
+
+public class PoisonDart extends TargetSkill implements Serializable
 {
     private static final int cost = 3;
     private static final SkillType skillType = SkillType.PHYSICAL;

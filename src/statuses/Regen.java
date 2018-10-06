@@ -2,7 +2,9 @@ package statuses;
 
 import entities.Creature;
 
-public class Regen extends StatusEffect
+import java.io.Serializable;
+
+public class Regen extends StatusEffect implements Serializable
 {
     private int intensity;
     private static final String name = "Regen";

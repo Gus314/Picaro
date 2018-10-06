@@ -1,3 +1,5 @@
 package mapgeneration.cellfillers;
 
-public abstract class CellConnection {}
+import java.io.Serializable;
+
+public abstract class CellConnection implements Serializable {}

@@ -6,7 +6,9 @@ import enums.SkillType;
 import skills.SelfSkill;
 import statuses.Shell;
 
-public class Toughen extends SelfSkill
+import java.io.Serializable;
+
+public class Toughen extends SelfSkill implements Serializable
 {
     @Override
     public String action(Creature source)

@@ -13,11 +13,12 @@ import enums.FloorType;
 import enums.MapElementType;
 import ui.mainwindow.Messages;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class MazeGenerator 
+public class MazeGenerator implements Serializable
 {
 	private Map map;
 	private Messages messages;

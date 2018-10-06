@@ -1,6 +1,8 @@
 package mapgeneration.cellfillers;
 
-public class ValidCellConnection extends CellConnection
+import java.io.Serializable;
+
+public class ValidCellConnection extends CellConnection implements Serializable
 {
     private int offset;
 

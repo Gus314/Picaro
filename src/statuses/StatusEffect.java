@@ -2,7 +2,9 @@ package statuses;
 
 import entities.Creature;
 
-public abstract class StatusEffect
+import java.io.Serializable;
+
+public abstract class StatusEffect implements Serializable
 {
     private String name;
     private Creature target;

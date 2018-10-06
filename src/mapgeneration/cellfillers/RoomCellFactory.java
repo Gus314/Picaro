@@ -1,6 +1,8 @@
 package mapgeneration.cellfillers;
 
-public class RoomCellFactory
+import java.io.Serializable;
+
+public class RoomCellFactory implements Serializable
 {
     private int properRoomChance;
 

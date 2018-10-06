@@ -7,7 +7,9 @@ import enums.Behaviour;
 import enums.SkillBehaviour;
 import enums.TurnType;
 
-public class Brain
+import java.io.Serializable;
+
+public class Brain implements Serializable
 {
     private Monster monster;
 

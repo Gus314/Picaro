@@ -6,9 +6,10 @@ import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.AreaSkill;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Fireball extends AreaSkill
+public class Fireball extends AreaSkill implements Serializable
 {
     private static final int range = 5;
     private static final int radius = 3;

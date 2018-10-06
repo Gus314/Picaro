@@ -6,7 +6,9 @@ import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.TargetSkill;
 
-public class Stab extends TargetSkill
+import java.io.Serializable;
+
+public class Stab extends TargetSkill implements Serializable
 {
     private static final int cost = 4;
     private static final SkillType skillType = SkillType.PHYSICAL;

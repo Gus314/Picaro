@@ -6,6 +6,8 @@ public interface IRoot
 {
     public void changeToMainWindow(PlayerInitialData playerInitialData);
 
+    public void changeToMainWindow();
+
     public void changeToTitleScreen();
 
     public void changeToCharacterCreation();
