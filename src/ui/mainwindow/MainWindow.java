@@ -108,7 +108,7 @@ public class MainWindow extends JTabbedPane
 		mainPanel.add(shortcuts, constraints);
 
 		JPanel infoPanel = new JPanel();
-		constraints.weighty = 30;
+		constraints.weighty = 35;
 		constraints.gridy = 2;
 		mainPanel.add(infoPanel, constraints);
 		infoPanel.setLayout(new GridLayout(4,1));
@@ -137,10 +137,13 @@ public class MainWindow extends JTabbedPane
 	{
 		root = inRoot;
 		UIDefaults uid = UIManager.getDefaults();
-		Font font = uid.getFont("Label.font");
-		Font newFont = new Font(font.getName(), font.getStyle(), 10);
-		uid.put("Label.font", newFont);
-
+		Font labelFont = uid.getFont("Label.font");
+		Font smallFont = new Font(labelFont.getName(), labelFont.getStyle(), 8);
+		uid.put("Label.font", smallFont);
+		Font mediumFont = new Font(smallFont.getName(), labelFont.getStyle(), 9);
+		uid.put("TextArea.font", mediumFont);
+		uid.put("TextField.font", mediumFont);
+		uid.put("Button.font", mediumFont);
 		mainPanel = new JPanel();
 		this.addTab("Game", mainPanel);
 		mainPanel.setLayout(new GridBagLayout());

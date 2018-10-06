@@ -14,7 +14,7 @@ public class Messages extends JPanel
 		super();
 		text = new JTextArea();
 		text.setColumns(200);
-		text.setRows(6);
+		text.setRows(5);
 		scrollPane = new JScrollPane(text);
 		add(scrollPane);
 	}
