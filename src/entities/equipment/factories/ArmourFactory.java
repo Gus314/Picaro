@@ -1,9 +1,10 @@
 package entities.equipment.factories;
 
 import entities.equipment.Armour;
+import entities.factories.AbstractEntityFactory;
 import enums.ArmourType;
 
-public class ArmourFactory
+public class ArmourFactory extends AbstractEntityFactory
 {
     private ArmourType armourType;
 	private int defense;

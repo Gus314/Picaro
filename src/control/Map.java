@@ -1,6 +1,7 @@
 package control;
 
 import entities.*;
+import entities.furniture.Furniture;
 import enums.Quadrant;
 
 import java.io.Serializable;
@@ -170,7 +171,7 @@ public class Map implements Serializable
 
 	private boolean isPermanentlyVisible(Entity ent)
 	{
-	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs);
+	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Furniture);
 	}
 
 	public void removeEntity(Entity ent)

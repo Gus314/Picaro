@@ -29,6 +29,7 @@ public class MonsterProvider
         skills.clear();
         RequestAid requestAid = new RequestAid(ratFactory);
         mouseFactory.addSkill(requestAid);
+        monsterFactories.add(mouseFactory);
 
         skills.add(new RollUp());
         monsterFactories.add(new MonsterFactory(Faction.FOE,'V',26,16,20,0,7,0,0,1,"vole",map,messages,10,10,0,13,13, skills,1,2));

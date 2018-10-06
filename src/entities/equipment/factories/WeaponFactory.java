@@ -1,8 +1,9 @@
 package entities.equipment.factories;
 
 import entities.equipment.Weapon;
+import entities.factories.AbstractEntityFactory;
 
-public class WeaponFactory
+public class WeaponFactory extends AbstractEntityFactory
 {
 	private int minDamage;
 	private int maxDamage;

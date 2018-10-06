@@ -128,7 +128,7 @@ public class MazeGenerator implements Serializable
 			{
 			if(data[i][j]==FloorType.FLOOR.getValue())
 			{ // Percentage chance to spawn something
-				if(Controller.getGenerator().nextInt(35)==1)
+				if(Controller.getGenerator().nextInt(32)==1)
 				{
 					data[i][j] = 5;
                     MapElementType elementType = chooseElementType();
@@ -148,6 +148,7 @@ public class MazeGenerator implements Serializable
        chances.put(MapElementType.RELIC, 10);
        chances.put(MapElementType.WEAPON, 10);
        chances.put(MapElementType.CONSUMABLE, 10);
+       chances.put(MapElementType.FURNITURE, 5);
        addElementTypes(chances, options);
 
        int choice = Controller.getGenerator().nextInt(options.size());
@@ -173,6 +174,8 @@ public class MazeGenerator implements Serializable
 				return mazeFactories.chooseArmour(level).construct(i, j);
 			case CONSUMABLE:
 				return mazeFactories.chooseConsumable(level).construct(i, j);
+			case FURNITURE:
+			    return mazeFactories.chooseFurniture(level).construct(i, j);
 			case MONSTER:
 				return mazeFactories.chooseMonster(level).construct(i, j);
 			case RELIC:

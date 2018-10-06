@@ -4,6 +4,7 @@ import control.Controller;
 import control.Map;
 import enums.Faction;
 import enums.SkillBehaviour;
+import enums.StatType;
 import skills.Skill;
 import skills.SummonSkill;
 import statuses.StatusEffect;
@@ -259,6 +260,103 @@ public abstract class Creature extends Entity implements Serializable
                 return false;
             }
         }
+    }
+
+    // TODO: Use this method instead in places where stats are changed.
+    public String changeStat(StatType stat, int intensity)
+    {
+        // TODO: Consider stat limits.
+        String result = getName();
+        int change = 0; // Intensity may be modified to ensure stat stays within limits, e.g. greater than or equal to 0.
+        switch(stat)
+        {
+            case MP:
+            {
+                change = (intensity < 0) && ((intensity * -1) > maxMagicPoints) ? maxMagicPoints : intensity;
+                maxMagicPoints = maxMagicPoints + change;
+                result = result + " max mp ";
+                break;
+            }
+            case PP:
+            {
+                change = (intensity < 0) && ((intensity * -1) > maxPhysicalPoints) ? maxPhysicalPoints : intensity;
+                maxPhysicalPoints = maxPhysicalPoints + change;
+                result = result + " max pp";
+                break;
+            }
+            case ABSORBCHANCE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > absorbChance) ? absorbChance : intensity;
+                change = (change > 0) && (change + absorbChance <= 100) ? (100 - absorbChance) : change;
+                absorbChance += change;
+                result = result + " absorb chance";
+                break;
+            }
+            case EXP:
+            {
+                change = (intensity < 0) && ((intensity * -1) > exp) ? exp : intensity;
+                exp = exp + change;
+                result = result + " exp ";
+                break;
+            }
+            case LIFE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > life) ? life : intensity;
+                life = life + change;
+                result = result + " life ";
+            }
+            case BLOCKCHANCE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > blockChance) ? blockChance : intensity;
+                change = (change > 0) && (change + blockChance <= 100) ? (100 - blockChance) : change;
+                blockChance += change;
+                result = result + " block chance";
+            }
+            case RANGE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > range) ? range : intensity;
+                range = range + change;
+                result = result + " range";
+                break;
+            }
+            case CRITCHANCE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > critChance) ? critChance : intensity;
+                change = (change > 0) && (change + critChance <= 100) ? (100 - critChance) : change;
+                critChance += change;
+                result = result + " crit chance";
+            }
+            case DEFENSE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > defense) ? defense : intensity;
+                defense = defense + change;
+                result = result + " defense ";
+                break;
+            }
+            case INTELLIGENCE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > intelligence) ? intelligence : intensity;
+                intelligence = intelligence + change;
+                result = result + " intelligence ";
+                break;
+            }
+            case MAXDAMAGE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > maxDamage) ? maxDamage : intensity;
+                maxDamage = maxDamage + change;
+                result = result + " maxDamage ";
+                break;
+            }
+            case MINDAMAGE:
+            {
+                change = (intensity < 0) && ((intensity * -1) > minDamage) ? minDamage : intensity;
+                minDamage = minDamage + change;
+                result = result + " minDamage ";
+                break;
+            }
+        }
+
+        return result + " changed by " + intensity + ".";
     }
 
     public void setLife(int inLife)
