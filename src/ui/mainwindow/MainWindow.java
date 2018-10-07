@@ -78,12 +78,21 @@ public class MainWindow extends JTabbedPane
 
 	public void start()
 	{
+		messages = new Messages();
 		dungeonManager = new DungeonManager();
 		initialise();
 	}
 
 	private void initialise()
 	{
+		removeAll();
+
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new GridBagLayout());
+		options = new Options(false);
+		optionsPanel = new OptionsPanel(options);
+
+		this.addTab("Game", mainPanel);
 		Player player = dungeonManager.getPlayer();
 		Map map = dungeonManager.getMap();
 		Stats stats = new Stats(player);
@@ -140,6 +149,7 @@ public class MainWindow extends JTabbedPane
 
 	public void start(PlayerInitialData playerInitialData)
 	{
+		messages = new Messages();
 		dungeonManager = new DungeonManager(messages, playerInitialData);
 		dungeonManager.nextLevel();
 		initialise();
@@ -156,13 +166,6 @@ public class MainWindow extends JTabbedPane
 		uid.put("TextArea.font", mediumFont);
 		uid.put("TextField.font", mediumFont);
 		uid.put("Button.font", mediumFont);
-		mainPanel = new JPanel();
-		this.addTab("Game", mainPanel);
-		mainPanel.setLayout(new GridBagLayout());
-
-		options = new Options(false);
-		optionsPanel = new OptionsPanel(options);
-		messages = new Messages();
 	}
 
 	public DungeonManager getDungeonManager(){return dungeonManager;}
