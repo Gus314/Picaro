@@ -1,41 +1,8 @@
 package enums;
 
-import control.Controller;
-
 public enum Direction
 {
-    UPLEFT(3), UPRIGHT(1), DOWNLEFT(5), DOWNRIGHT(7), UP(2), LEFT(4), RIGHT(0), DOWN(6);
-
-    private int value;
-
-    Direction(int value)
-    {
-        this.value = value;
-    }
-
-    public int getValue()
-    {
-        return value;
-    }
-
-    public static Direction random()
-    {
-        return fromValue(Controller.getGenerator().nextInt(8));
-    }
-
-    private static Direction fromValue(int value)
-    {
-        for(Direction dir: Direction.values())
-        {
-            if(dir.getValue() == value)
-            {
-                return dir;
-            }
-        }
-
-        // TODO: Add exception.
-        return null;
-    }
+    UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, UP, LEFT, RIGHT, DOWN;
 
     public int rowShift()
     {
@@ -53,7 +20,10 @@ public enum Direction
             case DOWNRIGHT:
                 return 1;
             default:
-                return 0; // TODO: Add exception.
+            {
+                System.out.println("Direction::rowShift() - unexpected direction.");
+                return 0;
+            }
         }
     }
 
@@ -73,7 +43,10 @@ public enum Direction
             case DOWNRIGHT:
                 return 1;
             default:
-                return 0; // TODO: Add exception.
+            {
+                System.out.println("Direction::columnShift() - unexpecrted direction.");
+                return 0;
+            }
         }
     }
 }

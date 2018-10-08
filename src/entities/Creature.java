@@ -255,14 +255,17 @@ public abstract class Creature extends Entity implements Serializable
             }
             default:
             {
-                // TODO: Use exception.
                 System.out.println("Creature::canUse() - unexpected skill type.");
                 return false;
             }
         }
     }
 
-    // TODO: Use this method instead in places where stats are changed.
+    public int getSightRadius()
+    {
+        return 8;
+    }
+
     public String changeStat(StatType stat, int intensity)
     {
         String result = getName();

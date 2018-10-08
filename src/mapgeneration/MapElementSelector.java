@@ -13,7 +13,7 @@ public class MapElementSelector
     private static final int weaponChance = 10;
     private static final int consumableChance = 10;
     private static final int furnitureChance = 5;
-    private static  final int totalChance = armourChance + monsterChance + relicChance + weaponChance + consumableChance + furnitureChance;
+    private static final int totalChance = armourChance + monsterChance + relicChance + weaponChance + consumableChance + furnitureChance;
 
     public static MapElementType chooseElementType()
     {

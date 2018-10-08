@@ -13,9 +13,7 @@ import skills.TargetSkill;
 import ui.mainwindow.Messages;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class Monster extends Creature implements Serializable {
 	private int minLevel;
@@ -95,10 +93,9 @@ public class Monster extends Creature implements Serializable {
 		}
 	}
 
-	private int getPlayerRange()
+	private OptionalInt getPlayerRange()
 	{
-		// TODO: Refactor - currently returns 99999 if beyond 20 and seems very inefficient, could use path-finding algorithm to help.
-        final int maxRange = 20;
+        final int maxRange = getSightRadius();
 
 		for(int i = 0; i < maxRange; i++)
 		{
@@ -106,12 +103,12 @@ public class Monster extends Creature implements Serializable {
 			{
 				if(ent instanceof Player)
 				{
-					return i;
+					return OptionalInt.of(i);
 				}
 			}
 		}
 
-		return 99999;
+		return OptionalInt.empty();
 	}
 
 	private int getMaxAttackRange()
@@ -177,8 +174,15 @@ public class Monster extends Creature implements Serializable {
 	{
 		Collection<Skill> result = new ArrayList<Skill>();
 
-		int playerRange = getPlayerRange();
+		OptionalInt playerRange = getPlayerRange();
 
+		// If player is not in range then no skills are in range.
+		if(!playerRange.isPresent())
+		{
+			return result;
+		}
+
+		// playerRange now guaranteed to have a value.
 		for(Skill skill: getSkills())
 		{
 			if(skill.getSkillBehaviour() == SkillBehaviour.ATTACK)
@@ -186,7 +190,7 @@ public class Monster extends Creature implements Serializable {
 					if(skill.getTargetType() == TargetType.TARGET)
 					{
 						TargetSkill targetSkill = (TargetSkill)skill;
-						if(targetSkill.getRange() >= playerRange)
+						if(targetSkill.getRange() >= playerRange.getAsInt())
 						{
 							result.add(skill);
 						}
@@ -195,7 +199,7 @@ public class Monster extends Creature implements Serializable {
 					{
 						AreaSkill areaSkill = (AreaSkill) skill;
 						int furthestAttackDistance = areaSkill.getRange() + areaSkill.getRadius() - 1; // Range 4, radius 1, furthest distance is 4, not 3.
-						if(furthestAttackDistance >= playerRange)
+						if(furthestAttackDistance >= playerRange.getAsInt())
 						{
 							result.add(skill);
 						}

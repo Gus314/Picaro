@@ -38,57 +38,11 @@ public class Coordinate implements Serializable
 
     public static int adjustRow(Direction direction, int row)
     {
-        switch(direction)
-        {
-            case UPLEFT:
-                return row-1;
-            case UPRIGHT:
-                return row-1;
-            case DOWNLEFT:
-                return row+1;
-            case DOWNRIGHT:
-                return row+1;
-            case UP:
-                return row-1;
-            case LEFT:
-                return row;
-            case RIGHT:
-                return row;
-            case DOWN:
-                return row+1;
-            default:
-            {
-                System.out.println("TurnHandler::adjustRow - unexpected direction.");
-                return row;
-            }
-        }
+        return row + direction.rowShift();
     }
 
     public static int adjustColumn(Direction direction, int column)
     {
-        switch(direction)
-        {
-            case UPLEFT:
-                return column-1;
-            case UPRIGHT:
-                return column+1;
-            case DOWNLEFT:
-                return column-1;
-            case DOWNRIGHT:
-                return column+1;
-            case UP:
-                return column;
-            case LEFT:
-                return column-1;
-            case RIGHT:
-                return column+1;
-            case DOWN:
-                return column;
-            default:
-            {
-                System.out.println("TurnHandler::adjustColumn - unexpected direction.");
-                return column;
-            }
-        }
+        return column + direction.columnShift();
     }
 }

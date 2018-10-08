@@ -156,7 +156,7 @@ public class MazeGenerator implements Serializable
 			default:
 			{
 				System.out.println("MazeGenerator::chooseEntity - unknown entity type");
-				return mazeFactories.chooseMonster(level).construct(i, j); // TODO: Throw an exception.
+				return mazeFactories.chooseMonster(level).construct(i, j);
 			}
 		}
 	}
