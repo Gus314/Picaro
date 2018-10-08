@@ -78,28 +78,28 @@ public class PathFinder
             return awayCoord;
         }
 
-        awayCoord = new Coordinate(awayCoord.getRow(), source.getColumn());
-        passable = Entity.passable(map.atPosition(awayCoord.getRow(), awayCoord.getColumn()));
+        Coordinate halfAwayCoord = new Coordinate(awayCoord.getRow(), source.getColumn());
+        passable = Entity.passable(map.atPosition(halfAwayCoord.getRow(), halfAwayCoord.getColumn()));
         if(passable)
         {
-            return awayCoord;
+            return halfAwayCoord;
         }
 
-        awayCoord = new Coordinate(source.getRow(), awayCoord.getColumn());
-        passable = Entity.passable(map.atPosition(awayCoord.getRow(), awayCoord.getColumn()));
+        halfAwayCoord = new Coordinate(source.getRow(), awayCoord.getColumn());
+        passable = Entity.passable(map.atPosition(halfAwayCoord.getRow(), halfAwayCoord.getColumn()));
         if(passable)
         {
-            return awayCoord;
+            return halfAwayCoord;
         }
 
         // Cannot find a 'good' further position, choose a passable point at random.
         for(Direction direction: Direction.values())
         {
-            Coordinate newCoord = source.move(away);
+            Coordinate newCoord = source.move(direction);
             passable = Entity.passable(map.atPosition(newCoord.getRow(), newCoord.getColumn()));
             if(passable)
             {
-                return awayCoord;
+                return newCoord;
             }
         }
 
