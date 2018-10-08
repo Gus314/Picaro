@@ -71,10 +71,4 @@ public class ValidPathInfo extends PathInfo
         System.out.println("ValidPathInfo::determineDirection - failed to determine direction.");
         return Direction.DOWN;
     }
-
-    public Direction furtherMove(Entity source)
-    {
-        // TODO: Fix this.
-        return Direction.UP;
-    }
 }

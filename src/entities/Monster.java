@@ -98,7 +98,6 @@ public class Monster extends Creature implements Serializable {
 	private int getPlayerRange()
 	{
 		// TODO: Refactor - currently returns 99999 if beyond 20 and seems very inefficient, could use path-finding algorithm to help.
-		Player player = null;
         final int maxRange = 20;
 
 		for(int i = 0; i < maxRange; i++)
@@ -237,7 +236,6 @@ public class Monster extends Creature implements Serializable {
 			default:
 			{
 				System.out.println("Monster::takeTurn() - unexpected turn type.");
-				// TODO: Throw exception
 				return new ArrayList<Entity>();
 			}
 		}

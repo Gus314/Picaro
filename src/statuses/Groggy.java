@@ -1,6 +1,7 @@
 package statuses;
 
 import entities.Creature;
+import enums.StatType;
 
 import java.io.Serializable;
 
@@ -22,10 +23,8 @@ public class Groggy extends IntensityStatusEffect implements Serializable
     @Override
     public String onApplication()
     {
-        // TODO: Protect against negative defense.
-        int baseDefense = getTarget().getDefense();
         int change = getIntensity();
-        getTarget().setDefense(baseDefense - change);
+        getTarget().changeStat(StatType.DEFENSE, -change);
         return getTarget().getName() + " is feeling groggy.";
     }
 
@@ -34,7 +33,7 @@ public class Groggy extends IntensityStatusEffect implements Serializable
     {
         int baseDefense = getTarget().getDefense();
         int change = getIntensity();
-        getTarget().setDefense(baseDefense + change);
+        getTarget().changeStat(StatType.DEFENSE, change);
         return getTarget().getName() + " is no longer feeling groggy.";
     }
 }

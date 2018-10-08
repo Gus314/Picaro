@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javafx.scene.input.KeyCode.T;
+
 public abstract class Entity implements Serializable
 {
 	private Character cha;
@@ -92,16 +94,15 @@ public abstract class Entity implements Serializable
 		return null;
 	}
 
-	// TODO: Refactor to be generic.
-	public static List<Item> getItems(List<Entity> entities)
+	public static <T> List<Item> getItems(List<T> list)
 	{
 		List<Item> result = new ArrayList<>();
 
-		for(Entity ent: entities)
+		for(T entry : list)
 		{
-			if(ent instanceof Item)
+			if(entry instanceof Item)
 			{
-				result.add((Item) ent);
+				result.add((Item) entry);
 			}
 		}
 		return result;

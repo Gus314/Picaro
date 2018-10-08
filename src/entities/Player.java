@@ -287,13 +287,12 @@ public class Player extends Creature implements Serializable
 
 	private int expForNextLevel()
 	{
-		double dResult = 100.0 + ((double)level * 25);
+		double dResult = 100.0 * Math.pow(1.50, level);
 		return (int) dResult;
 	}
 
 	public void killed(Monster monster)
 	{
-		// TODO : Change exp required per level.
 		getMessages().addMessage(monster.getName() + " died, giving " + monster.getExp() + " exp!");
 		int newExp = getExp()+monster.getExp();
 

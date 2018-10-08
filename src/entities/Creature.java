@@ -265,7 +265,6 @@ public abstract class Creature extends Entity implements Serializable
     // TODO: Use this method instead in places where stats are changed.
     public String changeStat(StatType stat, int intensity)
     {
-        // TODO: Consider stat limits.
         String result = getName();
         int change = 0; // Intensity may be modified to ensure stat stays within limits, e.g. greater than or equal to 0.
         switch(stat)

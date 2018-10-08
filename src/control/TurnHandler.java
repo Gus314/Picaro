@@ -59,58 +59,6 @@ public class TurnHandler
         map.removeEntity(item);
     }
 
-    private int adjustRow(Direction direction, int row)
-    {
-        switch(direction)
-        {
-            case UPLEFT:
-                return row-1;
-            case UPRIGHT:
-                return row-1;
-            case DOWNLEFT:
-                return row+1;
-            case DOWNRIGHT:
-                return row+1;
-            case UP:
-                return row-1;
-            case LEFT:
-                return row;
-            case RIGHT:
-                return row;
-            case DOWN:
-                return row+1;
-        }
-
-        return row;
-        // TODO: Add check.
-    }
-
-    private int adjustColumn(Direction direction, int column)
-    {
-        switch(direction)
-        {
-            case UPLEFT:
-                return column-1;
-            case UPRIGHT:
-                return column+1;
-            case DOWNLEFT:
-                return column-1;
-            case DOWNRIGHT:
-                return column+1;
-            case UP:
-                return column;
-            case LEFT:
-                return column-1;
-            case RIGHT:
-                return column+1;
-            case DOWN:
-                return column;
-        }
-
-        // TODO: Add check.
-        return column;
-    }
-
     public void changeLevel()
     {
         List<Entity> here = map.atPosition(player.getRow(), player.getColumn());
@@ -158,7 +106,7 @@ public class TurnHandler
         int row = player.getRow();
         int column = player.getColumn();
 
-        List<Entity> here = map.atPosition(adjustRow(direction, row), adjustColumn(direction, column));
+        List<Entity> here = map.atPosition(Coordinate.adjustRow(direction, row), Coordinate.adjustColumn(direction, column));
         if(Entity.passable(here))
         {
             player.move(direction, 1);

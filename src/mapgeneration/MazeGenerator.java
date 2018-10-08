@@ -98,7 +98,6 @@ public class MazeGenerator implements Serializable
 		positionPlayer(inPlayer, data);
 		MazeFactories mazeFactories = new MazeFactories(map, messages, inPlayer);
 
-		// TODO: Update actions in factories!
 		addEntities(level, mazeFactories, data);
 		addStairs(level, data);
 
@@ -131,39 +130,11 @@ public class MazeGenerator implements Serializable
 				if(Controller.getGenerator().nextInt(32)==1)
 				{
 					data[i][j] = 5;
-                    MapElementType elementType = chooseElementType();
+                    MapElementType elementType = MapElementSelector.chooseElementType();
 					map.addEntry(chooseEntity(level, elementType, i, j, mazeFactories));
 				}
 			}
 			}
-	}
-
-	private MapElementType chooseElementType()
-	{
-		// TODO: Optimise.
-       Vector<MapElementType> options = new Vector<>();
-       java.util.Map<MapElementType, Integer> chances = new HashMap<>();
-       chances.put(MapElementType.ARMOUR, 10);
-       chances.put(MapElementType.MONSTER, 30);
-       chances.put(MapElementType.RELIC, 10);
-       chances.put(MapElementType.WEAPON, 10);
-       chances.put(MapElementType.CONSUMABLE, 10);
-       chances.put(MapElementType.FURNITURE, 5);
-       addElementTypes(chances, options);
-
-       int choice = Controller.getGenerator().nextInt(options.size());
-       return options.get(choice);
-	}
-
-	private static void addElementTypes(java.util.Map<MapElementType, Integer> chances, Collection<MapElementType> options)
-	{
-		for(MapElementType elementType: chances.keySet())
-		{
-			for(int i = 0; i < chances.get(elementType); i++)
-			{
-				options.add(elementType);
-			}
-		}
 	}
 
 	private Entity chooseEntity(int level, MapElementType type, int i, int j, MazeFactories mazeFactories)
