@@ -1,8 +1,38 @@
 package enums;
 
+import control.Coordinate;
+
 public enum Direction
 {
     UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, UP, LEFT, RIGHT, DOWN;
+
+    public Direction opposite()
+    {
+        switch(this)
+        {
+            case UP:
+                return DOWN;
+            case DOWN:
+                return UP;
+            case LEFT:
+                return RIGHT;
+            case RIGHT:
+                return LEFT;
+            case UPLEFT:
+                return DOWNRIGHT;
+            case UPRIGHT:
+                return DOWNLEFT;
+            case DOWNLEFT:
+                return UPRIGHT;
+            case DOWNRIGHT:
+                return UPLEFT;
+            default:
+            {
+                System.out.println("Direction::opposite - unexpected direction.");
+                return UP;
+            }
+        }
+    }
 
     public int rowShift()
     {

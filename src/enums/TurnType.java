@@ -2,5 +2,5 @@ package enums;
 
 public enum TurnType
 {
-    MOVE, ACT
+    MOVE, ACT, SKIP
 }

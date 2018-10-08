@@ -1,12 +1,16 @@
-package entities.ai;
+package entities.ai.move;
 
 import control.Controller;
 import control.Map;
+import entities.Creature;
 import entities.Entity;
+import entities.Floor;
 import entities.Monster;
 import enums.Direction;
+import enums.Faction;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class Move
@@ -26,7 +30,7 @@ public abstract class Move
 
     public static int getSuggestedSearchSize(){return suggestedSearchSize;}
 
-    public abstract void move();
+    public abstract void move(java.util.Map<Faction, List<Creature>> targets);
 
     protected void randomMove()
     {
@@ -52,22 +56,5 @@ public abstract class Move
                 break;
             }
         }
-    }
-
-    protected boolean canMove()
-    {
-        int row = getMonster().getRow();
-        int column = getMonster().getColumn();
-
-        for(Direction direction: Direction.values())
-        {
-            List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
-            if(Entity.passable(here))
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

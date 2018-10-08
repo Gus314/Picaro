@@ -2,5 +2,10 @@ package enums;
 
 public enum Faction
 {
-    PLAYER, FOE
+    PLAYER, FOE;
+
+    public Faction opposing()
+    {
+        return (this == PLAYER) ? FOE : PLAYER;
+    }
 }

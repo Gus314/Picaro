@@ -1,8 +1,11 @@
-package entities.ai;
+package entities.ai.act;
 
 import control.Controller;
+import entities.Creature;
 import entities.Entity;
+import entities.Floor;
 import entities.Monster;
+import enums.Faction;
 import enums.SkillBehaviour;
 import skills.SelfSkill;
 import skills.Skill;
@@ -20,30 +23,25 @@ public class ActDefend extends Act
     }
 
     @Override
-    public Collection<Entity> act(Entity entity)
+    public Collection<Entity> act(java.util.Map<Faction, List<Creature>> targets, Collection<Floor> floors)
     {
         List<Skill> defendSkills = new ArrayList<Skill>();
         defendSkills.addAll(getMonster().getSkills(SkillBehaviour.DEFEND));
 
         Skill chosenSkill = defendSkills.get(Controller.getGenerator().nextInt(defendSkills.size()));
 
-        // TODO: Action skills other than self skills.
         switch(chosenSkill.getTargetType())
         {
             case SELF:
             {
                 SelfSkill skill = (SelfSkill) chosenSkill;
-
-                if(!(entity instanceof Monster))
-                {
-                    System.out.println("ActDefend::act - unexpected entity type.");
-                    return new ArrayList<Entity>();
-                }
-
                 String message = skill.action(getMonster());
                 getMessages().addMessage(message);
                 return new ArrayList<Entity>();
             }
+            case FLOOR:
+            case AREA:
+            case TARGET:
             default:
             {
                 System.out.println("ActDefend::act - unexpected target type.");

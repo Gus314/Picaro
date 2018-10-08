@@ -1,6 +1,5 @@
-package entities.ai;
+package entities.ai.act;
 
-import control.Map;
 import entities.Monster;
 import enums.Behaviour;
 import ui.mainwindow.Messages;
@@ -30,7 +29,6 @@ public class ActFactory
             default:
             {
                 System.out.println("ActFactory::construct - unexpected behaviour.");
-                // TODO: Throw exception.
                 return new ActAttack(monster, messages);
             }
         }

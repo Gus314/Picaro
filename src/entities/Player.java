@@ -103,10 +103,9 @@ public class Player extends Creature implements Serializable
 		return result;
 	}
 
-	private static final int sightRadius = 8;
-	public int getSightRadius()
+	public @Override int getSightRadius()
 	{
-		return sightRadius;
+		return 8;
 	}
 
 	public @Override int getMinDamage()

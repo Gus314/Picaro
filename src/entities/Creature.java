@@ -2,14 +2,11 @@ package entities;
 
 import control.Controller;
 import control.Map;
-import enums.Faction;
-import enums.SkillBehaviour;
-import enums.StatType;
+import enums.*;
 import skills.Skill;
 import skills.SummonSkill;
 import statuses.StatusEffect;
 import statuses.TemporaryStatusEffect;
-import enums.SkillType;
 import ui.mainwindow.Messages;
 
 import java.io.Serializable;
@@ -75,6 +72,11 @@ public abstract class Creature extends Entity implements Serializable
     }
 
     public Collection<StatusEffect> getStatusEffects(){return statusEffects;}
+
+    public Faction getFaction()
+    {
+        return faction;
+    }
 
     public void setMap(Map inMap)
     {
@@ -217,13 +219,13 @@ public abstract class Creature extends Entity implements Serializable
         return targetLife <= 0;
     }
 
-    protected Collection<Floor> findNearbyEmptyFloors()
+    protected Collection<Floor> findNearbyEmptyFloors(int range)
     {
         Collection<Floor> result = new ArrayList<Floor>();
 
-        for(int i = -3; i < 3; i++)
+        for(int i = -range; i < range; i++)
         {
-            for(int j = -3; j < 3; j++)
+            for(int j = -range; j < range; j++)
             {
                 List<Entity> here = getMap().atPosition(getRow() + i, getColumn() + j, true);
                 if(here.size() == 1 && here.get(0) instanceof Floor)
@@ -238,7 +240,7 @@ public abstract class Creature extends Entity implements Serializable
 
     public boolean canUse(Skill skill)
     {
-        if(skill instanceof SummonSkill && findNearbyEmptyFloors().size() == 0)
+        if(skill instanceof SummonSkill && findNearbyEmptyFloors(((SummonSkill) skill).getRange()).size() == 0)
         {
             return false;
         }
@@ -263,7 +265,7 @@ public abstract class Creature extends Entity implements Serializable
 
     public int getSightRadius()
     {
-        return 8;
+        return 12;
     }
 
     public String changeStat(StatType stat, int intensity)
@@ -359,6 +361,24 @@ public abstract class Creature extends Entity implements Serializable
         }
 
         return result + " changed by " + intensity + ".";
+    }
+
+
+    public boolean canMove()
+    {
+        int row = getRow();
+        int column = getColumn();
+
+        for(Direction direction: Direction.values())
+        {
+            List<Entity> here = getMap().atPosition(row + direction.rowShift(), column + direction.columnShift());
+            if(Entity.passable(here))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void setLife(int inLife)

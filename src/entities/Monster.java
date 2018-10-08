@@ -2,10 +2,10 @@ package entities;
 
 import control.Controller;
 import control.Map;
-import entities.ai.Act;
-import entities.ai.ActFactory;
+import entities.ai.act.Act;
+import entities.ai.act.ActFactory;
 import entities.ai.Brain;
-import entities.ai.MoveFactory;
+import entities.ai.move.MoveFactory;
 import enums.*;
 import skills.AreaSkill;
 import skills.Skill;
@@ -19,7 +19,7 @@ public class Monster extends Creature implements Serializable {
 	private int minLevel;
 	private int maxLevel;
 	private Brain brain;
-
+	private boolean playerSighted;
 	public boolean passable() {
 		return false;
 	}
@@ -32,6 +32,7 @@ public class Monster extends Creature implements Serializable {
 		maxLevel = inMaxLevel;
 		addSkills(inSkills);
 		brain = new Brain(this);
+		playerSighted = false;
 	}
 
 	public int getMinLevel() {
@@ -42,55 +43,42 @@ public class Monster extends Creature implements Serializable {
 		return maxLevel;
 	}
 
-	private void move(Behaviour behaviour, Monster monster, Map map) {
-		MoveFactory.construct(behaviour, monster, map).move();
+	private void move(Behaviour behaviour, Monster monster, Map map)
+	{
+		java.util.Map<Faction, List<Creature>> targets = findTargets();
+		MoveFactory.construct(behaviour, monster, map).move(targets);
 	}
 
-	private Collection<Entity> act(Player player, Monster monster, Messages messages, Behaviour behaviour)
+	private Collection<Entity> act(Monster monster, Messages messages, Behaviour behaviour)
 	{
-		// TODO: What if the support skill is not a summon skill?
-		// TODO: What if there is no nearby empty floor?
-
-		Collection<Floor> floors = findNearbyEmptyFloors();
-		List<Floor> floorList = new ArrayList<Floor>();
-		floorList.addAll(floors);
-        if(floorList.size() == 0 && behaviour == Behaviour.SUPPORT)
-        {
-			System.out.println("Monster::act - unable to find target for support skill.");
-			return new ArrayList<Entity>();
-		}
-
-		Entity target = determineTarget(behaviour, monster, player, floorList);
+		Collection<Floor> floors = findNearbyEmptyFloors(getSightRadius());
+		java.util.Map<Faction, List<Creature>> targets = findTargets();
 
 		Act action = ActFactory.construct(behaviour, monster, messages);
-		return action.act(target);
+		return action.act(targets, floors);
 	}
 
-	private Entity determineTarget(Behaviour behaviour, Monster monster, Player player, List<Floor> floorList)
+	private java.util.Map<Faction, List<Creature>> findTargets()
 	{
-		switch(behaviour)
+		java.util.Map<Faction, List<Creature>> result = new HashMap<Faction, List<Creature>>();
+		for(Faction faction: Faction.values())
 		{
-			// TODO: More sophisticated targetting.
-			case SUPPORT:
+			result.put(faction, new ArrayList<Creature>());
+		}
+
+		Set<Entity> visible = getMap().lineOfSight(this, getSightRadius());
+		for(Entity entity: visible)
+		{
+			if(entity instanceof  Creature)
 			{
-				return floorList.get(Controller.getGenerator().nextInt(floorList.size()));
-			}
-			case ATTACK:
-			{
-				return matchingFaction(player) ? null : player; // TODO: Attack other creatures.
-			}
-			case DEFEND:
-			case RETREAT:
-			{
-				// TODO: More sophisticated targetting.
-				return monster;
-			}
-			default:
-			{
-				System.out.println("Monster::determineTarget - unexpected behaviour.");
-				return monster;
+				Creature creature = (Creature) entity;
+				List<Creature> factionCreatures = result.get(creature.getFaction()); // Note keys added above.
+				factionCreatures.add(creature);
+				result.put(creature.getFaction(), factionCreatures);
 			}
 		}
+
+		return result;
 	}
 
 	private OptionalInt getPlayerRange()
@@ -172,6 +160,7 @@ public class Monster extends Creature implements Serializable {
 
 	public Collection<Skill> getAttackSkillsInRange()
 	{
+		// TODO: Consider other factions.
 		Collection<Skill> result = new ArrayList<Skill>();
 
 		OptionalInt playerRange = getPlayerRange();
@@ -212,19 +201,36 @@ public class Monster extends Creature implements Serializable {
 
 	public Collection<Entity> takeTurn()
 	{
-		Player player = null;
+		// Return a collection of entities to be added, e.g. summoned creatures.
+		playerSighted = playerSighted || getMap().isInLineOfSight(this, getMap().getPlayer(), getSightRadius());
 
+		// If the player has never been seen then do nothing as AI computations are expensive.
+		if(!playerSighted)
+		{
+			return new ArrayList<Entity>();
+		}
+
+		boolean foeInAttackRange = false;
+
+		// TODO: Optimise these checks.
 		for(Entity ent: getMap().lineOfSight(this, getMaxAttackRange()))
 		{
-			if(ent instanceof Player)
+			if(ent instanceof Creature)
 			{
-				player = (Player) ent;
-				break;
+				Creature creature = (Creature)ent;
+				if(!matchingFaction(creature))
+				{
+					foeInAttackRange = true;
+					break;
+				}
 			}
 		}
 
+		java.util.Map<Faction, List<Creature>> targets = findTargets();
+		boolean friendNear = (targets.get(getFaction()).size() > 1); // It will always be at least one due to self.
+
 		Behaviour behaviour = brain.determineBehaviour();
-		TurnType turnType = brain.determineTurnType(player != null, behaviour);
+		TurnType turnType = brain.determineTurnType(foeInAttackRange, friendNear, playerSighted, behaviour);
 
 		switch(turnType)
 		{
@@ -235,7 +241,12 @@ public class Monster extends Creature implements Serializable {
 			}
 			case ACT:
 			{
-				return act(player, this, getMessages(), behaviour);
+				return act(this, getMessages(), behaviour);
+			}
+			case SKIP:
+			{
+				System.out.println("Turn skipped!");
+				return new ArrayList<Entity>();
 			}
 			default:
 			{

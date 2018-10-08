@@ -2,6 +2,9 @@ package entities.ai.pathing;
 
 import control.Coordinate;
 import entities.Entity;
+import enums.Direction;
+
+import java.awt.image.DirectColorModel;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
@@ -53,11 +56,55 @@ public class PathFinder
         {
             if(distanceMapping.get(coord) == 1)
             {
-                return new ValidPathInfo(coord);
+                return new ValidPathInfo(coord, findFurtherPosition(position, coord, map));
             }
         }
 
         return new InvalidPathInfo();
+    }
+
+    private static Coordinate findFurtherPosition(Coordinate source, Coordinate closer, control.Map map)
+    {
+        // Attempt to find a passable point further away from the target. If none exists then choose a passable
+        // point at random (assuming at least one exists), otherwise return current position.
+        Direction towards = source.determineDirection(closer);
+        Direction away = towards.opposite();
+
+        Coordinate awayCoord = source.move(away);
+        boolean passable = Entity.passable(map.atPosition(awayCoord.getRow(), awayCoord.getColumn()));
+
+        if(passable)
+        {
+            return awayCoord;
+        }
+
+        awayCoord = new Coordinate(awayCoord.getRow(), source.getColumn());
+        passable = Entity.passable(map.atPosition(awayCoord.getRow(), awayCoord.getColumn()));
+        if(passable)
+        {
+            return awayCoord;
+        }
+
+        awayCoord = new Coordinate(source.getRow(), awayCoord.getColumn());
+        passable = Entity.passable(map.atPosition(awayCoord.getRow(), awayCoord.getColumn()));
+        if(passable)
+        {
+            return awayCoord;
+        }
+
+        // Cannot find a 'good' further position, choose a passable point at random.
+        for(Direction direction: Direction.values())
+        {
+            Coordinate newCoord = source.move(away);
+            passable = Entity.passable(map.atPosition(newCoord.getRow(), newCoord.getColumn()));
+            if(passable)
+            {
+                return awayCoord;
+            }
+        }
+
+        // Unable to find any passable position.
+        return source;
     }
 
     private static boolean worthSearching(Entity source, Entity target, int maximumDistance)

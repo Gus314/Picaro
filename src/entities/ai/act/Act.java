@@ -1,11 +1,11 @@
-package entities.ai;
+package entities.ai.act;
 
-import entities.Entity;
-import entities.Monster;
-import entities.Player;
+import entities.*;
+import enums.Faction;
 import ui.mainwindow.Messages;
 
 import java.util.Collection;
+import java.util.List;
 
 public abstract class Act
 {
@@ -22,5 +22,5 @@ public abstract class Act
         messages = inMessages;
     }
 
-    public abstract Collection<Entity> act(Entity entity);
+    public abstract Collection<Entity> act(java.util.Map<Faction, List<Creature>> targets, Collection<Floor> floors);
 }

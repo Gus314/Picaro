@@ -1,18 +1,14 @@
-package entities.ai;
+package entities.ai.act;
 
 import control.Controller;
-import entities.Creature;
-import entities.Entity;
-import entities.Monster;
-import entities.Player;
+import entities.*;
+import enums.Faction;
 import enums.TargetType;
-import pclasses.PClassProvider;
 import skills.AreaSkill;
 import skills.Skill;
 import skills.TargetSkill;
 import ui.mainwindow.Messages;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,21 +27,29 @@ public class ActAttack extends Act
         return (Skill) (skills.toArray()[choice]);
     }
 
+    private Creature selectTarget(List<Creature> foes)
+    {
+        // TODO: Improve this method.
+        return foes.get(0);
+    }
+
     @Override
-    public Collection<Entity> act(Entity entity)
+    public Collection<Entity> act(java.util.Map<Faction, List<Creature>> targets, Collection<Floor> floors)
     {
         Monster monster = getMonster();
         Collection<Skill> skills = monster.getAttackSkillsInRange();
+        List<Creature> foes = targets.get(monster.getFaction().opposing());
 
         boolean acted = false;
 
-        if(!(entity instanceof Creature))
+        if(foes.size() == 0)
         {
-            System.out.println("ActAttack::act - unexpected entity type.");
+            System.out.println("ActAttack::act - no valid target.");
             return new ArrayList<Entity>();
         }
 
-        Creature creature = (Creature) entity;
+
+        Creature target = selectTarget(foes);
 
         if(skills.size() > 0)
         {
@@ -54,19 +58,18 @@ public class ActAttack extends Act
             String message = "";
             if(skillToUse.getTargetType() == TargetType.TARGET)
             {
-                message = ((TargetSkill) skillToUse).action(monster, creature);
+                message = ((TargetSkill) skillToUse).action(monster, target);
             }
             else if(skillToUse.getTargetType() == TargetType.AREA)
             {
-                List<Creature> targets = new ArrayList<Creature>();
-                targets.add(creature); // TODO: Impact multiple creatures.
-                message = ((AreaSkill) skillToUse).action(monster, targets);
+                List<Creature> areaTargets = new ArrayList<Creature>();
+                areaTargets.add(target); // TODO: Impact multiple creatures.
+                message = ((AreaSkill) skillToUse).action(monster, areaTargets);
             }
             else
             {
-                // TODO: Tidy this.
+                // Default to a standard attack.
                 System.out.println("ActAttack::act - unexpected attack skill type.");
-                System.exit(-1);
             }
             getMessages().addMessage(message);
             acted = true;
@@ -74,13 +77,13 @@ public class ActAttack extends Act
 
         if(!acted)
         {
-            getMonster().attack(creature);
+            monster.attack(target);
         }
 
-        boolean killed = (creature.getLife() <= 0);
-        if(killed && creature instanceof Player)
+        boolean killed = (target.getLife() <= 0);
+        if(killed && target instanceof Player)
         {
-            ((Player)creature).gameOver();
+            ((Player)target).gameOver();
         }
 
         return new ArrayList<Entity>();

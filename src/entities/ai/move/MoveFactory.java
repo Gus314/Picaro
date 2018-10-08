@@ -1,4 +1,4 @@
-package entities.ai;
+package entities.ai.move;
 
 import control.Map;
 import entities.Monster;
@@ -29,10 +29,8 @@ public class MoveFactory
             default:
             {
                 System.out.println("MoveFactory::construct() - unexpected behaviour.");
-                // TODO: Throw exception.
-                return new MoveDefend(monster, map);
+                return new MoveAttack(monster, map);
             }
         }
-
     }
 }
