@@ -14,7 +14,8 @@ public class PathFinder
     public static PathInfo findShortestPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
     {
         // Find the minimal path, not an inefficient one, which would also lead to pathing problems as the path is re-evaluated with each step.
-        for(int i = 1; i <= suggestedSearchSize; i++)
+        // Avoid path-finding at distance one, as this would place the source on top of the target.
+        for(int i = 2; i <= suggestedSearchSize; i++)
         {
             PathInfo attemptedPath = findPath(source, target, map, i);
             if(attemptedPath instanceof ValidPathInfo)
@@ -56,7 +57,12 @@ public class PathFinder
         {
             if(distanceMapping.get(coord) == 1)
             {
-                return new ValidPathInfo(coord, findFurtherPosition(position, coord, map));
+                // Avoid moving on top of the target.
+                boolean onTopOfTarget = coord.getRow() == target.getRow() && coord.getColumn() == target.getColumn();
+                if(!onTopOfTarget)
+                {
+                    return new ValidPathInfo(coord, findFurtherPosition(position, coord, map));
+                }
             }
         }
 
@@ -112,7 +118,7 @@ public class PathFinder
         // If the minimum distance without collisions is greater than the maximum distance then it is impossible to find a path.
         int rowChange = Math.abs(source.getRow() - target.getRow());
         int columnChange = Math.abs(source.getColumn() - target.getColumn());
-        int minimumDistance = rowChange+columnChange; // Note: about diagonal moves?
+        int minimumDistance = rowChange+columnChange; // Does not account for diagonal moves.
 
         return minimumDistance <= maximumDistance;
     }

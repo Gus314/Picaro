@@ -123,8 +123,8 @@ public class Map implements Serializable
 								(quadrant == Quadrant.Q3) ? angleRads - pi :
 										angleRads - ((3.0 * pi) / 2.0);
 
-				int rowShift = (int)Math.floor(Math.sin(adjustedAngleRads) * (double)distance);
-				int columnShift = (int)Math.floor(Math.cos(adjustedAngleRads) * (double)distance);
+				int rowShift = (int)Math.ceil(Math.sin(adjustedAngleRads) * (double)distance);
+				int columnShift = (int)Math.ceil(Math.cos(adjustedAngleRads) * (double)distance);
 
 				if(rowShift == 0 && columnShift == 0)
 				{
