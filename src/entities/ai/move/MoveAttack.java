@@ -27,7 +27,7 @@ public class MoveAttack extends Move
 
         for(Creature target: targets)
         {
-            PathInfo pathInfo = PathFinder.findShortestPath(getMonster(), target, getMap(), Move.getSuggestedSearchSize());
+            PathInfo pathInfo = PathFinder.findShortestPath(getMonster(), target, getMap(), getSuggestedSearchSize());
 
             if(pathInfo instanceof ValidPathInfo)
             {

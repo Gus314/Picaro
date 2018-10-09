@@ -17,7 +17,6 @@ public abstract class Move
 {
     private Monster monster;
     private Map map;
-    private static final int suggestedSearchSize = 16;
 
     protected Monster getMonster(){return monster;}
     protected Map getMap(){return map;}
@@ -28,7 +27,7 @@ public abstract class Move
         map = inMap;
     }
 
-    public static int getSuggestedSearchSize(){return suggestedSearchSize;}
+    public int getSuggestedSearchSize(){return monster.getSightRadius();}
 
     public abstract void move(java.util.Map<Faction, List<Creature>> targets);
 
