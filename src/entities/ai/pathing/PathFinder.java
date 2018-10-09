@@ -118,7 +118,7 @@ public class PathFinder
         // If the minimum distance without collisions is greater than the maximum distance then it is impossible to find a path.
         int rowChange = Math.abs(source.getRow() - target.getRow());
         int columnChange = Math.abs(source.getColumn() - target.getColumn());
-        int minimumDistance = rowChange+columnChange; // Does not account for diagonal moves.
+        int minimumDistance = Math.max(rowChange, columnChange);// Account for diagonal moves.
 
         return minimumDistance <= maximumDistance;
     }
