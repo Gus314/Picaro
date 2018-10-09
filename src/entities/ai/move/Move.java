@@ -27,7 +27,7 @@ public abstract class Move
         map = inMap;
     }
 
-    public int getSuggestedSearchSize(){return monster.getSightRadius();}
+    public int getSuggestedSearchSize(){return monster.getSightRadius()*2;}
 
     public abstract void move(java.util.Map<Faction, List<Creature>> targets);
 
