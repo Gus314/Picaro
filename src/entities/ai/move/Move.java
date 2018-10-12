@@ -6,6 +6,7 @@ import entities.Creature;
 import entities.Entity;
 import entities.Floor;
 import entities.Monster;
+import entities.ai.pathing.PathFinder;
 import enums.Direction;
 import enums.Faction;
 
@@ -17,17 +18,20 @@ public abstract class Move
 {
     private Monster monster;
     private Map map;
+    private PathFinder pathFinder;
 
     protected Monster getMonster(){return monster;}
     protected Map getMap(){return map;}
+    protected PathFinder getPathFinder(){return pathFinder;}
 
     public Move(Monster inMonster, Map inMap)
     {
         monster = inMonster;
         map = inMap;
+        pathFinder = new PathFinder(map, monster.getSightRadius());
     }
 
-    public int getSuggestedSearchSize(){return monster.getSightRadius()*2;}
+    public int getSuggestedSearchSize(){return monster.getSightRadius();}
 
     public abstract void move(java.util.Map<Faction, List<Creature>> targets);
 

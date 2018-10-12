@@ -20,7 +20,7 @@ public class Brain implements Serializable
     private static final int supportWeight = 3;
     private static final int defendWeight = 3;
     private static final int retreatWeight = 10;
-    private static final int attackWeight = 1;
+    private static final int attackWeight = 10000;
 
     public Brain(Monster inMonster)
     {

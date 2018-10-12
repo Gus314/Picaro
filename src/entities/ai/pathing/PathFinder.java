@@ -5,29 +5,26 @@ import entities.Entity;
 import enums.Direction;
 
 import java.awt.image.DirectColorModel;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Vector;
+import java.util.*;
 
 public class PathFinder
 {
-    public static PathInfo findShortestPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
-    {
-        // Find the minimal path, not an inefficient one, which would also lead to pathing problems as the path is re-evaluated with each step.
-        // Avoid path-finding at distance one, as this would place the source on top of the target.
-        for(int i = 2; i <= suggestedSearchSize; i++)
-        {
-            PathInfo attemptedPath = findPath(source, target, map, i);
-            if(attemptedPath instanceof ValidPathInfo)
-            {
-               return attemptedPath;
-            }
-        }
+    private control.Map map;
+    private int suggestedSearchSize;
 
-        return new InvalidPathInfo();
+    public PathFinder(control.Map inMap, int inSuggestedSearchSize)
+    {
+        map = inMap;
+        suggestedSearchSize = inSuggestedSearchSize;
     }
 
-    private static PathInfo findPath(Entity source, Entity target, control.Map map, int suggestedSearchSize)
+    public PathInfo findShortestPath(Entity source, Entity target)
+    {
+        PathInfo attemptedPath = findPath(source, target);
+        return (attemptedPath instanceof ValidPathInfo) ? attemptedPath : new InvalidPathInfo();
+    }
+
+    private PathInfo findPath(Entity source, Entity target)
     {
         Coordinate position = new Coordinate(source.getRow(), source.getColumn());
         int searchSize = suggestedSearchSize;
@@ -37,19 +34,21 @@ public class PathFinder
             return new InvalidPathInfo();
         }
 
-
-        int searchRow = searchSize / 2;
-        int searchColumn = searchSize / 2;
+        // Note that since the searchSize*2 will be even, the search will start one index to the right of the centre.
+        int searchRow = searchSize;
+        int searchColumn = searchSize;
         Coordinate storeIndex = new Coordinate(searchRow, searchColumn);
-        Node[][] nodes = new Node[searchSize][searchSize];
+        Node[][] nodes = new Node[searchSize*2][searchSize*2];
 
-        Node start = new Node(0, position, storeIndex, target);
+        Node start = new Node(0, position, storeIndex, target, null);
         nodes[searchRow][searchColumn] = start;
 
         int maxRow = map.getRows()-1;
         int maxColumn = map.getColumns()-1;
 
-        continueSearch(target, map, nodes, start, searchSize, maxRow, maxColumn);
+        Collection<Node> starts = new ArrayList<Node>();
+        starts.add(start);
+        continueSearch(target, nodes, starts, searchSize, maxRow, maxColumn);
 
         java.util.Map<Coordinate, Integer> distanceMapping = obtainDistanceMapping(nodes);
 
@@ -148,51 +147,65 @@ public class PathFinder
         return (target.getRow() == position.getRow()) && (target.getColumn() == position.getColumn());
     }
 
-    public static boolean continueSearch(Entity target, control.Map map, Node[][] nodes, Node current, int maxDistance, int maxRow, int maxColumn)
+    private boolean checkThisPosition(Node current)
     {
-        if(current.suitable)
+        return current.suitable;
+    }
+
+    public boolean continueSearch(Entity target, Node[][] nodes, Collection<Node> currents, int maxDistance, int maxRow, int maxColumn)
+    {
+        for(Node current: currents)
         {
-            current.onGoodPath = true;
-            return true;
-        }
+            if(current.distance > maxDistance)
+            {
+                return false;
+            }
 
-        // Note that return order is important incase target is at exactly maxDistance;
-        if(current.distance == maxDistance)
-        {
-            return false;
-        }
-
-        boolean impassable = !Entity.passable(map.atPosition(current.position.getRow(), current.position.getColumn()));
-        if(impassable && current.distance != 0) // Initial search node will be on source entity.
-        {
-            return false;
-        }
-
-        Collection<Coordinate> nexts = newAdjacentPositions(current.position, current.storeIndex, nodes, maxRow, maxColumn);
-
-        for(Coordinate next: nexts)
-        {
-            int rowDifference = next.getRow() - current.position.getRow();
-            int columnDifference = next.getColumn() - current.position.getColumn();
-            Coordinate storeIndex = new Coordinate(current.storeIndex.getRow() + rowDifference, current.storeIndex.getColumn() + columnDifference);
-
-            nodes[storeIndex.getRow()][storeIndex.getColumn()] = new Node(current.distance+1, next, storeIndex, target);
-        }
-
-        Collection<Integer> distances = new Vector<Integer>();
-        // Wait for all nodes to update before continuing the search.
-        for(Coordinate next: nexts)
-        {
-            int rowDifference = next.getRow() - current.position.getRow();
-            int columnDifference = next.getColumn() - current.position.getColumn();
-            Coordinate storeIndex = new Coordinate(current.storeIndex.getRow() + rowDifference, current.storeIndex.getColumn() + columnDifference);
-
-            if(continueSearch(target, map, nodes, nodes[storeIndex.getRow()][storeIndex.getColumn()], maxDistance, maxRow, maxColumn))
+            if(checkThisPosition(current))
             {
                 current.onGoodPath = true;
+                Node prev = current.previous;
+                while(prev != null)
+                {
+                    prev.onGoodPath = true;
+                    prev = prev.previous;
+                }
                 return true;
             }
         }
+
+        Collection<Node> collatedNexts = new HashSet<Node>();
+        for(Node current: currents)
+        {
+            Collection<Coordinate> nexts = newAdjacentPositions(current.position, current.storeIndex, nodes, maxRow, maxColumn);
+            for(Coordinate next: nexts)
+            {
+                int rowDifference = next.getRow() - current.position.getRow();
+                int columnDifference = next.getColumn() - current.position.getColumn();
+                int nextRow = current.storeIndex.getRow() + rowDifference ;
+                int nextColumn = current.storeIndex.getColumn() + columnDifference;
+
+                Coordinate storeIndex = new Coordinate(nextRow, nextColumn);
+                boolean impassable = !Entity.passable(map.atPosition(current.position.getRow(), current.position.getColumn()));
+                if(impassable && current.distance != 0) // Initial search node will be on source entity.
+                {
+                    continue;
+                }
+
+                if(nodes[storeIndex.getRow()][storeIndex.getColumn()] == null || nodes[storeIndex.getRow()][storeIndex.getColumn()].distance > current.distance+1)
+                {
+                    Node added =  new Node(current.distance+1, next, storeIndex, target, current);
+                    nodes[storeIndex.getRow()][storeIndex.getColumn()] = added;
+                    collatedNexts.add(added);
+                }
+            }
+        }
+
+
+            if((collatedNexts.size() > 0) && continueSearch(target, nodes, collatedNexts, maxDistance, maxRow, maxColumn))
+            {
+                return true;
+            }
 
         return false;
     }
@@ -223,10 +236,14 @@ public class PathFinder
             if(adjacent.getRow() > 0 && adjacent.getRow() < maxRow &&
                     adjacent.getColumn() > 0 && adjacent.getColumn() < maxColumn &&
                     adjacentIndexRow > 0 && adjacentIndexRow < nodes.length &&
-                    adjacentIndexColumn > 0 && adjacentIndexColumn < nodes[0].length &&
-                    nodes[adjacentIndexRow][adjacentIndexColumn] == null)
+                    adjacentIndexColumn > 0 && adjacentIndexColumn < nodes[0].length)
             {
-                results.add(adjacent);
+                boolean notPresent = (nodes[adjacentIndexRow][adjacentIndexColumn] == null);
+                boolean closer = (!notPresent) && (nodes[adjacentIndexRow][adjacentIndexColumn].distance > (nodes[index.getRow()][index.getColumn()].distance));
+                if(notPresent || closer)
+                {
+                    results.add(adjacent);
+                }
             }
         }
 
@@ -238,14 +255,16 @@ public class PathFinder
         private int distance;
         private Coordinate position;
         private Coordinate storeIndex;
+        private Node previous;
         boolean suitable;
         boolean onGoodPath;
 
-        public Node(int inDistance, Coordinate inPosition, Coordinate inStoreIndex, Entity target)
+        public Node(int inDistance, Coordinate inPosition, Coordinate inStoreIndex, Entity target, Node inPrevious)
         {
             distance = inDistance;
             position = inPosition;
             storeIndex = inStoreIndex;
+            previous = inPrevious;
             suitable = isSuitable(target, inPosition);
             onGoodPath = false;
         }

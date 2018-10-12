@@ -265,7 +265,7 @@ public abstract class Creature extends Entity implements Serializable
 
     public int getSightRadius()
     {
-        return 12;
+        return 8;
     }
 
     public String changeStat(StatType stat, int intensity)
