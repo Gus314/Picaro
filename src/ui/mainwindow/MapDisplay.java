@@ -1,6 +1,7 @@
 package ui.mainwindow;
 
 import control.Coordinate;
+import control.Grave;
 import control.Map;
 import entities.*;
 import skills.AreaSkill;
@@ -462,6 +463,13 @@ public class MapDisplay extends JPanel
 
 	public void refresh()
 	{
+		if(map.getPlayer().getCauseOfDeath() != "")
+		{
+			Grave grave = map.getPlayer().createGrave();
+			MainWindow mainWindow = (MainWindow) getParent().getParent();
+			mainWindow.getRoot().changeToGameOver(grave);
+		}
+
 		int numEntries = map.getRows() * map.getColumns();
 		for(int i = 0; i < numEntries; i++)
 		{

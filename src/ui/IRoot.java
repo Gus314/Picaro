@@ -1,5 +1,6 @@
 package ui;
 
+import control.Grave;
 import control.PlayerInitialData;
 
 public interface IRoot
@@ -11,4 +12,8 @@ public interface IRoot
     public void changeToTitleScreen();
 
     public void changeToCharacterCreation();
+
+    public void changeToGameOver(Grave grave);
+
+    public void changeToGraveyard();
 }

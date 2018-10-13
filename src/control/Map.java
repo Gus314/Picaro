@@ -201,9 +201,12 @@ public class Map implements Serializable
 			mapEntries.remove(monster);
 		}
 
-		if(getPlayer().getLife() == 0)
+		if(getPlayer().getLife() <= 0)
 		{
-			getPlayer().gameOver();
+			if(getPlayer().getCauseOfDeath().length() == 0)
+			{
+				getPlayer().setCauseOfDeath("killed by the dungeon.");
+			}
 		}
 	}
 

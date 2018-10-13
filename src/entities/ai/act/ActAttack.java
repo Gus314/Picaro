@@ -81,9 +81,9 @@ public class ActAttack extends Act
         }
 
         boolean killed = (target.getLife() <= 0);
-        if(killed && target instanceof Player)
+        if(killed && (target instanceof  Player))
         {
-            ((Player)target).gameOver();
+            ((Player) target).setCauseOfDeath("killed by " + getMonster().getName());
         }
 
         return new ArrayList<Entity>();

@@ -24,9 +24,9 @@ public class TitleScreen extends JPanel
         loadGameButton.addActionListener(new LoadGameListener());
         add(loadGameButton);
 
-        JButton highScoresButton = new JButton("High Scores");
-        highScoresButton.setEnabled(false);
-        add(highScoresButton);
+        JButton graveyardButton = new JButton("Graveyard");
+        graveyardButton.addActionListener(new GraveyardListener());
+        add(graveyardButton);
 
         JButton quitButton = new JButton("Quit");
         quitButton.addActionListener(new QuitListener());
@@ -57,6 +57,15 @@ public class TitleScreen extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             root.changeToMainWindow();
+        }
+    }
+
+    class GraveyardListener implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            root.changeToGraveyard();
         }
     }
 }

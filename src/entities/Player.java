@@ -1,5 +1,6 @@
 package entities;
 
+import control.Grave;
 import control.Map;
 import control.PlayerInitialData;
 import entities.equipment.Armour;
@@ -42,6 +43,7 @@ public class Player extends Creature implements Serializable
     private static final int initialIntelligence = 8;
     private static final int initialMagicDefence = 6;
 	private static final int maxRelics = 3;
+	private String causeOfDeath;
 
 	public Player(Map inMap, Messages inMessages, PlayerInitialData playerInitialData)
 	{
@@ -63,6 +65,7 @@ public class Player extends Creature implements Serializable
 		}
 		relics = new Vector<Relic>();
 		level = initialLevel;
+		causeOfDeath = "";
 	}
 
 	public static int getMaxRelics(){return maxRelics;}
@@ -315,9 +318,18 @@ public class Player extends Creature implements Serializable
 		return killed;
 	}
 
-	public void gameOver()
+	public void setCauseOfDeath(String inCauseOfDeath)
 	{
-		JOptionPane.showMessageDialog(getMessages().getTopLevelAncestor(), "You have died!");
-		System.exit(0);
+		causeOfDeath = inCauseOfDeath;
+	}
+
+	public String getCauseOfDeath()
+	{
+		return causeOfDeath;
+	}
+
+	public Grave createGrave()
+	{
+		return new Grave(this);
 	}
 }
