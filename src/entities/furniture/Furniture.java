@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 public abstract class Furniture extends Entity implements Serializable
 {
-    public Furniture(int inRow, int inColumn, String inName)
+    public Furniture(Character inCha, int inRow, int inColumn, String inName)
     {
-        super('%', inRow, inColumn, inName);
+        super(inCha, inRow, inColumn, inName);
         used = false;
     }
 

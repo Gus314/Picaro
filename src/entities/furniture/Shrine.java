@@ -10,7 +10,7 @@ public class Shrine extends  Furniture
 
     public Shrine(int inRow, int inColumn, String inName, StatType inStat, int inIntensity)
     {
-        super(inRow, inColumn, inName);
+        super('*', inRow, inColumn, inName);
         stat = inStat;
         intensity = inIntensity;
     }

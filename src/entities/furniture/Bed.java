@@ -9,7 +9,7 @@ public class Bed extends Furniture implements Serializable
 {
     public Bed(int inRow, int inColumn, String inName)
     {
-        super(inRow, inColumn, inName);
+        super('[', inRow, inColumn, inName);
     }
 
     @Override

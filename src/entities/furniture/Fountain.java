@@ -9,7 +9,7 @@ public class Fountain extends Furniture
 
     public Fountain(int inRow, int inColumn, String inName, StatusEffect inStatus)
     {
-        super(inRow, inColumn, inName);
+        super('&', inRow, inColumn, inName);
         status = inStatus;
     }
 

@@ -200,7 +200,7 @@ public abstract class Creature extends Entity implements Serializable
 
         if(Controller.getGenerator().nextInt(101 - getCritChance()) - 1 == 0)
         {
-            damage = damage * 2;
+            damage = damage * 4;
             criticalHit = true;
         }
         String targetName = target.getName();

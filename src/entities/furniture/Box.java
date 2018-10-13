@@ -10,7 +10,7 @@ public class Box extends Furniture
 
     public Box(int row, int column, String name, AbstractEntityFactory inFactory)
     {
-        super(row, column, name);
+        super('?', row, column, name);
         factory = inFactory;
     }
 
