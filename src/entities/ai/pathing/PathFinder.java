@@ -144,12 +144,7 @@ public class PathFinder
 
     private static boolean isSuitable(Entity target, Coordinate position)
     {
-        return (target.getRow() == position.getRow()) && (target.getColumn() == position.getColumn());
-    }
-
-    private boolean checkThisPosition(Node current)
-    {
-        return current.suitable;
+        return (target.getPosition() == position);
     }
 
     public boolean continueSearch(Entity target, Node[][] nodes, Collection<Node> currents, int maxDistance, int maxRow, int maxColumn)
@@ -161,7 +156,7 @@ public class PathFinder
                 return false;
             }
 
-            if(checkThisPosition(current))
+            if(current.suitable)
             {
                 current.onGoodPath = true;
                 Node prev = current.previous;

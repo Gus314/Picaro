@@ -1,5 +1,6 @@
 package entities;
 
+import control.Coordinate;
 import entities.equipment.Item;
 import enums.Direction;
 
@@ -54,6 +55,8 @@ public abstract class Entity implements Serializable
 	public abstract boolean blocksLineOfSight();
 
 	public abstract boolean passable();
+
+	public Coordinate getPosition(){return new Coordinate(row, column);}
 
 	public static boolean passable(List<Entity> entities)
 	{
