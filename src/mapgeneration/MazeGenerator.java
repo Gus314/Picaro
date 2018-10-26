@@ -153,6 +153,8 @@ public class MazeGenerator implements Serializable
 				return mazeFactories.chooseRelic(level).construct(i, j);
 			case WEAPON:
 				return mazeFactories.chooseWeapon(level).construct(i, j);
+			case TOTEM:
+				return mazeFactories.chooseTotem(level).construct(i, j);
 			default:
 			{
 				System.out.println("MazeGenerator::chooseEntity - unknown entity type");

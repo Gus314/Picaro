@@ -7,11 +7,17 @@ import java.io.Serializable;
 
 public class Recklessness extends StatusEffect implements Serializable
 {
-    private int intensity;
+    private static final int intensity = 50;
     private static final String name = "Recklessness";
     private static final String description = "Greatly increase critical chance at the cost of defense.";
     private int critGained;
     private int defenseLost;
+
+    public Recklessness(Recklessness original)
+    {
+        super(original);
+    }
+
     public Recklessness(Creature inTarget)
     {
         super(name, description, inTarget);
@@ -35,7 +41,7 @@ public class Recklessness extends StatusEffect implements Serializable
     public String onApplication()
     {
         int oldCrit = getTarget().getCritChance();
-        getTarget().changeStat(StatType.CRITCHANCE, 50);
+        getTarget().changeStat(StatType.CRITCHANCE, intensity);
         critGained = getTarget().getCritChance() - oldCrit;
 
         defenseLost = getTarget().getDefense();
@@ -50,5 +56,11 @@ public class Recklessness extends StatusEffect implements Serializable
         getTarget().changeStat(StatType.CRITCHANCE, critGained * -1);
         getTarget().setDefense(getTarget().getDefense() + defenseLost);
         return getTarget().getName() + " is no longer feeling reckless.";
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

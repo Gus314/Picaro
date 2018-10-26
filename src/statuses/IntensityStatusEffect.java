@@ -8,6 +8,12 @@ public abstract class IntensityStatusEffect extends TemporaryStatusEffect implem
 {
     private int intensity;
 
+    public IntensityStatusEffect(IntensityStatusEffect original)
+    {
+        super(original);
+        intensity = original.intensity;
+    }
+
     public IntensityStatusEffect(String inName, String inDescription, Creature inTarget, int inDuration, int inIntensity)
     {
         super(inName, inDescription, inTarget, inDuration);
@@ -15,4 +21,12 @@ public abstract class IntensityStatusEffect extends TemporaryStatusEffect implem
     }
 
     public int getIntensity(){return intensity;}
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        IntensityStatusEffect cloned = (IntensityStatusEffect) super.clone();
+        cloned.intensity = intensity;
+        return cloned;
+    }
 }

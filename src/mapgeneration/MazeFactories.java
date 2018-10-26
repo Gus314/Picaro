@@ -5,6 +5,7 @@ import entities.equipment.factories.ArmourFactory;
 import entities.equipment.factories.ConsumableFactory;
 import entities.equipment.factories.RelicFactory;
 import entities.equipment.factories.WeaponFactory;
+import entities.factories.TotemFactory;
 import entities.furniture.factories.FurnitureFactory;
 import entities.factories.MonsterFactory;
 import mapgeneration.data.*;
@@ -18,6 +19,7 @@ public class MazeFactories
     private RelicProvider relicProvider;
     private WeaponProvider weaponProvider;
     private FurnitureProvider furnitureProvider;
+    private TotemProvider totemProvider;
 
     public MazeFactories(control.Map map, Messages messages, Player player)
     {
@@ -27,6 +29,7 @@ public class MazeFactories
         relicProvider = new RelicProvider(player);
         weaponProvider = new WeaponProvider();
         furnitureProvider = new FurnitureProvider(messages, map, player);
+        totemProvider = new TotemProvider(messages, map);
     }
 
     public ArmourFactory chooseArmour(int level)
@@ -39,12 +42,10 @@ public class MazeFactories
         return consumableProvider.choose(level);
     }
 
-
     public MonsterFactory chooseMonster(int level)
     {
         return monsterProvider.choose(level);
     }
-
 
     public RelicFactory chooseRelic(int level)
     {
@@ -57,4 +58,6 @@ public class MazeFactories
     }
 
     public FurnitureFactory chooseFurniture(int level){return furnitureProvider.choose(level);}
+
+    public TotemFactory chooseTotem(int level){return totemProvider.choose(level);}
 }

@@ -10,6 +10,12 @@ public class Regen extends StatusEffect implements Serializable
     private static final String name = "Regen";
     private static final String description = "Gain hp over time at a cost of mp.";
 
+    public Regen(Regen original)
+    {
+        super(original);
+        intensity = original.intensity;
+    }
+
     public Regen(Creature inTarget, int inIntensity)
     {
         super(name, description, inTarget);
@@ -55,5 +61,14 @@ public class Regen extends StatusEffect implements Serializable
     public String onRemoval()
     {
         return getTarget().getName() + " is no longer regenerating.";
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        Regen cloned = (Regen) super.clone();
+        cloned.intensity = intensity;
+
+        return cloned;
     }
 }

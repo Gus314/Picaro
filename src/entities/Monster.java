@@ -35,6 +35,16 @@ public class Monster extends Creature implements Serializable {
 		playerSighted = false;
 	}
 
+	protected void setPlayerSighted(boolean inPlayerSighted)
+	{
+		playerSighted = inPlayerSighted;
+	}
+
+	protected boolean isPlayerSighted()
+	{
+		return playerSighted;
+	}
+
 	public int getMinLevel() {
 		return minLevel;
 	}

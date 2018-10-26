@@ -39,4 +39,10 @@ public class Poison extends IntensityStatusEffect implements Serializable
     {
         return getTarget().getName() + " is no longer poisoned.";
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 }

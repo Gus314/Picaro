@@ -7,5 +7,6 @@ public enum MapElementType
     FURNITURE,
     MONSTER,
     RELIC,
-    WEAPON
+    WEAPON,
+    TOTEM
 }

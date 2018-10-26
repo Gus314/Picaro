@@ -31,9 +31,14 @@ public class Groggy extends IntensityStatusEffect implements Serializable
     @Override
     public String onRemoval()
     {
-        int baseDefense = getTarget().getDefense();
         int change = getIntensity();
         getTarget().changeStat(StatType.DEFENSE, change);
         return getTarget().getName() + " is no longer feeling groggy.";
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
     }
 }

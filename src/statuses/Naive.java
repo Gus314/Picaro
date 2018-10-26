@@ -40,4 +40,10 @@ public class Naive extends StatusEffect implements Serializable
 
         return getTarget().getName() + " is no longer feeling naive.";
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 }

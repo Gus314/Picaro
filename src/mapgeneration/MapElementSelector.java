@@ -13,7 +13,8 @@ public class MapElementSelector
     private static final int weaponChance = 10;
     private static final int consumableChance = 10;
     private static final int furnitureChance = 3;
-    private static final int totalChance = armourChance + monsterChance + relicChance + weaponChance + consumableChance + furnitureChance;
+    private static final int totemChance = 8;
+    private static final int totalChance = armourChance + monsterChance + relicChance + weaponChance + consumableChance + furnitureChance + totemChance;
 
     public static MapElementType chooseElementType()
     {
@@ -24,6 +25,7 @@ public class MapElementSelector
         chances.put(MapElementType.WEAPON, weaponChance);
         chances.put(MapElementType.CONSUMABLE, consumableChance);
         chances.put(MapElementType.FURNITURE, furnitureChance);
+        chances.put(MapElementType.TOTEM, totemChance);
 
         int choice = Controller.getGenerator().nextInt(totalChance);
         int elementStart = 0;

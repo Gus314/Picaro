@@ -37,4 +37,10 @@ public class Shell extends IntensityStatusEffect implements Serializable
         getTarget().setDefense(baseDefense - change);
         return getTarget().getName() + " is no longer protected by a shell.";
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException
+    {
+        return super.clone();
+    }
 }
