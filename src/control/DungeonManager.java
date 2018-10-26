@@ -7,6 +7,7 @@ import ui.mainwindow.MapDisplay;
 import ui.mainwindow.Messages;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class DungeonManager
@@ -23,6 +24,7 @@ public class DungeonManager
     private static final int columnCellSize = 10;
     private static final int properRoomChance = 75;
     private static final int randomFloorPercentage = 10;
+    private static final String characterFilename = "picaro.sav";
 
 	public DungeonManager(Messages inMessages, PlayerInitialData playerInitialData)
 	{
@@ -68,11 +70,21 @@ public class DungeonManager
 
 	}
 
+	public void endGame(Grave grave)
+	{
+		GraveStore.addGrave(grave);
+		File characterFile = new File(characterFilename);
+		if(characterFile.exists())
+		{
+			characterFile.delete();
+		}
+	}
+
 	public void save()
 	{
 		try
 		{
-			FileOutputStream fileOutputStream = new FileOutputStream("Picaro.sav");
+			FileOutputStream fileOutputStream = new FileOutputStream(characterFilename);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(mazeGen);
 			objectOutputStream.writeObject(player);
@@ -83,6 +95,8 @@ public class DungeonManager
 			e.printStackTrace();
 		}
 	}
+
+
 
 
 	private void changeLevel(boolean descending)

@@ -157,15 +157,24 @@ public class MainWindow extends JTabbedPane
 
 	public MainWindow(IRoot inRoot)
 	{
+		int smallFontSize = Controller.bigFonts ? 12 : 8;
+		int mediumFontSize = Controller.bigFonts ? 14 : 9;
+
 		root = inRoot;
 		UIDefaults uid = UIManager.getDefaults();
 		Font labelFont = uid.getFont("Label.font");
-		Font smallFont = new Font(labelFont.getName(), labelFont.getStyle(), 8);
+		Font smallFont = new Font(labelFont.getName(), labelFont.getStyle(), smallFontSize);
 		uid.put("Label.font", smallFont);
-		Font mediumFont = new Font(smallFont.getName(), labelFont.getStyle(), 9);
+		Font mediumFont = new Font(smallFont.getName(), labelFont.getStyle(), mediumFontSize);
 		uid.put("TextArea.font", mediumFont);
 		uid.put("TextField.font", mediumFont);
 		uid.put("Button.font", mediumFont);
+	}
+
+	public void gameOver(Grave grave)
+	{
+		dungeonManager.endGame(grave);
+		root.changeToGameOver(grave);
 	}
 
 	public DungeonManager getDungeonManager(){return dungeonManager;}

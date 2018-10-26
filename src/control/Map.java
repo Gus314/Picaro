@@ -231,4 +231,17 @@ public class Map implements Serializable
 		processDeaths();
 		mapEntries.addAll(additions);
 	}
+
+	public Optional<Grave> obtainGrave()
+	{
+		if(getPlayer().getCauseOfDeath() != "")
+		{
+			Grave grave = getPlayer().createGrave();
+			return Optional.of(grave);
+		}
+		else
+		{
+			return Optional.empty();
+		}
+	}
 }

@@ -10,6 +10,35 @@ public class Grave
     private int level;
     private String causeOfDeath;
 
+    public String toString()
+    {
+        return name + "," + pclass + "," + race + "," +  level + "," + causeOfDeath;
+    }
+
+    private static String moveToNextToken(String str)
+    {
+        return str.substring(str.indexOf(',')+1);
+    }
+
+    private static String nextToken(String str)
+    {
+        return str.substring(0, str.indexOf(','));
+    }
+
+    public Grave(String str)
+    {
+        String remainder = str;
+        name = nextToken(remainder);
+        remainder = moveToNextToken(remainder);
+        pclass = nextToken(remainder);
+        remainder = moveToNextToken(remainder);
+        race = nextToken(remainder);
+        remainder = moveToNextToken(remainder);
+        level = Integer.parseInt(nextToken(remainder));
+        remainder = moveToNextToken(remainder);
+        causeOfDeath = remainder;
+    }
+
     public String getName()
     {
         return name;
@@ -33,15 +62,6 @@ public class Grave
     public String getCauseOfDeath()
     {
         return causeOfDeath;
-    }
-
-    public Grave(String inName, String inPclass, String inRace, int inLevel, String inCauseOfDeath)
-    {
-        name = inName;
-        pclass = inPclass;
-        race = inRace;
-        level = inLevel;
-        causeOfDeath = inCauseOfDeath;
     }
 
     public Grave(Player player)

@@ -463,11 +463,11 @@ public class MapDisplay extends JPanel
 
 	public void refresh()
 	{
-		if(map.getPlayer().getCauseOfDeath() != "")
+		Optional<Grave> grave = map.obtainGrave();
+		if(grave.isPresent())
 		{
-			Grave grave = map.getPlayer().createGrave();
 			MainWindow mainWindow = (MainWindow) getParent().getParent();
-			mainWindow.getRoot().changeToGameOver(grave);
+			mainWindow.gameOver(grave.get());
 		}
 
 		int numEntries = map.getRows() * map.getColumns();

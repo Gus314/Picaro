@@ -63,6 +63,7 @@ public class RootFrame extends JFrame implements IRoot
     @Override
     public void changeToGraveyard()
     {
+        graveyard.refresh();
         setContentPane(graveyard);
         pack();
     }
