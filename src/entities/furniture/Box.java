@@ -17,11 +17,11 @@ public class Box extends Furniture
     @Override
     public void use(Player player)
     {
-        if(!used)
+        if(!getUsed())
         {
             Entity entity = factory.construct(player.getRow(), player.getColumn());
             player.getMap().addEntry(entity);
-            used = true;
+            setUsed(true);
             player.getMessages().addMessage("The " + getName() + " opened to reveal a " + entity.getName()) ;
         }
         else

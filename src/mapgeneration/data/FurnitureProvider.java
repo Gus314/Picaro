@@ -6,8 +6,10 @@ import entities.Player;
 import entities.equipment.factories.WeaponFactory;
 import entities.factories.MonsterFactory;
 import entities.furniture.factories.*;
+import enums.ArmourModificationType;
 import enums.Faction;
 import enums.StatType;
+import enums.WeaponModificationType;
 import skills.Skill;
 import skills.monster.PoisonFang;
 import statuses.Poison;
@@ -48,6 +50,25 @@ public class FurnitureProvider
         furnitureFactories.add(new ShrineFactory(1, 4, "Wooden shrine", StatType.DEFENSE, 2));
         furnitureFactories.add(new ShrineFactory(1, 4, "Wooden shrine", StatType.DEFENSE, -2));
 
+        furnitureFactories.add(new AnvilFactory(1, 4, "wooden anvil", WeaponModificationType.DAMAGE, 2));
+        furnitureFactories.add(new AnvilFactory(1, 4, "wooden anvil", WeaponModificationType.INTELLIGENCE, 2));
+        furnitureFactories.add(new AnvilFactory(1, 4, "wooden anvil", WeaponModificationType.CRITCHANCE, 1));
+        furnitureFactories.add(new AnvilFactory(1, 4, "wooden anvil", WeaponModificationType.DAMAGE, -2));
+        furnitureFactories.add(new AnvilFactory(1, 4, "wooden anvil", WeaponModificationType.INTELLIGENCE, -2));
+        furnitureFactories.add(new AnvilFactory(1, 4, "wooden anvil", WeaponModificationType.CRITCHANCE, -1));
+
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.ABSORBCHANCE, 1));
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.ABSORBCHANCE, -1));
+
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.BLOCKCHANCE, 1));
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.BLOCKCHANCE, -1));
+
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.DEFENSE, 1));
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.DEFENSE, -1));
+
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.MAGICDEFENSE, 1));
+        furnitureFactories.add(new SewingMachineFactory(1, 4, "wooden sewing machine", ArmourModificationType.MAGICDEFENSE, -1));
+        furnitureFactories.add(new TeleporterFactory(1, 4, "wooden teleporter"));
     }
 
     public FurnitureFactory choose(int level)

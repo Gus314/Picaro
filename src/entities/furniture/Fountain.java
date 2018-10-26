@@ -16,11 +16,11 @@ public class Fountain extends Furniture
     @Override
     public void use(Player player)
     {
-        if(!used)
+        if(!getUsed())
         {
             player.getMessages().addMessage(player.getName() + " drank at the " + getName());
             player.addStatusEffect(status);
-            used = true;
+            setUsed(true);
         }
         else
         {

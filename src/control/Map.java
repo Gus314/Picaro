@@ -4,6 +4,7 @@ import entities.*;
 import entities.furniture.Furniture;
 import enums.Quadrant;
 
+import javax.naming.ldap.Control;
 import java.io.Serializable;
 import java.util.*;
 
@@ -142,7 +143,7 @@ public class Map implements Serializable
 								  (quadrant == Quadrant.Q3) ? column - columnShift :
 										                      column + rowShift;
 
-				List<Entity> here = atPosition(movedRow, movedColumn);
+				List<Entity> here = atPosition(movedRow, movedColumn);// floor!
 				if( (here != null))
 				{
 					result.addAll(here);
@@ -208,6 +209,46 @@ public class Map implements Serializable
 				getPlayer().setCauseOfDeath("killed by the dungeon.");
 			}
 		}
+	}
+
+	public Optional<Coordinate> findEmptyPoint()
+	{
+		int row = 0;
+		int column = 0;
+		int maxAttempts = 100;
+
+		int attempts = 0;
+		do
+		{
+			if(attempts >= maxAttempts)
+			{
+				return Optional.empty();
+			}
+
+			row = Controller.getGenerator().nextInt(rows);
+			column = Controller.getGenerator().nextInt(columns);
+
+			attempts++;
+		}while(!(isEmpty(row, column)));
+
+		return Optional.of(new Coordinate(row, column));
+	}
+
+	private boolean isEmpty(int row, int column)
+	{
+		boolean containsFloor = false;
+
+		for(Entity ent: mapEntries)
+		{
+			boolean positionMatches = (ent.getRow() == row) && (ent.getColumn() == column);
+			containsFloor = containsFloor || (positionMatches && (ent instanceof Floor));
+
+			if(positionMatches && (!(ent instanceof  Floor)))
+			{
+				return false;
+			};
+		}
+		return containsFloor; // require floor to be counted as empty;
 	}
 
 	public void takeTurns()

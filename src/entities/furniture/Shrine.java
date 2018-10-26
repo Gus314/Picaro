@@ -18,12 +18,12 @@ public class Shrine extends  Furniture
     @Override
     public void use(Player player)
     {
-        if(!used)
+        if(!getUsed())
         {
             player.getMessages().addMessage(player.getName() + " prayed at the " + getName() + ".");
             String message = player.changeStat(stat, intensity);
             player.getMessages().addMessage(message);
-            used = true;
+            setUsed(true);
         }
         else
         {

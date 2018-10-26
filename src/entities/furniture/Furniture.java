@@ -13,7 +13,11 @@ public abstract class Furniture extends Entity implements Serializable
         used = false;
     }
 
-    public boolean used;
+    private boolean used;
+
+    protected boolean getUsed(){return used;}
+
+    protected void setUsed(boolean inUsed){used = inUsed;}
 
     public abstract void use(Player player);
 

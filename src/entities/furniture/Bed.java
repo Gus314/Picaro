@@ -15,7 +15,7 @@ public class Bed extends Furniture implements Serializable
     @Override
     public void use(Player player)
     {
-        if(!used)
+        if(!getUsed())
         {
             Groggy groggy = new Groggy(player, 10, 10);
             player.addStatusEffect(groggy);
@@ -23,7 +23,7 @@ public class Bed extends Furniture implements Serializable
             player.setMagicPoints(player.getMaxMagicPoints());
             player.setPhysicalPoints(player.getMaxPhysicalPoints());
             player.getMessages().addMessage(player.getName() + "rests in " + getName() + ", recovering health and mp/pp.");
-            used = true;
+            setUsed(true);
         }
         else
         {

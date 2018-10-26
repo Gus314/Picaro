@@ -1,5 +1,6 @@
 package entities.equipment;
 
+import enums.ArmourModificationType;
 import enums.ArmourType;
 
 public class Armour extends Item
@@ -19,7 +20,67 @@ public class Armour extends Item
 		absorbChance = inAbsorbChance;
 		armourType = inArmourType;
 	}
-	
+
+	public int changeStat(ArmourModificationType type, int intensity)
+	{
+		switch(type)
+		{
+			case ABSORBCHANCE:
+			{
+				int oldAbsorbChance = absorbChance;
+				absorbChance += intensity;
+				if(absorbChance < 0)
+				{
+					absorbChance = 0;
+				}
+				if(absorbChance > 100)
+				{
+					absorbChance = 100;
+				}
+				return absorbChance - oldAbsorbChance;
+			}
+			case BLOCKCHANCE:
+			{
+				int oldBlockChance = blockChance;
+				blockChance += intensity;
+				if(blockChance < 0)
+				{
+					blockChance = 0;
+				}
+				if(blockChance > 100)
+				{
+					blockChance = 100;
+				}
+				return blockChance - oldBlockChance;
+			}
+			case DEFENSE:
+			{
+				int oldDefense = defense;
+				defense += intensity;
+				if(defense < 0)
+				{
+					defense = 0;
+				}
+				return defense - oldDefense;
+			}
+			case MAGICDEFENSE:
+			{
+				int oldMagicDefense = magicDefense;
+				magicDefense += intensity;
+				if(magicDefense < 0)
+				{
+					magicDefense = 0;
+				}
+				return magicDefense - oldMagicDefense;
+			}
+			default:
+			{
+				System.out.println("Armour::changeStat() - unexpected type.");
+				return 0;
+			}
+		}
+	}
+
 	public int getDefense()
 	{
 		return defense;
