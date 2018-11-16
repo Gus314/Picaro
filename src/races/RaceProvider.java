@@ -10,15 +10,15 @@ public class RaceProvider
         List<Race> result = new ArrayList<Race>();
         
         result.add(constructHuman());
-        result.add(constructElf());
-        result.add(constructOrc());
+        //result.add(constructElf());
+        //result.add(constructOrc());
 
         return result;
     }
 
     private Race constructHuman()
     {
-        int initialLife = 10;
+        int initialLife = 20;
         int initialDefense = 7;
         int initialMinDamage = 2;
         int initialMaxDamage = 5;
@@ -48,7 +48,7 @@ public class RaceProvider
 
     private Race constructElf()
     {
-        int initialLife = 8;
+        int initialLife = 16;
         int initialDefense = 3;
         int initialMinDamage = 1;
         int initialMaxDamage = 4;
@@ -78,7 +78,7 @@ public class RaceProvider
 
     private Race constructOrc()
     {
-        int initialLife = 12;
+        int initialLife = 25;
         int initialDefense = 10;
         int initialMinDamage = 3;
         int initialMaxDamage = 6;

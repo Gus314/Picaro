@@ -16,7 +16,7 @@ public class PClassProvider
         Map<Integer, Collection<Skill>> hunterSkills = new HashMap<Integer, Collection<Skill>>();
         addSkill(hunterSkills, 1, new PoisonDart());
         addSkill(hunterSkills, 1, new Stab());
-        result.add(new Pclass("Hunter", hunterSkills));
+        //result.add(new Pclass("Hunter", hunterSkills));
 
         Map<Integer, Collection<Skill>> warriorSkills = new HashMap<Integer, Collection<Skill>>();
         addSkill(warriorSkills, 1, new Bash());
@@ -29,7 +29,7 @@ public class PClassProvider
         MonsterFactory call = (new MonsterFactory(Faction.PLAYER,'D',22,0,2,0,11,0,0,1,"dummy", null, null, 15,20,0,19,18, skills,2,4));;
         addSkill(mageSkills, 1, new CallEnemy(call));
         addSkill(mageSkills, 2, new Fireball());
-        result.add(new Pclass("Mage", mageSkills));
+        //result.add(new Pclass("Mage", mageSkills));
         return result;
     }
 
