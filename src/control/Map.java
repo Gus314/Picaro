@@ -104,7 +104,7 @@ public class Map implements Serializable
 		// The entity is visible to itself.
 		result.add(source);
 
-		for(int angle = 0; angle < 360; angle++)
+		for(int angle = 0; angle < 360; angle+=12)
 		{
 			boolean blocked = false;
 
