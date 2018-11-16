@@ -1,9 +1,8 @@
 package ui.shortcuts;
 
-import entities.Player;
+import entities.creatures.Player;
 import enums.EnumConversions;
 import enums.MapDisplayMode;
-import enums.SkillType;
 import skills.SelfSkill;
 import skills.Skill;
 import ui.mainwindow.MapDisplay;

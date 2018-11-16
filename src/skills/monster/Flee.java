@@ -2,7 +2,7 @@ package skills.monster;
 
 import control.Controller;
 import control.Map;
-import entities.Creature;
+import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.SelfSkill;

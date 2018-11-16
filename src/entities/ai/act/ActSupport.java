@@ -1,10 +1,10 @@
 package entities.ai.act;
 
 import control.Controller;
-import entities.Creature;
+import entities.creatures.Creature;
 import entities.Entity;
 import entities.Floor;
-import entities.Monster;
+import entities.creatures.Monster;
 import enums.Faction;
 import enums.SkillBehaviour;
 import skills.*;

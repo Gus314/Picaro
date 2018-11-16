@@ -1,5 +1,7 @@
 package control;
 
+import entities.creatures.Monster;
+import entities.creatures.Player;
 import entities.equipment.Item;
 import enums.Direction;
 import entities.*;

@@ -1,19 +1,13 @@
 package entities.ai.move;
 
-import control.Controller;
 import control.Map;
-import entities.Creature;
-import entities.Entity;
-import entities.Floor;
-import entities.Monster;
-import entities.ai.pathing.PathFinder;
+import entities.creatures.Creature;
+import entities.creatures.Monster;
 import entities.ai.pathing.PathInfo;
 import entities.ai.pathing.ValidPathInfo;
 import enums.Direction;
 import enums.Faction;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 

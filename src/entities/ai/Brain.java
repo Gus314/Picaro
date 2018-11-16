@@ -1,8 +1,7 @@
 package entities.ai;
 
 import control.Controller;
-import control.Map;
-import entities.Monster;
+import entities.creatures.Monster;
 import enums.Behaviour;
 import enums.SkillBehaviour;
 import enums.TurnType;

@@ -3,20 +3,18 @@ package mapgeneration;
 import control.Controller;
 import control.Coordinate;
 import control.Map;
-import entities.Entity;
-import entities.Player;
-import entities.DownStairs;
-import entities.UpStairs;
+import entities.*;
+import entities.creatures.FinalBoss;
+import entities.creatures.Player;
 import entities.factories.*;
-import enums.ArmourType;
+import enums.Faction;
 import enums.FloorType;
 import enums.MapElementType;
+import skills.Skill;
 import ui.mainwindow.Messages;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class MazeGenerator implements Serializable
 {
@@ -26,6 +24,7 @@ public class MazeGenerator implements Serializable
 	private Coordinate upStairs;
 	private Coordinate downStairs;
 	RoomGraph graph;
+	private int finalLevel = 16;
 
 	public MazeGenerator(int rows, int columns, int cellRows, int cellColumns, int properRoomChance, int randomFloorPercentage, Messages inMessages)
 	{
@@ -99,6 +98,7 @@ public class MazeGenerator implements Serializable
 		MazeFactories mazeFactories = new MazeFactories(map, messages, inPlayer);
 
 		addEntities(level, mazeFactories, data);
+
 		addStairs(level, data);
 
 	}
@@ -122,19 +122,47 @@ public class MazeGenerator implements Serializable
 
 	public void addEntities(int level, MazeFactories mazeFactories, Integer[][] data)
 	{
+		if(level == finalLevel)
+		{
+			addEntitiesToFinalLevel(data);
+			return;
+		}
+
 		for(int i = 0; i < map.getRows(); i++)
 			for(int j = 0; j < map.getColumns(); j++)
 			{
-			if(data[i][j]==FloorType.FLOOR.getValue())
-			{ // Percentage chance to spawn something
-				if(Controller.getGenerator().nextInt(32)==1)
-				{
-					data[i][j] = 5;
-                    MapElementType elementType = MapElementSelector.chooseElementType();
-					map.addEntry(chooseEntity(level, elementType, i, j, mazeFactories));
+				if(data[i][j]==FloorType.FLOOR.getValue())
+				{ // Percentage chance to spawn something
+					if(Controller.getGenerator().nextInt(32)==1)
+					{
+						data[i][j] = 5;
+						MapElementType elementType = MapElementSelector.chooseElementType();
+						map.addEntry(chooseEntity(level, elementType, i, j, mazeFactories));
+					}
 				}
 			}
-			}
+	}
+
+	private void addEntitiesToFinalLevel(Integer[][] data)
+	{
+		// Final boss must be placed or game is unwinnable.
+		while(true)
+		{
+			for(int i = 0; i < map.getRows(); i++)
+				for(int j = 0; j < map.getColumns(); j++)
+				{
+					if(data[i][j]==FloorType.FLOOR.getValue())
+					{ // Percentage chance to spawn something
+						if(Controller.getGenerator().nextInt(32)==1)
+						{
+							data[i][j] = 5;
+							FinalBoss finalBoss = new FinalBoss(i, j, map, messages, finalLevel);
+							map.addEntry(finalBoss);
+							return;
+						}
+					}
+				}
+		}
 	}
 
 	private Entity chooseEntity(int level, MapElementType type, int i, int j, MazeFactories mazeFactories)
@@ -170,6 +198,12 @@ public class MazeGenerator implements Serializable
 			data[player.getRow()][player.getColumn()] = 5;
 			upStairs = new Coordinate(player.getRow(), player.getColumn());
 			map.addEntry(new UpStairs(player.getRow(), player.getColumn()));
+		}
+
+		if(level == finalLevel)
+		{
+			// The final level should not have down stairs.
+			return;
 		}
 
 		for(;;)

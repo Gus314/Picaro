@@ -1,6 +1,8 @@
 package entities.ai.act;
 
 import entities.*;
+import entities.creatures.Creature;
+import entities.creatures.Monster;
 import enums.Faction;
 import ui.mainwindow.Messages;
 

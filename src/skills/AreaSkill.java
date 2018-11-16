@@ -1,6 +1,6 @@
 package skills;
 
-import entities.Creature;
+import entities.creatures.Creature;
 import enums.TargetType;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package entities.furniture;
 
 import entities.Entity;
-import entities.Player;
+import entities.creatures.Player;
 import entities.factories.AbstractEntityFactory;
 
 public class Box extends Furniture

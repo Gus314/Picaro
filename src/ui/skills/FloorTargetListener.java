@@ -1,14 +1,9 @@
 package ui.skills;
 
-import entities.Creature;
-import entities.Entity;
-import entities.Player;
 import enums.MapDisplayMode;
 import skills.FloorSkill;
-import skills.SelfSkill;
 import ui.IRefreshable;
 import ui.mainwindow.MapDisplay;
-import ui.mainwindow.Messages;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

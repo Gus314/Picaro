@@ -1,7 +1,7 @@
 package skills.monster;
 
 import control.Map;
-import entities.Creature;
+import entities.creatures.Creature;
 import entities.Entity;
 import entities.Floor;
 import entities.factories.MonsterFactory;

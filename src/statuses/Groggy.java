@@ -1,6 +1,6 @@
 package statuses;
 
-import entities.Creature;
+import entities.creatures.Creature;
 import enums.StatType;
 
 import java.io.Serializable;

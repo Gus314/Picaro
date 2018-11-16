@@ -2,7 +2,6 @@ package ui;
 
 import control.Grave;
 import control.PlayerInitialData;
-import entities.Player;
 import ui.mainwindow.MainWindow;
 
 import javax.swing.*;

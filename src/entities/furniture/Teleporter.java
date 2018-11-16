@@ -1,7 +1,7 @@
 package entities.furniture;
 
 import control.Coordinate;
-import entities.Player;
+import entities.creatures.Player;
 
 import java.io.Serializable;
 import java.util.Optional;

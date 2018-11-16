@@ -1,10 +1,12 @@
 package control;
 
 import entities.*;
+import entities.creatures.Creature;
+import entities.creatures.Monster;
+import entities.creatures.Player;
 import entities.furniture.Furniture;
 import enums.Quadrant;
 
-import javax.naming.ldap.Control;
 import java.io.Serializable;
 import java.util.*;
 

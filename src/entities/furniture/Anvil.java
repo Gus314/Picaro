@@ -1,6 +1,6 @@
 package entities.furniture;
 
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.Weapon;
 import enums.WeaponModificationType;
 

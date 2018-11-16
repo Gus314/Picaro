@@ -1,6 +1,6 @@
 package entities.furniture;
 
-import entities.Player;
+import entities.creatures.Player;
 import statuses.Groggy;
 
 import java.io.Serializable;

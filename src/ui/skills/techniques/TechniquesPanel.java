@@ -1,6 +1,6 @@
 package ui.skills.techniques;
 
-import entities.Player;
+import entities.creatures.Player;
 import skills.*;
 import enums.SkillType;
 import ui.IRefreshable;

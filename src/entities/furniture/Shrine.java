@@ -1,6 +1,6 @@
 package entities.furniture;
 
-import entities.Player;
+import entities.creatures.Player;
 import enums.StatType;
 
 public class Shrine extends  Furniture

@@ -2,7 +2,7 @@ package mapgeneration.data;
 
 import control.Controller;
 import control.Map;
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.factories.WeaponFactory;
 import entities.factories.MonsterFactory;
 import entities.furniture.factories.*;
@@ -15,7 +15,6 @@ import skills.monster.Dodge;
 import skills.monster.PoisonFang;
 import statuses.Poison;
 import statuses.Regen;
-import statuses.StatusEffect;
 import ui.mainwindow.Messages;
 
 import java.util.ArrayList;

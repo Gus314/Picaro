@@ -1,6 +1,6 @@
 package pclasses;
 
-import entities.Player;
+import entities.creatures.Player;
 import skills.Skill;
 
 import java.io.Serializable;

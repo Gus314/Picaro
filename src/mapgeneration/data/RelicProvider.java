@@ -1,9 +1,8 @@
 package mapgeneration.data;
 
 import control.Controller;
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.factories.RelicFactory;
-import enums.RelicEffect;
 import statuses.*;
 
 import java.util.Vector;

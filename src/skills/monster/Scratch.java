@@ -1,11 +1,10 @@
 package skills.monster;
 
 import control.Controller;
-import entities.Creature;
+import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import skills.TargetSkill;
 import statuses.Bleed;
-import statuses.Poison;
 import enums.SkillType;
 
 import java.io.Serializable;

@@ -1,15 +1,12 @@
 package entities.furniture;
 
 import control.Controller;
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.Armour;
-import entities.equipment.Weapon;
 import enums.ArmourModificationType;
-import statuses.Groggy;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SewingMachine extends Furniture implements Serializable

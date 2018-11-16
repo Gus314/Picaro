@@ -1,7 +1,7 @@
 package ui.inventory;
 
 import control.Map;
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.*;
 import ui.mainwindow.Stats;
 import ui.mainwindow.Status;
@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.Collection;
-import java.util.Vector;
 
 public class ItemPanel extends JPanel
 {

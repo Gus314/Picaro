@@ -1,7 +1,7 @@
 package ui.inventory;
 
 import control.Map;
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.Item;
 
 import javax.swing.*;

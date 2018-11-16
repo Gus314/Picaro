@@ -1,6 +1,6 @@
 package entities.furniture;
 
-import entities.Player;
+import entities.creatures.Player;
 import statuses.StatusEffect;
 
 public class Fountain extends Furniture

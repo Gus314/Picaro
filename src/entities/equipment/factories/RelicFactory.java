@@ -1,9 +1,7 @@
 package entities.equipment.factories;
 
-import entities.Player;
 import entities.equipment.Relic;
 import entities.factories.AbstractEntityFactory;
-import enums.RelicEffect;
 import statuses.StatusEffect;
 
 public class RelicFactory extends AbstractEntityFactory

@@ -1,14 +1,13 @@
 package entities;
 
 import control.Coordinate;
+import entities.creatures.Monster;
 import entities.equipment.Item;
 import enums.Direction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javafx.scene.input.KeyCode.T;
 
 public abstract class Entity implements Serializable
 {

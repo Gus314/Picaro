@@ -3,7 +3,7 @@ package ui.actions;
 import control.Map;
 import control.TurnHandler;
 import entities.Entity;
-import entities.Player;
+import entities.creatures.Player;
 import entities.furniture.Furniture;
 
 import javax.swing.*;

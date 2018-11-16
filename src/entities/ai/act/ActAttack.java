@@ -2,6 +2,9 @@ package entities.ai.act;
 
 import control.Controller;
 import entities.*;
+import entities.creatures.Creature;
+import entities.creatures.Monster;
+import entities.creatures.Player;
 import enums.Faction;
 import enums.TargetType;
 import skills.AreaSkill;
@@ -81,7 +84,7 @@ public class ActAttack extends Act
         }
 
         boolean killed = (target.getLife() <= 0);
-        if(killed && (target instanceof  Player))
+        if(killed && (target instanceof Player))
         {
             ((Player) target).setCauseOfDeath("killed by " + getMonster().getName() + ".");
         }

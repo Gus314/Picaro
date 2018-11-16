@@ -1,7 +1,7 @@
 package entities.equipment.factories;
 
 import entities.equipment.Consumable;
-import entities.Player;
+import entities.creatures.Player;
 import entities.factories.AbstractEntityFactory;
 import enums.ConsumableType;
 import ui.mainwindow.Messages;

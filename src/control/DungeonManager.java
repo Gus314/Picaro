@@ -1,13 +1,12 @@
 package control;
 
-import entities.Player;
+import entities.creatures.Player;
 import mapgeneration.MazeGenerator;
 import mapgeneration.PersistedMap;
 import ui.mainwindow.MapDisplay;
 import ui.mainwindow.Messages;
 
 import java.io.*;
-import java.util.Collection;
 import java.util.HashMap;
 
 public class DungeonManager

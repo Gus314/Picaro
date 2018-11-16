@@ -1,9 +1,8 @@
 package ui.mainwindow;
 
 import control.*;
-import entities.Player;
+import entities.creatures.Player;
 import ui.HelpWindow;
-import ui.IRefreshable;
 import ui.IRoot;
 import ui.actions.Actions;
 import ui.inventory.InventoryWindow;
@@ -11,12 +10,9 @@ import ui.shortcuts.Shortcuts;
 import ui.skills.spells.SpellsPanel;
 import ui.skills.techniques.TechniquesPanel;
 
-import javax.security.auth.Refreshable;
 import javax.swing.*;
 
 import java.awt.*;
-import java.util.Collection;
-import java.util.Vector;
 
 public class MainWindow extends JTabbedPane
 {

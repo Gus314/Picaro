@@ -1,6 +1,6 @@
 package control;
 
-import entities.Player;
+import entities.creatures.Player;
 
 public class Grave
 {

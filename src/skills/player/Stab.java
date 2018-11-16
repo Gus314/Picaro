@@ -1,7 +1,7 @@
 package skills.player;
 
 import control.Controller;
-import entities.Creature;
+import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.TargetSkill;

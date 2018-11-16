@@ -1,6 +1,6 @@
 package entities.ai.act;
 
-import entities.Monster;
+import entities.creatures.Monster;
 import enums.Behaviour;
 import ui.mainwindow.Messages;
 

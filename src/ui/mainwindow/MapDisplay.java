@@ -4,6 +4,9 @@ import control.Coordinate;
 import control.Grave;
 import control.Map;
 import entities.*;
+import entities.creatures.Creature;
+import entities.creatures.Monster;
+import entities.creatures.Player;
 import skills.AreaSkill;
 import skills.FloorSkill;
 import skills.Skill;
@@ -463,9 +466,17 @@ public class MapDisplay extends JPanel
 
 	public void refresh()
 	{
+		// Death takes priority over winning the game.
 		Optional<Grave> grave = map.obtainGrave();
 		if(grave.isPresent())
 		{
+			MainWindow mainWindow = (MainWindow) getParent().getParent();
+			mainWindow.gameOver(grave.get());
+		}
+        else if(map.getPlayer().getWonGame())
+		{
+			player.setCauseOfDeath("Won the game!");
+			player.createGrave();
 			MainWindow mainWindow = (MainWindow) getParent().getParent();
 			mainWindow.gameOver(grave.get());
 		}

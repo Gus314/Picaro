@@ -1,6 +1,6 @@
 package ui.mainwindow;
 
-import entities.Player;
+import entities.creatures.Player;
 import statuses.IntensityStatusEffect;
 import statuses.StatusEffect;
 import statuses.TemporaryStatusEffect;

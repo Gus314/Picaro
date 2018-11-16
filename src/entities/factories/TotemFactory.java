@@ -1,16 +1,10 @@
 package entities.factories;
 
 import control.Map;
-import entities.Monster;
 import entities.Totem;
 import enums.Faction;
-import skills.Skill;
 import statuses.StatusEffect;
 import ui.mainwindow.Messages;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class TotemFactory extends AbstractEntityFactory
 {

@@ -2,16 +2,14 @@ package entities.ai.move;
 
 import control.Controller;
 import control.Map;
-import entities.Creature;
+import entities.creatures.Creature;
 import entities.Entity;
-import entities.Floor;
-import entities.Monster;
+import entities.creatures.Monster;
 import entities.ai.pathing.PathFinder;
 import enums.Direction;
 import enums.Faction;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public abstract class Move

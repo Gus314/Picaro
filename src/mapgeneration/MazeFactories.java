@@ -1,6 +1,6 @@
 package mapgeneration;
 
-import entities.Player;
+import entities.creatures.Player;
 import entities.equipment.factories.ArmourFactory;
 import entities.equipment.factories.ConsumableFactory;
 import entities.equipment.factories.RelicFactory;

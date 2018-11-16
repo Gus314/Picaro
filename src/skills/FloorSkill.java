@@ -1,12 +1,9 @@
 package skills;
 
-import control.Coordinate;
-import control.Map;
-import entities.Creature;
+import entities.creatures.Creature;
 import entities.Entity;
 import entities.Floor;
 import enums.TargetType;
-import mapgeneration.cellfillers.RoomCell;
 
 import java.util.Collection;
 

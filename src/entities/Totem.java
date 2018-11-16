@@ -1,6 +1,8 @@
 package entities;
 
 import control.Map;
+import entities.creatures.Creature;
+import entities.creatures.Monster;
 import enums.Faction;
 import skills.Skill;
 import statuses.StatusEffect;

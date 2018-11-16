@@ -1,6 +1,6 @@
 package races;
 
-import entities.Player;
+import entities.creatures.Player;
 
 import java.io.Serializable;
 

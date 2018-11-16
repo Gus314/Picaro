@@ -1,6 +1,6 @@
 package ui.inventory;
 
-import entities.*;
+import entities.creatures.Player;
 import entities.equipment.*;
 import ui.mainwindow.Stats;
 import ui.mainwindow.Status;
@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
-import java.util.Vector;
 
 public class UseButton extends JButton
 {

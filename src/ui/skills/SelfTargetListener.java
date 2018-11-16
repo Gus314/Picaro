@@ -1,6 +1,6 @@
 package ui.skills;
 
-import entities.Player;
+import entities.creatures.Player;
 import enums.MapDisplayMode;
 import skills.SelfSkill;
 import ui.IRefreshable;

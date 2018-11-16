@@ -1,11 +1,8 @@
 package skills.monster;
 
-import control.Controller;
-import entities.Creature;
+import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import skills.SelfSkill;
-import skills.TargetSkill;
-import statuses.Poison;
 import enums.SkillType;
 import statuses.Shield;
 

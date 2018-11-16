@@ -1,14 +1,11 @@
 package ui.inventory;
 
-import entities.*;
-import enums.ArmourType;
+import entities.creatures.Player;
 import ui.mainwindow.Stats;
 import ui.mainwindow.Status;
 
 import javax.swing.*;
 import java.awt.GridLayout;
-import java.util.HashMap;
-import java.util.Map;
 
 public class InventoryWindow extends JPanel
 {

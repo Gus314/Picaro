@@ -1,7 +1,7 @@
 package entities.ai.move;
 
 import control.Map;
-import entities.Monster;
+import entities.creatures.Monster;
 import enums.Behaviour;
 
 public class MoveFactory
