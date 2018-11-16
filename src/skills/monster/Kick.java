@@ -9,11 +9,11 @@ import enums.SkillType;
 
 import java.io.Serializable;
 
-public class Bite extends TargetSkill implements Serializable
+public class Kick extends TargetSkill implements Serializable
 {
-    private static final int cost = 3;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Bite";
+    private static final int cost = 7;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Kick";
     private static final int range = 1;
 
     @Override
@@ -25,8 +25,8 @@ public class Bite extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        String message = source.getName() + " bit " + target.getName();
-        int baseDamage = Controller.getGenerator().nextInt(8)+7;
+        String message = source.getName() + " aimed a supernaturally strong wild kick at " + target.getName();
+        int baseDamage = Controller.getGenerator().nextInt(20);
         int damageReduction = target.getDefense()/2 + Controller.getGenerator().nextInt(target.getDefense()/2);
         int adjustedDamage = baseDamage - damageReduction;
         int maxDamage = target.getLife();

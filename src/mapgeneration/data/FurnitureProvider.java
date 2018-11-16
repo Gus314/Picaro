@@ -11,6 +11,7 @@ import enums.Faction;
 import enums.StatType;
 import enums.WeaponModificationType;
 import skills.Skill;
+import skills.monster.Dodge;
 import skills.monster.PoisonFang;
 import statuses.Poison;
 import statuses.Regen;
@@ -33,12 +34,20 @@ public class FurnitureProvider
         WeaponFactory weaponFactory = new WeaponFactory(12,	14	,10,	2	,"silver sword" 	, 1 	, 1, 	  1);
         furnitureFactories.add(new BoxFactory(1, 4, "Wooden box", weaponFactory));
 
+        weaponFactory = new WeaponFactory(20,	24	,12	,3	,"silver spear" 	, 1 	, 2, 	  3);
+        furnitureFactories.add(new BoxFactory(2, 4, "Oak box", weaponFactory));
+
         List<Skill> skills = new ArrayList<Skill>();
         skills.add(new PoisonFang());
         MonsterFactory monsterFactory = new MonsterFactory(Faction.FOE,'S',24,16,20,10,5,2,0,1,"spider",map,messages,10,0,10,16,16, skills,1,4);
         skills.clear();
-
         furnitureFactories.add(new BoxFactory(1, 4, "Wooden box", monsterFactory));
+
+        skills = new ArrayList<Skill>();
+        skills.add(new Dodge());
+        monsterFactory = new MonsterFactory(Faction.FOE,'C',35,17,23,5,15,3,0,1,"cat",map,messages,15,10,10,15,11, skills,2,4);
+        skills.clear();
+        furnitureFactories.add(new BoxFactory(2, 4, "Oak box", monsterFactory));
 
         // Note that map.getPlayer() is not yet valid, so use an independently passed Player object.
         // TODO: Improve object construction order.

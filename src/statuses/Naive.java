@@ -16,6 +16,8 @@ public class Naive extends StatusEffect implements Serializable
         super(name, description, inTarget);
     }
 
+    public Naive(){super(name, description, null);}
+
     public @Override String action()
     {
         return "";

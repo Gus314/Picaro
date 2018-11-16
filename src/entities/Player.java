@@ -289,7 +289,7 @@ public class Player extends Creature implements Serializable
 
 	private int expForNextLevel()
 	{
-		double dResult = 100.0 * Math.pow(1.50, level);
+		double dResult = 100.0 * Math.pow(1.50, (level-1));
 		return (int) dResult;
 	}
 

@@ -58,7 +58,7 @@ public class Consumable extends Item
 
 				if (newMp > maxMp)
 					newMp = maxMp;
-				player.setLife(newMp);
+				player.setMagicPoints(newMp);
 				messages.addMessage("You were healed for " + ((Integer) (newMp - oldMp)).toString() + " mp!");
 				player.getItems().remove(this);
 				break;

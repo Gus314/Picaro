@@ -25,6 +25,13 @@ public class Recklessness extends StatusEffect implements Serializable
         defenseLost = 0;
     }
 
+    public Recklessness()
+    {
+        super(name, description, null);
+        critGained = 0;
+        defenseLost = 0;
+    }
+
     public @Override String action()
     {
         // Could temporary defense changes cause problems?
