@@ -2,6 +2,7 @@ package ui.inventory;
 
 import entities.creatures.Player;
 import entities.equipment.*;
+import ui.inventory.interfaces.IItemProvider;
 import ui.mainwindow.Stats;
 import ui.mainwindow.Status;
 
@@ -10,23 +11,24 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.Optional;
 
 public class UseButton extends JButton
 {
-	private Item item;
+	private IItemProvider itemProvider;
 	private Player player;
 	private InventoryWindow invWindow;
 	private Stats stats;
 	private Status status;
 
-	public UseButton(Item inItem, Player inPlayer, InventoryWindow inInvWindow, Stats inStats, Status inStatus)
+	public UseButton(IItemProvider inItemProvider, Player inPlayer, InventoryWindow inInvWindow, Stats inStats, Status inStatus)
 	{
-		item = inItem;
+		itemProvider = inItemProvider;
 		player = inPlayer;
 		invWindow = inInvWindow;
 		stats = inStats;
 		status = inStatus;
-		this.setText("Use " + item.getName());
+		this.setText("Use");
 		this.addActionListener(new UseListener());
 	}
 	
@@ -37,7 +39,15 @@ public class UseButton extends JButton
 		public void actionPerformed(ActionEvent ae)
 		{
 			Collection<Item> items = player.getItems();
-			
+			Optional<Item> itemOptional = itemProvider.getItem();
+
+			if(!itemOptional.isPresent())
+			{
+				return;
+			}
+
+			Item item = itemOptional.get();
+
 			if(item instanceof Weapon)
 			{
 				Weapon oldWeapon = player.getWeapon();

@@ -3,15 +3,18 @@ package ui.inventory;
 import control.Map;
 import entities.creatures.Player;
 import entities.equipment.*;
+import ui.inventory.interfaces.IItemProvider;
 import ui.mainwindow.Stats;
 import ui.mainwindow.Status;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
-public class ItemPanel extends JPanel
+public class ItemPanel extends JPanel implements IItemProvider
 {
     private JPanel itemPanel;
     private JPanel usePanel;
@@ -25,6 +28,7 @@ public class ItemPanel extends JPanel
     private Map map;
     private static final int itemsPerPage = 10;
     private static final String[] columnNames = {"Item Name", "Type", "Min", "Max", "Crit Chance", "Intelligence", "Defense", "Magic Defense", "Block", "Absorb"};
+    private java.util.List<Item> items;
 
     public ItemPanel(Player inPlayer, Stats inStats, Status inStatus, InventoryWindow inInventoryWindow, Map inMap)
     {
@@ -33,6 +37,7 @@ public class ItemPanel extends JPanel
         status = inStatus;
         inventoryWindow = inInventoryWindow;
         map = inMap;
+        items = new ArrayList<Item>();
 
         usePanel = new JPanel();
         dropPanel = new JPanel();
@@ -61,27 +66,41 @@ public class ItemPanel extends JPanel
         constraints.weighty = 1;
         invPanel.add(dropPanel, constraints);
 
-        usePanel.add(new JLabel("Use"));
-        dropPanel.add(new JLabel("Drop"));
         itemsTable = new JTable();
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         itemsTable.setModel(model);
+        itemsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         itemPanel.add(new JScrollPane(itemsTable));
 
         setLayout(new GridLayout());
         itemPanel.setLayout(new GridLayout());
+
+        JButton useButton = new UseButton(this, player, inventoryWindow, stats, status);
+        usePanel.add(useButton);
+        dropPanel.add(new DropButton(this, player, inventoryWindow, map));
+   }
+
+    public Optional<Item> getItem()
+    {
+        int selection = itemsTable.getSelectedRow();
+
+        if(selection >= 0)
+        {
+            return Optional.of(items.get(selection));
+        }
+        else
+        {
+            return Optional.empty();
+        }
     }
 
-    public void refresh(Collection<Item> items)
+    public void refresh(Collection<Item> newItems)
     {
+        items.clear();
+        items.addAll(newItems);
+
         DefaultTableModel model = new DefaultTableModel(columnNames, items.size());
         itemsTable.setModel(model);
-
-        usePanel.removeAll();
-        usePanel.add(new JLabel("Use"));
-
-        dropPanel.removeAll();
-        dropPanel.add(new JLabel("Drop"));
 
         if(items.size() > 0)
         {
@@ -140,19 +159,9 @@ public class ItemPanel extends JPanel
                     itemsTable.setValueAt(0, itemNum, 8);
                     itemsTable.setValueAt(0, itemNum, 9);
                 }
-                JButton useButton = new UseButton(item, player, inventoryWindow, stats, status);
-                if(item instanceof Relic && (!player.canAddRelic()))
-                {
-                    useButton.setEnabled(false);
-                }
-                usePanel.add(useButton);
-                dropPanel.add(new DropButton(item, player, inventoryWindow, map));
-
                 itemNum++;
             }
         }
-        usePanel.repaint();
-        dropPanel.repaint();
     }
 }
 

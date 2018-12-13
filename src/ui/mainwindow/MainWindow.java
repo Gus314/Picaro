@@ -11,6 +11,8 @@ import ui.skills.spells.SpellsPanel;
 import ui.skills.techniques.TechniquesPanel;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import java.awt.*;
 
@@ -26,6 +28,7 @@ public class MainWindow extends JTabbedPane
 	private OptionsPanel optionsPanel;
 	private Options options;
 	private DungeonManager dungeonManager;
+	private static final int gameTabIndex = 0;
 
 	public IRoot getRoot()
 	{
@@ -139,6 +142,19 @@ public class MainWindow extends JTabbedPane
 		showActions();
 
 		messages.addMessage("A new game has begun!");
+
+		// Refocus when returning to game tab.
+		addChangeListener(new ChangeListener()
+		{
+			@Override
+			public void stateChanged(ChangeEvent e)
+			{
+				if(getSelectedIndex() == gameTabIndex)
+				{
+					requestFocus();
+				}
+			}
+		});
 
 		this.setVisible(true);
 	}

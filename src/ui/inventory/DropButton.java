@@ -3,25 +3,27 @@ package ui.inventory;
 import control.Map;
 import entities.creatures.Player;
 import entities.equipment.Item;
+import ui.inventory.interfaces.IItemProvider;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Optional;
 
 public class DropButton extends JButton
 {
-    private Item item;
+    private IItemProvider itemProvider;
     private Player player;
     private InventoryWindow invWindow;
     private Map map;
 
-    public DropButton(Item inItem, Player inPlayer, InventoryWindow inInvWindow, Map inMap)
+    public DropButton(IItemProvider inItemProvider, Player inPlayer, InventoryWindow inInvWindow, Map inMap)
     {
-        item = inItem;
+        itemProvider = inItemProvider;
         player = inPlayer;
         invWindow = inInvWindow;
         map = inMap;
-        this.setText("Drop " + item.getName());
+        this.setText("Drop");
         this.addActionListener(new DropButton.DropListener());
     }
 
@@ -31,11 +33,16 @@ public class DropButton extends JButton
 
         public void actionPerformed(ActionEvent ae)
         {
-            player.getItems().remove(item);
-            item.setRow(player.getRow());
-            item.setColumn(player.getColumn());
-            map.addEntry(item);
-            invWindow.refresh();
+            Optional<Item> itemOptional = itemProvider.getItem();
+            if(itemOptional.isPresent())
+            {
+                Item item = itemOptional.get();
+                player.getItems().remove(item);
+                item.setRow(player.getRow());
+                item.setColumn(player.getColumn());
+                map.addEntry(item);
+                invWindow.refresh();
+            }
         }
     }
 }
