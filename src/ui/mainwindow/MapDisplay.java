@@ -489,7 +489,7 @@ public class MapDisplay extends JPanel
 		}
 
 		List<Entity> entries = map.getMapEntries();
-		HashSet<Entity> visibleEntries = map.lineOfSight(player, player.getSightRadius());
+		HashSet<Entity> visibleEntries = map.lineOfSight(player, player.getSightRadius(), true);
         HashSet<Entity> permanentlyVisible = map.getPermanentlyVisible();
 
 
@@ -507,12 +507,12 @@ public class MapDisplay extends JPanel
 			}
 
 			// TODO : Ensure monsters take priority over items for display.
-
+			// TODO: Add layer system.
 			if(row < 0 || column < 0)
 			{
 				entries.remove(ent);
 			}
-			else if((!(ent instanceof Floor)) || cells.get(position).getText().equals(blank))
+			else if(cells.get(position).getText().equals(blank)|| cells.get(position).getText().contains((new Floor(0, 0)).getChar().toString()))
 			{
 				cells.get(position).setText(ent.getChar().toString());
 			}

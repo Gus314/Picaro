@@ -61,7 +61,9 @@ public class Map implements Serializable
 		for(Entity ent: mapEntries)
 		{
 			boolean isFloor = ent instanceof Floor;
-			boolean floorStatusValid = !(includeFloor ^ isFloor);
+
+			boolean unwantedFloor = isFloor && (!includeFloor);
+			boolean floorStatusValid = !unwantedFloor;
 			if(ent.getRow() == row && ent.getColumn() == column && floorStatusValid)
 			{
 				result.add(ent);
@@ -95,6 +97,10 @@ public class Map implements Serializable
     }
 
 	public HashSet<Entity> lineOfSight(Entity source, int radius)
+	{
+		return lineOfSight(source, radius, false);
+	}
+	public HashSet<Entity> lineOfSight(Entity source, int radius, boolean includeFloor)
 	{
 		HashSet<Entity> result = new HashSet<>();
 
@@ -145,7 +151,7 @@ public class Map implements Serializable
 								  (quadrant == Quadrant.Q3) ? column - columnShift :
 										                      column + rowShift;
 
-				List<Entity> here = atPosition(movedRow, movedColumn);// floor!
+				List<Entity> here = atPosition(movedRow, movedColumn, includeFloor);
 				if( (here != null))
 				{
 					result.addAll(here);
@@ -174,7 +180,7 @@ public class Map implements Serializable
 
 	private boolean isPermanentlyVisible(Entity ent)
 	{
-	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Furniture);
+	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Furniture || ent instanceof Floor);
 	}
 
 	public void removeEntity(Entity ent)
