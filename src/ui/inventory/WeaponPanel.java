@@ -5,6 +5,7 @@ import enums.ArmourType;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 public class WeaponPanel extends JPanel
 {
@@ -18,6 +19,7 @@ public class WeaponPanel extends JPanel
         weaponTable.setModel(model);
         add(new JScrollPane(weaponTable));
 
+        setLayout(new GridLayout());
         refresh(weapon);
     }
 

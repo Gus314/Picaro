@@ -7,29 +7,28 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RemoveButton extends JButton
+public class DestroyButton extends JButton
 {
     private Relic relic;
     private Player player;
     private InventoryWindow invWindow;
 
-    public RemoveButton(Relic inRelic, Player inPlayer, InventoryWindow inInvWindow)
+    public DestroyButton(Relic inRelic, Player inPlayer, InventoryWindow inInvWindow)
     {
         player = inPlayer;
         invWindow = inInvWindow;
         relic = inRelic;
-        this.setText("Remove " + relic.getName());
-        this.addActionListener(new RemoveButton.RemoveListener());
+        this.setText("Destroy " + relic.getName());
+        this.addActionListener(new DestroyButton.DestroyListener());
     }
 
-    public class RemoveListener implements ActionListener
+    public class DestroyListener implements ActionListener
     {
-        public RemoveListener(){}
+        public DestroyListener(){}
 
         public void actionPerformed(ActionEvent ae)
         {
             player.removeRelic(relic);
-            player.getItems().add(relic);
             invWindow.refresh();
         }
     }

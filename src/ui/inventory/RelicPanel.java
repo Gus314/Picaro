@@ -5,13 +5,14 @@ import entities.equipment.Relic;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.Collection;
 
 public class RelicPanel extends JPanel
 {
     private JTable relicTable;
     private static final String[] columnNames = {"Relic Name", "Status Effect"};
-    private JPanel removePanel;
+    private JPanel destroyPanel;
     private InventoryWindow inventoryWindow;
     private Player player;
 
@@ -25,15 +26,16 @@ public class RelicPanel extends JPanel
        relicTable.setModel(model);
 
        add(new JScrollPane(relicTable));
-       removePanel = new JPanel();
-       add(removePanel);
+       destroyPanel = new JPanel();
+       add(destroyPanel);
 
+       setLayout(new GridLayout());
        refresh(player.getRelics());
    }
 
    public void refresh(Collection<Relic> relics)
    {
-       removePanel.removeAll();
+       destroyPanel.removeAll();
 
        for(int i = 0; i < Player.getMaxRelics(); i++)
        {
@@ -47,7 +49,7 @@ public class RelicPanel extends JPanel
            relicTable.setValueAt(relic.getName(), i, 0);
            relicTable.setValueAt(relic.getStatusEffect().getName(), i, 1);
 
-           removePanel.add(new RemoveButton(relic, player, inventoryWindow));
+           destroyPanel.add(new DestroyButton(relic, player, inventoryWindow));
            i++;
        }
    }

@@ -6,6 +6,7 @@ import enums.ArmourType;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
 public class ArmourPanel extends JPanel
 {
@@ -19,6 +20,7 @@ public class ArmourPanel extends JPanel
         armourTable.setModel(model);
 
         add(new JScrollPane(armourTable));
+        setLayout(new GridLayout());
         refresh(armours);
     }
 

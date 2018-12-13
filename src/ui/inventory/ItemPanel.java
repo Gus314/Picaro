@@ -24,7 +24,7 @@ public class ItemPanel extends JPanel
     private InventoryWindow inventoryWindow;
     private Map map;
     private static final int itemsPerPage = 10;
-    private static final String[] columnNames = {"Name", "Type", "Min", "Max", "Crit Chance", "Intelligence", "Defense", "Magic Defense", "Block", "Absorb"};
+    private static final String[] columnNames = {"Item Name", "Type", "Min", "Max", "Crit Chance", "Intelligence", "Defense", "Magic Defense", "Block", "Absorb"};
 
     public ItemPanel(Player inPlayer, Stats inStats, Status inStatus, InventoryWindow inInventoryWindow, Map inMap)
     {
@@ -63,11 +63,13 @@ public class ItemPanel extends JPanel
 
         usePanel.add(new JLabel("Use"));
         dropPanel.add(new JLabel("Drop"));
-        itemPanel.add(new JLabel("Items"));
         itemsTable = new JTable();
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         itemsTable.setModel(model);
         itemPanel.add(new JScrollPane(itemsTable));
+
+        setLayout(new GridLayout());
+        itemPanel.setLayout(new GridLayout());
     }
 
     public void refresh(Collection<Item> items)
