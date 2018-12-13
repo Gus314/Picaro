@@ -1,4 +1,4 @@
-package mapgeneration.data;
+package mapgeneration.data.providers;
 
 import control.Controller;
 import control.Map;
