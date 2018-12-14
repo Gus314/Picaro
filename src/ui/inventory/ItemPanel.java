@@ -29,6 +29,10 @@ public class ItemPanel extends JPanel implements IItemProvider
     private static final int itemsPerPage = 10;
     private static final String[] columnNames = {"Item Name", "Type", "Min", "Max", "Crit Chance", "Intelligence", "Defense", "Magic Defense", "Block", "Absorb"};
     private java.util.List<Item> items;
+    private JRadioButton weaponsButton;
+    private JRadioButton armourButton;
+    private JRadioButton relicsButton;
+    private JRadioButton consumablesButton;
 
     public ItemPanel(Player inPlayer, Stats inStats, Status inStatus, InventoryWindow inInventoryWindow, Map inMap)
     {
@@ -66,19 +70,52 @@ public class ItemPanel extends JPanel implements IItemProvider
         constraints.weighty = 1;
         invPanel.add(dropPanel, constraints);
 
+        GridBagLayout itemPanelLayout = new GridBagLayout();
+        itemPanel.setLayout(itemPanelLayout);
+
+        ButtonGroup filterGroup = new ButtonGroup();
+        weaponsButton = new JRadioButton("weapons");
+        weaponsButton.addActionListener((e) -> {refresh(player.getItems());});
+        weaponsButton.setSelected(true);
+        armourButton = new JRadioButton("armour");
+        armourButton.addActionListener((e) -> {refresh(player.getItems());});
+        relicsButton = new JRadioButton("relics");
+        relicsButton.addActionListener((e) -> {refresh(player.getItems());});
+        consumablesButton = new JRadioButton("consumables");
+        consumablesButton.addActionListener((e) -> {refresh(player.getItems());});
+        filterGroup.add(weaponsButton);
+        filterGroup.add(armourButton);
+        filterGroup.add(relicsButton);
+        filterGroup.add(consumablesButton);
+        JPanel filterPanel = new JPanel();
+        filterPanel.add(weaponsButton);
+        filterPanel.add(armourButton);
+        filterPanel.add(relicsButton);
+        filterPanel.add(consumablesButton);
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        itemPanel.add(filterPanel, constraints);
+
         itemsTable = new JTable();
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         itemsTable.setModel(model);
         itemsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        itemPanel.add(new JScrollPane(itemsTable));
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+        constraints.weightx = 1;
+        constraints.weighty = 11;
+        itemPanel.add(new JScrollPane(itemsTable), constraints);
 
         setLayout(new GridLayout());
-        itemPanel.setLayout(new GridLayout());
 
         JButton useButton = new UseButton(this, player, inventoryWindow, stats, status);
         usePanel.add(useButton);
         dropPanel.add(new DropButton(this, player, inventoryWindow, map));
-   }
+    }
 
     public Optional<Item> getItem()
     {
@@ -97,7 +134,26 @@ public class ItemPanel extends JPanel implements IItemProvider
     public void refresh(Collection<Item> newItems)
     {
         items.clear();
-        items.addAll(newItems);
+
+        for(Item item: newItems)
+        {
+            if(weaponsButton.isSelected() && item instanceof  Weapon)
+            {
+                items.add(item);
+            }
+            if(armourButton.isSelected() && item instanceof  Armour)
+            {
+                items.add(item);
+            }
+            if(consumablesButton.isSelected() && item instanceof  Consumable)
+            {
+                items.add(item);
+            }
+            if(relicsButton.isSelected() && item instanceof  Relic)
+            {
+                items.add(item);
+            }
+        }
 
         DefaultTableModel model = new DefaultTableModel(columnNames, items.size());
         itemsTable.setModel(model);
