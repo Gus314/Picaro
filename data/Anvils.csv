@@ -1,0 +1,7 @@
+MinLevel;MaxLevel;Name;WeaponModificationType;Amount;
+1;4;wooden anvil;DAMAGE;2
+1;4;wooden anvil;INTELLIGENCE;2
+1;4;wooden anvil;CRITCHANCE;1
+1;4;wooden anvil;DAMAGE;-2
+1;4;wooden anvil;INTELLIGENCE;-2
+1;4;wooden anvil;CRITCHANCE;-1

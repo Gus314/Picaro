@@ -1,13 +1,13 @@
-Char;Amount;Type;;Name;;MinLevel;MaxLevel;
-p;5;hp;messages;tiny hp potion;player;1;2;
-p;5;pp;messages;tiny pp potion;player;1;2;
-p;5;mp;messages;tiny mp potion;player;1;2;
-p;10;hp;messages;small hp potion;player;2;3;
-p;10;pp;messages;small pp potion;player;2;3;
-p;10;mp;messages;small mp potion;player;2;3;
-p;15;hp;messages;hp potion;player;3;4;
-p;15;pp;messages;pp potion;player;3;4;
-p;15;mp;messages;mp potion;player;3;4;
-p;20;hp;messages;large hp potion;player;4;4;
-p;20;pp;messages;large pp potion;player;4;4;
-p;20;mp;messages;large mp potion;player;4;4;
+Char;Amount;Type;Name;MinLevel;MaxLevel
+p;5;RestoreHP;tiny hp potion;1;2
+p;5;RestorePP;tiny pp potion;1;2
+p;5;RestoreMP;tiny mp potion;1;2
+p;10;RestoreHP;small hp potion;2;3
+p;10;RestorePP;small pp potion;2;3
+p;10;RestoreMP;small mp potion;2;3
+p;15;RestoreHP;hp potion;3;4
+p;15;RestorePP;pp potion;3;4
+p;15;RestoreMP;mp potion;3;4
+p;20;RestoreHP;large hp potion;4;4
+p;20;RestorePP;large pp potion;4;4
+p;20;RestoreMP;large mp potion;4;4

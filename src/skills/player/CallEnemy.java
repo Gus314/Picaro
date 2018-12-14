@@ -13,9 +13,9 @@ import java.util.Collection;
 
 public class CallEnemy extends SummonSkill
 {
-    public CallEnemy(MonsterFactory inSummon)
+    public CallEnemy(String inSummonName)
     {
-        setSummon(inSummon);
+        setSummonName(inSummonName);
     }
 
     @Override

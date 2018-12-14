@@ -1,0 +1,4 @@
+StatusEffect;Name;MinLevel;MaxLevel;
+REGEN;regenerating pin;1;4
+RECKLESS;reckless belt;1;4
+NAIVE;naive necklace;1;4

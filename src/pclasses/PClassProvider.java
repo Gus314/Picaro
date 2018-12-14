@@ -26,8 +26,7 @@ public class PClassProvider
         Map<Integer, Collection<Skill>> mageSkills = new HashMap<Integer, Collection<Skill>>();
         addSkill(mageSkills, 1, new Heal());
         Collection<Skill> skills = new ArrayList<Skill>();
-        MonsterFactory call = (new MonsterFactory(Faction.PLAYER,'D',22,0,2,0,11,0,0,1,"dummy", null, null, 15,20,0,19,18, skills,2,4));;
-        addSkill(mageSkills, 1, new CallEnemy(call));
+        addSkill(mageSkills, 1, new CallEnemy("vole"));
         addSkill(mageSkills, 2, new Fireball());
         //result.add(new Pclass("Mage", mageSkills));
         return result;

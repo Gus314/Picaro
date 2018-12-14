@@ -7,6 +7,7 @@ import entities.Floor;
 import entities.factories.MonsterFactory;
 import enums.SkillBehaviour;
 import enums.SkillType;
+import mapgeneration.data.providers.MonsterProvider;
 import skills.SummonSkill;
 
 import java.io.Serializable;
@@ -14,9 +15,9 @@ import java.util.Collection;
 
 public class RequestAid extends SummonSkill implements Serializable
 {
-    public RequestAid(MonsterFactory inSummon)
+    public RequestAid(String inSummonName)
     {
-        setSummon(inSummon);
+        setSummonName(inSummonName);
     }
 
     @Override

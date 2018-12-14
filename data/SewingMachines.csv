@@ -1,0 +1,9 @@
+MinLevel;MaxLevel;Name;ArmourModificationType;Intensity
+1;4;wooden sewing machine;ABSORBCHANCE;1
+1;4;wooden sewing machine;ABSORBCHANCE;-1
+1;4;wooden sewing machine;BLOCKCHANCE;1
+1;4;wooden sewing machine;BLOCKCHANCE;-1
+1;4;wooden sewing machine;DEFENSE;1
+1;4;wooden sewing machine;DEFENSE;-1
+1;4;wooden sewing machine;MAGICDEFENSE;1
+1;4;wooden sewing machine;MAGICDEFENSE;-1

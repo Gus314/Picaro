@@ -3,7 +3,6 @@ package mapgeneration.data.loading;
 import entities.equipment.factories.WeaponFactory;
 import mapgeneration.data.providers.WeaponProvider;
 
-import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class WeaponLoader

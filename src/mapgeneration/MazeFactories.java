@@ -8,9 +8,7 @@ import entities.equipment.factories.WeaponFactory;
 import entities.factories.TotemFactory;
 import entities.furniture.factories.FurnitureFactory;
 import entities.factories.MonsterFactory;
-import mapgeneration.data.loading.ArmourLoader;
-import mapgeneration.data.loading.ConsumableLoader;
-import mapgeneration.data.loading.WeaponLoader;
+import mapgeneration.data.loading.*;
 import mapgeneration.data.providers.*;
 import ui.mainwindow.Messages;
 
@@ -27,13 +25,29 @@ public class MazeFactories
     public MazeFactories(control.Map map, Messages messages, Player player)
     {
         armourProvider = ArmourLoader.load();
+
         ConsumableLoader consumableLoader = new ConsumableLoader(messages, player);
         consumableProvider = consumableLoader.load();
-        monsterProvider = new MonsterProvider(messages, map);
-        relicProvider = new RelicProvider(player);
+
         weaponProvider = WeaponLoader.load();
-        furnitureProvider = new FurnitureProvider(messages, map, player);
-        totemProvider = new TotemProvider(messages, map);
+
+        StatusProvider statusProvider = new StatusProvider();
+        TotemLoader totemLoader = new TotemLoader(messages, map, statusProvider);
+        totemProvider = totemLoader.load();
+
+        RelicLoader relicLoader = new RelicLoader(statusProvider);
+        relicProvider = relicLoader.load();
+
+        SkillProvider skillProvider = new SkillProvider();
+
+        MonsterLoader monsterLoader = new MonsterLoader(messages, map, skillProvider);
+        monsterProvider = monsterLoader.load();
+        skillProvider.populate(monsterProvider); // Resolve circular dependency.
+
+        FurnitureLoader furnitureLoader = new FurnitureLoader(weaponProvider, monsterProvider, statusProvider);
+        furnitureProvider = furnitureLoader.load();
+
+
     }
 
     public ArmourFactory chooseArmour(int level)

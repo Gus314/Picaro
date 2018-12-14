@@ -1,0 +1,3 @@
+MinLevel;MaxLevel;Name;StatType;Intensity;
+1;4;wooden shrine;DEFENSE;2;
+1;4;wooden shrine;DEFENSE;-2;

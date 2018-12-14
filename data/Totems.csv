@@ -1,0 +1,5 @@
+Faction;Life;Defense;BlockChance;AbsorbChance;Range;Name;Exp;MagicDefense;MinLevel;MaxLevel;Status
+FOE;50;10;0;0;8;groggy obelisk;0;10;1;4;GROGGY
+FOE;60;12;0;0;8;recklessness obelisk;0;12;2;4;RECKLESS
+FOE;74;16;0;0;8;naive obelisk;0;18;3;4;NAIVE
+FOE;92;15;0;0;8;poison obelisk;0;15;4;4;POISON
