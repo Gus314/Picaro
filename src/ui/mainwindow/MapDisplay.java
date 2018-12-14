@@ -501,8 +501,7 @@ public class MapDisplay extends JPanel
 
 			if(! (visibleEntries.contains(ent) || permanentlyVisible.contains(ent)) )
 			{
-				// Do not draw invisible entries;
-				cells.get(position).setText(blank);
+				// Do not draw invisible entries but also do not over-write other entities already drawn, e.g. floor.
 				continue;
 			}
 
