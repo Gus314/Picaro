@@ -9,6 +9,7 @@ import entities.factories.TotemFactory;
 import entities.furniture.factories.FurnitureFactory;
 import entities.factories.MonsterFactory;
 import mapgeneration.data.loading.ArmourLoader;
+import mapgeneration.data.loading.ConsumableLoader;
 import mapgeneration.data.loading.WeaponLoader;
 import mapgeneration.data.providers.*;
 import ui.mainwindow.Messages;
@@ -26,7 +27,8 @@ public class MazeFactories
     public MazeFactories(control.Map map, Messages messages, Player player)
     {
         armourProvider = ArmourLoader.load();
-        consumableProvider = new ConsumableProvider(messages, player);
+        ConsumableLoader consumableLoader = new ConsumableLoader(messages, player);
+        consumableProvider = consumableLoader.load();
         monsterProvider = new MonsterProvider(messages, map);
         relicProvider = new RelicProvider(player);
         weaponProvider = WeaponLoader.load();

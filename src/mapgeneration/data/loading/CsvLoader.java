@@ -12,7 +12,6 @@ public class CsvLoader
         try
         {
             Scanner scanner = new Scanner(new File(filePath));
-            scanner.useDelimiter(";");
             // Skip header line.
             if(scanner.hasNextLine())
             {
@@ -20,22 +19,26 @@ public class CsvLoader
             }
             while(scanner.hasNextLine())
             {
+                String line = scanner.nextLine();
+                line = line.replace(' ', '_');
+                Scanner lineScanner = new Scanner(line);
+                lineScanner.useDelimiter(";");
+
                 java.util.Map<String, Object> next = new HashMap<String, Object>();
                 for(String name: parameters.keySet())
                 {
                     Object value = null;
                     if(parameters.get(name).equals(Integer.TYPE))
                     {
-                        value = Integer.parseInt(scanner.next());
+                        value = Integer.parseInt(lineScanner.next());
                     }
                     else
                     {
-                        value = scanner.next();
+                        value = lineScanner.next().replace('_', ' ');
                     }
                     next.put(name, value);
                 }
                 result.add(next);
-                scanner.nextLine();
             }
         }
         catch(FileNotFoundException fnfex)
