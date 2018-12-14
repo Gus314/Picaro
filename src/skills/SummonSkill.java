@@ -2,6 +2,7 @@ package skills;
 
 import entities.Entity;
 import entities.factories.AbstractEntityFactory;
+import entities.factories.MonsterFactory;
 import mapgeneration.data.providers.MonsterProvider;
 
 import java.util.Collection;
@@ -23,4 +24,5 @@ public abstract class SummonSkill extends FloorSkill
     private String summonName;
     private String getSummonName(){return summonName;}
     protected void setSummonName(String inSummonName){summonName = inSummonName;}
+    protected void setSummon(AbstractEntityFactory inSummon){summon = inSummon;}
 }

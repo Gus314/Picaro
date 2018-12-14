@@ -26,7 +26,6 @@ public class PClassProvider
         Map<Integer, Collection<Skill>> mageSkills = new HashMap<Integer, Collection<Skill>>();
         addSkill(mageSkills, 1, new Heal());
         Collection<Skill> skills = new ArrayList<Skill>();
-        addSkill(mageSkills, 1, new CallEnemy("vole"));
         addSkill(mageSkills, 2, new Fireball());
         //result.add(new Pclass("Mage", mageSkills));
         return result;
