@@ -1,2 +1,5 @@
 MinLevel;MaxLevel;Name
-1;4;wooden bed;
+1;4;tent
+5;8;wooden bed
+9;12;comfy bed
+13;16;cosy bed

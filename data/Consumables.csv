@@ -1,13 +1,13 @@
 Char;Amount;Type;Name;MinLevel;MaxLevel
-p;5;RestoreHP;tiny hp potion;1;2
-p;5;RestorePP;tiny pp potion;1;2
-p;5;RestoreMP;tiny mp potion;1;2
-p;10;RestoreHP;small hp potion;2;3
-p;10;RestorePP;small pp potion;2;3
-p;10;RestoreMP;small mp potion;2;3
-p;15;RestoreHP;hp potion;3;4
-p;15;RestorePP;pp potion;3;4
-p;15;RestoreMP;mp potion;3;4
-p;20;RestoreHP;large hp potion;4;4
-p;20;RestorePP;large pp potion;4;4
-p;20;RestoreMP;large mp potion;4;4
+p;5;RestoreHP;tiny hp potion;1;8
+p;5;RestorePP;tiny pp potion;1;8
+p;5;RestoreMP;tiny mp potion;1;8
+p;10;RestoreHP;small hp potion;4;12
+p;10;RestorePP;small pp potion;4;12
+p;10;RestoreMP;small mp potion;4;12
+p;20;RestoreHP;hp potion;8;16
+p;20;RestorePP;pp potion;8;16
+p;20;RestoreMP;mp potion;8;16
+p;40;RestoreHP;large hp potion;12;16
+p;40;RestorePP;large pp potion;12;16
+p;40;RestoreMP;large mp potion;12;16

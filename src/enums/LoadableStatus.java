@@ -6,5 +6,8 @@ public enum LoadableStatus
     GROGGY,
     NAIVE,
     RECKLESS,
-    POISON
+    POISON,
+    SHELL,
+    SHIELD,
+    BLEED
 }

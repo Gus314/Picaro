@@ -1,2 +1,5 @@
 MinLevel;MaxLevel;Name
-1;4;wooden teleporter;
+1;4;wooden teleporter
+5;8;bronze teleporter
+9;12;iron teleporter
+13;16;gold teleporter

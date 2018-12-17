@@ -1,21 +1,241 @@
-Type;Block;Absorb;Defense;MDefense;Name;MinLevel;MaxLevel;
-CHEST;1;0;3;3;shirt;1;2;
-HANDS;1;0;3;3;mittens;1;2;
-HEAD;1;0;3;3;hat;1;2;
-LEGS;1;0;3;3;trousers;1;2;
-FEET;1;0;3;3;shoes;1;2;
-CHEST;2;0;6;6;leather chest;2;3;
-HANDS;2;0;6;6;leather gloves;2;3;
-HEAD;2;0;6;6;leather helmet;2;3;
-LEGS;2;0;6;6;leather legs;2;3;
-FEET;2;0;6;6;leather greaves;2;3;
-CHEST;3;0;9;9;chain chest;3;4;
-HANDS;3;0;9;9;chain gloves;3;4;
-HEAD;3;0;9;9;chain helmet;3;4;
-LEGS;3;0;9;9;chain legs;3;4;
-FEET;3;0;9;9;chain greaves;3;4;
-CHEST;4;0;12;12;plate chest;4;4;
-HANDS;4;0;12;12;plate gloves;4;4;
-HEAD;4;0;12;12;plate helmet;4;4;
-LEGS;4;0;12;12;plate legs;4;4;
-FEET;4;0;12;12;plate greaves;4;4;
+Type;Block;Absorb;Defense;MDefense;Name;MinLevel;MaxLevel
+CHEST;1;0;3;3;shirt;1;2
+HANDS;1;0;3;3;mittens;1;2
+HEAD;1;0;3;3;hat;1;2
+LEGS;1;0;3;3;trousers;1;2
+FEET;1;0;3;3;shoes;1;2
+CHEST;1;0;6;6;comfy shirt;2;3
+HANDS;1;0;6;6;comfy mittens;2;3
+HEAD;1;0;6;6;comfy hat;2;3
+LEGS;1;0;6;6;comfy trousers;2;3
+FEET;1;0;6;6;comfy shoes;2;3
+CHEST;1;0;9;9;sturdy shirt;3;4
+HANDS;1;0;9;9;sturdy mittens;3;4
+HEAD;1;0;9;9;sturdy hat;3;4
+LEGS;1;0;9;9;sturdy trousers;3;4
+FEET;1;0;9;9;sturdy shoes;3;4
+CHEST;1;0;12;12;exquisite shirt;4;4
+HANDS;1;0;12;12;exquisite mittens;4;4
+HEAD;1;0;12;12;exquisite hat;4;4
+LEGS;1;0;12;12;exquisite trousers;4;4
+FEET;1;0;12;12;exquisite shoes;4;4
+CHEST;2;0;15;15;leather armour;5;6
+HANDS;2;0;15;15;leather gloves;5;6
+HEAD;2;0;15;15;leather helmet;5;6
+LEGS;2;0;15;15;leather trousers;5;6
+FEET;2;0;15;15;leather shoes;5;6
+CHEST;2;0;18;18;comfy leather armour;6;7
+HANDS;2;0;18;18;comfy leather gloves;6;7
+HEAD;2;0;18;18;comfy leather helmet;6;7
+LEGS;2;0;18;18;comfy leather trousers;6;7
+FEET;2;0;18;18;comfy leather shoes;6;7
+CHEST;2;0;21;21;sturdy leather armour;7;8
+HANDS;2;0;21;21;sturdy leather gloves;7;8
+HEAD;2;0;21;21;sturdy leather helmet;7;8
+LEGS;2;0;21;21;sturdy leather trousers;7;8
+FEET;2;0;21;21;sturdy leather shoes;7;8
+CHEST;2;0;24;24;exquisite leather armour;8;9
+HANDS;2;0;24;24;exquisite leather gloves;8;9
+HEAD;2;0;24;24;exquisite leather helmet;8;9
+LEGS;2;0;24;24;exquisite leather trousers;8;9
+FEET;2;0;24;24;exquisite leather shoes;8;9
+CHEST;3;1;27;27;chain armour;9;10
+HANDS;3;1;27;27;chain gloves;9;10
+HEAD;3;1;27;27;chain helmet;9;10
+LEGS;3;1;27;27;chain trousers;9;10
+FEET;3;1;27;27;chain greaves;9;10
+CHEST;3;1;30;30;comfy chain armour;10;11
+HANDS;3;1;30;30;comfy chain gloves;10;11
+HEAD;3;1;30;30;comfy chain helmet;10;11
+LEGS;3;1;30;30;comfy chain greaves;10;11
+FEET;3;1;30;30;comfy chain shoes;10;11
+CHEST;3;1;33;33;sturdy chain armour;11;12
+HANDS;3;1;33;33;sturdy chain gloves;11;12
+HEAD;3;1;33;33;sturdy chain helmet;11;12
+LEGS;3;1;33;33;sturdy chain greaves;11;12
+FEET;3;1;33;33;sturdy chain shoes;11;12
+CHEST;3;1;36;36;exquisite chain armour;12;13
+HANDS;3;1;36;36;exquisite chain gloves;12;13
+HEAD;3;1;36;36;exquisite chain helmet;12;13
+LEGS;3;1;36;36;exquisite chain trousers;12;13
+FEET;3;1;36;36;exquisite chain greaves;12;13
+CHEST;4;1;39;39;plate mail;13;14
+HANDS;4;1;39;39;plate gauntlets;13;14
+HEAD;4;1;39;39;plate helmet;13;14
+LEGS;4;1;39;39;plate cuisse;13;14
+FEET;4;1;39;39;plate greaves;13;14
+CHEST;4;1;42;42;comfy plate mail;14;15
+HANDS;4;1;42;42;comfy plate gauntlets;14;15
+HEAD;4;1;42;42;comfy plate helmet;14;15
+LEGS;4;1;42;42;comfy plate cuisse;14;15
+FEET;4;1;42;42;comfy plate greaves;14;15
+CHEST;4;1;45;45;sturdy plate mail;15;16
+HANDS;4;1;45;45;sturdy plate gauntlets;15;16
+HEAD;4;1;45;45;sturdy plate helmet;15;16
+LEGS;4;1;45;45;sturdy plate cuisse;15;16
+FEET;4;1;45;45;sturdy plate greaves;15;16
+CHEST;4;1;48;48;exquisite plate mail;16;16
+HANDS;4;1;48;48;exquisite plate gloves;16;16
+HEAD;4;1;48;48;exquisite plate helmet;16;16
+LEGS;4;1;48;48;exquisite plate cuisse;16;16
+FEET;4;1;48;48;exquisite plate greaves;16;16
+CHEST;0;0;2;4;robe;1;2
+HANDS;0;0;2;4;bracelets;1;2
+HEAD;0;0;2;4;cowl;1;2
+LEGS;0;0;2;4;cape;1;2
+FEET;0;0;2;4;sandals;1;2
+CHEST;0;0;4;8;comfy robe;2;3
+HANDS;0;0;4;8;comfy bracelets;2;3
+HEAD;0;0;4;8;comfy cowl;2;3
+LEGS;0;0;4;8;comfy cape;2;3
+FEET;0;0;4;8;comfy sandals;2;3
+CHEST;0;0;6;12;sturdy robe;3;4
+HANDS;0;0;6;12;sturdy bracelets;3;4
+HEAD;0;0;6;12;sturdy cowl;3;4
+LEGS;0;0;6;12;sturdy cape;3;4
+FEET;0;0;6;12;sturdy sandals;3;4
+CHEST;0;0;8;16;exquisite robe;4;4
+HANDS;0;0;8;16;exquisite bracelets;4;4
+HEAD;0;0;8;16;exquisite cowl;4;4
+LEGS;0;0;8;16;exquisite cape;4;4
+FEET;0;0;8;16;exquisite sandals;4;4
+CHEST;1;1;10;20;apprentice robe;5;6
+HANDS;1;1;10;20;apprentice bracelets;5;6
+HEAD;1;1;10;20;apprentice cowl;5;6
+LEGS;1;1;10;20;apprentice cape;5;6
+FEET;1;1;10;20;apprentice sandals;5;6
+CHEST;1;1;18;24;apprentice comfy robe;6;7
+HANDS;1;1;18;24;apprentice comfy bracelets;6;7
+HEAD;1;1;18;24;apprentice comfy cowl;6;7
+LEGS;1;1;18;24;apprentice comfy cape;6;7
+FEET;1;1;18;24;apprentice comfy sandals;6;7
+CHEST;1;1;21;28;apprentice sturdy robe;7;8
+HANDS;1;1;21;28;apprentice sturdy bracelets;7;8
+HEAD;1;1;21;28;apprentice sturdy cowl;7;8
+LEGS;1;1;21;28;apprentice sturdy cape;7;8
+FEET;1;1;21;28;apprentice sturdy sandals;7;8
+CHEST;1;1;24;32;apprentice exquisite robe;8;9
+HANDS;1;1;24;32;apprentice exquisite bracelets;8;9
+HEAD;1;1;24;32;apprentice exquisite cowl;8;9
+LEGS;1;1;24;32;apprentice exquisite cape;8;9
+FEET;1;1;24;32;apprentice exquisite sandals;8;9
+CHEST;2;2;27;36;mage robe;9;10
+HANDS;2;2;27;36;mage bracelets;9;10
+HEAD;2;2;27;36;mage cowl;9;10
+LEGS;2;2;27;36;mage cape;9;10
+FEET;2;2;27;36;mage sandals;9;10
+CHEST;2;2;30;40;mage comfy robe;10;11
+HANDS;2;2;30;40;mage comfy bracelets;10;11
+HEAD;2;2;30;40;mage comfy cowl;10;11
+LEGS;2;2;30;40;mage comfy cape;10;11
+FEET;2;2;30;40;mage comfy sandals;10;11
+CHEST;2;2;33;44;mage sturdy robe;11;12
+HANDS;2;2;33;44;mage sturdy bracelets;11;12
+HEAD;2;2;33;44;mage sturdy cowl;11;12
+LEGS;2;2;33;44;mage sturdy cape;11;12
+FEET;2;2;33;44;mage sturdy sandals;11;12
+CHEST;2;2;36;48;mage exquisite robe;12;13
+HANDS;2;2;36;48;mage exquisite bracelets;12;13
+HEAD;2;2;36;48;mage exquisite cowl;12;13
+LEGS;2;2;36;48;mage exquisite cape;12;13
+FEET;2;2;36;48;mage exquisite sandals;12;13
+CHEST;2;2;39;52;archmage robe;13;14
+HANDS;2;2;39;52;archmage bracelets;13;14
+HEAD;2;2;39;52;archmage cowl;13;14
+LEGS;2;2;39;52;archmage cape;13;14
+FEET;2;2;39;52;archmage sandals;13;14
+CHEST;2;2;42;56;archmage comfy robe;14;15
+HANDS;2;2;42;56;archmage comfy bracelets;14;15
+HEAD;2;2;42;56;archmage comfy cowl;14;15
+LEGS;2;2;42;56;archmage comfy cape;14;15
+FEET;2;2;42;56;archmage comfy sandals;14;15
+CHEST;2;2;45;60;archmage sturdy robe;15;16
+HANDS;2;2;45;60;archmage sturdy bracelets;15;16
+HEAD;2;2;45;60;archmage sturdy cowl;15;16
+LEGS;2;2;45;60;archmage sturdy cape;15;16
+FEET;2;2;45;60;archmage sturdy sandals;15;16
+CHEST;2;2;48;64;archmage exquisite robe;16;16
+HANDS;2;2;48;64;archmage exquisite bracelets;16;16
+HEAD;2;2;48;64;archmage exquisite cowl;16;16
+LEGS;2;2;48;64;archmage exquisite cape;16;16
+FEET;2;2;48;64;archmage exquisite sandals;16;16
+CHEST;2;0;4;2;gladiator top;1;2
+HANDS;2;0;4;2;gladiator wrist straps;1;2
+HEAD;2;0;4;2;gladiator mask;1;2
+LEGS;2;0;4;2;gladiator pantaloons;1;2
+FEET;2;0;4;2;gladiator boots;1;2
+CHEST;2;0;8;4;comfy gladiator top;2;3
+HANDS;2;0;8;4;comfy gladiator wrist straps;2;3
+HEAD;2;0;8;4;comfy gladiator mask;2;3
+LEGS;2;0;8;4;comfy gladiator pantaloons;2;3
+FEET;2;0;8;4;comfy gladiator boots;2;3
+CHEST;2;0;12;6;sturdy gladiator top;3;4
+HANDS;2;0;12;6;sturdy gladiator wrist straps;3;4
+HEAD;2;0;12;6;sturdy gladiator mask;3;4
+LEGS;2;0;12;6;sturdy gladiator pantaloons;3;4
+FEET;2;0;12;6;sturdy gladiator boots;3;4
+CHEST;2;0;16;8;exquisite gladiator top;4;4
+HANDS;2;0;16;8;exquisite gladiator wrist straps;4;4
+HEAD;2;0;16;8;exquisite gladiator mask;4;4
+LEGS;2;0;16;8;exquisite gladiator pantaloons;4;4
+FEET;2;0;16;8;exquisite gladiator boots;4;4
+CHEST;3;0;20;10;fighter top;5;6
+HANDS;3;0;20;10;fighter wrist straps;5;6
+HEAD;3;0;20;10;fighter mask;5;6
+LEGS;3;0;20;10;fighter pantaloons;5;6
+FEET;3;0;20;10;fighter boots;5;6
+CHEST;3;0;24;18;comfy fighter top;6;7
+HANDS;3;0;24;18;comfy fighter wrist straps;6;7
+HEAD;3;0;24;18;comfy fighter mask;6;7
+LEGS;3;0;24;18;comfy fighter pantaloons;6;7
+FEET;3;0;24;18;comfy fighter boots;6;7
+CHEST;3;0;28;21;sturdy fighter top;7;8
+HANDS;3;0;28;21;sturdy fighter wrist straps;7;8
+HEAD;3;0;28;21;sturdy fighter mask;7;8
+LEGS;3;0;28;21;sturdy fighter pantaloons;7;8
+FEET;3;0;28;21;sturdy fighter boots;7;8
+CHEST;3;0;32;24;exquisite fighter top;8;9
+HANDS;3;0;32;24;exquisite fighter wrist straps;8;9
+HEAD;3;0;32;24;exquisite fighter mask;8;9
+LEGS;3;0;32;24;exquisite fighter pantaloons;8;9
+FEET;4;0;32;24;exquisite fighter boots;8;9
+CHEST;4;1;36;27;warrior top;9;10
+HANDS;4;1;36;27;warrior wrist straps;9;10
+HEAD;4;1;36;27;warrior mask;9;10
+LEGS;4;1;36;27;warrior pantaloons;9;10
+FEET;4;1;36;27;warrior boots;9;10
+CHEST;4;1;40;30;comfy warrior top;10;11
+HANDS;4;1;40;30;comfy warrior wrist straps;10;11
+HEAD;4;1;40;30;comfy warrior mask;10;11
+LEGS;4;1;40;30;comfy warrior pantaloons;10;11
+FEET;4;1;40;30;comfy warrior boots;10;11
+CHEST;4;1;44;33;sturdy warrior top;11;12
+HANDS;4;1;44;33;sturdy warrior wrist straps;11;12
+HEAD;4;1;44;33;sturdy warrior mask;11;12
+LEGS;4;1;44;33;sturdy warrior pantaloons;11;12
+FEET;4;1;44;33;sturdy warrior boots;11;12
+CHEST;4;1;48;36;exquisite warrior top;12;13
+HANDS;4;1;48;36;exquisite warrior wrist straps;12;13
+HEAD;4;1;48;36;exquisite warrior mask;12;13
+LEGS;4;1;48;36;exquisite warrior pantaloons;12;13
+FEET;4;1;48;36;exquisite warrior boots;12;13
+CHEST;5;1;52;39;gladiator top;13;14
+HANDS;5;1;52;39;gladiator wrist straps;13;14
+HEAD;5;1;52;39;gladiator mask;13;14
+LEGS;5;1;52;39;gladiator pantaloons;13;14
+FEET;5;1;52;39;gladiator boots;13;14
+CHEST;5;1;56;42;comfy gladiator top;14;15
+HANDS;5;1;56;42;comfy gladiator wrist straps;14;15
+HEAD;5;1;56;42;comfy gladiator mask;14;15
+LEGS;5;1;56;42;comfy gladiator pantaloons;14;15
+FEET;5;1;56;42;comfy gladiator boots;14;15
+CHEST;5;1;60;45;sturdy gladiator top;15;16
+HANDS;5;1;60;45;sturdy gladiator wrist straps;15;16
+HEAD;5;1;60;45;sturdy gladiator mask;15;16
+LEGS;5;1;60;45;sturdy gladiator pantaloons;15;16
+FEET;5;1;60;45;sturdy gladiator boots;15;16
+CHEST;5;1;64;48;exquisite gladiator top;16;16
+HANDS;5;1;64;48;exquisite gladiator wrist straps;16;16
+HEAD;5;1;64;48;exquisite gladiator mask;16;16
+LEGS;5;1;64;48;exquisite gladiator pantaloons;16;16
+FEET;5;1;64;48;exquisite gladiator boots;16;16

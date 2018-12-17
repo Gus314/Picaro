@@ -1,7 +1,25 @@
-MinLevel;MaxLevel;Name;WeaponModificationType;Amount;
-1;4;wooden anvil;DAMAGE;2
-1;4;wooden anvil;INTELLIGENCE;2
-1;4;wooden anvil;CRITCHANCE;1
-1;4;wooden anvil;DAMAGE;-2
-1;4;wooden anvil;INTELLIGENCE;-2
-1;4;wooden anvil;CRITCHANCE;-1
+MinLevel;MaxLevel;Name;WeaponModificationType;Amount
+1;4;wood anvil;DAMAGE;2
+1;4;wood anvil;INTELLIGENCE;2
+1;4;wood anvil;CRITCHANCE;1
+1;4;wood anvil;DAMAGE;-2
+1;4;wood anvil;INTELLIGENCE;-2
+1;4;wood anvil;CRITCHANCE;-1
+5;8;bronze anvil;DAMAGE;4
+5;8;bronze anvil;INTELLIGENCE;4
+5;8;bronze anvil;CRITCHANCE;2
+5;8;bronze anvil;DAMAGE;-4
+5;8;bronze anvil;INTELLIGENCE;-4
+5;8;bronze anvil;CRITCHANCE;-2
+9;12;iron anvil;DAMAGE;6
+9;12;iron anvil;INTELLIGENCE;6
+9;12;iron anvil;CRITCHANCE;3
+9;12;iron anvil;DAMAGE;-6
+9;12;iron anvil;INTELLIGENCE;-6
+9;12;iron anvil;CRITCHANCE;-3
+13;16;gold anvil;DAMAGE;8
+13;16;gold anvil;INTELLIGENCE;8
+13;16;gold anvil;CRITCHANCE;4
+13;16;gold anvil;DAMAGE;-8
+13;16;gold anvil;INTELLIGENCE;-8
+13;16;gold anvil;CRITCHANCE;-4
