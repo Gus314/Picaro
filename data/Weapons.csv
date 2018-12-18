@@ -1,33 +1,65 @@
-MinDam;MaxDam;Crit;Int;Name;Range;MinLevel;MaxLevel;Notes;
-12;14;5;2;sword1;1;1;1;allround;
-12;14;10;1;spear1;1;1;2;critdamage;
-12;14;0;1;bow1;4;1;2;rangedamage;
-11;14;10;1;crossbow1;4;1;3;rangecrit;
-11;12;0;4;staff1;1;1;3;magrange;
-11;14;20;1;dagger1;1;1;4;highcrit;
-13;14;0;1;axe1;1;1;4;damage;
-12;14;0;4;sceptre1;4;1;1;magattack;
-19;22;5;5;sword2;1;2;2;;
-18;22;10;3;spear2;1;2;3;;
-19;22;0;3;bow2;4;2;3;;
-18;22;10;3;crossbow2;4;2;4;;
-17;19;0;7;staff2;1;2;4;;
-18;21;20;3;dagger2;1;2;4;;
-20;22;0;3;axe2;1;2;4;;
-18;20;0;7;sceptre2;4;2;2;;
-26;29;5;6;sword3;1;3;3;;
-26;29;10;4;spear3;1;3;4;;
-26;29;0;4;bow3;4;3;4;;
-25;29;10;4;crossbow3;4;3;4;;
-23;25;0;9;staff3;1;3;4;;
-25;27;20;4;dagger3;1;3;4;;
-27;29;0;4;axe3;1;3;4;;
-26;29;0;9;sceptre3;4;3;3;;
-33;36;5;5;sword4;1;4;4;;
-32;36;10;5;spear4;1;4;4;;
-33;36;0;5;bow4;4;4;4;;
-32;36;10;5;crossbow4;4;4;4;;
-29;31;0;11;staff4;1;4;4;;
-32;34;20;5;dagger4;1;4;4;;
-34;36;0;5;axe4;1;4;4;;
-32;34;0;11;sceptre4;4;4;4;;
+MinDam;MaxDam;Crit;Int;Name;Range;MinLevel;MaxLevel;Notes
+13;15;5;6;wooden sword;1;1;2;allround
+10;11;0;12;wooden staff;1;1;2;mag
+12;14;10;4;wooden dagger;1;1;2;highcrit
+16;18;0;2;wooden axe;1;1;2;damage
+16;18;5;8;fine wooden sword;1;2;3;allround
+12;13;0;11;fine wooden staff;1;2;3;mag
+15;17;10;7;fine wooden dagger;1;2;3;highcrit
+20;22;0;4;fine wooden axe;1;2;3;damage
+20;22;5;10;fine wooden sword;1;3;4;allround
+14;16;0;13;superior wooden staff;1;3;4;mag
+18;20;10;8;superior wooden dagger;1;3;4;highcrit
+24;27;0;5;superior wooden axe;1;3;4;damage
+24;27;5;12;exceptional wooden sword;1;4;5;allround
+17;19;0;16;exceptional wooden staff;1;4;5;mag
+22;25;10;10;exceptional wooden dagger;1;4;5;highcrit
+29;33;0;6;exceptional wooden axe;1;4;5;damage
+29;33;5;15;bronze sword;1;5;6;allround
+21;24;0;20;bronze staff;1;5;6;mag
+27;30;10;12;bronze dagger;1;5;6;highcrit
+35;40;0;8;bronze axe;1;5;6;damage
+35;40;5;18;fine bronze sword;1;6;7;allround
+25;28;0;24;fine bronze staff;1;6;7;mag
+32;36;10;15;fine bronze dagger;1;6;7;highcrit
+42;48;0;9;fine bronze axe;1;6;7;damage
+42;48;5;22;fine bronze sword;1;7;8;allround
+30;34;0;29;superior bronze staff;1;7;8;mag
+38;44;10;18;superior bronze dagger;1;7;8;highcrit
+51;58;0;11;superior bronze axe;1;7;8;damage
+51;58;5;27;exceptional bronze sword;1;8;9;allround
+36;41;0;36;exceptional bronze staff;1;8;9;mag
+46;53;10;22;exceptional bronze dagger;1;8;9;highcrit
+62;70;0;14;exceptional bronze axe;1;8;9;damage
+62;70;5;33;iron sword;1;9;10;allround
+44;49;0;43;iron staff;1;9;10;mag
+56;63;10;27;iron dagger;1;9;10;highcrit
+75;84;0;17;iron axe;1;9;10;damage
+75;84;5;40;fine iron sword;1;10;11;allround
+53;59;0;52;fine iron staff;1;10;11;mag
+68;76;10;32;fine iron dagger;1;10;11;highcrit
+90;101;0;20;fine iron axe;1;10;11;damage
+90;101;5;48;fine iron sword;1;11;12;allround
+63;71;0;63;superior iron staff;1;11;12;mag
+81;91;10;39;superior iron dagger;1;11;12;highcrit
+108;122;0;24;superior iron axe;1;11;12;damage
+108;122;5;58;exceptional iron sword;1;12;13;allround
+76;86;0;76;exceptional iron staff;1;12;13;mag
+98;110;10;47;exceptional iron dagger;1;12;13;highcrit
+130;147;0;29;exceptional iron axe;1;12;13;damage
+130;147;5;70;steel sword;1;13;14;allround
+91;103;0;91;steel staff;1;13;14;mag
+117;133;10;56;steel dagger;1;13;14;highcrit
+156;177;0;35;steel axe;1;13;14;damage
+156;177;5;84;fine steel sword;1;14;15;allround
+110;124;0;110;fine steel staff;1;14;15;mag
+141;160;10;68;fine steel dagger;1;14;15;highcrit
+188;213;0;42;fine steel axe;1;14;15;damage
+188;213;5;101;fine steel sword;1;15;16;allround
+132;150;0;132;superior steel staff;1;15;16;mag
+170;192;10;81;superior steel dagger;1;15;16;highcrit
+226;256;0;51;superior steel axe;1;15;16;damage
+226;256;5;122;exceptional steel sword;1;16;16;allround
+159;180;0;159;exceptional steel staff;1;16;16;mag
+204;231;10;98;exceptional steel dagger;1;16;16;highcrit
+272;308;0;61;exceptional steel axe;1;16;16;damage

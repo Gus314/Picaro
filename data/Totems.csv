@@ -1,5 +1,17 @@
 Faction;Life;Defense;BlockChance;AbsorbChance;Range;Name;Exp;MagicDefense;MinLevel;MaxLevel;Status
-FOE;50;10;0;0;8;groggy obelisk;0;10;1;4;GROGGY
-FOE;60;12;0;0;8;recklessness obelisk;0;12;2;4;RECKLESS
-FOE;74;16;0;0;8;naive obelisk;0;18;3;4;NAIVE
-FOE;92;15;0;0;8;poison obelisk;0;15;4;4;POISON
+FOE;50;10;0;0;8;wooden groggy obelisk;0;10;1;4;GROGGY
+FOE;60;12;0;0;8;wooden recklessness obelisk;0;12;2;4;RECKLESS
+FOE;74;16;0;0;8;wooden naive obelisk;0;18;3;4;NAIVE
+FOE;92;15;0;0;8;wooden poison obelisk;0;15;4;4;POISON
+FOE;75;15;0;0;8;bronze groggy obelisk;0;15;5;8;GROGGY
+FOE;90;18;0;0;8;bronze recklessness obelisk;0;18;6;8;RECKLESS
+FOE;111;24;0;0;8;bronze naive obelisk;0;27;7;8;NAIVE
+FOE;138;23;0;0;8;bronze poison obelisk;0;23;8;8;POISON
+FOE;113;23;0;0;8;silver groggy obelisk;0;23;9;12;GROGGY
+FOE;135;27;0;0;8;silver recklessness obelisk;0;27;10;12;RECKLESS
+FOE;167;36;0;0;8;silver naive obelisk;0;41;11;12;NAIVE
+FOE;207;35;0;0;8;silver poison obelisk;0;35;12;12;POISON
+FOE;170;35;0;0;8;gold groggy obelisk;0;35;13;16;GROGGY
+FOE;203;41;0;0;8;gold recklessness obelisk;0;41;14;16;RECKLESS
+FOE;251;54;0;0;8;gold naive obelisk;0;62;15;16;NAIVE
+FOE;311;53;0;0;8;gold poison obelisk;0;53;16;16;POISON
