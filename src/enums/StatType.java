@@ -3,6 +3,7 @@ package enums;
 public enum StatType
 {
     DEFENSE,
+    MAGICDEFENSE,
     LIFE,
     MINDAMAGE,
     MAXDAMAGE,

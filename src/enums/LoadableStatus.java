@@ -9,5 +9,15 @@ public enum LoadableStatus
     POISON,
     SHELL,
     SHIELD,
-    BLEED
+    BLEED,
+    RAMPUP,
+    COOLDOWN,
+    ZEN,
+    STUDIED,
+    MUTE,
+    BLIND,
+    EXPOSED,
+    CYNICAL,
+    STRONG,
+    WISE
 }

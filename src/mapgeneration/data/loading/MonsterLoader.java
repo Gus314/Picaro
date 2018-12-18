@@ -93,7 +93,7 @@ public class MonsterLoader
         for(String skillName: skillNames)
         {
             String skillId = (String) entry.get(skillName);
-            if(skillId.length() > 0)
+            if(skillId.length() > 1)
             {
                 Skill skill = skillProvider.get(LoadableSkill.valueOf(skillId));
                 skills.add(skill);

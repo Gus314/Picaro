@@ -35,6 +35,10 @@ public class CsvLoader
                     else
                     {
                         value = lineScanner.next().replace('_', ' ');
+                        if(value.equals("_"))
+                        {
+                            continue;
+                        }
                     }
                     next.put(name, value);
                 }
