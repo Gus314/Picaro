@@ -27,7 +27,10 @@ public class ItemPanel extends JPanel implements IItemProvider
     private InventoryWindow inventoryWindow;
     private Map map;
     private static final int itemsPerPage = 10;
-    private static final String[] columnNames = {"Item Name", "Type", "Min", "Max", "Crit Chance", "Intelligence", "Defense", "Magic Defense", "Block", "Absorb"};
+    private static final String[] weaponColumnNames = {"Name", "Min Damage", "Max Damage", "Crit Chance", "Intelligence"};
+    private static final String[] armourColumnNames = {"Name", "Type", "Defense", "Magic Defense", "Block", "Absorb"};
+    private static final String[] relicColumnNames = {"Name", "Status Effect"};
+    private static final String[] consumableColumnNames = {"Name", "Type", "Amount"};
     private java.util.List<Item> items;
     private JRadioButton weaponsButton;
     private JRadioButton armourButton;
@@ -100,7 +103,7 @@ public class ItemPanel extends JPanel implements IItemProvider
         itemPanel.add(filterPanel, constraints);
 
         itemsTable = new JTable();
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        DefaultTableModel model = new DefaultTableModel(weaponColumnNames, 0);
         itemsTable.setModel(model);
         itemsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         constraints.fill = GridBagConstraints.BOTH;
@@ -155,6 +158,11 @@ public class ItemPanel extends JPanel implements IItemProvider
             }
         }
 
+        String[] columnNames = weaponsButton.isSelected() ? weaponColumnNames :
+                armourButton.isSelected() ? armourColumnNames :
+                        consumablesButton.isSelected() ? consumableColumnNames :
+                                relicColumnNames; // Assume relicsButton selected.
+
         DefaultTableModel model = new DefaultTableModel(columnNames, items.size());
         itemsTable.setModel(model);
 
@@ -167,53 +175,30 @@ public class ItemPanel extends JPanel implements IItemProvider
                 if(item instanceof Weapon)
                 {
                     Weapon wItem = (Weapon) item;
-                    itemsTable.setValueAt("Weapon", itemNum, 1);
-                    itemsTable.setValueAt(wItem.getMinDamage(), itemNum, 2);
-                    itemsTable.setValueAt(wItem.getMaxDamage(), itemNum, 3);
-                    itemsTable.setValueAt(wItem.getCritChance(), itemNum, 4);
-                    itemsTable.setValueAt(wItem.getIntelligence(), itemNum, 5);
-                    itemsTable.setValueAt(0, itemNum, 5);
-                    itemsTable.setValueAt(0, itemNum, 6);
-                    itemsTable.setValueAt(0, itemNum, 7);
-                    itemsTable.setValueAt(0, itemNum, 8);
-                    itemsTable.setValueAt(0, itemNum, 9);
+                    itemsTable.setValueAt(wItem.getMinDamage(), itemNum, 1);
+                    itemsTable.setValueAt(wItem.getMaxDamage(), itemNum, 2);
+                    itemsTable.setValueAt(wItem.getCritChance(), itemNum, 3);
+                    itemsTable.setValueAt(wItem.getIntelligence(), itemNum, 4);
                 }
                 else if(item instanceof Armour)
                 {
                     Armour aItem= (Armour) item;
-                    itemsTable.setValueAt("Armour", itemNum, 1);
-                    itemsTable.setValueAt(0, itemNum, 2);
-                    itemsTable.setValueAt(0, itemNum, 3);
-                    itemsTable.setValueAt(0, itemNum, 4);
-                    itemsTable.setValueAt(0, itemNum, 5);
-                    itemsTable.setValueAt(aItem.getDefense(), itemNum, 6);
-                    itemsTable.setValueAt(aItem.getMagicDefense(), itemNum, 7);
-                    itemsTable.setValueAt(aItem.getBlockChance(), itemNum, 8);
-                    itemsTable.setValueAt(aItem.getAbsorbChance(), itemNum, 9);
+                    itemsTable.setValueAt(aItem.getArmourType().toString(), itemNum, 1);
+                    itemsTable.setValueAt(aItem.getDefense(), itemNum, 2);
+                    itemsTable.setValueAt(aItem.getMagicDefense(), itemNum, 3);
+                    itemsTable.setValueAt(aItem.getBlockChance(), itemNum, 4);
+                    itemsTable.setValueAt(aItem.getAbsorbChance(), itemNum, 5);
                 }
                 else if(item instanceof Consumable)
                 {
-                    itemsTable.setValueAt("Consumable", itemNum, 1);
-                    itemsTable.setValueAt(0, itemNum, 2);
-                    itemsTable.setValueAt(0, itemNum, 3);
-                    itemsTable.setValueAt(0, itemNum, 4);
-                    itemsTable.setValueAt(0, itemNum, 5);
-                    itemsTable.setValueAt(0, itemNum, 6);
-                    itemsTable.setValueAt(0, itemNum, 7);
-                    itemsTable.setValueAt(0, itemNum, 8);
-                    itemsTable.setValueAt(0, itemNum, 9);
+                    Consumable cItem = (Consumable) item;
+                    itemsTable.setValueAt(cItem.getType().toString(), itemNum, 1);
+                    itemsTable.setValueAt(cItem.getAmount(), itemNum, 2);
                 }
                 else if(item instanceof Relic)
                 {
-                    itemsTable.setValueAt("Relic", itemNum, 1);
-                    itemsTable.setValueAt(0, itemNum, 2);
-                    itemsTable.setValueAt(0, itemNum, 3);
-                    itemsTable.setValueAt(0, itemNum, 4);
-                    itemsTable.setValueAt(0, itemNum, 5);
-                    itemsTable.setValueAt(0, itemNum, 6);
-                    itemsTable.setValueAt(0, itemNum, 7);
-                    itemsTable.setValueAt(0, itemNum, 8);
-                    itemsTable.setValueAt(0, itemNum, 9);
+                    Relic rItem = (Relic) item;
+                    itemsTable.setValueAt(rItem.getStatusEffect().getName(), itemNum, 1);
                 }
                 itemNum++;
             }

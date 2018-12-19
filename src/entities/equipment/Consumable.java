@@ -19,7 +19,17 @@ public class Consumable extends Item
 		player = inPlayer;
 		messages = inMessages;
 	}
-	
+
+	public int getAmount()
+	{
+		return amount;
+	}
+
+	public ConsumableType getType()
+	{
+		return type;
+	}
+
 	public void consume()
 	{
 		switch(type)
