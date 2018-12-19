@@ -7,6 +7,9 @@ import entities.*;
 import entities.creatures.Creature;
 import entities.creatures.Monster;
 import entities.creatures.Player;
+import entities.equipment.Item;
+import entities.furniture.Furniture;
+import enums.Faction;
 import skills.AreaSkill;
 import skills.FloorSkill;
 import skills.Skill;
@@ -463,6 +466,36 @@ public class MapDisplay extends JPanel
 		}
 	}
 
+	private static Color determineForegroundColour(Entity ent)
+	{
+		if(ent instanceof Floor || ent instanceof  Wall || ent instanceof DownStairs || ent instanceof UpStairs)
+		{
+			return Color.WHITE;
+		}
+		else if(ent instanceof Monster)
+		{
+			boolean foe = ((Monster) ent).getFaction().equals(Faction.FOE);
+			return foe ? Color.RED : Color.GREEN;
+		}
+		else if(ent instanceof  Player)
+		{
+			return Color.GREEN;
+		}
+		else if(ent instanceof Furniture)
+		{
+			return Color.CYAN;
+		}
+		else if(ent instanceof Item)
+		{
+			return Color.YELLOW;
+		}
+		else
+		{
+			System.out.println("MapDisplay::determineForegroundColor() - unexpected entity type.");
+			return Color.WHITE;
+		}
+	}
+
 
 	public void refresh()
 	{
@@ -513,6 +546,7 @@ public class MapDisplay extends JPanel
 			}
 			else if(cells.get(position).getText().equals(blank)|| cells.get(position).getText().contains((new Floor(0, 0)).getChar().toString()))
 			{
+				cells.get(position).setForeground(determineForegroundColour(ent));
 				cells.get(position).setText(ent.getChar().toString());
 			}
 
