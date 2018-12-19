@@ -19,5 +19,6 @@ public enum LoadableStatus
     EXPOSED,
     CYNICAL,
     STRONG,
-    WISE
+    WISE,
+    LEARNHEAL,
 }

@@ -2,6 +2,7 @@ package mapgeneration.data.providers;
 
 import entities.creatures.Creature;
 import enums.LoadableStatus;
+import skills.player.Heal;
 import statuses.*;
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class StatusProvider
         statuses.put(LoadableStatus.CYNICAL, new Cynical(null, 3));
         statuses.put(LoadableStatus.STRONG, new Strong(null, 3, 2));
         statuses.put(LoadableStatus.WISE, new Wise(null, 3, 2));
+        statuses.put(LoadableStatus.LEARNHEAL, new Learn(null, new Heal()));
     }
 
     public StatusEffect get(LoadableStatus status)
