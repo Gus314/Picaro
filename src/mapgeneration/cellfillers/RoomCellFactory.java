@@ -15,4 +15,9 @@ public class RoomCellFactory implements Serializable
     {
         return new RoomCell(rows, columns, properRoomChance);
     }
+
+    public void setProperRoomChance(int inProperRoomChance)
+    {
+        properRoomChance = inProperRoomChance;
+    }
 }

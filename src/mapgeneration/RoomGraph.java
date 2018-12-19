@@ -28,6 +28,17 @@ public class RoomGraph implements Serializable
         roomCellFactory = new RoomCellFactory(inProperRoomChance);
     }
 
+    public void setRandomFloorPercentage(int inRandomFloorPercentage)
+    {
+        randomFloorPercentage = inRandomFloorPercentage;
+    }
+
+    public void setProperRoomChance(int inProperRoomChance)
+    {
+        roomCellFactory.setProperRoomChance(inProperRoomChance);
+    }
+
+
     public int getRows(){return rows;}
 
     public int getColumns(){return columns;}

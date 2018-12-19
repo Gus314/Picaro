@@ -41,6 +41,16 @@ public class MazeGenerator implements Serializable
 		downStairs = persistedMap.getDownStairs();
 	}
 
+	public void setRandomFloorPercentage(int inRandomFloorPercentage)
+	{
+		graph.setRandomFloorPercentage(inRandomFloorPercentage);
+	}
+
+	public void setProperRoomChance(int inProperRoomChance)
+	{
+		graph.setProperRoomChance(inProperRoomChance);
+	}
+
 	public Player getPlayer(){return player;}
 
 	public PersistedMap getPersistedMap()

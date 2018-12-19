@@ -21,14 +21,14 @@ public class DungeonManager
     private static final int columns = 200;
     private static final int rowCellSize = 10;
     private static final int columnCellSize = 10;
-    private static final int properRoomChance = 75;
-    private static final int randomFloorPercentage = 10;
+    private static final int baseProperRoomChance = 67;
+    private static final int baseRandomFloorPercentage = 16;
     private static final String characterFilename = "picaro.sav";
 
 	public DungeonManager(Messages inMessages, PlayerInitialData playerInitialData)
 	{
 		messages = inMessages;
-		mazeGen = new MazeGenerator(rows, columns, rowCellSize, columnCellSize, properRoomChance, randomFloorPercentage, messages);
+		mazeGen = new MazeGenerator(rows, columns, rowCellSize, columnCellSize, baseProperRoomChance, baseRandomFloorPercentage, messages);
 		player = new Player(mazeGen.getMap(), messages, playerInitialData);
 		level = 0;
 		levels = new HashMap<Integer, PersistedMap>();
@@ -42,6 +42,16 @@ public class DungeonManager
 	public int getLevel()
 	{
 		return level;
+	}
+
+	private int determineProperRoomChance(int level)
+	{
+		return baseProperRoomChance + level;
+	}
+
+	private int determineRandomFloorPercentage(int level)
+	{
+		return baseRandomFloorPercentage - level;
 	}
 
 	public DungeonManager()
@@ -109,6 +119,8 @@ public class DungeonManager
 		}
 		else
 		{
+			mazeGen.setRandomFloorPercentage(determineRandomFloorPercentage(level));
+			mazeGen.setProperRoomChance(determineProperRoomChance(level));
 			mazeGen.construct(level, player);
 			persistedMap = mazeGen.getPersistedMap();
 			levels.put(level, persistedMap);
