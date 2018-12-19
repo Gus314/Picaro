@@ -1,12 +1,14 @@
 package entities;
 
 import control.Coordinate;
+import entities.creatures.Creature;
 import entities.creatures.Monster;
 import entities.equipment.Item;
 import enums.Direction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class Entity implements Serializable

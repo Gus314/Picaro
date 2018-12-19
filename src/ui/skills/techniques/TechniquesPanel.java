@@ -37,11 +37,12 @@ public class TechniquesPanel extends JPanel implements IRefreshable
     public void refresh()
     {
         techniquesPanel.removeAll();
-        techniquesPanel.setLayout(new GridLayout(player.getTechniquesCount() + 1, 4));
+        techniquesPanel.setLayout(new GridLayout(player.getTechniquesCount() + 1, 5));
 
         techniquesPanel.add(new JLabel("Name"));
         techniquesPanel.add(new JLabel("Cost"));
         techniquesPanel.add(new JLabel("Target"));
+        techniquesPanel.add(new JLabel("Description"));
         techniquesPanel.add(new JLabel(" "));
 
         for (Skill skill : player.getSkills())
@@ -54,6 +55,7 @@ public class TechniquesPanel extends JPanel implements IRefreshable
             Integer boxedCost = skill.getCost();
             techniquesPanel.add(new JLabel(boxedCost.toString()));
             techniquesPanel.add(new JLabel(skill.getTargetType().toString()));
+            techniquesPanel.add(new JLabel(skill.getDescription().toString()));
 
             JButton actButton = new JButton("Act");
             if(skill.getCost() > player.getPhysicalPoints())

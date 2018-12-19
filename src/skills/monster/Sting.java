@@ -17,6 +17,12 @@ public class Sting extends TargetSkill implements Serializable
     private static final int range = 1;
 
     @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+    @Override
     public int getRange()
     {
         return range;

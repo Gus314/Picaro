@@ -1,4 +1,4 @@
-package skills.player;
+package skills.player.hunter;
 
 import control.Controller;
 import entities.creatures.Creature;
@@ -6,12 +6,21 @@ import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.TargetSkill;
 
-public class Bash extends TargetSkill
+import java.io.Serializable;
+
+public class Stab extends TargetSkill implements Serializable
 {
-    private static final int cost = 5;
+    private static final int cost = 4;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Bash";
+    private static final String name = "Stab";
     private static final int range = 1;
+
+    @Override
+    public String getDescription()
+    {
+        return "Attack for greatly increased damage but with no possiblity of a critical.";
+    }
+
 
     @Override
     public int getRange()
@@ -22,8 +31,13 @@ public class Bash extends TargetSkill
     @Override
     public String action(Creature source, Creature target)
     {
-        String message = "";
-        int damage = source.getMinDamage() + Controller.getGenerator().nextInt(source.getMaxDamage() - source.getMinDamage());
+        if(Controller.getGenerator().nextInt(100 - target.getBlockChance()) == 0)
+        {
+            return "Attack was blocked!";
+
+        }
+
+        int damage = source.getMinDamage() + Controller.getGenerator().nextInt(source.getMaxDamage() - source.getMinDamage()) - target.getDefense();
 
         if(Controller.getGenerator().nextInt(100 - target.getAbsorbChance()) == 0)
         {
@@ -35,16 +49,23 @@ public class Bash extends TargetSkill
                 amount = maxTargetLife - target.getLife();
             }
             target.setLife(newTargetLife);
-            return "Bash was absorbed for " + amount + " hp!";
+            return "Attack was absorbed for " + amount + " hp!";
         }
 
         int targetLife = target.getLife();
 
+        damage = damage * 2;
         String targetName = target.getName();
+
+        if(damage <= 0)
+        {
+            return targetName + " defense nullified attack!";
+        }
 
         targetLife -= damage;
         target.setLife(targetLife);
         subtractCost(source);
+
         return targetName + " took " + damage + " damage!";
     }
 

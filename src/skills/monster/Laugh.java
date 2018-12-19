@@ -11,6 +11,13 @@ import java.util.List;
 
 public class Laugh extends AreaSkill implements Serializable
 {
+    @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+
     private static final int cost = 0;
     private static final SkillType skillType = SkillType.MAGICAL;
     private static final String name = "Laugh";

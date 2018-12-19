@@ -1,4 +1,4 @@
-package skills.player;
+package skills.player.hunter;
 
 import control.Controller;
 import entities.creatures.Creature;
@@ -15,6 +15,13 @@ public class PoisonDart extends TargetSkill implements Serializable
     private static final SkillType skillType = SkillType.PHYSICAL;
     private static final String name = "Poison Dart";
     private static final int range = 4;
+
+    @Override
+    public String getDescription()
+    {
+        return "Damage and attempt to poison the enemy.";
+    }
+
 
     @Override
     public int getRange()

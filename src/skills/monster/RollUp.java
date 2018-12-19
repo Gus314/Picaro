@@ -11,6 +11,13 @@ import java.io.Serializable;
 public class RollUp extends SelfSkill implements Serializable
 {
     @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+
+    @Override
     public String action(Creature source)
     {
         int duration = 3;

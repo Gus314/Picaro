@@ -11,6 +11,13 @@ import java.io.Serializable;
 
 public class PoisonFang extends TargetSkill implements Serializable
 {
+    @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+
     private static final int cost = 4;
     private static final SkillType skillType = SkillType.MAGICAL;
     private static final String name = "Poison Fang";

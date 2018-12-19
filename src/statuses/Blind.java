@@ -6,7 +6,7 @@ import enums.StatType;
 import java.io.Serializable;
 
 // Note that the effect of blindness is dealt with using line of sight checks.
-public class Blind extends StatusEffect implements Serializable
+public class Blind extends TemporaryStatusEffect implements Serializable
 {
     private static final String name = "Blind";
     private static final String description = "Lose sight.";
@@ -16,9 +16,9 @@ public class Blind extends StatusEffect implements Serializable
         super(original);
     }
 
-    public Blind(Creature inTarget)
+    public Blind(Creature inTarget, int inDuration)
     {
-        super(name, description, inTarget);
+        super(name, description, inTarget, inDuration);
     }
 
     public @Override String action()

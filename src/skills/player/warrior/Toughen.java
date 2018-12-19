@@ -1,4 +1,4 @@
-package skills.player;
+package skills.player.warrior;
 
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
@@ -11,14 +11,20 @@ import java.io.Serializable;
 public class Toughen extends SelfSkill implements Serializable
 {
     @Override
+    public String getDescription()
+    {
+        return "Increase magic defence";
+    }
+
+    @Override
     public String action(Creature source)
     {
-        int duration = 4;
-        int intensity = 5;
+        int duration = 5;
+        int intensity = (int) Math.ceil(source.getMagicDefense()*0.2);
         Shell shell = new Shell(source, duration, intensity);
         source.addStatusEffect(shell);
         subtractCost(source);
-        return source.getName() + " readies to receive attacks, increasing defence.";
+        return source.getName() + " readies to receive attacks, increasing magic defence.";
     }
 
     @Override

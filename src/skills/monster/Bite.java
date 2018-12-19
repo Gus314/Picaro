@@ -10,6 +10,12 @@ import java.io.Serializable;
 
 public class Bite extends TargetSkill implements Serializable
 {
+    @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
     private static final int cost = 3;
     private static final SkillType skillType = SkillType.PHYSICAL;
     private static final String name = "Bite";

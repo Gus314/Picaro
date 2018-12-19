@@ -15,6 +15,13 @@ import java.util.Collection;
 
 public class RequestAid extends SummonSkill implements Serializable
 {
+    @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+
     public RequestAid(String inSummonName)
     {
         setSummonName(inSummonName);

@@ -1,4 +1,4 @@
-package skills.player;
+package skills.player.mage;
 
 import control.Controller;
 import entities.creatures.Creature;
@@ -16,6 +16,13 @@ public class Fireball extends AreaSkill implements Serializable
     private static final int cost = 6;
     private static final SkillType skillType = SkillType.MAGICAL;
     private static final String name = "Fireball";
+
+    @Override
+    public String getDescription()
+    {
+        return "Damage all enemies within a radius with a ball of fire.";
+    }
+
 
     @Override
     public int getRange()

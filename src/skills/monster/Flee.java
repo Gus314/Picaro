@@ -12,6 +12,13 @@ import java.io.Serializable;
 public class Flee extends SelfSkill implements Serializable
 {
     @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+
+    @Override
     public String action(Creature source)
     {
         Map map = source.getMap();

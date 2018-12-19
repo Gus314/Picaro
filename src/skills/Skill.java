@@ -12,6 +12,7 @@ public abstract class Skill
     public abstract String getName();
     public abstract TargetType getTargetType();
     public abstract SkillBehaviour getSkillBehaviour();
+    public abstract String getDescription();
 
     protected void subtractCost(Creature source)
     {

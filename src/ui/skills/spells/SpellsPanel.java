@@ -38,11 +38,12 @@ public class SpellsPanel extends JPanel implements IRefreshable
     public void refresh()
     {
         spellsPanel.removeAll();
-        spellsPanel.setLayout(new GridLayout(player.getSpellsCount() + 1, 4));
+        spellsPanel.setLayout(new GridLayout(player.getSpellsCount() + 1, 5));
 
         spellsPanel.add(new JLabel("Name"));
         spellsPanel.add(new JLabel("Cost"));
         spellsPanel.add(new JLabel("Target"));
+        spellsPanel.add(new JLabel("Description"));
         spellsPanel.add(new JLabel(" "));
 
         for (Skill skill : player.getSkills())
@@ -55,6 +56,7 @@ public class SpellsPanel extends JPanel implements IRefreshable
             Integer boxedCost = skill.getCost();
             spellsPanel.add(new JLabel(boxedCost.toString()));
             spellsPanel.add(new JLabel(skill.getTargetType().toString()));
+            spellsPanel.add(new JLabel(skill.getDescription()));
 
             JButton castButton = new JButton("Cast");
             if(skill.getCost() > player.getMagicPoints())

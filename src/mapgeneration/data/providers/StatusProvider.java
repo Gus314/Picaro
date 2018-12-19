@@ -1,8 +1,7 @@
 package mapgeneration.data.providers;
 
-import entities.creatures.Creature;
 import enums.LoadableStatus;
-import skills.player.Heal;
+import skills.player.mage.Heal;
 import statuses.*;
 
 import java.util.HashMap;

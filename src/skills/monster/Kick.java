@@ -10,6 +10,13 @@ import java.io.Serializable;
 
 public class Kick extends TargetSkill implements Serializable
 {
+    @Override
+    public String getDescription()
+    {
+        return "Monster skill";
+    }
+
+
     private static final int cost = 7;
     private static final SkillType skillType = SkillType.MAGICAL;
     private static final String name = "Kick";
