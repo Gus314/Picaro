@@ -18,16 +18,37 @@ public class GameOver extends JPanel
     {
         root = inRoot;
 
-        setLayout(new GridLayout(2, 1));
+        setLayout(new GridBagLayout());
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 1;
+        constraints.weighty = 2;
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+
+        JLabel gameOverLabel = new JLabel("Game Over");
+        add(gameOverLabel, constraints);
+
         graveTable = new JTable();
         DefaultTableModel model = new DefaultTableModel(columnNames, 1);
         graveTable.setModel(model);
         JScrollPane graveTablePane = new JScrollPane(graveTable);
-        add(graveTablePane);
+
+        constraints.weightx = 1;
+        constraints.weighty = 10;
+        constraints.gridx = 1;
+        constraints.gridy = 2;
+
+        add(graveTablePane, constraints);
 
         JButton okButton = new JButton("Ok");
         okButton.addActionListener(new OkListener());
-        add(okButton);
+
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        constraints.gridx = 1;
+        constraints.gridy = 3;
+        add(okButton,constraints);
 
     }
 
