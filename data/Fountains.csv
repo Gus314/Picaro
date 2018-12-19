@@ -38,7 +38,7 @@ MinLevel;MaxLevel;Name;Status;;;
 13;16;gold fountain;COOLDOWN;;;
 13;16;gold fountain;STUDIED;;;
 13;16;gold fountain;MUTE;;;
-13;16;gold fountain;BLIND;;;
+13;16;gold fountain;WEAK;;;
 13;16;gold fountain;EXPOSED;;;
 13;16;gold fountain;CYNICAL;;;
 13;16;gold fountain;ZEN;;;

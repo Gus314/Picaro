@@ -38,7 +38,7 @@ FOE;592;128;0;0;8;gold rampup obelisk;0;144;13;16;RAMPUP;;;;
 FOE;736;120;0;0;8;gold cooldown obelisk;0;120;13;16;COOLDOWN;;;;
 FOE;400;80;0;0;8;gold studied obelisk;0;80;13;16;STUDIED;;;;
 FOE;480;96;0;0;8;gold mute obelisk;0;96;13;16;MUTE;;;;
-FOE;592;128;0;0;8;gold blind obelisk;0;144;13;16;BLIND;;;;
+FOE;592;128;0;0;8;gold weak obelisk;0;144;13;16;WEAK;;;;
 FOE;736;120;0;0;8;gold exposed obelisk;0;120;13;16;EXPOSED;;;;
 FOE;400;80;0;0;8;gold cynical obelisk;0;80;13;16;CYNICAL;;;;
 FOE;480;96;0;0;8;gold zen obelisk;0;96;13;16;ZEN;;;;

@@ -15,7 +15,7 @@ public enum LoadableStatus
     ZEN,
     STUDIED,
     MUTE,
-    BLIND,
+    WEAK,
     EXPOSED,
     CYNICAL,
     STRONG,

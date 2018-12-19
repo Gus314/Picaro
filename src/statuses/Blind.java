@@ -1,34 +1,34 @@
 package statuses;
 
 import entities.creatures.Creature;
+import enums.StatType;
 
 import java.io.Serializable;
 
-public class Blind extends TemporaryStatusEffect implements Serializable
+// Note that the effect of blindness is dealt with using line of sight checks.
+public class Blind extends StatusEffect implements Serializable
 {
     private static final String name = "Blind";
-    private static final String description = "Lose all pp.";
+    private static final String description = "Lose sight.";
 
     public Blind(Blind original)
     {
         super(original);
     }
 
-    public Blind(Creature inTarget, int inDuration)
+    public Blind(Creature inTarget)
     {
-        super(name, description, inTarget, inDuration);
+        super(name, description, inTarget);
     }
 
     public @Override String action()
     {
-        getTarget().setPhysicalPoints(0);
         return "";
     }
 
     @Override
     public String onApplication()
     {
-        getTarget().setPhysicalPoints(0);
         return getTarget().getName() + " has gone blind.";
     }
 

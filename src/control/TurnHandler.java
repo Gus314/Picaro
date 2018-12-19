@@ -111,7 +111,11 @@ public class TurnHandler
         List<Entity> here = map.atPosition(Coordinate.adjustRow(direction, row), Coordinate.adjustColumn(direction, column));
         if(Entity.passable(here))
         {
-            player.move(direction, 1);
+            if(!player.isStunned())
+            {
+                // Stunned players cannot move but will lose their turn trying.
+                player.move(direction, 1);
+            }
         }
         else if(Entity.containsMonster(here))
         {
