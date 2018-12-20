@@ -12,4 +12,14 @@ public enum LoadableSkill
     DODGE,
     KICK,
     LAUGH,
+    SOAR,
+    BURYHEAD,
+    GORE,
+    SET,
+    DIG,
+    MAUL,
+    HOWL,
+    ROAR,
+    TRUMPET,
+    CLAW
 }

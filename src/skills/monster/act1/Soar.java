@@ -1,4 +1,4 @@
-package skills.player.warrior;
+package skills.monster.act1;
 
 import control.Controller;
 import entities.Entity;
@@ -11,19 +11,18 @@ import skills.TargetSkill;
 
 import java.util.Collection;
 
-public class Dash extends FloorSkill
+public class Soar extends FloorSkill
 {
     @Override
     public String getDescription()
     {
-        return "Dash across the floor.";
+        return "Soar to a new position.";
     }
-
 
     private static final int cost = 5;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Dash";
-    private static final int range = 7;
+    private static final String name = "Soar";
+    private static final int range = 16;
 
     @Override
     public int getRange()
@@ -37,7 +36,7 @@ public class Dash extends FloorSkill
         source.setRow(floor.getRow());
         source.setColumn(floor.getColumn());
         subtractCost(source);
-        return source.getName() + " dashed across the floor.";
+        return source.getName() + " soared.";
     }
 
     @Override
@@ -61,7 +60,7 @@ public class Dash extends FloorSkill
     @Override
     public SkillBehaviour getSkillBehaviour()
     {
-        return SkillBehaviour.ATTACK;
+        return SkillBehaviour.SUPPORT;
     }
 }
 

@@ -1,4 +1,4 @@
-package skills.monster;
+package skills.monster.act1;
 
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
@@ -18,7 +18,7 @@ public class Laugh extends AreaSkill implements Serializable
     }
 
 
-    private static final int cost = 0;
+    private static final int cost = 5;
     private static final SkillType skillType = SkillType.MAGICAL;
     private static final String name = "Laugh";
     private static final int range = 4;

@@ -1,29 +1,27 @@
-package skills.player.warrior;
+package skills.monster.act1;
 
 import control.Controller;
-import entities.Entity;
-import entities.Floor;
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
-import enums.SkillType;
-import skills.FloorSkill;
 import skills.TargetSkill;
+import statuses.Bleed;
+import enums.SkillType;
+import statuses.Stun;
 
-import java.util.Collection;
+import java.io.Serializable;
 
-public class Dash extends FloorSkill
+public class Trumpet extends TargetSkill implements Serializable
 {
+    private static final int cost = 5;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Trumpet";
+    private static final int range = 5;
+
     @Override
     public String getDescription()
     {
-        return "Dash across the floor.";
+        return "Monster skill";
     }
-
-
-    private static final int cost = 5;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Dash";
-    private static final int range = 7;
 
     @Override
     public int getRange()
@@ -32,12 +30,14 @@ public class Dash extends FloorSkill
     }
 
     @Override
-    public String action(Creature source, Floor floor, Collection<Entity> additions)
+    public String action(Creature source, Creature target)
     {
-        source.setRow(floor.getRow());
-        source.setColumn(floor.getColumn());
+        String message = source.getName() + " trumpeted at " + target.getName();
+        Stun stun = new Stun(target, 3);
+        target.addStatusEffect(stun);
         subtractCost(source);
-        return source.getName() + " dashed across the floor.";
+
+        return message;
     }
 
     @Override
@@ -64,4 +64,3 @@ public class Dash extends FloorSkill
         return SkillBehaviour.ATTACK;
     }
 }
-

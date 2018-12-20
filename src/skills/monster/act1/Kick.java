@@ -1,15 +1,14 @@
-package skills.monster;
+package skills.monster.act1;
 
 import control.Controller;
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import skills.TargetSkill;
-import statuses.Poison;
 import enums.SkillType;
 
 import java.io.Serializable;
 
-public class PoisonFang extends TargetSkill implements Serializable
+public class Kick extends TargetSkill implements Serializable
 {
     @Override
     public String getDescription()
@@ -18,9 +17,9 @@ public class PoisonFang extends TargetSkill implements Serializable
     }
 
 
-    private static final int cost = 4;
+    private static final int cost = 7;
     private static final SkillType skillType = SkillType.MAGICAL;
-    private static final String name = "Poison Fang";
+    private static final String name = "Kick";
     private static final int range = 1;
 
     @Override
@@ -32,8 +31,8 @@ public class PoisonFang extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        String message = source.getName() + " stabbed " + target.getName();
-        int baseDamage = Controller.getGenerator().nextInt(8)+7;
+        String message = source.getName() + " aimed a supernaturally strong wild kick at " + target.getName();
+        int baseDamage = Controller.getGenerator().nextInt(20);
         int damageReduction = target.getDefense()/2 + Controller.getGenerator().nextInt(target.getDefense()/2);
         int adjustedDamage = baseDamage - damageReduction;
         int maxDamage = target.getLife();
@@ -47,15 +46,9 @@ public class PoisonFang extends TargetSkill implements Serializable
         }
 
         target.setLife(target.getLife() - adjustedDamage);
-
-
-        int duration = 4;
-        int intensity = 1;
-        Poison poison = new Poison(target, duration, intensity);
-        target.addStatusEffect(poison);
-
+        message = message + " causing " + adjustedDamage + " damage.";
         subtractCost(source);
-        message = message + " with its fangs, causing " + adjustedDamage + " damage.";
+
         return message;
     }
 

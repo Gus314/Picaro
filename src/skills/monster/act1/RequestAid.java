@@ -1,4 +1,4 @@
-package skills.monster;
+package skills.monster.act1;
 
 import control.Map;
 import entities.creatures.Creature;

@@ -1,29 +1,26 @@
-package skills.player.warrior;
+package skills.monster.act1;
 
 import control.Controller;
-import entities.Entity;
-import entities.Floor;
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
-import enums.SkillType;
-import skills.FloorSkill;
 import skills.TargetSkill;
+import enums.SkillType;
+import statuses.Recklessness;
 
-import java.util.Collection;
+import java.io.Serializable;
 
-public class Dash extends FloorSkill
+public class Gore extends TargetSkill implements Serializable
 {
     @Override
     public String getDescription()
     {
-        return "Dash across the floor.";
+        return "Monster skill";
     }
-
 
     private static final int cost = 5;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Dash";
-    private static final int range = 7;
+    private static final String name = "Gore";
+    private static final int range = 1;
 
     @Override
     public int getRange()
@@ -32,12 +29,13 @@ public class Dash extends FloorSkill
     }
 
     @Override
-    public String action(Creature source, Floor floor, Collection<Entity> additions)
+    public String action(Creature source, Creature target)
     {
-        source.setRow(floor.getRow());
-        source.setColumn(floor.getColumn());
+        Recklessness recklessness = new Recklessness();
+        source.addStatusEffect(recklessness);
+        source.attack(target);
         subtractCost(source);
-        return source.getName() + " dashed across the floor.";
+        return "";
     }
 
     @Override
@@ -64,4 +62,3 @@ public class Dash extends FloorSkill
         return SkillBehaviour.ATTACK;
     }
 }
-

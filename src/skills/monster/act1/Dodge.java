@@ -1,4 +1,4 @@
-package skills.monster;
+package skills.monster.act1;
 
 import entities.creatures.Creature;
 import enums.SkillBehaviour;

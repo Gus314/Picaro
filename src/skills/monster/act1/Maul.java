@@ -1,25 +1,26 @@
-package skills.monster;
+package skills.monster.act1;
 
 import control.Controller;
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import skills.TargetSkill;
+import statuses.Bleed;
 import enums.SkillType;
 
 import java.io.Serializable;
 
-public class Bite extends TargetSkill implements Serializable
+public class Maul extends TargetSkill implements Serializable
 {
+    private static final int cost = 5;
+    private static final SkillType skillType = SkillType.PHYSICAL;
+    private static final String name = "Maul";
+    private static final int range = 1;
+
     @Override
     public String getDescription()
     {
         return "Monster skill";
     }
-
-    private static final int cost = 3;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Bite";
-    private static final int range = 1;
 
     @Override
     public int getRange()
@@ -30,22 +31,26 @@ public class Bite extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        String message = source.getName() + " bit " + target.getName();
-        int baseDamage = Controller.getGenerator().nextInt(8)+7;
-        int damageReduction = target.getDefense()/2 + Controller.getGenerator().nextInt(target.getDefense()/2);
-        int adjustedDamage = baseDamage - damageReduction;
+        String message = source.getName() + " mauled " + target.getName();
+        int damage = Controller.getGenerator().nextInt(8)+7;
         int maxDamage = target.getLife();
-        if(adjustedDamage > maxDamage)
+        if(damage > maxDamage)
         {
-            adjustedDamage = maxDamage;
+            damage = maxDamage;
         }
-        else if(adjustedDamage < 0)
+        else if(damage < 0)
         {
-            adjustedDamage = 0;
+            damage = 0;
         }
 
-        target.setLife(target.getLife() - adjustedDamage);
-        message = message + " causing " + adjustedDamage + " damage.";
+        target.setLife(target.getLife() - damage);
+
+        int duration = 8;
+        int intensity = 1;
+        Bleed bleed = new Bleed(target, duration, intensity);
+        target.addStatusEffect(bleed);
+
+        message = message + " causing " + damage + " damage.";
         subtractCost(source);
 
         return message;

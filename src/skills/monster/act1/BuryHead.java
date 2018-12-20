@@ -1,14 +1,16 @@
-package skills.monster;
+package skills.monster.act1;
 
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import enums.SkillType;
 import skills.SelfSkill;
+import statuses.CoolDown;
 import statuses.Shell;
+import statuses.Strong;
 
 import java.io.Serializable;
 
-public class RollUp extends SelfSkill implements Serializable
+public class BuryHead extends SelfSkill implements Serializable
 {
     @Override
     public String getDescription()
@@ -22,10 +24,10 @@ public class RollUp extends SelfSkill implements Serializable
     {
         int duration = 3;
         int intensity = 5;
-        Shell shell = new Shell(source, duration, intensity);
-        source.addStatusEffect(shell);
+        CoolDown coolDown = new CoolDown(source, duration, intensity);
+        source.addStatusEffect(coolDown);
         subtractCost(source);
-        return source.getName() + " rolls up, increasing its defence.";
+        return source.getName() + " buries its head.";
     }
 
     @Override
@@ -43,7 +45,7 @@ public class RollUp extends SelfSkill implements Serializable
     @Override
     public String getName()
     {
-        return "RollUp";
+        return "BuryHead";
     }
 
     @Override

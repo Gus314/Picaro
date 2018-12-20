@@ -9,6 +9,7 @@ import enums.Quadrant;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Map implements Serializable
 {
@@ -16,7 +17,7 @@ public class Map implements Serializable
 	private HashSet<Entity> permanentlyVisible;
 	private int rows;
 	private int columns;
-	
+
 	public Map(int inRows, int inColumns)
 	{
 		rows = inRows;
@@ -242,7 +243,7 @@ public class Map implements Serializable
 		return Optional.of(new Coordinate(row, column));
 	}
 
-	private boolean isEmpty(int row, int column)
+	public boolean isEmpty(int row, int column)
 	{
 		boolean containsFloor = false;
 

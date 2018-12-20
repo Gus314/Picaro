@@ -1,4 +1,4 @@
-package skills.monster;
+package skills.monster.act1;
 
 import control.Controller;
 import control.Map;
@@ -57,7 +57,7 @@ public class Flee extends SelfSkill implements Serializable
         }
 
         subtractCost(source);
-        return source.getName() + " tried to flee but failed.";
+        return source.getName() + " fled.";
     }
 
     @Override
@@ -81,6 +81,6 @@ public class Flee extends SelfSkill implements Serializable
     @Override
     public SkillBehaviour getSkillBehaviour()
     {
-        return SkillBehaviour.DEFEND;
+        return SkillBehaviour.RETREAT;
     }
 }
