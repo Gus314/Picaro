@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class AnvilLoader
 {
-    private static final String filePath = "data\\Anvils.csv";
+    private static final String filePath = "Anvils.csv";
     private static String minLevelName = "minLevel";
     private static String maxLevelName = "maxLevel";
     private static String nameName = "name";

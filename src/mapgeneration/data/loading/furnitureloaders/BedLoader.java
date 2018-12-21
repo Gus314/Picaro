@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BedLoader
 {
-    private static final String filePath = "data\\Beds.csv";
+    private static final String filePath = "Beds.csv";
     private static final String minLevelName = "minLevel";
     private static final String maxLevelName = "maxLevel";
     private static final String nameName = "name";

@@ -12,7 +12,7 @@ import java.util.*;
 
 public class TotemLoader
 {
-    private static final String filePath = "data\\Totems.csv";
+    private static final String filePath = "Totems.csv";
     private static final String factionName = "faction";
     private static final String lifeName = "life";
     private static final String defenseName = "defense";

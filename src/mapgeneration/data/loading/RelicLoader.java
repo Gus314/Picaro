@@ -11,7 +11,7 @@ import java.util.*;
 
 public class RelicLoader
 {
-    private static final String filePath = "data\\Relics.csv";
+    private static final String filePath = "Relics.csv";
     private static final String statusName = "status";
     private static final String nameName = "name";
     private static final String minLevelName = "minLevel";

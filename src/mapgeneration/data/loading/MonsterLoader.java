@@ -12,7 +12,7 @@ import java.util.*;
 
 public class MonsterLoader
 {
-    private static final String filePath = "data\\Monsters.csv";
+    private static final String filePath = "Monsters.csv";
     private static final String factionName = "faction";
     private static final String charaName = "chara";
     private static final String lifeName = "life";

@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class TeleporterLoader
 {
-    private static final String filePath = "data\\Teleporters.csv";
+    private static final String filePath = "Teleporters.csv";
     private static final String minLevelName = "minLevel";
     private static final String maxLevelName = "maxLevel";
     private static final String nameName = "name";

@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class SewingMachineLoader
 {
-    private static final String filePath = "data\\SewingMachines.csv";
+    private static final String filePath = "SewingMachines.csv";
     private static final String minLevelName = "minLevel";
     private static final String maxLevelName = "maxLevel";
     private static final String nameName = "name";

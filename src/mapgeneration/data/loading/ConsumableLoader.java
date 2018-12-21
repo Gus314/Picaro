@@ -10,7 +10,7 @@ import java.util.*;
 
 public class ConsumableLoader
 {
-    private static final String filePath = "data\\Consumables.csv";
+    private static final String filePath = "Consumables.csv";
     private static final String charaName = "chara";
     private static final String amountName = "amount";
     private static final String typeName = "char";

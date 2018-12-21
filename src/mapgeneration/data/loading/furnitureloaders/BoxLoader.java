@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class BoxLoader
 {
-    private static final String filePath = "data\\Boxes.csv";
+    private static final String filePath = "Boxes.csv";
     private static final String minLevelName = "minLevel";
     private static final String maxLevelname = "maxLevel";
     private static final String nameName = "name";

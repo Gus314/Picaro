@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class FountainLoader
 {
-    private static final String filePath = "data\\Fountains.csv";
+    private static final String filePath = "Fountains.csv";
     private static final String minLevelName = "minLevel";
     private static final String maxLevelName = "maxLevel";
     private static final String nameName = "name";

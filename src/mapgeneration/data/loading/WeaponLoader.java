@@ -7,7 +7,7 @@ import java.util.*;
 
 public class WeaponLoader
 {
-    private static final String filePath = "data\\Weapons.csv";
+    private static final String filePath = "Weapons.csv";
     private static final String minDamageName = "minDamage";
     private static final String maxDamageName = "maxDamage";
     private static final String critChanceName = "critChance";

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ArmourLoader
 {
-    private static final String filePath = "data\\Armours.csv";
+    private static final String filePath = "Armours.csv";
     private static final String armourTypeName = "armourType";
     private static final String blockChanceName = "blockChance";
     private static final String absorbChanceName = "absorbChance";

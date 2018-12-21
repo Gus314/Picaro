@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ShrineLoader
 {
-    private static final String filePath = "data\\Shrines.csv";
+    private static final String filePath = "Shrines.csv";
     private static final String minLevelName = "minLevel";
     private static final String maxLevelName = "maxLevel";
     private static final String nameName = "name";
