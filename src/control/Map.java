@@ -4,6 +4,7 @@ import entities.*;
 import entities.creatures.Creature;
 import entities.creatures.Monster;
 import entities.creatures.Player;
+import entities.equipment.Item;
 import entities.furniture.Furniture;
 import enums.Quadrant;
 
@@ -181,7 +182,8 @@ public class Map implements Serializable
 
 	private boolean isPermanentlyVisible(Entity ent)
 	{
-	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Furniture || ent instanceof Floor);
+		// TODO: Use oo.
+	   return(ent instanceof Wall || ent instanceof DownStairs || ent instanceof UpStairs || ent instanceof Furniture || ent instanceof Floor || ent instanceof Item);
 	}
 
 	public void removeEntity(Entity ent)
