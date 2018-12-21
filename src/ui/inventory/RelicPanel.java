@@ -27,6 +27,7 @@ public class RelicPanel extends JPanel
 
        add(new JScrollPane(relicTable));
        destroyPanel = new JPanel();
+       destroyPanel.setLayout(new GridLayout(3,1));
        add(destroyPanel);
 
        setLayout(new GridLayout());
@@ -40,7 +41,7 @@ public class RelicPanel extends JPanel
        for(int i = 0; i < Player.getMaxRelics(); i++)
        {
            relicTable.setValueAt("None", i, 0);
-           relicTable.setValueAt("", i, 1);
+           relicTable.setValueAt(" ", i, 1);
        }
 
        int i = 0;
@@ -52,5 +53,6 @@ public class RelicPanel extends JPanel
            destroyPanel.add(new DestroyButton(relic, player, inventoryWindow));
            i++;
        }
+       destroyPanel.repaint();
    }
 }
