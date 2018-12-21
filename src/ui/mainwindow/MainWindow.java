@@ -106,7 +106,6 @@ public class MainWindow extends JTabbedPane
 		mapDisplay = new MapDisplay(map, player, stats, status, messages);
 		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.fill = GridBagConstraints.BOTH;
-		constraints.weightx = 1;
 		constraints.weighty = 30;
 		constraints.gridy = 0;
 

@@ -14,7 +14,18 @@ public class HelpWindow extends JPanel
     private void displayHelp()
     {
         JTextArea controls = new JTextArea();
-        controls.setText("Your character is represented by the @ symbol. To move, use the number pad. Select actions with a left-click and cancel actions with a right-click.");
+        String helpText = "Your character is represented by the @ symbol.\n";
+        helpText += "To move, use the number pad.\n";
+        helpText += "Select actions with a left-click and cancel actions with a right-click.\n";
+        helpText += "Monsters can be melee attacked simply by walking into them.\n";
+        helpText += "The buttons numbered 1-9 can be right-clicked to set a shortcut and left-clicked to use it.\n";
+        helpText += "The display is colour-coded. Red signifies enemies, green friends, cyan usable furniture and yellow items that can be picked up.\n";
+        helpText += "> and < signify down and up stairs, respectively.\n";
+        helpText += "Furniture and stairs can be used by standing on them and pressing use or ascend/descend as appropriate.\n";
+        helpText += "Finally note that 1080p is currently the ideal resolution for playing.\n";
+        helpText += "Thank you once again for playing, a proper tutorial will be added in the fullness of time.\n";
+
+        controls.setText(helpText);
         controls.setEditable(false);
         add(controls);
 

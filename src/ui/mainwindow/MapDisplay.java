@@ -378,7 +378,7 @@ public class MapDisplay extends JPanel
 		setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 		mapPanel = new JPanel();
-		GridLayout grid = new GridLayout(inMap.getRows(), inMap.getColumns());
+		GridBagLayout grid = new GridBagLayout();
 		mapPanel.setLayout(grid);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		constraints.weighty = 50;
@@ -420,15 +420,31 @@ public class MapDisplay extends JPanel
 
 	private void initialise()
 	{
-		int entries = map.getRows() * map.getColumns();
-		for(int i = 0; i < entries; i++)
+		GridBagConstraints constraints = new GridBagConstraints();
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.weighty = 1;
+		constraints.weightx = 1;
+
+		JLabel sizeLabel = new JLabel("@");
+		Dimension desiredSize = sizeLabel.getPreferredSize(); // Allow labels to all have fixed size.
+
+		for(int i = 0; i < map.getRows(); i++)
 		{
-			JLabel l = new JLabel(blank);
-			l.setBackground(Color.BLACK);
-			l.setForeground(Color.WHITE);
-			l.setOpaque(true);
-			cells.add(l);
-			mapPanel.add(l);
+			for(int j = 0; j < map.getColumns(); j++)
+			{
+				JLabel l = new JLabel(blank);
+				l.setBackground(Color.BLACK);
+				l.setForeground(Color.WHITE);
+				l.setOpaque(true);
+				l.setMaximumSize(desiredSize);
+				l.setMinimumSize(desiredSize);
+				l.setPreferredSize(desiredSize);
+				cells.add(l);
+
+				constraints.gridx = j;
+				constraints.gridy = i;
+				mapPanel.add(l, constraints);
+			}
 		}
 	}
 

@@ -12,7 +12,7 @@ public class Controller
 
 	public static Random getGenerator(){return generator;}
 
-	public static final boolean bigFonts = true;
+	public static final boolean bigFonts = false;
 
 	public static void main(String args[])
 	{
