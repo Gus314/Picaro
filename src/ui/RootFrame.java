@@ -5,6 +5,7 @@ import control.PlayerInitialData;
 import ui.mainwindow.MainWindow;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class RootFrame extends JFrame implements IRoot
 {
@@ -25,11 +26,18 @@ public class RootFrame extends JFrame implements IRoot
         setVisible(true);
     }
 
+    private void maximise()
+    {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        setSize(toolkit.getScreenSize());
+    }
+
     public void changeToMainWindow(PlayerInitialData playerInitialData)
     {
         mainWindow.start(playerInitialData);
         setContentPane(mainWindow);
         pack();
+        maximise();
     }
 
     public void changeToMainWindow()
@@ -37,6 +45,7 @@ public class RootFrame extends JFrame implements IRoot
         mainWindow.start();
         setContentPane(mainWindow);
         pack();
+        maximise();
     }
 
     public void changeToTitleScreen()
