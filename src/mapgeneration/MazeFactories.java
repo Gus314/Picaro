@@ -42,7 +42,7 @@ public class MazeFactories
 
         MonsterLoader monsterLoader = new MonsterLoader(messages, map, skillProvider);
         monsterProvider = monsterLoader.load();
-        skillProvider.populate(monsterProvider); // Resolve circular dependency.
+        skillProvider.populate(monsterProvider, totemProvider); // Resolve circular dependency.
 
         FurnitureLoader furnitureLoader = new FurnitureLoader(weaponProvider, monsterProvider, statusProvider);
         furnitureProvider = furnitureLoader.load();

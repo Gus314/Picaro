@@ -2,6 +2,7 @@ package mapgeneration.data.providers;
 
 import control.Controller;
 import control.Map;
+import entities.factories.MonsterFactory;
 import entities.factories.TotemFactory;
 import enums.Faction;
 import statuses.Groggy;
@@ -17,8 +18,6 @@ public class TotemProvider
 {
     private Vector<TotemFactory> totemFactories;
 
-
-
     public TotemProvider()
     {
         totemFactories = new Vector<TotemFactory>();
@@ -27,6 +26,20 @@ public class TotemProvider
     public void addAll(Collection<TotemFactory> newTotemFactories)
     {
         totemFactories.addAll(newTotemFactories);
+    }
+
+    public TotemFactory get(String name)
+    {
+        for(TotemFactory totemFactory: totemFactories)
+        {
+            if(totemFactory.getName().equals(name))
+            {
+                return totemFactory;
+            }
+        }
+
+        System.out.println("MonsterProvider::get() - unable to find monster.");
+        return null;
     }
 
     public TotemFactory choose(int level)

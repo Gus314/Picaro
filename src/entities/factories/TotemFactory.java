@@ -6,7 +6,7 @@ import enums.Faction;
 import statuses.StatusEffect;
 import ui.mainwindow.Messages;
 
-public class TotemFactory extends AbstractEntityFactory
+public class TotemFactory extends LeveledFactory
 {
     private Faction faction;
     private int life;
@@ -42,6 +42,11 @@ public class TotemFactory extends AbstractEntityFactory
         magicDefense = inMagicDefense;
         status = inStatus;
 
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public void setMessages(Messages inMessages){messages = inMessages;}

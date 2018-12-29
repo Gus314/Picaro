@@ -9,7 +9,7 @@ import ui.mainwindow.Messages;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class MonsterFactory extends AbstractEntityFactory
+public class MonsterFactory extends LeveledFactory
 {
 	private Faction faction;
 	private Character cha;
