@@ -6,6 +6,8 @@ import skills.SummonSkill;
 import skills.VariedSummonSkill;
 import skills.monster.act1.*;
 import skills.monster.act2.*;
+import skills.monster.act3.*;
+import skills.monster.act4.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,6 +74,49 @@ public class SkillProvider
         skills.put(LoadableSkill.WAIL, new Wail());
         skills.put(LoadableSkill.WRAP, new Wrap());
 
+        //act3
+        skills.put(LoadableSkill.PUNISH, new Punish());
+        skills.put(LoadableSkill.LOSE, new Lose());
+        skills.put(LoadableSkill.POUND, new Pound());
+        skills.put(LoadableSkill.GAZE, new Gaze());
+        skills.put(LoadableSkill.RIDDLE, new Riddle());
+        skills.put(LoadableSkill.GUST, new Gust());
+        skills.put(LoadableSkill.SPINES, new Spines());
+        skills.put(LoadableSkill.MOLTENBITE, new MoltenBite());
+        skills.put(LoadableSkill.BACKHOOF, new BackHoof());
+        skills.put(LoadableSkill.SKEWER, new Skewer());
+        skills.put(LoadableSkill.TEAR, new Tear());
+        skills.put(LoadableSkill.TRAMPLE, new Trample());
+        skills.put(LoadableSkill.CONSUME, new Consume());
+        skills.put(LoadableSkill.LURE, new Lure());
+        skills.put(LoadableSkill.WEB, new Web());
+        skills.put(LoadableSkill.RISE, new Rise());
+        skills.put(LoadableSkill.WINDUP, new WindUp());
+        skills.put(LoadableSkill.REGROW, new Regrow());
+        skills.put(LoadableSkill.SPROUT, new Sprout());
+        skills.put(LoadableSkill.FIREBREATH, new FireBreath());
+
+        //act4
+        skills.put(LoadableSkill.TSUNAMI, new Tsunami());
+        skills.put(LoadableSkill.HELLFIRE, new Hellfire());
+        skills.put(LoadableSkill.REWIND, new Rewind());
+        skills.put(LoadableSkill.THUNDERBOLT, new Thunderbolt());
+        skills.put(LoadableSkill.DRINK, new Drink());
+        skills.put(LoadableSkill.RESURRECT, new Resurrect());
+        skills.put(LoadableSkill.PROTECTION, new Protection());
+        skills.put(LoadableSkill.SANDSTORM, new Sandstorm());
+        skills.put(LoadableSkill.DOOM, new Doom());
+        skills.put(LoadableSkill.INSPIRE, new Inspire());
+        skills.put(LoadableSkill.DESTROY, new Destroy());
+        skills.put(LoadableSkill.CLEANSE, new Cleanse());
+        skills.put(LoadableSkill.PROVIDE, new Provide());
+        skills.put(LoadableSkill.TRANSFORM, new Transform());
+        skills.put(LoadableSkill.STORM, new Storm());
+        skills.put(LoadableSkill.RULE, new Rule());
+        skills.put(LoadableSkill.CLEAVE, new Cleave());
+        skills.put(LoadableSkill.CHANT, new Chant());
+        skills.put(LoadableSkill.COMMAND, new Command());
+        skills.put(LoadableSkill.REPOSITION, new Reposition());
     }
 
     public Skill get(LoadableSkill skill)

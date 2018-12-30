@@ -245,6 +245,11 @@ public class Map implements Serializable
 		return Optional.of(new Coordinate(row, column));
 	}
 
+	public boolean isEmpty(Coordinate coordinate)
+	{
+		return isEmpty(coordinate.getRow(), coordinate.getColumn());
+	}
+
 	public boolean isEmpty(int row, int column)
 	{
 		boolean containsFloor = false;
