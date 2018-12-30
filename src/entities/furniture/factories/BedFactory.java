@@ -8,7 +8,6 @@ public class BedFactory extends FurnitureFactory implements Serializable
 {
     private int minLevel;
     private int maxLevel;
-    private String name;
 
     public BedFactory(int inMinLevel, int inMaxLevel, String inName)
     {

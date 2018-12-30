@@ -6,21 +6,25 @@ import entities.equipment.factories.ConsumableFactory;
 import entities.equipment.factories.RelicFactory;
 import entities.equipment.factories.WeaponFactory;
 import entities.factories.TotemFactory;
+import entities.furniture.Furniture;
 import entities.furniture.factories.FurnitureFactory;
 import entities.factories.MonsterFactory;
 import mapgeneration.data.loading.*;
 import mapgeneration.data.providers.*;
 import ui.mainwindow.Messages;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class MazeFactories
 {
-    private ArmourProvider armourProvider;
-    private ConsumableProvider consumableProvider;
-    private MonsterProvider monsterProvider;
-    private RelicProvider relicProvider;
-    private WeaponProvider weaponProvider;
-    private FurnitureProvider furnitureProvider;
-    private TotemProvider totemProvider;
+    private EntityProvider<ArmourFactory> armourProvider;
+    private EntityProvider<ConsumableFactory> consumableProvider;
+    private EntityProvider<MonsterFactory> monsterProvider;
+    private EntityProvider<RelicFactory> relicProvider;
+    private EntityProvider<WeaponFactory> weaponProvider;
+    private EntityProvider<FurnitureFactory> furnitureProvider;
+    private EntityProvider<TotemFactory> totemProvider;
 
     public MazeFactories(control.Map map, Messages messages, Player player)
     {
@@ -42,12 +46,14 @@ public class MazeFactories
 
         MonsterLoader monsterLoader = new MonsterLoader(messages, map, skillProvider);
         monsterProvider = monsterLoader.load();
-        skillProvider.populate(monsterProvider, totemProvider); // Resolve circular dependency.
 
         FurnitureLoader furnitureLoader = new FurnitureLoader(weaponProvider, monsterProvider, statusProvider);
         furnitureProvider = furnitureLoader.load();
 
-
+        Collection<EntityProvider> entityProviders = new ArrayList<EntityProvider>();
+        entityProviders.add(monsterProvider);
+        entityProviders.add(totemProvider);
+        skillProvider.populate(entityProviders); // Resolve circular dependency.
     }
 
     public ArmourFactory chooseArmour(int level)

@@ -2,7 +2,8 @@ package mapgeneration.data.loading;
 
 import entities.equipment.factories.ArmourFactory;
 import enums.ArmourType;
-import mapgeneration.data.providers.ArmourProvider;
+import mapgeneration.data.providers.EntityProvider;
+
 import java.util.*;
 
 public class ArmourLoader
@@ -38,9 +39,9 @@ public class ArmourLoader
         return result;
     }
 
-    public static ArmourProvider load()
+    public static EntityProvider<ArmourFactory> load()
     {
-        ArmourProvider result = new ArmourProvider();
+        EntityProvider<ArmourFactory> result = new EntityProvider<ArmourFactory>();
 
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(armourTypeName, String.class);

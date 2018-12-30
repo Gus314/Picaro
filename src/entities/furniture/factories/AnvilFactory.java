@@ -9,7 +9,6 @@ public class AnvilFactory extends FurnitureFactory implements Serializable
 {
     private int minLevel;
     private int maxLevel;
-    private String name;
     private WeaponModificationType type;
     private int intensity;
 

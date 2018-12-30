@@ -1,12 +1,13 @@
 package mapgeneration.data.loading.furnitureloaders;
 
 import control.Controller;
+import entities.equipment.factories.WeaponFactory;
 import entities.factories.AbstractEntityFactory;
+import entities.factories.MonsterFactory;
 import entities.furniture.factories.BoxFactory;
 import entities.furniture.factories.FurnitureFactory;
 import mapgeneration.data.loading.CsvLoader;
-import mapgeneration.data.providers.MonsterProvider;
-import mapgeneration.data.providers.WeaponProvider;
+import mapgeneration.data.providers.EntityProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +22,7 @@ public class BoxLoader
     private static final String nameName = "name";
 
 
-    private static Collection<FurnitureFactory> convert(Collection<Map<String, Object>> loaded, WeaponProvider weaponProvider, MonsterProvider monsterProvider)
+    private static Collection<FurnitureFactory> convert(Collection<Map<String, Object>> loaded, EntityProvider<WeaponFactory> weaponProvider, EntityProvider<MonsterFactory> monsterProvider)
     {
         Collection<FurnitureFactory> result = new ArrayList<FurnitureFactory>();
         for(Map<String, Object> entry: loaded)
@@ -40,7 +41,7 @@ public class BoxLoader
         return result;
     }
 
-    public static Collection<FurnitureFactory> load(WeaponProvider weaponProvider, MonsterProvider monsterProvider)
+    public static Collection<FurnitureFactory> load(EntityProvider<WeaponFactory> weaponProvider, EntityProvider<MonsterFactory> monsterProvider)
     {
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(minLevelName, Integer.TYPE);

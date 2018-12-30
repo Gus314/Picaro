@@ -25,7 +25,9 @@ public class WeaponFactory extends AbstractEntityFactory
 		maxLevel = inMaxLevel;
 		range = inRange;
 	}
-	
+
+	public String getName(){return name;}
+
 	public int getMinLevel(){return minLevel;}
 
 	public int getMaxLevel(){return maxLevel;}

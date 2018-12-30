@@ -9,4 +9,5 @@ public class FloorFactory extends AbstractEntityFactory
     {
         return new Floor(inRow, inColumn);
     }
+    public String getName(){return "Floor";}
 }

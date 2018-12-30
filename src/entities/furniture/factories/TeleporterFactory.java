@@ -8,7 +8,6 @@ public class TeleporterFactory extends FurnitureFactory implements Serializable
 {
     private int minLevel;
     private int maxLevel;
-    private String name;
 
     public TeleporterFactory(int inMinLevel, int inMaxLevel, String inName)
     {

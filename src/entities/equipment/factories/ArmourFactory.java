@@ -26,6 +26,8 @@ public class ArmourFactory extends AbstractEntityFactory
 		minLevel = inMinLevel;
 		maxLevel = inMaxLevel;
 	}
+
+	public String getName(){return name;}
 	
 	public int getMinLevel(){return minLevel;}
 

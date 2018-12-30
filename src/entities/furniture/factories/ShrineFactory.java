@@ -7,7 +7,6 @@ public class ShrineFactory extends FurnitureFactory
 {
     private int minLevel;
     private int maxLevel;
-    private String name;
     private StatType stat;
     private int intensity;
 

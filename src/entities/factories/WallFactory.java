@@ -9,4 +9,5 @@ public class WallFactory extends AbstractEntityFactory
 	{
 		return new Wall(inRow, inColumn);
 	}
+	public String getName(){return "Wall";}
 }

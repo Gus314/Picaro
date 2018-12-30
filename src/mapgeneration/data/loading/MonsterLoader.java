@@ -3,7 +3,7 @@ package mapgeneration.data.loading;
 import entities.factories.MonsterFactory;
 import enums.Faction;
 import enums.LoadableSkill;
-import mapgeneration.data.providers.MonsterProvider;
+import mapgeneration.data.providers.EntityProvider;
 import mapgeneration.data.providers.SkillProvider;
 import skills.Skill;
 import ui.mainwindow.Messages;
@@ -103,9 +103,9 @@ public class MonsterLoader
         return skills;
     }
 
-    public MonsterProvider load()
+    public EntityProvider<MonsterFactory> load()
     {
-        MonsterProvider result = new MonsterProvider();
+        EntityProvider<MonsterFactory> result = new EntityProvider<MonsterFactory>();
 
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(factionName, String.class);

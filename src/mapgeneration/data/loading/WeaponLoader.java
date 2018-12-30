@@ -1,7 +1,7 @@
 package mapgeneration.data.loading;
 
 import entities.equipment.factories.WeaponFactory;
-import mapgeneration.data.providers.WeaponProvider;
+import mapgeneration.data.providers.EntityProvider;
 
 import java.util.*;
 
@@ -38,9 +38,9 @@ public class WeaponLoader
         return result;
     }
 
-    public static WeaponProvider load()
+    public static EntityProvider<WeaponFactory> load()
     {
-        WeaponProvider result = new WeaponProvider();
+        EntityProvider<WeaponFactory> result = new EntityProvider<WeaponFactory>();
 
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(minDamageName, Integer.TYPE);

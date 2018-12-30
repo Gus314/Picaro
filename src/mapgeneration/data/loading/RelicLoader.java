@@ -1,9 +1,8 @@
 package mapgeneration.data.loading;
 
 import entities.equipment.factories.RelicFactory;
-import enums.LoadableSkill;
 import enums.LoadableStatus;
-import mapgeneration.data.providers.RelicProvider;
+import mapgeneration.data.providers.EntityProvider;
 import mapgeneration.data.providers.StatusProvider;
 import statuses.StatusEffect;
 
@@ -41,9 +40,9 @@ public class RelicLoader
         return result;
     }
 
-    public RelicProvider load()
+    public EntityProvider<RelicFactory> load()
     {
-        RelicProvider result = new RelicProvider();
+        EntityProvider<RelicFactory> result = new EntityProvider<RelicFactory>();
 
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(statusName, String.class);

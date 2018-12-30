@@ -28,7 +28,9 @@ public class ConsumableFactory extends AbstractEntityFactory
 		minLevel = inMinLevel;
 		maxLevel = inMaxLevel;
 	}
-	
+
+	public String getName(){return name;}
+
 	public int getMinLevel(){return minLevel;}
 
 	public int getMaxLevel(){return maxLevel;}

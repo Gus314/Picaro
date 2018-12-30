@@ -4,10 +4,8 @@ import control.Map;
 import entities.creatures.Creature;
 import entities.Entity;
 import entities.Floor;
-import entities.factories.MonsterFactory;
 import enums.SkillBehaviour;
 import enums.SkillType;
-import mapgeneration.data.providers.MonsterProvider;
 import skills.SummonSkill;
 
 import java.io.Serializable;

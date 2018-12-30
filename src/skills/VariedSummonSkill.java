@@ -1,15 +1,13 @@
 package skills;
 
 import control.Controller;
-import entities.Entity;
 import entities.factories.AbstractEntityFactory;
-import entities.factories.MonsterFactory;
-import mapgeneration.data.providers.MonsterProvider;
-import mapgeneration.data.providers.TotemProvider;
+import mapgeneration.data.providers.EntityProvider;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class VariedSummonSkill extends FloorSkill
 {
@@ -20,7 +18,7 @@ public abstract class VariedSummonSkill extends FloorSkill
         return summons.get(Controller.getGenerator().nextInt(summons.size()));
     }
 
-    public void populate(MonsterProvider monsterProvider, TotemProvider totemProvider)
+    public void populate(Collection<EntityProvider> entityProviders)
     {
         if(summons == null)
         {
@@ -29,8 +27,15 @@ public abstract class VariedSummonSkill extends FloorSkill
 
         for(String summonName: summonNames)
         {
-            AbstractEntityFactory factory = (monsterProvider.get(summonName) != null) ? monsterProvider.get(summonName) : totemProvider.get(summonName);
-            summons.add(factory);
+            for(EntityProvider entityProvider: entityProviders)
+            {
+                Optional<AbstractEntityFactory> factory = entityProvider.get(summonName);
+                if(factory.isPresent())
+                {
+                    summons.add(factory.get());
+                    break;
+                }
+            }
         }
     }
 

@@ -9,6 +9,10 @@ public abstract class FurnitureFactory extends AbstractEntityFactory
 
     public abstract int getMaxLevel();
 
+    protected String name;
+
+    public String getName(){return name;}
+
     @Override
     public abstract Furniture construct(int inRow, int inColumn);
 }

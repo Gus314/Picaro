@@ -7,7 +7,6 @@ public class BoxFactory extends FurnitureFactory
 {
     private int minLevel;
     private int maxLevel;
-    private String name;
     private AbstractEntityFactory factory;
 
     public BoxFactory(int inMinLevel, int inMaxLevel, String inName, AbstractEntityFactory inFactory)

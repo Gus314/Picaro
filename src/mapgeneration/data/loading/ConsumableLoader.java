@@ -3,7 +3,7 @@ package mapgeneration.data.loading;
 import entities.creatures.Player;
 import entities.equipment.factories.ConsumableFactory;
 import enums.ConsumableType;
-import mapgeneration.data.providers.ConsumableProvider;
+import mapgeneration.data.providers.EntityProvider;
 import ui.mainwindow.Messages;
 
 import java.util.*;
@@ -45,9 +45,9 @@ public class ConsumableLoader
         return result;
     }
 
-    public ConsumableProvider load()
+    public EntityProvider<ConsumableFactory> load()
     {
-        ConsumableProvider result = new ConsumableProvider();
+        EntityProvider<ConsumableFactory> result = new EntityProvider<ConsumableFactory>();
 
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(charaName, String.class);

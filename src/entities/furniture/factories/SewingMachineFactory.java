@@ -10,7 +10,6 @@ public class SewingMachineFactory extends FurnitureFactory implements Serializab
 {
     private int minLevel;
     private int maxLevel;
-    private String name;
     private ArmourModificationType type;
     private int intensity;
 

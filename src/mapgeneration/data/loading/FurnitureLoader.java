@@ -1,27 +1,28 @@
 package mapgeneration.data.loading;
 
+import entities.equipment.factories.WeaponFactory;
+import entities.factories.MonsterFactory;
+import entities.furniture.factories.FurnitureFactory;
 import mapgeneration.data.loading.furnitureloaders.*;
-import mapgeneration.data.providers.FurnitureProvider;
-import mapgeneration.data.providers.MonsterProvider;
+import mapgeneration.data.providers.EntityProvider;
 import mapgeneration.data.providers.StatusProvider;
-import mapgeneration.data.providers.WeaponProvider;
 
 public class FurnitureLoader
 {
-    private WeaponProvider weaponProvider;
-    private MonsterProvider monsterProvider;
+    private EntityProvider<WeaponFactory> weaponProvider;
+    private EntityProvider<MonsterFactory> monsterProvider;
     private StatusProvider statusProvider;
 
-    public FurnitureLoader(WeaponProvider inWeaponProvider, MonsterProvider inMonsterProvider, StatusProvider inStatusProvider)
+    public FurnitureLoader(EntityProvider<WeaponFactory> inWeaponProvider, EntityProvider<MonsterFactory> inMonsterProvider, StatusProvider inStatusProvider)
     {
         weaponProvider = inWeaponProvider;
         monsterProvider = inMonsterProvider;
         statusProvider = inStatusProvider;
     }
 
-    public FurnitureProvider load()
+    public EntityProvider<FurnitureFactory> load()
     {
-        FurnitureProvider result = new FurnitureProvider();
+        EntityProvider<FurnitureFactory> result = new EntityProvider<FurnitureFactory>();
 
         result.addAll(BedLoader.load());
         result.addAll(BoxLoader.load(weaponProvider, monsterProvider));

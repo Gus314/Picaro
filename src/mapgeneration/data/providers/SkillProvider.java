@@ -79,19 +79,19 @@ public class SkillProvider
         return skills.get(skill);
     }
 
-    public void populate(MonsterProvider monsterProvider, TotemProvider totemProvider)
+    public void populate(Collection<EntityProvider> entityProviders)
     {
         for(Skill skill: skills.values())
         {
             if(skill instanceof SummonSkill)
             {
                 SummonSkill summonSkill = (SummonSkill) skill;
-                summonSkill.populate(monsterProvider, totemProvider);
+                summonSkill.populate(entityProviders);
             }
             else if(skill instanceof VariedSummonSkill)
             {
                 VariedSummonSkill variedSummonSkill = (VariedSummonSkill) skill;
-                variedSummonSkill.populate(monsterProvider, totemProvider);
+                variedSummonSkill.populate(entityProviders);
             }
         }
     }

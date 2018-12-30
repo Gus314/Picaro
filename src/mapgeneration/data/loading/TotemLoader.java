@@ -3,8 +3,8 @@ package mapgeneration.data.loading;
 import entities.factories.TotemFactory;
 import enums.Faction;
 import enums.LoadableStatus;
+import mapgeneration.data.providers.EntityProvider;
 import mapgeneration.data.providers.StatusProvider;
-import mapgeneration.data.providers.TotemProvider;
 import statuses.StatusEffect;
 import ui.mainwindow.Messages;
 
@@ -61,9 +61,9 @@ public class TotemLoader
         return result;
     }
 
-    public TotemProvider load()
+    public EntityProvider<TotemFactory> load()
     {
-        TotemProvider result = new TotemProvider();
+        EntityProvider<TotemFactory> result = new EntityProvider<TotemFactory>();
 
         java.util.Map<String, Class> parameters = new LinkedHashMap<>();
         parameters.put(factionName, String.class);
