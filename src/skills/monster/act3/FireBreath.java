@@ -5,8 +5,8 @@ import enums.SkillBehaviour;
 import enums.StatType;
 import skills.AreaSkill;
 import enums.SkillType;
-import skills.CombatHelper;
-import statuses.Recklessness;
+import skills.combat.CombatHelper;
+import skills.combat.CombatInfo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -39,21 +39,16 @@ public class FireBreath extends AreaSkill implements Serializable
     @Override
     public String action(Creature source, List<Creature> targets)
     {
+        CombatHelper combatHelper = new CombatHelper(true, false, false, false, 1.3, "breathed fire");
+
+
         String message = source.getName() + " breathed fire.";
 
         for(Creature target: targets)
         {
-            int baseDamage = CombatHelper.magicDamage(source, target);
-            int adjustedDamage = (int) Math.ceil(baseDamage * 1.3);
-            target.changeStat(StatType.LIFE, adjustedDamage*-1);
-            if(adjustedDamage >= 0)
-            {
-                message += target.getName() + " took " + adjustedDamage + " damage.";
-            }
-            else
-            {
-                message += target.getName() + " absorbed " + adjustedDamage*-1 + " damage.";
-            }
+            CombatInfo combatInfo = combatHelper.calculateCombat(source, target);
+            target.changeStat(StatType.LIFE, combatInfo.getLifeChange());
+            message += combatInfo.getMessage();
         }
 
         subtractCost(source);

@@ -42,7 +42,7 @@ public class Zen extends TemporaryStatusEffect implements Serializable
         int attemptedAbsorbGain = 25;
         int attemptedBlockGain = 25;
         gainedAbsorb = getTarget().getAbsorbChance() < (100 - attemptedAbsorbGain) ? attemptedAbsorbGain : (100 - getTarget().getAbsorbChance());
-        gainedAbsorb = getTarget().getBlockChance() < (100 - attemptedBlockGain) ? attemptedAbsorbGain : (100 - getTarget().getBlockChance());
+        gainedBlock = getTarget().getBlockChance() < (100 - attemptedBlockGain) ? attemptedBlockGain : (100 - getTarget().getBlockChance());
         removedMagicDefense = getTarget().getMagicDefense();
         removedDefense = getTarget().getDefense();
 
