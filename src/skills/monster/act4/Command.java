@@ -10,6 +10,7 @@ import skills.TargetSkill;
 import enums.SkillType;
 import statuses.Bleed;
 import statuses.Recklessness;
+import statuses.Weak;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,9 +23,9 @@ public class Command extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Todo - Command";
+    private static final int cost = 40;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Command";
     private static final int range = 4;
 
     @Override
@@ -36,7 +37,12 @@ public class Command extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        return "todo";
+        Weak weak = new Weak(target, 5);
+        target.addStatusEffect(weak);
+        target.changeStat(StatType.MP, -10);
+        target.changeStat(StatType.PP, -10);
+        subtractCost(source);
+        return source.getName() + " commands " + target.getName() + "draining mp and pp.";
     }
 
     @Override

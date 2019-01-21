@@ -9,6 +9,7 @@ import enums.StatType;
 import skills.TargetSkill;
 import enums.SkillType;
 import statuses.Bleed;
+import statuses.Exposed;
 import statuses.Recklessness;
 
 import java.io.Serializable;
@@ -22,10 +23,10 @@ public class Sandstorm extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
+    private static final int cost = 40;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Sandstorm - Todo";
-    private static final int range = 4;
+    private static final String name = "Sandstorm";
+    private static final int range = 7;
 
     @Override
     public int getRange()
@@ -36,7 +37,10 @@ public class Sandstorm extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        return "todo";
+        Exposed exposed = new Exposed(target, 5);
+        target.addStatusEffect(exposed);
+        subtractCost(source);
+        return getName() + " whips up a sandstorm.";
     }
 
     @Override

@@ -102,7 +102,13 @@ public class SkillProvider
         skills.put(LoadableSkill.REWIND, new Rewind());
         skills.put(LoadableSkill.THUNDERBOLT, new Thunderbolt());
         skills.put(LoadableSkill.DRINK, new Drink());
-        skills.put(LoadableSkill.RESURRECT, new Resurrect());
+        summonNames.clear();
+        summonNames.add("poseidon");
+        summonNames.add("hades");
+        summonNames.add("kronos");
+        summonNames.add("zeus");
+        summonNames.add("bacchus");
+        skills.put(LoadableSkill.RESURRECT, new Resurrect(summonNames));
         skills.put(LoadableSkill.PROTECTION, new Protection());
         skills.put(LoadableSkill.SANDSTORM, new Sandstorm());
         skills.put(LoadableSkill.DOOM, new Doom());

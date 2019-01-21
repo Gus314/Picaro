@@ -250,6 +250,44 @@ public abstract class Creature extends Entity implements Serializable
         return isBlind() ? 0 : 8;
     }
 
+    public int getStat(StatType stat)
+    {
+        switch(stat)
+        {
+            case LIFE:
+                return life;
+            case DEFENSE:
+                return defense;
+            case MAGICDEFENSE:
+                return magicDefense;
+            case CRITCHANCE:
+                return critChance;
+            case INTELLIGENCE:
+                return intelligence;
+            case MAXDAMAGE:
+                return maxDamage;
+            case RANGE:
+                return range;
+            case EXP:
+                return exp;
+            case PP:
+                return maxPhysicalPoints;
+            case MP:
+                return maxMagicPoints;
+            case MINDAMAGE:
+                return minDamage;
+            case BLOCKCHANCE:
+                return blockChance;
+            case ABSORBCHANCE:
+                return absorbChance;
+            default:
+            {
+                System.out.println("Creature::getStat() - unexpected stat type. Returning 0");
+                return 0;
+            }
+        }
+    }
+
     public String changeStat(StatType stat, int intensity)
     {
         String result = getName();

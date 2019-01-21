@@ -6,15 +6,18 @@ import entities.Floor;
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import enums.StatType;
+import skills.AreaSkill;
 import skills.TargetSkill;
 import enums.SkillType;
 import statuses.Bleed;
 import statuses.Recklessness;
+import statuses.Shield;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
-public class Protection extends TargetSkill implements Serializable
+public class Protection extends AreaSkill implements Serializable
 {
     @Override
     public String getDescription()
@@ -22,10 +25,10 @@ public class Protection extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
+    private static final int cost = 40;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Protection - Todo";
-    private static final int range = 4;
+    private static final String name = "Protection";
+    private static final int range = 6;
 
     @Override
     public int getRange()
@@ -34,10 +37,23 @@ public class Protection extends TargetSkill implements Serializable
     }
 
     @Override
-    public String action(Creature source, Creature target)
+    public int getRadius()
     {
-        return "todo";
+        return 5;
     }
+
+    @Override
+    public String action(Creature source, List<Creature> targets)
+    {
+        for(Creature target: targets)
+        {
+            Shield shield = new Shield(target, 5, 40);
+            target.addStatusEffect(shield);
+        }
+        subtractCost(source);
+        return getName() + " extends a protective sphere.";
+    }
+
 
     @Override
     public int getCost()
@@ -60,6 +76,6 @@ public class Protection extends TargetSkill implements Serializable
     @Override
     public SkillBehaviour getSkillBehaviour()
     {
-        return SkillBehaviour.ATTACK;
+        return SkillBehaviour.SUPPORT;
     }
 }

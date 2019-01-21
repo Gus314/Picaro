@@ -22,10 +22,10 @@ public class Reposition extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Reposition - Todo";
-    private static final int range = 4;
+    private static final int cost = 40;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Reposition";
+    private static final int range = 7;
 
     @Override
     public int getRange()
@@ -36,7 +36,11 @@ public class Reposition extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        return "todo";
+        Coordinate originalSourcePosition = source.getPosition();
+        source.setPosition(target.getPosition());
+        target.setPosition(originalSourcePosition);
+        subtractCost(source);
+        return source.getName() + " swapped position with " + target.getName() + ".";
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Brains extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        target.changeStat(StatType.MP, 7);
+        target.changeStat(StatType.MP, -7);
         return source.getName() + " feasted upon the brains of " + target.getName() + ".";
     }
 

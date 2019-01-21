@@ -22,9 +22,9 @@ public class Inspire extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Todo - Inspire";
+    private static final int cost = 40;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Inspire";
     private static final int range = 4;
 
     @Override
@@ -36,7 +36,10 @@ public class Inspire extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        return "todo";
+        target.setMagicPoints(target.getMaxMagicPoints());
+        target.setPhysicalPoints(target.getMaxPhysicalPoints());
+        subtractCost(source);
+        return getName() + " inspires " + target.getName() + ", restoring mp and pp.";
     }
 
     @Override
@@ -60,6 +63,6 @@ public class Inspire extends TargetSkill implements Serializable
     @Override
     public SkillBehaviour getSkillBehaviour()
     {
-        return SkillBehaviour.ATTACK;
+        return SkillBehaviour.SUPPORT;
     }
 }

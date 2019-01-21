@@ -6,6 +6,7 @@ import entities.Floor;
 import entities.creatures.Creature;
 import enums.SkillBehaviour;
 import enums.StatType;
+import skills.SelfSkill;
 import skills.TargetSkill;
 import enums.SkillType;
 import statuses.Bleed;
@@ -14,7 +15,7 @@ import statuses.Recklessness;
 import java.io.Serializable;
 import java.util.Collection;
 
-public class Drink extends TargetSkill implements Serializable
+public class Drink extends SelfSkill implements Serializable
 {
     @Override
     public String getDescription()
@@ -22,22 +23,9 @@ public class Drink extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Todo- Drink";
-    private static final int range = 4;
-
-    @Override
-    public int getRange()
-    {
-        return range;
-    }
-
-    @Override
-    public String action(Creature source, Creature target)
-    {
-        return "todo";
-    }
+    private static final int cost = 40;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Drink";
 
     @Override
     public int getCost()
@@ -60,7 +48,16 @@ public class Drink extends TargetSkill implements Serializable
     @Override
     public SkillBehaviour getSkillBehaviour()
     {
-        return SkillBehaviour.ATTACK;
+        return SkillBehaviour.DEFEND;
+    }
+
+    @Override
+    public String action(Creature source)
+    {
+        source.setLife(source.getMaxLife());
+        source.setMagicPoints(source.getMaxMagicPoints());
+        source.setPhysicalPoints(source.getMaxPhysicalPoints());
+        return getName() + " drunk, restoring hp, mp and pp";
     }
 }
 

@@ -8,6 +8,8 @@ import enums.SkillBehaviour;
 import enums.StatType;
 import skills.TargetSkill;
 import enums.SkillType;
+import skills.combat.CombatHelper;
+import skills.combat.CombatInfo;
 import statuses.Bleed;
 import statuses.Recklessness;
 
@@ -22,10 +24,10 @@ public class Thunderbolt extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Thunderbolt - Todo";
-    private static final int range = 4;
+    private static final int cost = 40;
+    private static final SkillType skillType = SkillType.MAGICAL;
+    private static final String name = "Thunderbolt";
+    private static final int range = 7;
 
     @Override
     public int getRange()
@@ -36,7 +38,11 @@ public class Thunderbolt extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        return "todo";
+        CombatHelper combatHelper = new CombatHelper(true, false, false, false, 1.4, "hurled a thunderbolt at");
+        CombatInfo combatInfo  = combatHelper.calculateCombat(source, target);
+        target.changeStat(StatType.LIFE, combatInfo.getLifeChange());
+        subtractCost(source);
+        return combatInfo.getMessage();
     }
 
     @Override

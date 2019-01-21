@@ -9,6 +9,7 @@ import enums.StatType;
 import skills.TargetSkill;
 import enums.SkillType;
 import statuses.Bleed;
+import statuses.Mute;
 import statuses.Recklessness;
 
 import java.io.Serializable;
@@ -22,10 +23,10 @@ public class Rule extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
+    private static final int cost = 40;
     private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Todo - Rule";
-    private static final int range = 4;
+    private static final String name = "Rule";
+    private static final int range = 5;
 
     @Override
     public int getRange()
@@ -36,7 +37,9 @@ public class Rule extends TargetSkill implements Serializable
     @Override
     public String action(Creature source, Creature target)
     {
-        return "todo";
+        Mute mute = new Mute(target, 5);
+        target.addStatusEffect(mute);
+        return source.getName() + " ruled over " + target.getName();
     }
 
     @Override

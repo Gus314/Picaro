@@ -1,20 +1,17 @@
 package skills.monster.act4;
 
-import control.Controller;
-import control.Coordinate;
-import entities.Floor;
+import control.Map;
 import entities.creatures.Creature;
+import entities.Entity;
+import entities.Floor;
 import enums.SkillBehaviour;
-import enums.StatType;
-import skills.TargetSkill;
 import enums.SkillType;
-import statuses.Bleed;
-import statuses.Recklessness;
+import skills.VariedSummonSkill;
 
 import java.io.Serializable;
 import java.util.Collection;
 
-public class Resurrect extends TargetSkill implements Serializable
+public class Resurrect extends VariedSummonSkill implements Serializable
 {
     @Override
     public String getDescription()
@@ -22,44 +19,55 @@ public class Resurrect extends TargetSkill implements Serializable
         return "Monster skill";
     }
 
-    private static final int cost = 25;
-    private static final SkillType skillType = SkillType.PHYSICAL;
-    private static final String name = "Resurrect - Todo";
-    private static final int range = 4;
+
+    public Resurrect(Collection<String> inSummonNames)
+    {
+        addSummonNames(inSummonNames);
+    }
 
     @Override
     public int getRange()
     {
-        return range;
+        return 7;
     }
 
     @Override
-    public String action(Creature source, Creature target)
+    public String action(Creature source, Floor floor, Collection<Entity> additions)
     {
-        return "todo";
+        Map map = source.getMap();
+        if(map.atPosition(floor.getRow(), floor.getColumn()).size() > 1)
+        {
+            System.out.println("Raise::action - tile contains too many entities.");
+        }
+        else
+        {
+            additions.add(getSummon().construct(floor.getRow(), floor.getColumn()));
+        }
+        subtractCost(source);
+        return source.getName() + " resurrects a creature from the dead.";
     }
 
     @Override
     public int getCost()
     {
-        return cost;
+        return 40;
     }
 
     @Override
     public SkillType getSkillType()
     {
-        return skillType;
+        return SkillType.PHYSICAL;
     }
 
     @Override
     public String getName()
     {
-        return name;
+        return "Resurrect";
     }
 
     @Override
     public SkillBehaviour getSkillBehaviour()
     {
-        return SkillBehaviour.ATTACK;
+        return SkillBehaviour.SUPPORT;
     }
 }

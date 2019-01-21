@@ -54,6 +54,12 @@ public abstract class Entity implements Serializable
 		column = inColumn;
 	}
 
+	public void setPosition(Coordinate inPosition)
+	{
+		row = inPosition.getRow();
+		column = inPosition.getColumn();
+	}
+
 	public abstract boolean blocksLineOfSight();
 
 	public abstract boolean passable();
