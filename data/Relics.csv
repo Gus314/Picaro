@@ -23,4 +23,36 @@ STRONG;strong braces;13;16
 WISE;wise glasses;13;16
 STUDIED;studied book;13;16
 ZEN;zen scroll;13;16
+LEARNHEAL;ring of bash;1;16
+LEARNTOUGHEN;ring of toughen;1;16
+LEARNDASH;ring of dash;1;16
+LEARNDAZE;ring of daze;2;16
+LEARNRELAX;ring of relax;4;16
+LEARNWHIRLWIND;ring of whirlwind;6;16
+LEARNBULWARK;ring of bulwark;8;16
+LEARNSUNDER;ring of sunder;10;16
+LEARNREADY;ring of ready;12;16
+LEARNCHARGE;ring of charge;14;16
+LEARNPOWERSURGE;ring of power surge;16;16
 LEARNHEAL;ring of heal;1;16
+LEARNFIREBALL;ring of fireball;1;16
+LEARNLIGHTNINGBOLT;ring of lightning bolt;1;16
+LEARNWARD;ring of ward;2;16
+LEARNSWAP;ring of swap;4;16
+LEARNPEDAGOGUE;ring of pedagogue;6;16
+LEARNTORNADO;ring of tornado;8;16
+LEARNRESEARCH;ring of research;10;16
+LEARNSPIRITSHIFT;ring of spirit shift;12;16
+LEARNSKEPTIC;ring of skeptic;14;16
+LEARNTRANSFER;ring of transfer;16;16
+LEARNPOISONDART;ring of poison dart;1;16
+LEARNSTAB;ring of stab;1;16
+LEARNMEDITATE;ring of meditate;1;16
+LEARNEYETHRUST;ring of eye thrust;2;16
+LEARNHUNDREDCUTS;ring of hundred cuts;4;16
+LEARNIMMOBILIZE;ring of immobilize;6;16
+LEARNTRICKSHOT;ring of trick shot;8;16
+LEARNRISKTAKER;ring of risk taker;10;16
+LEARNVANISH;ring of vanish;12;16
+LEARNFINDWEAKPOINT;ring of find weakpoint;14;16
+LEARNDEATHLYDANCE;ring of deathly dance;16;16

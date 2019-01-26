@@ -560,7 +560,7 @@ public class MapDisplay extends JPanel
 			{
 				entries.remove(ent);
 			}
-			else if(cells.get(position).getText().equals(blank)|| cells.get(position).getText().contains((new Floor(0, 0)).getChar().toString()))
+			else if((ent instanceof Creature) || (cells.get(position).getText().equals(blank))|| (cells.get(position).getText().contains((new Floor(0, 0)).getChar().toString())))
 			{
 				cells.get(position).setForeground(determineForegroundColour(ent));
 				cells.get(position).setText(ent.getChar().toString());
