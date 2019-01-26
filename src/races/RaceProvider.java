@@ -8,17 +8,17 @@ public class RaceProvider
     public List<Race> getRaces()
     {
         List<Race> result = new ArrayList<Race>();
-        
+
+        result.add(constructElf());
         result.add(constructHuman());
-        //result.add(constructElf());
-        //result.add(constructOrc());
+        result.add(constructOrc());
 
         return result;
     }
 
     private Race constructHuman()
     {
-        int initialLife = 20;
+        int initialLife = 80;
         int initialDefense = 7;
         int initialMinDamage = 2;
         int initialMaxDamage = 5;
@@ -48,7 +48,7 @@ public class RaceProvider
 
     private Race constructElf()
     {
-        int initialLife = 16;
+        int initialLife = 64;
         int initialDefense = 3;
         int initialMinDamage = 1;
         int initialMaxDamage = 4;
@@ -78,7 +78,7 @@ public class RaceProvider
 
     private Race constructOrc()
     {
-        int initialLife = 25;
+        int initialLife = 100;
         int initialDefense = 10;
         int initialMinDamage = 3;
         int initialMaxDamage = 6;
